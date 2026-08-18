@@ -20,6 +20,15 @@
 	<div class="container mx-auto px-4 py-20 text-center">
 		<h1 class="mx-auto max-w-3xl text-4xl font-bold leading-tight tracking-tight text-tnb-blue-deep sm:text-5xl">{m.story_title()}</h1>
 		<p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-tnb-ink-soft">{m.story_lede()}</p>
+		<img
+			src="/story-hero.jpg"
+			alt=""
+			width="1376"
+			height="768"
+			class="mx-auto mt-10 w-full max-w-4xl rounded-2xl shadow-[0_10px_40px_rgba(46,92,230,0.15)]"
+			loading="eager"
+			fetchpriority="high"
+		/>
 	</div>
 </section>
 

@@ -16,7 +16,7 @@
 		{ value: '2', label: m.mkt_stat_bilingual }
 	];
 
-	const trust = [m.mkt_feature_i18n_title, m.mkt_mod_operation_title, m.mkt_faq_q4];
+	const trust = [m.mkt_trust_bilingual, m.mkt_trust_pwa, m.mkt_trust_promptpay];
 
 	const pains = [
 		{ title: m.mkt_pain_1_title, body: m.mkt_pain_1_body, icon: FileSpreadsheet },
@@ -82,6 +82,15 @@
 				{m.mkt_hero_cta_secondary()}
 			</a>
 		</div>
+		<img
+			src="/story-hero.jpg"
+			alt=""
+			width="1376"
+			height="768"
+			class="mx-auto mt-12 w-full max-w-4xl rounded-2xl shadow-[0_10px_40px_rgba(46,92,230,0.15)]"
+			loading="eager"
+			fetchpriority="high"
+		/>
 		<ul class="mt-9 flex flex-wrap items-center justify-center gap-x-7 gap-y-2 text-sm text-tnb-ink-soft">
 			{#each trust as t (t)}
 				<li class="inline-flex items-center gap-1.5">

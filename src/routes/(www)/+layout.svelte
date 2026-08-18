@@ -6,6 +6,7 @@
 	import Seo from '$lib/components/seo/Seo.svelte';
 	import CookieBanner from '$lib/components/consent/CookieBanner.svelte';
 	import HeaderSearch from '$lib/components/www/HeaderSearch.svelte';
+	import { Menu, X } from 'lucide-svelte';
 	import type { PageSeo } from '$lib/seo';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
@@ -57,6 +58,7 @@
 			? data.siteSettings.themeLogoMediaId
 			: null,
 	);
+	let mobileOpen = $state(false);
 </script>
 
 <Seo seo={pageSeo} defaults={seoDefaults} locale={toLocale(data.locale)} />
@@ -78,7 +80,7 @@
 				{/if}
 				{data.siteSettings?.siteName ?? m.site_name()}</a
 			>
-			<nav class="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 text-sm">
+			<nav class="hidden md:flex flex-wrap items-center justify-end gap-x-4 gap-y-2 text-sm">
 				<!-- Marketing nav: this fork removes the shop/cart/account surface —
 				     tonbab.com sells a demo, not a catalog. CMS-managed nav.primary
 				     items still render so editors can add links without a deploy. -->
@@ -108,7 +110,51 @@
 					{m.mkt_login()}
 				</a>
 			</nav>
+			<!-- Mobile: login stays visible; everything else folds into the panel. -->
+			<div class="flex items-center gap-2 md:hidden">
+				<a
+					href="https://app.tonbab.com"
+					class="inline-flex items-center rounded-lg bg-tnb-amber px-3.5 py-2 text-sm font-semibold text-tnb-ink shadow-[0_2px_0_0] shadow-tnb-amber-deep"
+				>
+					{m.mkt_login()}
+				</a>
+				<button
+					type="button"
+					class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-tnb-line text-tnb-ink"
+					aria-expanded={mobileOpen}
+					aria-label={mobileOpen ? m.mkt_menu_close() : m.mkt_menu_open()}
+					onclick={() => (mobileOpen = !mobileOpen)}
+				>
+					{#if mobileOpen}<X class="h-5 w-5" aria-hidden="true" />{:else}<Menu class="h-5 w-5" aria-hidden="true" />{/if}
+				</button>
+			</div>
 		</div>
+		{#if mobileOpen}
+			<nav class="border-t border-tnb-line bg-tnb-paper px-4 pb-5 pt-3 md:hidden">
+				<div class="flex flex-col gap-1 text-base">
+					<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_modules()}</a>
+					<a href={localePath(toLocale(data.locale), '/compare')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_compare()}</a>
+					<a href={localePath(toLocale(data.locale), '/pricing')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_pricing()}</a>
+					<a href={localePath(toLocale(data.locale), '/docs')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_docs()}</a>
+					<a href={localePath(toLocale(data.locale), '/faq')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_faq()}</a>
+					<a href={localePath(toLocale(data.locale), '/story')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.story_nav()}</a>
+					<a href={localePath(toLocale(data.locale), '/blog')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.nav_blog()}</a>
+					{#each data.nav.primary as item (item.id)}
+						<a href={item.href} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{item.label}</a>
+					{/each}
+				</div>
+				<div class="mt-3 flex items-center gap-3 border-t border-tnb-line pt-4">
+					<HeaderSearch locale={toLocale(data.locale)} />
+					<a
+						href={alternateHref}
+						data-sveltekit-reload
+						class="rounded border border-tnb-line px-2.5 py-1.5 text-sm hover:bg-tnb-wash"
+					>
+						{m.lang_switch()}
+					</a>
+				</div>
+			</nav>
+		{/if}
 	</header>
 
 	<main class="flex-1">

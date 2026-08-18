@@ -919,5 +919,10 @@
 	"mod_features_title": "What ships today",
 	"mod_cta_title": "See it on your own workflows",
 	"mod_cta_body": "Book a demo — we set up an organization with your products and walk your team through it.",
-	"mod_back": "All modules"
+	"mod_back": "All modules",
+	"mkt_trust_bilingual": "Thai + English on every screen",
+	"mkt_trust_pwa": "Installs as an app (PWA)",
+	"mkt_trust_promptpay": "PromptPay & cards built in",
+	"mkt_menu_open": "Open menu",
+	"mkt_menu_close": "Close menu"
 }
