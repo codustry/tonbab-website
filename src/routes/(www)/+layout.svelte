@@ -168,7 +168,11 @@
 					aria-label={mobileOpen ? m.mkt_menu_close() : m.mkt_menu_open()}
 					onclick={() => (mobileOpen = !mobileOpen)}
 				>
-					{#if mobileOpen}
+					{#if mobileOpen}<X class="h-5 w-5" aria-hidden="true" />{:else}<Menu class="h-5 w-5" aria-hidden="true" />{/if}
+				</button>
+			</div>
+		</div>
+		{#if mobileOpen}
 			<nav class="border-t border-tnb-line bg-tnb-paper px-4 pb-5 pt-3 md:hidden">
 				<p class="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-tnb-ink-soft">{m.mkt_footer_modules()}</p>
 				<div class="flex flex-col gap-1 text-base">
