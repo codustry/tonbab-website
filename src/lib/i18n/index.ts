@@ -1,7 +1,7 @@
 import type { Locale } from "$lib/server/content/types";
 
 export const SUPPORTED_LOCALES: Locale[] = ["en", "th"];
-export const DEFAULT_LOCALE: Locale = "en";
+export const DEFAULT_LOCALE: Locale = "th";
 
 export const LOCALE_NAMES: Record<Locale, string> = {
   th: "ไทย",

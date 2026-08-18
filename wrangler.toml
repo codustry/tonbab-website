@@ -1,11 +1,7 @@
-# ⚠ This repo is the ENGINE, not a deployment. Every database, bucket and
-# KV id below is a PLACEHOLDER — `pnpm setup` provisions your own set and
-# fills them in. There is deliberately no live `khaopad-db`.
-#
-# The reference deployment is codustry/khaopad-example, which carries its
-# own wrangler.toml with real ids. Engine work reaches production by
-# syncing to that repo, not by deploying from here.
-name = "khaopad"
+# tonbab.com — marketing site for Tonbab ERP. Forked from codustry/khaopad
+# (upstream remote). D1/R2/KV ids below are provisioned on the Codustry
+# Cloudflare account; placeholders are filled by `pnpm setup` / deploy task.
+name = "tonbab-website"
 compatibility_date = "2025-04-01"
 compatibility_flags = ["nodejs_compat"]
 main = ".svelte-kit/cloudflare/_worker.js"
@@ -18,7 +14,8 @@ assets = { directory = ".svelte-kit/cloudflare", binding = "ASSETS" }
 #   /            → public site
 #   /admin/*     → admin (CMS + shop + all future features under one nav shell)
 # routes = [
-#   { pattern = "example.com/*", zone_name = "example.com" },
+#   { pattern = "tonbab.com/*", zone_name = "tonbab.com" },
+#   { pattern = "www.tonbab.com/*", zone_name = "tonbab.com" },
 # ]
 
 # ──────────────────────────────────────
@@ -26,7 +23,7 @@ assets = { directory = ".svelte-kit/cloudflare", binding = "ASSETS" }
 # ──────────────────────────────────────
 [[d1_databases]]
 binding = "DB"
-database_name = "khaopad-db"
+database_name = "tonbab-website-db"
 database_id = "LOCAL_DB_ID"           # Replace with your own D1 id — see `pnpm setup`
 migrations_dir = "drizzle"
 
@@ -35,7 +32,7 @@ migrations_dir = "drizzle"
 # ──────────────────────────────────────
 [[r2_buckets]]
 binding = "MEDIA_BUCKET"
-bucket_name = "khaopad-media"
+bucket_name = "tonbab-website-media"
 
 # ──────────────────────────────────────
 # KV Content Cache
@@ -115,7 +112,8 @@ id = "STAGING_KV_ID"
 [env.production]
 name = "khaopad"
 # routes = [
-#   { pattern = "example.com/*", zone_name = "example.com" },
+#   { pattern = "tonbab.com/*", zone_name = "tonbab.com" },
+#   { pattern = "www.tonbab.com/*", zone_name = "tonbab.com" },
 # ]
 
 [env.production.vars]
@@ -128,13 +126,13 @@ BETTER_AUTH_URL = "https://example.com"
 
 [[env.production.d1_databases]]
 binding = "DB"
-database_name = "khaopad-db"
+database_name = "tonbab-website-db"
 database_id = "PRODUCTION_DB_ID"
 migrations_dir = "drizzle"
 
 [[env.production.r2_buckets]]
 binding = "MEDIA_BUCKET"
-bucket_name = "khaopad-media"
+bucket_name = "tonbab-website-media"
 
 [[env.production.kv_namespaces]]
 binding = "CONTENT_CACHE"

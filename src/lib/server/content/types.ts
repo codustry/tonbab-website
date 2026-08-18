@@ -2,7 +2,7 @@
 export type Locale = "en" | "th";
 
 /** Default canonical locale for slugs and URL fallbacks. */
-export const DEFAULT_LOCALE: Locale = "en";
+export const DEFAULT_LOCALE: Locale = "th";
 
 // ─── Localized content (per language) ────────────────────
 export interface LocalizedContent {
