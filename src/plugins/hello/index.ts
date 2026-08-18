@@ -12,7 +12,7 @@
  */
 import { CircleHelp } from "lucide-svelte";
 import { defineKhaopadPlugin } from "$lib/plugins/types";
-import { registerNavGroup } from "$lib/components/admin/sidebar-nav";
+import { registerNavGroup } from "$lib/components/admin/nav-registry";
 import { registerWebhookEvent } from "$lib/plugins/webhook-events";
 
 // Module-load registration: side effects run when this file is imported

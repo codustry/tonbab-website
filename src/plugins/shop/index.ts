@@ -24,7 +24,7 @@ import { defineKhaopadPlugin } from "$lib/plugins/types";
 import {
   registerNavGroup,
   registerNavItem,
-} from "$lib/components/admin/sidebar-nav";
+} from "$lib/components/admin/nav-registry";
 import * as m from "$lib/paraglide/messages";
 import { registerWebhookEvent } from "$lib/plugins/webhook-events";
 

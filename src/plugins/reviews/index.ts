@@ -21,7 +21,7 @@
  */
 import { Star } from "lucide-svelte";
 import { defineKhaopadPlugin } from "$lib/plugins/types";
-import { registerNavItem } from "$lib/components/admin/sidebar-nav";
+import { registerNavItem } from "$lib/components/admin/nav-registry";
 import { registerWebhookEvent } from "$lib/plugins/webhook-events";
 
 // Module-load registration — see hello/index.ts for the rationale
