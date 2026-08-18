@@ -54,8 +54,8 @@ DEFAULT_LOCALE = "en"
 PUBLIC_SITE_URL = "https://example.com"
 # CMS_SITE_URL is kept for backwards-compat (R2 media URL generation).
 # Since v1.1 the admin lives at /admin/* on the same host as the public site.
-CMS_SITE_URL = "https://tonbab.com"
-BETTER_AUTH_URL = "https://tonbab-website.codustry.workers.dev" # flip to https://tonbab.com at DNS cutover
+CMS_SITE_URL = "https://www.tonbab.com"
+BETTER_AUTH_URL = "https://www.tonbab.com"
 
 # ─── @khaopad/plugin-careers (optional) ───────────────────────
 # Public job feed for /{locale}/careers, in the Tonbab People
@@ -122,8 +122,8 @@ WORKERS_ENV = "production"
 SUPPORTED_LOCALES = "en,th"
 DEFAULT_LOCALE = "en"
 PUBLIC_SITE_URL = "https://example.com"
-CMS_SITE_URL = "https://tonbab.com"
-BETTER_AUTH_URL = "https://tonbab-website.codustry.workers.dev" # flip to https://tonbab.com at DNS cutover
+CMS_SITE_URL = "https://www.tonbab.com"
+BETTER_AUTH_URL = "https://www.tonbab.com"
 
 [[env.production.d1_databases]]
 binding = "DB"

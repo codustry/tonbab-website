@@ -924,5 +924,14 @@
 	"mkt_trust_pwa": "Installs as an app (PWA)",
 	"mkt_trust_promptpay": "PromptPay & cards built in",
 	"mkt_menu_open": "Open menu",
-	"mkt_menu_close": "Close menu"
+	"mkt_menu_close": "Close menu",
+	"mkt_nav_resources": "Resources",
+	"mkt_nav_all_modules": "See all modules",
+	"mkt_mod_operation_short": "Operation",
+	"mkt_mod_people_short": "People — HR",
+	"mkt_mod_commerce_short": "Commerce + POS",
+	"mkt_mod_crm_short": "CRM",
+	"mkt_footer_company": "Company",
+	"mkt_footer_modules": "Modules",
+	"mkt_footer_resources": "Resources"
 }

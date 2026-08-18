@@ -6,7 +6,7 @@
 	import Seo from '$lib/components/seo/Seo.svelte';
 	import CookieBanner from '$lib/components/consent/CookieBanner.svelte';
 	import HeaderSearch from '$lib/components/www/HeaderSearch.svelte';
-	import { Menu, X } from 'lucide-svelte';
+	import { Menu, X, ChevronDown } from 'lucide-svelte';
 	import type { PageSeo } from '$lib/seo';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
@@ -19,7 +19,8 @@
 	const seoDefaults = $derived({
 		siteName: data.siteSettings?.siteName ?? m.site_name(),
 		description: m.site_description(),
-		image: undefined,
+		// Brand OG card (1200×630) — absolute URL, scrapers ignore relatives.
+		image: "https://www.tonbab.com/og.jpg",
 		twitter: undefined,
 	});
 
@@ -59,7 +60,17 @@
 			: null,
 	);
 	let mobileOpen = $state(false);
+	// Desktop dropdowns — one open at a time; outside click / Escape closes.
+	let openMenu = $state<'modules' | 'resources' | null>(null);
+	function toggleMenu(which: 'modules' | 'resources') {
+		openMenu = openMenu === which ? null : which;
+	}
 </script>
+
+<svelte:window
+	onclick={() => (openMenu = null)}
+	onkeydown={(e) => { if (e.key === 'Escape') openMenu = null; }}
+/>
 
 <Seo seo={pageSeo} defaults={seoDefaults} locale={toLocale(data.locale)} />
 
@@ -84,13 +95,45 @@
 				<!-- Marketing nav: this fork removes the shop/cart/account surface —
 				     tonbab.com sells a demo, not a catalog. CMS-managed nav.primary
 				     items still render so editors can add links without a deploy. -->
-				<a href={localePath(toLocale(data.locale), '/modules')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_modules()}</a>
+				<div class="relative">
+					<button
+						type="button"
+						class="inline-flex items-center gap-1 font-medium text-tnb-ink-soft hover:text-tnb-blue"
+						aria-expanded={openMenu === 'modules'}
+						onclick={(e) => { e.stopPropagation(); toggleMenu('modules'); }}
+					>
+						{m.mkt_nav_modules()}<ChevronDown class="h-4 w-4 transition {openMenu === 'modules' ? 'rotate-180' : ''}" aria-hidden="true" />
+					</button>
+					{#if openMenu === 'modules'}
+						<div class="absolute left-0 top-full z-50 mt-2 w-64 rounded-xl border border-tnb-line bg-tnb-paper p-2 shadow-[0_10px_30px_rgba(23,22,28,0.12)]">
+							<a href={localePath(toLocale(data.locale), '/modules/operation')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_operation_short()}</a>
+							<a href={localePath(toLocale(data.locale), '/modules/people')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_people_short()}</a>
+							<a href={localePath(toLocale(data.locale), '/modules/commerce')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_commerce_short()}</a>
+							<a href={localePath(toLocale(data.locale), '/modules/crm')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_crm_short()}</a>
+							<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (openMenu = null)} class="mt-1 block rounded-lg border-t border-tnb-line px-3 py-2 pt-2.5 font-semibold text-tnb-blue hover:bg-tnb-wash">{m.mkt_nav_all_modules()} →</a>
+						</div>
+					{/if}
+				</div>
 				<a href={localePath(toLocale(data.locale), '/compare')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_compare()}</a>
 				<a href={localePath(toLocale(data.locale), '/pricing')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_pricing()}</a>
-				<a href={localePath(toLocale(data.locale), '/docs')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_docs()}</a>
-				<a href={localePath(toLocale(data.locale), '/faq')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_faq()}</a>
-				<a href={localePath(toLocale(data.locale), '/story')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.story_nav()}</a>
-				<a href={localePath(toLocale(data.locale), '/blog')} class="hover:text-primary">{m.nav_blog()}</a>
+				<div class="relative">
+					<button
+						type="button"
+						class="inline-flex items-center gap-1 font-medium text-tnb-ink-soft hover:text-tnb-blue"
+						aria-expanded={openMenu === 'resources'}
+						onclick={(e) => { e.stopPropagation(); toggleMenu('resources'); }}
+					>
+						{m.mkt_nav_resources()}<ChevronDown class="h-4 w-4 transition {openMenu === 'resources' ? 'rotate-180' : ''}" aria-hidden="true" />
+					</button>
+					{#if openMenu === 'resources'}
+						<div class="absolute left-0 top-full z-50 mt-2 w-56 rounded-xl border border-tnb-line bg-tnb-paper p-2 shadow-[0_10px_30px_rgba(23,22,28,0.12)]">
+							<a href={localePath(toLocale(data.locale), '/docs')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_docs()}</a>
+							<a href={localePath(toLocale(data.locale), '/faq')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_faq()}</a>
+							<a href={localePath(toLocale(data.locale), '/blog')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.nav_blog()}</a>
+							<a href={localePath(toLocale(data.locale), '/story')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.story_nav()}</a>
+						</div>
+					{/if}
+				</div>
 				{#each data.nav.primary as item (item.id)}
 					<a href={item.href} class="hover:text-primary">{item.label}</a>
 				{/each}
@@ -125,20 +168,26 @@
 					aria-label={mobileOpen ? m.mkt_menu_close() : m.mkt_menu_open()}
 					onclick={() => (mobileOpen = !mobileOpen)}
 				>
-					{#if mobileOpen}<X class="h-5 w-5" aria-hidden="true" />{:else}<Menu class="h-5 w-5" aria-hidden="true" />{/if}
-				</button>
-			</div>
-		</div>
-		{#if mobileOpen}
+					{#if mobileOpen}
 			<nav class="border-t border-tnb-line bg-tnb-paper px-4 pb-5 pt-3 md:hidden">
+				<p class="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-tnb-ink-soft">{m.mkt_footer_modules()}</p>
 				<div class="flex flex-col gap-1 text-base">
-					<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_modules()}</a>
+					<a href={localePath(toLocale(data.locale), '/modules/operation')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_operation_short()}</a>
+					<a href={localePath(toLocale(data.locale), '/modules/people')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_people_short()}</a>
+					<a href={localePath(toLocale(data.locale), '/modules/commerce')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_commerce_short()}</a>
+					<a href={localePath(toLocale(data.locale), '/modules/crm')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_crm_short()}</a>
+					<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-semibold text-tnb-blue hover:bg-tnb-wash">{m.mkt_nav_all_modules()} →</a>
+				</div>
+				<div class="mt-2 flex flex-col gap-1 border-t border-tnb-line pt-2 text-base">
 					<a href={localePath(toLocale(data.locale), '/compare')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_compare()}</a>
 					<a href={localePath(toLocale(data.locale), '/pricing')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_pricing()}</a>
+				</div>
+				<p class="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-tnb-ink-soft">{m.mkt_footer_resources()}</p>
+				<div class="flex flex-col gap-1 text-base">
 					<a href={localePath(toLocale(data.locale), '/docs')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_docs()}</a>
 					<a href={localePath(toLocale(data.locale), '/faq')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_nav_faq()}</a>
-					<a href={localePath(toLocale(data.locale), '/story')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.story_nav()}</a>
 					<a href={localePath(toLocale(data.locale), '/blog')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.nav_blog()}</a>
+					<a href={localePath(toLocale(data.locale), '/story')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.story_nav()}</a>
 					{#each data.nav.primary as item (item.id)}
 						<a href={item.href} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{item.label}</a>
 					{/each}
@@ -161,16 +210,55 @@
 		{@render children()}
 	</main>
 
-	<footer class="border-t border-tnb-line bg-tnb-paper py-8 text-sm text-tnb-ink-soft">
-		<div class="container mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-			<p>{m.footer_copyright({ year: new Date().getFullYear().toString() })}</p>
-			{#if data.nav.footer.length > 0}
-				<nav class="flex flex-wrap gap-4">
+	<footer class="border-t border-tnb-line bg-tnb-wash text-sm">
+		<div class="container mx-auto grid gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
+			<div>
+				<p class="text-lg font-bold tracking-tight text-tnb-ink">{data.siteSettings?.siteName ?? m.site_name()}</p>
+				<p class="mt-2 max-w-xs leading-relaxed text-tnb-ink-soft">{m.site_description()}</p>
+				<a
+					href="https://app.tonbab.com"
+					class="mt-4 inline-flex items-center rounded-lg bg-tnb-amber px-4 py-2 font-semibold text-tnb-ink shadow-[0_2px_0_0] shadow-tnb-amber-deep transition hover:-translate-y-0.5"
+				>
+					{m.mkt_login()}
+				</a>
+			</div>
+			<nav aria-label={m.mkt_footer_modules()}>
+				<p class="text-xs font-semibold uppercase tracking-wide text-tnb-ink-soft">{m.mkt_footer_modules()}</p>
+				<ul class="mt-3 space-y-2">
+					<li><a href={localePath(toLocale(data.locale), '/modules/operation')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_mod_operation_short()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/modules/people')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_mod_people_short()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/modules/commerce')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_mod_commerce_short()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/modules/crm')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_mod_crm_short()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/modules')} class="font-medium text-tnb-blue hover:underline">{m.mkt_nav_all_modules()}</a></li>
+				</ul>
+			</nav>
+			<nav aria-label={m.mkt_footer_resources()}>
+				<p class="text-xs font-semibold uppercase tracking-wide text-tnb-ink-soft">{m.mkt_footer_resources()}</p>
+				<ul class="mt-3 space-y-2">
+					<li><a href={localePath(toLocale(data.locale), '/docs')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_nav_docs()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/faq')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_nav_faq()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/blog')} class="text-tnb-ink hover:text-tnb-blue">{m.nav_blog()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/story')} class="text-tnb-ink hover:text-tnb-blue">{m.story_nav()}</a></li>
+					<li><a href="https://api.tonbab.com/docs" class="text-tnb-ink hover:text-tnb-blue">API</a></li>
+				</ul>
+			</nav>
+			<nav aria-label={m.mkt_footer_company()}>
+				<p class="text-xs font-semibold uppercase tracking-wide text-tnb-ink-soft">{m.mkt_footer_company()}</p>
+				<ul class="mt-3 space-y-2">
+					<li><a href={localePath(toLocale(data.locale), '/compare')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_nav_compare()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/pricing')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_nav_pricing()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/privacy')} class="text-tnb-ink hover:text-tnb-blue">Privacy</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/terms')} class="text-tnb-ink hover:text-tnb-blue">Terms</a></li>
 					{#each data.nav.footer as item (item.id)}
-						<a href={item.href} class="hover:text-foreground">{item.label}</a>
+						<li><a href={item.href} class="text-tnb-ink hover:text-tnb-blue">{item.label}</a></li>
 					{/each}
-				</nav>
-			{/if}
+				</ul>
+			</nav>
+		</div>
+		<div class="border-t border-tnb-line">
+			<div class="container mx-auto px-4 py-5 text-tnb-ink-soft">
+				<p>{m.footer_copyright({ year: new Date().getFullYear().toString() })}</p>
+			</div>
 		</div>
 	</footer>
 </div>

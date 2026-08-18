@@ -44,6 +44,16 @@ export const GET: RequestHandler = async ({
   const staticUrls = [
     { path: `/${locale}`, lastmod: new Date().toISOString() },
     { path: `/${locale}/blog`, lastmod: new Date().toISOString() },
+    // Fork: bespoke marketing routes live in code, not the pages table —
+    // without these entries they are invisible to the sitemap.
+    { path: `/${locale}/modules`, lastmod: new Date().toISOString() },
+    { path: `/${locale}/modules/operation`, lastmod: new Date().toISOString() },
+    { path: `/${locale}/modules/people`, lastmod: new Date().toISOString() },
+    { path: `/${locale}/modules/commerce`, lastmod: new Date().toISOString() },
+    { path: `/${locale}/modules/crm`, lastmod: new Date().toISOString() },
+    { path: `/${locale}/compare`, lastmod: new Date().toISOString() },
+    { path: `/${locale}/story`, lastmod: new Date().toISOString() },
+    { path: `/${locale}/pricing`, lastmod: new Date().toISOString() },
   ];
 
   const articleUrls = articles.items.map((a) => ({

@@ -924,5 +924,14 @@
 	"mkt_trust_pwa": "ติดตั้งเป็นแอปได้ (PWA)",
 	"mkt_trust_promptpay": "รับ PromptPay และบัตรในตัว",
 	"mkt_menu_open": "เปิดเมนู",
-	"mkt_menu_close": "ปิดเมนู"
+	"mkt_menu_close": "ปิดเมนู",
+	"mkt_nav_resources": "แหล่งข้อมูล",
+	"mkt_nav_all_modules": "ดูโมดูลทั้งหมด",
+	"mkt_mod_operation_short": "Operation",
+	"mkt_mod_people_short": "People — งานบุคคล",
+	"mkt_mod_commerce_short": "Commerce + POS",
+	"mkt_mod_crm_short": "CRM",
+	"mkt_footer_company": "บริษัท",
+	"mkt_footer_modules": "โมดูล",
+	"mkt_footer_resources": "แหล่งข้อมูล"
 }
