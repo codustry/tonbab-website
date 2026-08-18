@@ -910,5 +910,14 @@
 	"story_p2": "That is why the numbers on this site are real ledger entries, not marketing rounding. Thousands of stock movements posted at actual cost, hundreds of delivery notes shipped, every one traceable.",
 	"story_customers_title": "Customer stories",
 	"story_customers_body": "We only publish real stories, with each customer’s permission — no invented testimonials, ever. The first ones are being written with the teams running Tonbab today. Want yours to be among them?",
-	"story_cta": "Talk to us"
+	"story_cta": "Talk to us",
+	"story_industries_title": "Built for the businesses Thailand is building",
+	"story_industries_body": "A new generation of Thai owners is running factories, import houses, online shops and studios — too sharp for spreadsheets, too lean for enterprise ERP. Tonbab is shaped for exactly them.",
+	"mods_title": "Five modules. One system.",
+	"mods_lede": "Install per organization — start with Operation, add the rest when your team is ready. Every module reads the same products, stock and customers.",
+	"mod_how_title": "How it flows",
+	"mod_features_title": "What ships today",
+	"mod_cta_title": "See it on your own workflows",
+	"mod_cta_body": "Book a demo — we set up an organization with your products and walk your team through it.",
+	"mod_back": "All modules"
 }
