@@ -6,7 +6,7 @@
 	"blog_title": "บล็อก",
 	"blog_no_articles": "ยังไม่มีบทความ",
 	"blog_read_more": "อ่านเพิ่มเติม",
-	"footer_copyright": "สงวนลิขสิทธิ์ {year} ข้าวผัด สร้างด้วย SvelteKit",
+	"footer_copyright": "สงวนลิขสิทธิ์ {year} Tonbab (ต้นแบบ) ERP โดย บริษัท โคดัสทรี (ประเทศไทย) จำกัด",
 	"cms_app_name": "Khao Pad CMS",
 	"cms_sign_in": "เข้าสู่ระบบ",
 	"cms_sign_in_description": "เข้าสู่ระบบเพื่อจัดการเนื้อหา",
