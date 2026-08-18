@@ -1055,10 +1055,12 @@ export class D1ContentProvider implements ContentProvider {
 
   async getSettings(): Promise<SiteSettings> {
     const rows = await this.db.select().from(schema.siteSettings).all();
+    // Fork default: tonbab.com is Thai-first. The admin can still override
+    // both via Settings; these only apply when no site_settings row exists.
     const settings: Record<string, unknown> = {
-      siteName: "Khao Pad",
-      defaultLocale: "en",
-      supportedLocales: ["en", "th"],
+      siteName: "Tonbab",
+      defaultLocale: "th",
+      supportedLocales: ["th", "en"],
     };
 
     for (const row of rows) {
