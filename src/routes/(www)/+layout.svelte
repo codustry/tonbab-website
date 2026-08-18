@@ -87,6 +87,7 @@
 				<a href={localePath(toLocale(data.locale), '/pricing')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_pricing()}</a>
 				<a href={localePath(toLocale(data.locale), '/docs')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_docs()}</a>
 				<a href={localePath(toLocale(data.locale), '/faq')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_faq()}</a>
+				<a href={localePath(toLocale(data.locale), '/story')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.story_nav()}</a>
 				<a href={localePath(toLocale(data.locale), '/blog')} class="hover:text-primary">{m.nav_blog()}</a>
 				{#each data.nav.primary as item (item.id)}
 					<a href={item.href} class="hover:text-primary">{item.label}</a>

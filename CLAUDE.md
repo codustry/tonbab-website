@@ -39,6 +39,22 @@ deploy. Demo-booking runs on Khao Pad Forms.
   rivals lack Thai tax compliance (PEAK/FlowAccount/AccRevo are strong there);
   lead with the manufacturing gap, transparent THB, and the split-stack story.
 
+## Legal entity
+
+The operating entity is **บริษัท โคดัสทรี (ประเทศไทย) จำกัด / Codustry
+(Thailand) Co., Ltd.** Every legal surface — Privacy Policy, Terms, Cookie
+Policy, footer copyright — must name this entity, never "Tonbab" alone and
+never the khaopad placeholder. Legal pages are seeded via the CMS legal
+templates and must be edited to carry this entity before publishing.
+
+## Customer stories
+
+/story tells the origin + customer stories. Only REAL stories: the product
+was built and dogfooded inside real operations (the production stats are
+the proof). Never invent testimonials; a tenant may be named only after
+their explicit consent — until then the customer-story section stays a
+"coming soon" invitation.
+
 ## Tech stack (inherited from Khao Pad)
 
 - pnpm · SvelteKit 2 + Svelte 5 · Tailwind CSS 4 + bits-ui
