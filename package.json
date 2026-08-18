@@ -1,7 +1,7 @@
 {
 	"name": "tonbab-website",
 	"version": "4.1.0",
-	"description": "Khao Pad (\u0e02\u0e49\u0e32\u0e27\u0e1c\u0e31\u0e14) \u2014 Modular CMS for Cloudflare",
+	"description": "Khao Pad (ข้าวผัด) — Modular CMS for Cloudflare",
 	"private": true,
 	"type": "module",
 	"scripts": {
@@ -31,6 +31,7 @@
 		"guard:head": "node scripts/head-guard.mjs"
 	},
 	"dependencies": {
+		"@fontsource/ibm-plex-sans-thai": "^5.3.0",
 		"@inlang/paraglide-js": "^2.0.0",
 		"@sveltejs/adapter-cloudflare": "^5.0.0",
 		"@sveltejs/kit": "^2.57.1",

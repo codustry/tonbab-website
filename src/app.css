@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Self-hosted IBM Plex Sans Thai (fontsource, woff2) — the family was
+ * declared in --font-sans but never actually loaded, so every visitor
+ * fell back to system fonts. Weights match the marketing type scale:
+ * 400 body, 500/600 UI, 700 display. Latin glyphs ship in the same
+ * files, so no separate Inter load is needed. */
+@import "@fontsource/ibm-plex-sans-thai/400.css";
+@import "@fontsource/ibm-plex-sans-thai/500.css";
+@import "@fontsource/ibm-plex-sans-thai/600.css";
+@import "@fontsource/ibm-plex-sans-thai/700.css";
+
 /* The CSS inventory baseline (Step 0, #174) is a JSON list of every class the
  * build emits. Tailwind's automatic source detection would happily scan it and
  * re-emit every class it names — which would make the guard pass by feeding it
