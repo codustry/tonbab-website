@@ -933,5 +933,15 @@
 	"mkt_mod_crm_short": "CRM",
 	"mkt_footer_company": "Company",
 	"mkt_footer_modules": "Modules",
-	"mkt_footer_resources": "Resources"
+	"mkt_footer_resources": "Resources",
+	"mkt_why_title": "Three honest reasons teams pick Tonbab",
+	"mkt_why_1_title": "Real manufacturing, SME price",
+	"mkt_why_1_body": "Thai cloud accounting apps stop at kitting. Systems with real BOM and work orders start at hundreds of thousands of baht. Tonbab fills exactly that gap.",
+	"mkt_why_2_title": "Thai-first, not translated",
+	"mkt_why_2_body": "Global ERPs treat Thai as an afterthought — partial translations, missing tax forms, partner add-ons. Tonbab is built on Thai law and language from day one.",
+	"mkt_why_3_title": "Keep your accountant’s tools",
+	"mkt_why_3_body": "No forced migration. Tonbab runs operations and hands your accountant clean documents for Express, PEAK or FlowAccount.",
+	"mkt_why_cta": "See the full comparison",
+	"mkt_ind_title": "Made for the businesses Thailand is building",
+	"mkt_ind_cta": "Read our story"
 }

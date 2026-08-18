@@ -3,10 +3,14 @@
 	import { localePath, toLocale } from '$lib/i18n';
 	import {
 		ShoppingCart, Boxes, Factory, Truck, Users, Store, Handshake, KeyRound,
-		FileSpreadsheet, Globe2, ShieldCheck, Scan, Check
+		FileSpreadsheet, Globe2, ShieldCheck, Scan, Check, Sparkles, UtensilsCrossed, Laptop, ShoppingBag
 	} from 'lucide-svelte';
+	import { reveal, countUp } from '$lib/marketing/animate';
+	import { industries } from '$lib/marketing/industries-data';
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
+	const t = $derived.by(() => (b: { en: string; th: string }) => (locale === 'th' ? b.th : b.en));
+	const indIcons: Record<string, typeof Factory> = { Factory, Globe2, ShoppingBag, Sparkles, UtensilsCrossed, Laptop };
 
 	// Real production numbers (queried 18 Aug 2026) — never invent stats.
 	const stats = [
@@ -87,7 +91,7 @@
 			alt=""
 			width="1376"
 			height="768"
-			class="mx-auto mt-12 w-full max-w-4xl rounded-2xl shadow-[0_10px_40px_rgba(46,92,230,0.15)]"
+			class="mx-auto mt-12 w-full max-w-4xl rounded-2xl shadow-[0_10px_40px_rgba(46,92,230,0.15)]" use:reveal={{ y: 40 }}
 			loading="eager"
 			fetchpriority="high"
 		/>
@@ -106,7 +110,7 @@
 	<div class="container mx-auto px-4 py-20">
 		<h2 class="text-center text-3xl font-bold tracking-tight text-tnb-ink sm:text-4xl">{m.mkt_pain_title()}</h2>
 		<p class="mx-auto mt-4 max-w-2xl text-center text-tnb-ink-soft">{m.mkt_pain_subtitle()}</p>
-		<div class="mt-12 grid gap-6 sm:grid-cols-3">
+		<div class="mt-12 grid gap-6 sm:grid-cols-3" use:reveal={{ stagger: 0.12 }}>
 			{#each pains as p (p.title)}
 				<div class="rounded-xl border border-tnb-line bg-tnb-paper p-7 shadow-[0_1px_3px_rgba(23,22,28,0.06)]">
 					<span class="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-tnb-wash">
@@ -125,7 +129,7 @@
 	<div class="container mx-auto px-4 py-20">
 		<h2 class="text-center text-3xl font-bold tracking-tight text-tnb-blue-deep sm:text-4xl">{m.mkt_modules_title()}</h2>
 		<p class="mx-auto mt-4 max-w-2xl text-center text-tnb-ink-soft">{m.mkt_modules_subtitle()}</p>
-		<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" use:reveal={{ stagger: 0.1 }}>
 			{#each modules as mod (mod.title)}
 				<a
 					href={localePath(locale, mod.href)}
@@ -147,7 +151,7 @@
 	<div class="container mx-auto px-4 py-20">
 		<h2 class="text-center text-3xl font-bold tracking-tight text-tnb-ink sm:text-4xl">{m.mkt_features_title()}</h2>
 		<p class="mx-auto mt-4 max-w-2xl text-center text-tnb-ink-soft">{m.mkt_features_subtitle()}</p>
-		<div class="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+		<div class="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3" use:reveal={{ stagger: 0.08 }}>
 			{#each features as f (f.title)}
 				<div class="flex gap-4">
 					<span class="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-tnb-wash">
@@ -168,7 +172,7 @@
 	<div class="container mx-auto px-4 py-20">
 		<h2 class="text-center text-3xl font-bold tracking-tight text-tnb-blue-deep sm:text-4xl">{m.mkt_flow_title()}</h2>
 		<p class="mx-auto mt-4 max-w-2xl text-center text-tnb-ink-soft">{m.mkt_flow_subtitle()}</p>
-		<ol class="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+		<ol class="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3" use:reveal={{ stagger: 0.1 }}>
 			{#each flow as step, i (i)}
 				<li class="rounded-xl bg-tnb-paper p-6 shadow-[0_1px_3px_rgba(23,22,28,0.07)]">
 					<span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-tnb-blue text-sm font-bold text-white">{i + 1}</span>
@@ -185,10 +189,34 @@
 	<div class="container mx-auto grid gap-10 px-4 py-16 text-center sm:grid-cols-4">
 		{#each stats as s (s.label)}
 			<div>
-				<p class="text-4xl font-bold tabular-nums text-tnb-amber">{s.value}</p>
+				<p class="text-4xl font-bold tabular-nums text-tnb-amber" use:countUp>{s.value}</p>
 				<p class="mt-2 text-sm text-white/70">{s.label()}</p>
 			</div>
 		{/each}
+	</div>
+</section>
+
+<!-- ───────────── Why Tonbab — the conversion argument ───────────── -->
+<section class="bg-tnb-paper">
+	<div class="container mx-auto px-4 py-20">
+		<h2 class="text-center text-3xl font-bold tracking-tight text-tnb-ink sm:text-4xl">{m.mkt_why_title()}</h2>
+		<div class="mt-12 grid gap-6 sm:grid-cols-3" use:reveal={{ stagger: 0.12 }}>
+			<div class="rounded-xl border-2 border-tnb-blue bg-tnb-wash p-7">
+				<h3 class="text-lg font-bold text-tnb-blue-deep">{m.mkt_why_1_title()}</h3>
+				<p class="mt-2 leading-relaxed text-tnb-ink-soft">{m.mkt_why_1_body()}</p>
+			</div>
+			<div class="rounded-xl border-2 border-tnb-blue bg-tnb-wash p-7">
+				<h3 class="text-lg font-bold text-tnb-blue-deep">{m.mkt_why_2_title()}</h3>
+				<p class="mt-2 leading-relaxed text-tnb-ink-soft">{m.mkt_why_2_body()}</p>
+			</div>
+			<div class="rounded-xl border-2 border-tnb-blue bg-tnb-wash p-7">
+				<h3 class="text-lg font-bold text-tnb-blue-deep">{m.mkt_why_3_title()}</h3>
+				<p class="mt-2 leading-relaxed text-tnb-ink-soft">{m.mkt_why_3_body()}</p>
+			</div>
+		</div>
+		<p class="mt-8 text-center">
+			<a href={localePath(locale, '/compare')} class="font-semibold text-tnb-blue hover:underline">{m.mkt_why_cta()} →</a>
+		</p>
 	</div>
 </section>
 
@@ -203,6 +231,25 @@
 		>
 			{m.mkt_talk_cta()}
 		</a>
+	</div>
+</section>
+
+
+<!-- ───────────── Industries strip → /story ───────────── -->
+<section class="bg-tnb-paper">
+	<div class="container mx-auto px-4 py-16">
+		<h2 class="text-center text-2xl font-bold tracking-tight text-tnb-ink sm:text-3xl">{m.mkt_ind_title()}</h2>
+		<div class="mt-8 flex flex-wrap items-center justify-center gap-3" use:reveal={{ stagger: 0.06 }}>
+			{#each industries as ind (ind.icon)}
+				{@const Icon = indIcons[ind.icon]}
+				<a href={localePath(locale, '/story')} class="inline-flex items-center gap-2 rounded-full border border-tnb-line bg-tnb-wash px-4 py-2 text-sm font-medium text-tnb-ink transition hover:border-tnb-blue hover:text-tnb-blue">
+					<Icon class="h-4 w-4 text-tnb-blue" aria-hidden="true" />{t(ind.name)}
+				</a>
+			{/each}
+		</div>
+		<p class="mt-6 text-center">
+			<a href={localePath(locale, '/story')} class="font-semibold text-tnb-blue hover:underline">{m.mkt_ind_cta()} →</a>
+		</p>
 	</div>
 </section>
 

@@ -40,6 +40,7 @@
 		"bits-ui": "^1.0.0",
 		"clsx": "^2.1.0",
 		"drizzle-orm": "^0.36.0",
+		"gsap": "^3.15.0",
 		"lucide-svelte": "^0.460.0",
 		"marked": "^15.0.0",
 		"nanoid": "^5.0.0",
