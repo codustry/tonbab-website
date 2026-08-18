@@ -2,6 +2,7 @@
 # (upstream remote). D1/R2/KV ids below are provisioned on the Codustry
 # Cloudflare account; placeholders are filled by `pnpm setup` / deploy task.
 name = "tonbab-website"
+account_id = "4becdbe083803fc00f06fdfb6d0bcc17"
 compatibility_date = "2025-04-01"
 compatibility_flags = ["nodejs_compat"]
 main = ".svelte-kit/cloudflare/_worker.js"
@@ -24,7 +25,7 @@ assets = { directory = ".svelte-kit/cloudflare", binding = "ASSETS" }
 [[d1_databases]]
 binding = "DB"
 database_name = "tonbab-website-db"
-database_id = "LOCAL_DB_ID"           # Replace with your own D1 id — see `pnpm setup`
+database_id = "ed668522-e300-4f9d-8ad7-fabe1cdaa218"
 migrations_dir = "drizzle"
 
 # ──────────────────────────────────────
@@ -39,7 +40,7 @@ bucket_name = "tonbab-website-media"
 # ──────────────────────────────────────
 [[kv_namespaces]]
 binding = "CONTENT_CACHE"
-id = "PRODUCTION_KV_ID"
+id = "bf6fdeb22d7049928083674ad849a25b"
 
 # ──────────────────────────────────────
 # Environment variables
@@ -53,8 +54,8 @@ DEFAULT_LOCALE = "en"
 PUBLIC_SITE_URL = "https://example.com"
 # CMS_SITE_URL is kept for backwards-compat (R2 media URL generation).
 # Since v1.1 the admin lives at /admin/* on the same host as the public site.
-CMS_SITE_URL = "https://example.com"
-BETTER_AUTH_URL = "https://example.com"
+CMS_SITE_URL = "https://tonbab.com"
+BETTER_AUTH_URL = "https://tonbab.com"
 
 # ─── @khaopad/plugin-careers (optional) ───────────────────────
 # Public job feed for /{locale}/careers, in the Tonbab People
@@ -121,8 +122,8 @@ WORKERS_ENV = "production"
 SUPPORTED_LOCALES = "en,th"
 DEFAULT_LOCALE = "en"
 PUBLIC_SITE_URL = "https://example.com"
-CMS_SITE_URL = "https://example.com"
-BETTER_AUTH_URL = "https://example.com"
+CMS_SITE_URL = "https://tonbab.com"
+BETTER_AUTH_URL = "https://tonbab.com"
 
 [[env.production.d1_databases]]
 binding = "DB"
@@ -136,7 +137,7 @@ bucket_name = "tonbab-website-media"
 
 [[env.production.kv_namespaces]]
 binding = "CONTENT_CACHE"
-id = "PRODUCTION_KV_ID"
+id = "bf6fdeb22d7049928083674ad849a25b"
 
 # ──────────────────────────────────────
 # Cron Triggers (v3.2 shop plugin)

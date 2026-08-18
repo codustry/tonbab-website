@@ -65,9 +65,9 @@
 	class="min-h-screen flex flex-col"
 	style={themePrimaryColor ? `--color-primary: ${themePrimaryColor}` : undefined}
 >
-	<header class="border-b border-border">
+	<header class="sticky top-0 z-40 border-b border-tnb-line bg-tnb-paper/95 backdrop-blur">
 		<div class="container mx-auto px-4 py-4 flex items-center justify-between">
-			<a href="/" class="flex items-center gap-2 text-xl font-bold">
+			<a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-tnb-ink">
 				{#if themeLogoMediaId}
 					<img
 						src={`/api/media/${themeLogoMediaId}`}
@@ -82,11 +82,11 @@
 				<!-- Marketing nav: this fork removes the shop/cart/account surface —
 				     tonbab.com sells a demo, not a catalog. CMS-managed nav.primary
 				     items still render so editors can add links without a deploy. -->
-				<a href={localePath(toLocale(data.locale), '/modules')} class="hover:text-primary">{m.mkt_nav_modules()}</a>
-				<a href={localePath(toLocale(data.locale), '/compare')} class="hover:text-primary">{m.mkt_nav_compare()}</a>
-				<a href={localePath(toLocale(data.locale), '/pricing')} class="hover:text-primary">{m.mkt_nav_pricing()}</a>
-				<a href={localePath(toLocale(data.locale), '/docs')} class="hover:text-primary">{m.mkt_nav_docs()}</a>
-				<a href={localePath(toLocale(data.locale), '/faq')} class="hover:text-primary">{m.mkt_nav_faq()}</a>
+				<a href={localePath(toLocale(data.locale), '/modules')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_modules()}</a>
+				<a href={localePath(toLocale(data.locale), '/compare')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_compare()}</a>
+				<a href={localePath(toLocale(data.locale), '/pricing')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_pricing()}</a>
+				<a href={localePath(toLocale(data.locale), '/docs')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_docs()}</a>
+				<a href={localePath(toLocale(data.locale), '/faq')} class="font-medium text-tnb-ink-soft hover:text-tnb-blue">{m.mkt_nav_faq()}</a>
 				<a href={localePath(toLocale(data.locale), '/blog')} class="hover:text-primary">{m.nav_blog()}</a>
 				{#each data.nav.primary as item (item.id)}
 					<a href={item.href} class="hover:text-primary">{item.label}</a>
@@ -102,7 +102,7 @@
 				<!-- Login is a plain link: app.tonbab.com routes signed-in/out itself. -->
 				<a
 					href="https://app.tonbab.com"
-					class="inline-flex items-center rounded-md bg-primary px-3 py-1.5 font-medium text-primary-foreground hover:opacity-90"
+					class="inline-flex items-center rounded-lg bg-tnb-amber px-4 py-2 font-semibold text-tnb-ink shadow-[0_2px_0_0] shadow-tnb-amber-deep transition hover:-translate-y-0.5"
 				>
 					{m.mkt_login()}
 				</a>
@@ -114,7 +114,7 @@
 		{@render children()}
 	</main>
 
-	<footer class="border-t border-border py-8 text-sm text-muted-foreground">
+	<footer class="border-t border-tnb-line bg-tnb-paper py-8 text-sm text-tnb-ink-soft">
 		<div class="container mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
 			<p>{m.footer_copyright({ year: new Date().getFullYear().toString() })}</p>
 			{#if data.nav.footer.length > 0}
