@@ -74,6 +74,15 @@ export function createAuth(
     secret: env.BETTER_AUTH_SECRET,
     baseURL: env.BETTER_AUTH_URL,
     basePath: "/api/auth",
+    // Fork change: the site serves from workers.dev until the tonbab.com
+    // DNS attach, and both must work through the cutover — a lone baseURL
+    // origin check rejects whichever host it isn't ("Invalid origin").
+    trustedOrigins: [
+      "https://tonbab-website.codustry.workers.dev",
+      "https://tonbab.com",
+      "https://www.tonbab.com",
+      "http://localhost:5199",
+    ],
     emailAndPassword: { enabled: true },
     session: {
       expiresIn: 60 * 60 * 24 * 7, // 7 days
