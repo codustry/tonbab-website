@@ -39,7 +39,7 @@ export const load: PageServerLoad = async ({
   for (const l of SUPPORTED_LOCALES) {
     alternates[l] = canonicalUrl(origin, `/${l}/collections`);
   }
-  const siteName = settings?.siteName ?? "Khao Pad";
+  const siteName = settings?.siteName ?? "Tonbab";
   const seo: PageSeo = {
     title: `${siteName} — Collections`,
     description: `Shop ${siteName} by collection.`,

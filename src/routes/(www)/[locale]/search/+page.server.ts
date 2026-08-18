@@ -94,8 +94,8 @@ export const load: PageServerLoad = async ({
   const origin = resolveOrigin(url, settings?.cdnBaseUrl);
   const seo: PageSeo = {
     title: q
-      ? `${q} — ${settings?.siteName ?? "Khao Pad"}`
-      : `Search — ${settings?.siteName ?? "Khao Pad"}`,
+      ? `${q} — ${settings?.siteName ?? "Tonbab"}`
+      : `Search — ${settings?.siteName ?? "Tonbab"}`,
     description: "Search products and articles.",
     canonical: canonicalUrl(origin, `/${locale}/search`),
     locale,

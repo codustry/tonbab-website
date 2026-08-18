@@ -136,7 +136,7 @@ export const load: PageServerLoad = async ({
   const hasFacetParam = Array.from(url.searchParams.keys()).some(
     (k) => !KNOWN_NON_FACET_PARAMS.has(k),
   );
-  const siteName = settings?.siteName ?? "Khao Pad";
+  const siteName = settings?.siteName ?? "Tonbab";
   const seo: PageSeo = {
     title: `${siteName} — Shop`,
     description: `Browse all products from ${siteName}. Filter by collection, price, and availability.`,

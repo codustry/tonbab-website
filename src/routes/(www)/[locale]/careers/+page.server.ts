@@ -53,7 +53,7 @@ export const load: PageServerLoad = async ({
   });
 
   const settings = await locals.content.getSettings().catch(() => null);
-  const siteName = settings?.siteName ?? "Khao Pad";
+  const siteName = settings?.siteName ?? "Tonbab";
   const organizationName = result.feed.company ?? siteName;
 
   const allJobs: CareersJob[] = result.feed.jobs;

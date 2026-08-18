@@ -102,8 +102,8 @@ export const load: PageServerLoad = async ({
 
   const seo: PageSeo = {
     title: filterLabel
-      ? `${filterLabel} — ${settings?.siteName ?? "Khao Pad"}`
-      : `${settings?.siteName ?? "Khao Pad"} — Blog`,
+      ? `${filterLabel} — ${settings?.siteName ?? "Tonbab"}`
+      : `${settings?.siteName ?? "Tonbab"} — Blog`,
     description: filterLabel
       ? `Articles tagged ${filterLabel}.`
       : "Latest articles.",

@@ -6,7 +6,6 @@
 	import Seo from '$lib/components/seo/Seo.svelte';
 	import CookieBanner from '$lib/components/consent/CookieBanner.svelte';
 	import HeaderSearch from '$lib/components/www/HeaderSearch.svelte';
-	import { ShoppingCart, User } from 'lucide-svelte';
 	import type { PageSeo } from '$lib/seo';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
@@ -36,14 +35,6 @@
 			? data.siteSettings.themePrimaryColor
 			: null,
 	);
-	// ─── Header cart badge ──────────────────────────────────────
-	// Count comes from the layout load (session cart), so it is correct
-	// on first paint and refreshes with the cart page's existing
-	// invalidate('/api/shop/cart').
-	const cartItemCount = $derived(
-		typeof data.cartItemCount === 'number' ? data.cartItemCount : 0,
-	);
-
 	// ─── Language switcher ──────────────────────────────────────
 	// Swapping the locale used to drop the visitor on '/', so a shopper
 	// deep in filtered results lost their place on every switch. Slugs
@@ -88,58 +79,32 @@
 				{data.siteSettings?.siteName ?? m.site_name()}</a
 			>
 			<nav class="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 text-sm">
+				<!-- Marketing nav: this fork removes the shop/cart/account surface —
+				     tonbab.com sells a demo, not a catalog. CMS-managed nav.primary
+				     items still render so editors can add links without a deploy. -->
+				<a href={localePath(toLocale(data.locale), '/modules')} class="hover:text-primary">{m.mkt_nav_modules()}</a>
+				<a href={localePath(toLocale(data.locale), '/compare')} class="hover:text-primary">{m.mkt_nav_compare()}</a>
+				<a href={localePath(toLocale(data.locale), '/pricing')} class="hover:text-primary">{m.mkt_nav_pricing()}</a>
+				<a href={localePath(toLocale(data.locale), '/docs')} class="hover:text-primary">{m.mkt_nav_docs()}</a>
+				<a href={localePath(toLocale(data.locale), '/faq')} class="hover:text-primary">{m.mkt_nav_faq()}</a>
+				<a href={localePath(toLocale(data.locale), '/blog')} class="hover:text-primary">{m.nav_blog()}</a>
 				{#each data.nav.primary as item (item.id)}
 					<a href={item.href} class="hover:text-primary">{item.label}</a>
 				{/each}
-				<a href={localePath(toLocale(data.locale), '/blog')} class="hover:text-primary">
-					{m.nav_blog()}
-				</a>
-				<a href={localePath(toLocale(data.locale), '/products')} class="hover:text-primary">
-					{m.nav_shop()}
-				</a>
-				{#if data.hasCareers}
-					<a href={localePath(toLocale(data.locale), '/careers')} class="hover:text-primary">
-						{m.careers_nav()}
-					</a>
-				{/if}
 				<HeaderSearch locale={toLocale(data.locale)} />
-				<a
-					href={localePath(toLocale(data.locale), '/account')}
-					class="hover:text-primary"
-					aria-label={m.nav_account()}
-					title={m.nav_account()}
-				>
-					<User class="h-5 w-5" aria-hidden="true" />
-				</a>
-				<!-- Persistent cart entry point. Before this, the only route to
-				     the cart was a transient "View cart" link beside add-to-cart
-				     that vanished on the next navigation. -->
-				<a
-					href={localePath(toLocale(data.locale), '/cart')}
-					class="relative hover:text-primary"
-					aria-label={cartItemCount === 0
-						? m.nav_cart()
-						: cartItemCount === 1
-							? m.nav_cart_count_one()
-							: m.nav_cart_count({ count: cartItemCount })}
-					title={m.nav_cart()}
-				>
-					<ShoppingCart class="h-5 w-5" aria-hidden="true" />
-					{#if cartItemCount > 0}
-						<span
-							class="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-medium leading-none text-primary-foreground tabular-nums"
-							aria-hidden="true"
-						>
-							{cartItemCount > 99 ? '99+' : cartItemCount}
-						</span>
-					{/if}
-				</a>
 				<a
 					href={alternateHref}
 					data-sveltekit-reload
 					class="px-2 py-1 border border-border rounded text-xs hover:bg-muted"
 				>
 					{m.lang_switch()}
+				</a>
+				<!-- Login is a plain link: app.tonbab.com routes signed-in/out itself. -->
+				<a
+					href="https://app.tonbab.com"
+					class="inline-flex items-center rounded-md bg-primary px-3 py-1.5 font-medium text-primary-foreground hover:opacity-90"
+				>
+					{m.mkt_login()}
 				</a>
 			</nav>
 		</div>

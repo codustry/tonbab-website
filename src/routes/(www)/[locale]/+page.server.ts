@@ -30,7 +30,7 @@ export const load: PageServerLoad = async ({
     alternates[l] = canonicalUrl(origin, `/${l}`);
   }
 
-  const siteName = settings?.siteName ?? "Khao Pad";
+  const siteName = settings?.siteName ?? "Tonbab";
   const seo: PageSeo = {
     title: siteName,
     canonical,
