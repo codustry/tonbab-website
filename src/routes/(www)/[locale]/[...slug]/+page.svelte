@@ -21,7 +21,7 @@
 	<header class="mb-8">
 		<h1 class="text-4xl font-bold mb-2">{data.title}</h1>
 	</header>
-	<div class="prose prose-neutral dark:prose-invert max-w-none">
+	<div class="prose prose-neutral max-w-none text-tnb-ink prose-headings:text-tnb-ink prose-a:text-tnb-blue">
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -- trusted: server-rendered markdown from CMS -->
 		{@html data.htmlContent}
 	</div>
