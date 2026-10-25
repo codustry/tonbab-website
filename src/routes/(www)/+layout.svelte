@@ -110,6 +110,7 @@
 							<a href={localePath(toLocale(data.locale), '/modules/people')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_people_short()}</a>
 							<a href={localePath(toLocale(data.locale), '/modules/commerce')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_commerce_short()}</a>
 							<a href={localePath(toLocale(data.locale), '/modules/crm')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_crm_short()}</a>
+							<a href={localePath(toLocale(data.locale), '/modules/service')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_service_short()}</a>
 							<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (openMenu = null)} class="mt-1 block rounded-lg border-t border-tnb-line px-3 py-2 pt-2.5 font-semibold text-tnb-blue hover:bg-tnb-wash">{m.mkt_nav_all_modules()} →</a>
 						</div>
 					{/if}
@@ -180,6 +181,7 @@
 					<a href={localePath(toLocale(data.locale), '/modules/people')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_people_short()}</a>
 					<a href={localePath(toLocale(data.locale), '/modules/commerce')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_commerce_short()}</a>
 					<a href={localePath(toLocale(data.locale), '/modules/crm')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_crm_short()}</a>
+					<a href={localePath(toLocale(data.locale), '/modules/service')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-wash">{m.mkt_mod_service_short()}</a>
 					<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-semibold text-tnb-blue hover:bg-tnb-wash">{m.mkt_nav_all_modules()} →</a>
 				</div>
 				<div class="mt-2 flex flex-col gap-1 border-t border-tnb-line pt-2 text-base">
@@ -232,7 +234,8 @@
 					<li><a href={localePath(toLocale(data.locale), '/modules/operation')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_mod_operation_short()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/modules/people')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_mod_people_short()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/modules/commerce')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_mod_commerce_short()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/modules/crm')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_mod_crm_short()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/modules/crm')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_mod_crm_short()}</a>
+<a href={localePath(toLocale(data.locale), '/modules/service')} class="text-tnb-ink hover:text-tnb-blue">{m.mkt_mod_service_short()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/modules')} class="font-medium text-tnb-blue hover:underline">{m.mkt_nav_all_modules()}</a></li>
 				</ul>
 			</nav>

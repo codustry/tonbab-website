@@ -51,6 +51,7 @@ export const GET: RequestHandler = async ({
     { path: `/${locale}/modules/people`, lastmod: new Date().toISOString() },
     { path: `/${locale}/modules/commerce`, lastmod: new Date().toISOString() },
     { path: `/${locale}/modules/crm`, lastmod: new Date().toISOString() },
+    { path: `/${locale}/modules/service`, lastmod: new Date().toISOString() },
     { path: `/${locale}/compare`, lastmod: new Date().toISOString() },
     { path: `/${locale}/story`, lastmod: new Date().toISOString() },
     { path: `/${locale}/pricing`, lastmod: new Date().toISOString() },

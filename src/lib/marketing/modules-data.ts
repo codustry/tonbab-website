@@ -42,8 +42,8 @@ export interface ModuleContent {
 	tagline: Bi;
 	intro: Bi;
 	/** Brand hero illustration (site media library, 16:9, white bg). */
-	heroArt: string;
-	heroArtAlt: Bi;
+	heroArt?: string;
+	heroArtAlt?: Bi;
 	/** Real app screenshot — absent until we have one; placeholder renders instead. */
 	screenshot?: string;
 	screenshotCaption: Bi;
@@ -187,6 +187,15 @@ export const modulesContent: ModuleContent[] = [
 					{ title: { en: "Live budget bar", th: "แถบงบประมาณสด" }, body: { en: "One job view rolls up PO commitments, material issues, services and expenses against budget, live.", th: "มุมมองงานเดียวรวมภาระผูกพันจาก PO การเบิกวัตถุดิบ งานบริการ และค่าใช้จ่าย เทียบงบประมาณแบบสด" } },
 					{ title: { en: "Delivery notes that cost", th: "ใบส่งของที่คิดต้นทุน" }, body: { en: "Shipping issues stock at its true average cost and books it to the job — no end-of-month surprises.", th: "การส่งของตัดสต็อกด้วยต้นทุนเฉลี่ยจริงและบันทึกเข้างาน — ไม่มีเซอร์ไพรส์ตอนสิ้นเดือน" } },
 					{ title: { en: "Hand-off to accounting", th: "ส่งต่อให้ฝ่ายบัญชี" }, body: { en: "Tonbab deliberately does not do bookkeeping — it closes the job with clean, exportable numbers for your accounting system.", th: "Tonbab ตั้งใจไม่ทำบัญชีแยกประเภทเอง — แต่ปิดงานด้วยตัวเลขสะอาดพร้อมส่งออกให้ระบบบัญชีของคุณ" } }
+				]
+			},
+			{
+				title: { en: "Units, lots & job extras", th: "หน่วยนับ ล็อต และงานเสริม" },
+				features: [
+					{ title: { en: "Any unit of measure", th: "หน่วยนับใดก็ได้" }, body: { en: "Buy in boxes, stock in pieces, sell in metres — per-product conversions, enforced on every stock document.", th: "ซื้อเป็นกล่อง เก็บเป็นชิ้น ขายเป็นเมตร — ตั้งอัตราแปลงรายสินค้า และบังคับใช้ในเอกสารสต็อกทุกใบ" } },
+					{ title: { en: "Lots bind automatically", th: "ผูกล็อตอัตโนมัติ" }, body: { en: "Lot-tracked items pick up their lot on every movement, so traceability doesn't depend on someone remembering.", th: "สินค้าที่ติดตามล็อตจะผูกล็อตให้ทุกครั้งที่เคลื่อนไหว การสืบย้อนจึงไม่ขึ้นกับว่าใครจำได้" } },
+					{ title: { en: "Service jobs on a Job Control", th: "งานบริการภายใต้ Job Control" }, body: { en: "Open a repair or service job from a project; its parts and labour roll into the same job cost.", th: "เปิดงานซ่อมหรืองานบริการจากโปรเจกต์ได้ ค่าอะไหล่และค่าแรงรวมเข้าต้นทุนงานเดียวกัน" } },
+					{ title: { en: "One approvals inbox", th: "กล่องอนุมัติเดียว" }, body: { en: "PRs, POs and expenses wait in one inbox with email nudges — approve from your phone.", th: "PR, PO และค่าใช้จ่ายรอในกล่องเดียวพร้อมอีเมลเตือน — อนุมัติจากมือถือได้" } }
 				]
 			}
 		],
@@ -332,6 +341,15 @@ export const modulesContent: ModuleContent[] = [
 					{ title: { en: "Offers & contract e-accept", th: "ข้อเสนอและเซ็นสัญญาออนไลน์" }, body: { en: "Send the offer, get the contract accepted online, collect onboarding documents.", th: "ส่งข้อเสนอ ให้ผู้สมัครตอบรับสัญญาออนไลน์ และเก็บเอกสาร onboarding" } },
 					{ title: { en: "Convert to employee", th: "แปลงเป็นพนักงาน" }, body: { en: "One action turns an accepted candidate into an employee record with a start date — no re-keying.", th: "คลิกเดียว ผู้สมัครที่ตอบรับกลายเป็นทะเบียนพนักงานพร้อมวันเริ่มงาน — ไม่ต้องคีย์ซ้ำ" } }
 				]
+			},
+			{
+				title: { en: "Calendar & attendance", th: "ปฏิทินและการลงเวลา" },
+				features: [
+					{ title: { en: "Team calendar", th: "ปฏิทินทีม" }, body: { en: "Who is away this week, with an emoji per leave type and public holidays marked — also on the home dashboard.", th: "สัปดาห์นี้ใครไม่อยู่ มีอีโมจิแยกประเภทการลา และแสดงวันหยุดนักขัตฤกษ์ — เห็นบนหน้าหลักด้วย" } },
+					{ title: { en: "Compensatory days", th: "วันหยุดชดเชย" }, body: { en: "Earn comp days for work on days off, spend them like leave, with year-end expiry.", th: "ได้รับวันหยุดชดเชยเมื่อทำงานในวันหยุด ใช้ได้เหมือนวันลา และหมดอายุสิ้นปี" } },
+					{ title: { en: "Half-day & multi-day leave", th: "ลาครึ่งวันและลาหลายวัน" }, body: { en: "Half days at either end of a multi-day request, counted correctly against working days.", th: "ลาครึ่งวันที่ต้นหรือท้ายของการลาหลายวัน นับเทียบวันทำงานอย่างถูกต้อง" } },
+					{ title: { en: "Attendance by person", th: "เวลาทำงานรายคน" }, body: { en: "Late and missing clock-ins grouped per employee, approved per payroll period.", th: "มาสายและลืมลงเวลา จัดกลุ่มรายพนักงาน อนุมัติตามรอบเงินเดือน" } }
+				]
 			}
 		],
 		whoFor: [
@@ -396,10 +414,10 @@ export const modulesContent: ModuleContent[] = [
 				}
 			},
 			{
-				title: { en: "Close the shift", th: "ปิดกะ" },
+				title: { en: "Every sale is traceable", th: "ทุกการขายตรวจสอบย้อนได้" },
 				body: {
-					en: "Open and close shifts per operator with cash reconciliation, so every baht in the drawer has a story. Receipts print at 80mm or go out as e-receipts.",
-					th: "เปิด-ปิดกะรายพนักงานพร้อมกระทบยอดเงินสด เงินทุกบาทในลิ้นชักจึงมีที่มา ใบเสร็จพิมพ์ขนาด 80mm หรือส่งเป็น e-receipt ก็ได้"
+					en: "Each register is a registered device and each cashier signs in with their own PIN, so every sale records who sold it, where and how it was paid. Receipts print at 80mm or go out as e-receipts.",
+					th: "เครื่อง POS แต่ละเครื่องลงทะเบียนไว้ และแคชเชียร์เข้าใช้ด้วย PIN ของตัวเอง ทุกการขายจึงบันทึกว่าใครขาย ที่ไหน และรับชำระด้วยอะไร ใบเสร็จพิมพ์ขนาด 80mm หรือส่งเป็น e-receipt ก็ได้"
 				}
 			},
 			{
@@ -453,7 +471,7 @@ export const modulesContent: ModuleContent[] = [
 				features: [
 					{ title: { en: "Installs on any device", th: "ติดตั้งได้ทุกเครื่อง" }, body: { en: "An installable web app for tablets and phones — no proprietary hardware, no app store.", th: "เว็บแอปติดตั้งได้บนแท็บเล็ตและมือถือ — ไม่ต้องซื้อฮาร์ดแวร์เฉพาะ ไม่ต้องผ่าน app store" } },
 					{ title: { en: "PromptPay QR & cards via Beam", th: "PromptPay QR และบัตรผ่าน Beam" }, body: { en: "Cashless payments confirm by webhook and cut stock idempotently — a retried webhook never double-sells.", th: "การชำระไร้เงินสดยืนยันผ่าน webhook และตัดสต็อกแบบไม่ซ้ำ — webhook ยิงซ้ำก็ไม่ตัดของสองรอบ" } },
-					{ title: { en: "Shift open/close & reconcile", th: "เปิด-ปิดกะและกระทบยอด" }, body: { en: "Per-operator shifts with cash counts, so discrepancies surface the same day.", th: "กะรายพนักงานพร้อมนับเงินสด ส่วนต่างโผล่ให้เห็นภายในวันเดียวกัน" } },
+					{ title: { en: "Operator PIN & registered devices", th: "PIN พนักงานและเครื่องที่ลงทะเบียน" }, body: { en: "Cashiers sign in with a PIN on registered registers, so every sale carries who and where.", th: "แคชเชียร์เข้าใช้ด้วย PIN บนเครื่องที่ลงทะเบียน ทุกการขายจึงระบุได้ว่าใครขายและขายที่ไหน" } },
 					{ title: { en: "Receipts & e-receipts", th: "ใบเสร็จและ e-receipt" }, body: { en: "80mm printed receipts or digital receipts, plus line discounts recorded per sale.", th: "ใบเสร็จพิมพ์ 80mm หรือใบเสร็จดิจิทัล พร้อมบันทึกส่วนลดรายบรรทัดทุกการขาย" } },
 					{ title: { en: "Thai full-form tax invoice", th: "ใบกำกับภาษีเต็มรูป" }, body: { en: "Full-form tax invoices with branch IDs and VAT-inclusive pricing modes.", th: "ใบกำกับภาษีเต็มรูปพร้อมรหัสสาขา และโหมดราคารวม VAT" } }
 				]
@@ -483,6 +501,14 @@ export const modulesContent: ModuleContent[] = [
 					{ title: { en: "LINE OA", th: "LINE OA" }, body: { en: "Messages to your LINE Official Account arrive in the shared inbox and staff reply from Tonbab.", th: "ข้อความถึง LINE Official Account เข้ากล่องรวม พนักงานตอบกลับจาก Tonbab ได้เลย" } },
 					{ title: { en: "Facebook & Instagram DMs", th: "Facebook และ Instagram DM" }, body: { en: "Messenger and Instagram direct messages join the same inbox after connecting your pages.", th: "ข้อความ Messenger และ Instagram เข้ากล่องเดียวกันหลังเชื่อมต่อเพจของคุณ" } },
 					{ title: { en: "Context beside the chat", th: "บริบทอยู่ข้างแชท" }, body: { en: "The customer's orders and details sit next to the conversation — no tab-switching to answer \"where is my order?\"", th: "ออเดอร์และข้อมูลลูกค้าอยู่ข้างบทสนทนา — ตอบคำถาม “ของถึงไหนแล้ว” ได้โดยไม่ต้องสลับแท็บ" } }
+				]
+			},
+			{
+				title: { en: "Alerts & hand-offs", th: "การแจ้งเตือนและส่งต่องาน" },
+				features: [
+					{ title: { en: "New-chat notifications", th: "แจ้งเตือนแชทใหม่" }, body: { en: "A new conversation pings the assigned agent — or everyone on chat duty — so nobody waits.", th: "แชทใหม่แจ้งเตือนแอดมินที่รับผิดชอบ — หรือทุกคนที่ดูแลแชท — ลูกค้าจึงไม่ต้องรอ" } },
+					{ title: { en: "Answered in the LINE app", th: "ตอบในแอป LINE แล้ว" }, body: { en: "If someone replied from the LINE OA app, mark it handled so the inbox stays honest.", th: "ถ้ามีคนตอบจากแอป LINE OA แล้ว กดทำเครื่องหมายว่าจัดการแล้ว กล่องแชทจะตรงกับความจริง" } },
+					{ title: { en: "Discounts at the counter", th: "ส่วนลดหน้าร้าน" }, body: { en: "Percent or baht discounts per sale, recorded on the order.", th: "ส่วนลดเป็นเปอร์เซ็นต์หรือบาทต่อการขาย บันทึกไว้บนออเดอร์" } }
 				]
 			}
 		],
@@ -618,6 +644,15 @@ export const modulesContent: ModuleContent[] = [
 					{ title: { en: "Delivery visibility", th: "เห็นสถานะส่งมอบ" }, body: { en: "Sales sees the deliveries against their accounts without asking ops for updates.", th: "ทีมขายเห็นการส่งมอบของลูกค้าตัวเอง โดยไม่ต้องเดินไปถามฝ่ายปฏิบัติการ" } },
 					{ title: { en: "The reorder cycle", th: "วงจรสั่งซื้อซ้ำ" }, body: { en: "Each delivery updates purchase history, which schedules the account's next reorder-due entry automatically.", th: "การส่งมอบแต่ละครั้งอัปเดตประวัติซื้อ ซึ่งกำหนดรอบถึงกำหนดสั่งซ้ำครั้งถัดไปให้อัตโนมัติ" } }
 				]
+			},
+			{
+				title: { en: "More pipeline sources", th: "แหล่งงานขายเพิ่มเติม" },
+				features: [
+					{ title: { en: "e-GP tender feed", th: "ฟีดงานประมูล e-GP" }, body: { en: "Government procurement announcements are fetched daily, matched to your keywords and dropped into the tender board.", th: "ประกาศจัดซื้อจัดจ้างภาครัฐดึงเข้ามาทุกวัน คัดตามคีย์เวิร์ดของคุณ แล้ววางลงบอร์ดงานประมูล" } },
+					{ title: { en: "Renewals", th: "การต่ออายุ" }, body: { en: "Contracts and maintenance agreements coming due, listed before the customer has to ask.", th: "สัญญาและสัญญาบำรุงรักษาที่ใกล้ครบกำหนด แสดงก่อนลูกค้าต้องทวง" } },
+					{ title: { en: "Goals per rep", th: "เป้าหมายรายคน" }, body: { en: "Monthly targets for won value, activities and new deals, tracked against the sales org.", th: "เป้ารายเดือนสำหรับยอดปิดได้ กิจกรรม และดีลใหม่ ติดตามตามโครงสร้างทีมขาย" } },
+					{ title: { en: "Service quotes in the pipeline", th: "ใบเสนอราคางานบริการในไปป์ไลน์" }, body: { en: "Repair quotes from the Service module appear as deals, so after-sales revenue is forecast too.", th: "ใบเสนอราคางานซ่อมจากโมดูล Service ขึ้นเป็นดีล รายได้หลังการขายจึงอยู่ในพยากรณ์ด้วย" } }
+				]
 			}
 		],
 		whoFor: [
@@ -645,6 +680,125 @@ export const modulesContent: ModuleContent[] = [
 			}
 		],
 		related: ["operation", "commerce"]
+	},
+	{
+		key: "service",
+		name: { en: "Service — after-sales & repair", th: "Service — บริการหลังการขายและงานซ่อม" },
+		tagline: {
+			en: "Every repair, from the machine arriving to the customer signing it back out.",
+			th: "ทุกงานซ่อม ตั้งแต่รับเครื่องเข้าจนลูกค้าเซ็นรับกลับ"
+		},
+		intro: {
+			en: "Service jobs run on a seven-stage track — intake, inspect, quote, repair, test, ready, returned. Quotes become CRM deals, parts come from stock or a purchase request, warranty is checked at the door, and the cost lands on a Job Control like any other work.",
+			th: "งานบริการเดินตาม 7 ขั้น — รับเครื่อง ตรวจเช็ก เสนอราคา ซ่อม ทดสอบ พร้อมส่ง ส่งคืน ใบเสนอราคากลายเป็นดีลใน CRM อะไหล่มาจากสต็อกหรือใบขอซื้อ ตรวจประกันตั้งแต่รับเครื่อง และต้นทุนลงที่ Job Control เหมือนงานอื่น ๆ"
+		},
+		screenshotCaption: {
+			en: "A service job — the stage track, checklist, photos and the one next step",
+			th: "หน้างานบริการ — แถบขั้นตอน เช็กลิสต์ รูปถ่าย และขั้นตอนถัดไป"
+		},
+		workflow: [
+			{
+				title: { en: "Open the job", th: "เปิดงาน" },
+				body: {
+					en: "Log the customer's machine — on site or brought into the workshop. A template fills the checklist and standard quote lines, and the warranty check runs immediately: our repair warranty beats the maker's.",
+					th: "บันทึกเครื่องของลูกค้า — ซ่อมนอกสถานที่หรือนำเข้าศูนย์ เทมเพลตเติมเช็กลิสต์และรายการเสนอราคามาตรฐานให้ และตรวจประกันทันที: ประกันงานซ่อมของเรามาก่อนประกันผู้ผลิต"
+				}
+			},
+			{
+				title: { en: "Inspect with photos", th: "ตรวจเช็กพร้อมรูปถ่าย" },
+				body: {
+					en: "The technician works from their phone: visit times, checklist, photos and a failure code, so later reports can show what actually breaks.",
+					th: "ช่างทำงานจากมือถือ: เวลาเข้างาน เช็กลิสต์ รูปถ่าย และรหัสอาการเสีย รายงานภายหลังจึงบอกได้ว่าอะไรเสียบ่อยจริง"
+				}
+			},
+			{
+				title: { en: "Quote — straight into the pipeline", th: "เสนอราคา — เข้าไปป์ไลน์ทันที" },
+				body: {
+					en: "Parts, labour and transport become a printable quote that is also a CRM deal. Declined? An inspection fee can still be billed, once.",
+					th: "อะไหล่ ค่าแรง และค่าขนส่ง กลายเป็นใบเสนอราคาที่พิมพ์ได้และเป็นดีลใน CRM ด้วย ลูกค้าไม่อนุมัติ? ยังเก็บค่าตรวจเช็กได้หนึ่งครั้ง"
+				}
+			},
+			{
+				title: { en: "Parts from stock or a PR", th: "อะไหล่จากสต็อกหรือใบขอซื้อ" },
+				body: {
+					en: "Issue parts from stock at average cost, or raise a purchase request for local or imported parts — it follows the normal PO and goods-receipt flow back to this job.",
+					th: "เบิกอะไหล่จากสต็อกที่ต้นทุนถัวเฉลี่ย หรือเปิดใบขอซื้อสำหรับอะไหล่ในประเทศหรือนำเข้า — เดินตามขั้นตอน PO และรับของตามปกติกลับมาที่งานนี้"
+				}
+			},
+			{
+				title: { en: "Repair, test, sign", th: "ซ่อม ทดสอบ เซ็นรับ" },
+				body: {
+					en: "Complete with a customer signature, produce the hand-over document and a billing summary with withholding tax worked out for your accounting team.",
+					th: "ปิดงานด้วยลายเซ็นลูกค้า ออกใบส่งมอบงานซ่อม และสรุปค่าบริการพร้อมคำนวณภาษีหัก ณ ที่จ่ายให้ฝ่ายบัญชี"
+				}
+			},
+			{
+				title: { en: "Hand back — and come back on schedule", th: "ส่งคืน — และกลับมาตามรอบ" },
+				body: {
+					en: "Returning the machine starts the repair warranty. Maintenance plans open the next preventive job when it is due.",
+					th: "เมื่อส่งคืนเครื่อง ประกันงานซ่อมเริ่มนับ แผนบำรุงรักษาจะเปิดงานป้องกันครั้งถัดไปให้เมื่อถึงกำหนด"
+				}
+			}
+		],
+		diagram: [
+			{ label: { en: "Intake", th: "รับเครื่อง" }, sub: { en: "warranty check", th: "ตรวจประกัน" } },
+			{ label: { en: "Inspect", th: "ตรวจเช็ก" }, sub: { en: "photos + failure code", th: "รูป + รหัสอาการ" } },
+			{ label: { en: "Quote", th: "เสนอราคา" }, sub: { en: "= CRM deal", th: "= ดีลใน CRM" } },
+			{ label: { en: "Parts", th: "อะไหล่" }, sub: { en: "stock or PR", th: "สต็อกหรือ PR" } },
+			{ label: { en: "Repair & test", th: "ซ่อมและทดสอบ" }, sub: { en: "technician app", th: "แอปช่าง" } },
+			{ label: { en: "Ready", th: "พร้อมส่ง" }, sub: { en: "signature + billing", th: "ลายเซ็น + สรุปค่าบริการ" } },
+			{ label: { en: "Returned", th: "ส่งคืน" }, sub: { en: "warranty starts", th: "เริ่มประกัน" } }
+		],
+		featureGroups: [
+			{
+				title: { en: "Jobs & technicians", th: "งานและช่าง" },
+				features: [
+					{ title: { en: "Seven-stage job track", th: "ขั้นตอนงาน 7 ขั้น" }, body: { en: "Every job shows its stage and one clear next step, on desktop and phone.", th: "ทุกงานแสดงขั้นตอนปัจจุบันและขั้นตอนถัดไปที่ชัดเจน ทั้งบนคอมพิวเตอร์และมือถือ" } },
+					{ title: { en: "Technician day view", th: "หน้างานช่างรายวัน" }, body: { en: "Today's visits for each technician, with checklist, photos and signature capture.", th: "งานวันนี้ของช่างแต่ละคน พร้อมเช็กลิสต์ รูปถ่าย และการเซ็นรับ" } },
+					{ title: { en: "Templates & failure codes", th: "เทมเพลตและรหัสอาการเสีย" }, body: { en: "Reusable checklists and quote lines; coded failures for reporting.", th: "เช็กลิสต์และรายการเสนอราคาที่ใช้ซ้ำได้ รหัสอาการเสียสำหรับทำรายงาน" } },
+					{ title: { en: "Activity timeline", th: "ไทม์ไลน์กิจกรรม" }, body: { en: "Status changes, assignments and notes on one timeline per job.", th: "การเปลี่ยนสถานะ การมอบหมาย และบันทึก อยู่บนไทม์ไลน์เดียวของแต่ละงาน" } }
+				]
+			},
+			{
+				title: { en: "Quotes, parts & billing", th: "ใบเสนอราคา อะไหล่ และค่าบริการ" },
+				features: [
+					{ title: { en: "Quotes as CRM deals", th: "ใบเสนอราคาเป็นดีลใน CRM" }, body: { en: "Revisions, accept or decline with reason, inspection fee on decline.", th: "แก้ไขเป็นเวอร์ชัน อนุมัติหรือปฏิเสธพร้อมเหตุผล เก็บค่าตรวจเช็กเมื่อปฏิเสธ" } },
+					{ title: { en: "Parts from stock or purchase", th: "อะไหล่จากสต็อกหรือจัดซื้อ" }, body: { en: "Stock issue at average cost, or a PR → PO → GR for local and imported parts.", th: "เบิกจากสต็อกที่ต้นทุนถัวเฉลี่ย หรือ PR → PO → รับของ สำหรับอะไหล่ในประเทศและนำเข้า" } },
+					{ title: { en: "Billing summary with WHT", th: "สรุปค่าบริการพร้อมหัก ณ ที่จ่าย" }, body: { en: "Parts and labour split for withholding tax, ready to hand to your accounting software.", th: "แยกค่าอะไหล่และค่าแรงสำหรับหัก ณ ที่จ่าย พร้อมส่งต่อโปรแกรมบัญชี" } },
+					{ title: { en: "Job cost & margin", th: "ต้นทุนและกำไรของงาน" }, body: { en: "Every job posts to a Job Control, so service margin is visible like any project.", th: "ทุกงานลงที่ Job Control กำไรงานบริการจึงเห็นได้เหมือนโปรเจกต์อื่น" } }
+				]
+			},
+			{
+				title: { en: "Warranty, loaners & plans", th: "ประกัน เครื่องสำรอง และแผนบำรุงรักษา" },
+				features: [
+					{ title: { en: "Warranty at intake", th: "ตรวจประกันตอนรับเครื่อง" }, body: { en: "Repair warranty and maker's warranty checked when the job opens; warranty jobs bill nothing.", th: "ตรวจประกันงานซ่อมและประกันผู้ผลิตเมื่อเปิดงาน งานในประกันไม่เรียกเก็บเงิน" } },
+					{ title: { en: "Loaner units", th: "เครื่องสำรองให้ยืม" }, body: { en: "Lend a unit by serial number and track it out and back as a real stock transfer.", th: "ให้ยืมเครื่องตามหมายเลขซีเรียล และติดตามการยืม-คืนเป็นการโอนสต็อกจริง" } },
+					{ title: { en: "Supplier warranty claims", th: "เคลมประกันกับผู้ผลิต" }, body: { en: "Claim from the manufacturer and see the recovery in job margin.", th: "เคลมกับผู้ผลิตและเห็นยอดที่ได้คืนในกำไรของงาน" } },
+					{ title: { en: "Maintenance plans & reports", th: "แผนบำรุงรักษาและรายงาน" }, body: { en: "Preventive plans open the next job when due; reports show volume, turnaround and margin.", th: "แผนบำรุงรักษาเปิดงานถัดไปเมื่อถึงกำหนด รายงานแสดงจำนวนงาน ระยะเวลา และกำไร" } }
+				]
+			}
+		],
+		whoFor: [
+			{ en: "Machinery and equipment sellers who also repair what they sell.", th: "ผู้ขายเครื่องจักรและอุปกรณ์ที่ซ่อมสินค้าที่ตัวเองขายด้วย" },
+			{ en: "Service teams that juggle on-site visits and a workshop.", th: "ทีมบริการที่ต้องบริหารทั้งงานนอกสถานที่และงานในศูนย์ซ่อม" },
+			{ en: "Owners who want repair quotes forecast alongside sales.", th: "เจ้าของกิจการที่อยากเห็นใบเสนอราคางานซ่อมในพยากรณ์ยอดขาย" },
+			{ en: "Anyone tracking warranties and loaners in a spreadsheet today.", th: "ทุกคนที่ยังติดตามประกันและเครื่องสำรองด้วย Excel" }
+		],
+		faq: [
+			{
+				q: { en: "Does Service issue tax invoices?", th: "Service ออกใบกำกับภาษีไหม" },
+				a: { en: "No — Tonbab produces the hand-over document and a billing summary with withholding tax worked out. Your accounting software issues the tax invoice.", th: "ไม่ — Tonbab ออกใบส่งมอบงานซ่อมและสรุปค่าบริการพร้อมคำนวณหัก ณ ที่จ่าย ใบกำกับภาษีออกจากโปรแกรมบัญชีของคุณ" }
+			},
+			{
+				q: { en: "Is the customer's machine counted in our stock?", th: "เครื่องของลูกค้านับเป็นสต็อกของเราไหม" },
+				a: { en: "No — customer machines are recorded as custody, never as received stock. Only loaners you lend out move through your inventory.", th: "ไม่ — เครื่องของลูกค้าบันทึกเป็นการรับฝาก ไม่ใช่การรับเข้าสต็อก มีเพียงเครื่องสำรองที่ให้ยืมเท่านั้นที่เคลื่อนไหวในคลังของคุณ" }
+			},
+			{
+				q: { en: "Do we need CRM to use Service?", th: "ต้องใช้ CRM ก่อนถึงจะใช้ Service ได้ไหม" },
+				a: { en: "Quotes are stored as deals so sales can forecast them; Service works alongside the Operation core and turns on per company.", th: "ใบเสนอราคาเก็บเป็นดีลเพื่อให้ทีมขายพยากรณ์ได้ Service ทำงานคู่กับแกน Operation และเปิดใช้ได้รายบริษัท" }
+			}
+		],
+		related: ["operation", "crm"]
 	}
 ];
 
