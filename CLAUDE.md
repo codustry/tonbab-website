@@ -28,13 +28,24 @@ upstream-side history.
 pages (home, /modules/*, /compare, /pricing, /developers) are hand-built
 Svelte under `(www)` and reviewed as PRs. Docs, FAQ and blog live in Khao
 Pad's content layer (per-locale articles/pages) so they publish without a
-deploy. Demo-booking runs on Khao Pad Forms.
+deploy.
+
+**Design (2026-11, Notion-calm):** solid blueprint-blue primary buttons
+(`btn-primary`), soft-blue secondary (`btn-soft`), `btn-ghost` for plain
+actions — utilities in app.css. Warm grey `tnb-mist` surfaces for cards,
+`tnb-hair` dividers, big tight headlines, generous whitespace. Amber is an
+accent only, never the button colour. Demo-booking runs on Khao Pad Forms.
 
 ## Honesty rules (from the build proposal)
 
 - **Never invent traction stats.** Use real production numbers only.
-- **No free tier, no self-host, no SLA, no public-GitHub claims** — none of
-  these exist. Pricing page is "คุยกับเรา / Talk to us".
+- **Plans are real since 2026-11-09** (owner-approved): Free ฿0, Business
+  ฿3,000/mo or ฿36,000/yr, Enterprise from ฿99,000/yr (includes a 99.9% SLA),
+  plus add-ons — all prices **excl. 7% VAT**. The single source is the product
+  repo's `src/lib/shared/plans.ts`; /pricing mirrors it — change the product
+  first, then this site. Still no self-host and no public-GitHub claims.
+- **No self-serve signup yet** (Tonbab opens accounts), so plan buttons start
+  an email to hello@tonbab.com — don't link a signup page until one exists.
 - /compare cites competitors with dated source footnotes. Never claim Thai
   rivals lack Thai tax compliance (PEAK/FlowAccount/AccRevo are strong there);
   lead with the manufacturing gap, transparent THB, and the split-stack story.

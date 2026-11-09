@@ -72,7 +72,7 @@
 		<p class="mx-auto mt-4 leading-relaxed text-white/70">{m.story_customers_body()}</p>
 		<a
 			href={localePath(locale, '/pricing')}
-			class="mt-8 inline-flex items-center rounded-lg bg-tnb-amber px-7 py-3.5 text-base font-semibold text-tnb-ink shadow-[0_2px_0_0] shadow-tnb-amber-deep transition hover:-translate-y-0.5"
+			class="btn-primary mt-8 px-6 py-3 text-base"
 		>
 			{m.story_cta()}
 		</a>
