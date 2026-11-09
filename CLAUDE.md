@@ -44,8 +44,10 @@ accent only, never the button colour. Demo-booking runs on Khao Pad Forms.
   plus add-ons — all prices **excl. 7% VAT**. The single source is the product
   repo's `src/lib/shared/plans.ts`; /pricing mirrors it — change the product
   first, then this site. Still no self-host and no public-GitHub claims.
-- **No self-serve signup yet** (Tonbab opens accounts), so plan buttons start
-  an email to hello@tonbab.com — don't link a signup page until one exists.
+- **Self-serve signup is live** at https://app.tonbab.com/signup (since
+  2026-11-09): email-verified, a new company starts on the 30-day Business
+  trial, then Free. "Start free" / Free / Business buttons link there;
+  Enterprise emails hello@tonbab.com.
 - /compare cites competitors with dated source footnotes. Never claim Thai
   rivals lack Thai tax compliance (PEAK/FlowAccount/AccRevo are strong there);
   lead with the manufacturing gap, transparent THB, and the split-stack story.

@@ -117,7 +117,7 @@
 			})}
 		</p>
 		<div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-			<a href={localePath(locale, '/pricing')} class="btn-primary px-6 py-3 text-base">{m.mkt_start_free()}</a>
+			<a href="https://app.tonbab.com/signup" class="btn-primary px-6 py-3 text-base">{m.mkt_start_free()}</a>
 			<a href="#apps" class="btn-soft px-6 py-3 text-base">
 				{t({ en: 'See every app', th: 'ดูแอปทั้งหมด' })}<ArrowRight class="h-4 w-4" aria-hidden="true" />
 			</a>
@@ -441,7 +441,7 @@
 		<h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">{m.mkt_cta_title()}</h2>
 		<p class="mx-auto mt-4 max-w-xl leading-relaxed text-white/70">{m.mkt_cta_subtitle()}</p>
 		<div class="mt-9 flex flex-wrap items-center justify-center gap-4">
-			<a href={localePath(locale, '/pricing')} class="btn-primary px-6 py-3 text-base">{m.mkt_start_free()}</a>
+			<a href="https://app.tonbab.com/signup" class="btn-primary px-6 py-3 text-base">{m.mkt_start_free()}</a>
 			<a href={localePath(locale, '/docs')} class="inline-flex items-center rounded-lg px-6 py-3 text-base font-semibold text-white ring-1 ring-white/25 transition hover:bg-white/10">{m.mkt_cta_secondary()}</a>
 		</div>
 	</div>
