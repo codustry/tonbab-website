@@ -110,7 +110,7 @@
       ? optionId(activeIndex)
       : undefined}
     autocomplete="off"
-    placeholder={m.shop_search_placeholder()}
+    placeholder={m.mkt_search_placeholder()}
     value={query}
     oninput={onInput}
     onkeydown={onKeydown}

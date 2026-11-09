@@ -92,17 +92,17 @@
 </script>
 
 <!-- ───────────────────────── Hero ───────────────────────── -->
-<section class="relative overflow-hidden bg-tnb-wash">
+<section class="relative overflow-hidden bg-tnb-paper">
 	<!-- Blueprint grid — Tonbab (ต้นแบบ) means "the master plan". -->
 	<div aria-hidden="true" class="blueprint pointer-events-none absolute inset-0"></div>
-	<div class="relative container mx-auto px-4 pt-16 pb-14 text-center sm:pt-20">
-		<p class="mb-5 inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1.5 text-sm font-semibold text-tnb-blue-deep ring-1 ring-tnb-wash-deep">
+	<div class="relative container mx-auto px-4 pt-20 pb-16 text-center sm:pt-28">
+		<p class="mb-6 inline-flex items-center gap-2 rounded-full bg-tnb-mist px-3.5 py-1.5 text-sm font-medium text-tnb-ink-soft">
 			<span class="flex gap-0.5" aria-hidden="true">
 				{#each suiteModules as sm (sm.key)}<span class="h-2 w-2 rounded-full {SUITE_THEME[sm.key].solid}"></span>{/each}
 			</span>
 			{t({ en: 'One Thai-first platform · 5 modules · 3 kiosk apps', th: 'แพลตฟอร์มเดียวสไตล์ไทย · 5 โมดูล · 3 แอปคีออสก์' })}
 		</p>
-		<h1 class="mx-auto max-w-4xl text-4xl font-bold leading-[1.15] tracking-tight text-tnb-ink sm:text-6xl">
+		<h1 class="mx-auto max-w-4xl text-[2.6rem] font-bold leading-[1.1] tracking-tight text-tnb-ink sm:text-7xl">
 			{t({ en: 'One system that runs your', th: 'ระบบเดียว ที่ดูแลครบทั้ง' })}
 			<span class="relative inline-block min-w-[6ch]">
 				{#key wordIdx}
@@ -117,14 +117,14 @@
 			})}
 		</p>
 		<div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-			<a href={localePath(locale, '/pricing')} class="btn-amber">{m.mkt_hero_cta_primary()}</a>
-			<a href="#apps" class="inline-flex items-center gap-1.5 rounded-lg border-2 border-tnb-blue bg-white px-6 py-3 text-base font-semibold text-tnb-blue transition hover:bg-tnb-wash-deep">
+			<a href={localePath(locale, '/pricing')} class="btn-primary px-6 py-3 text-base">{m.mkt_start_free()}</a>
+			<a href="#apps" class="btn-soft px-6 py-3 text-base">
 				{t({ en: 'See every app', th: 'ดูแอปทั้งหมด' })}<ArrowRight class="h-4 w-4" aria-hidden="true" />
 			</a>
 		</div>
 		<ul class="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-tnb-ink-soft">
 			{#each trust as tr (tr)}
-				<li class="inline-flex items-center gap-1.5"><Check class="h-4 w-4 text-tnb-blue" aria-hidden="true" />{tr()}</li>
+				<li class="inline-flex items-center gap-1.5"><Check class="h-4 w-4 text-tnb-ink-soft" aria-hidden="true" />{tr()}</li>
 			{/each}
 		</ul>
 
@@ -236,7 +236,7 @@
 </section>
 
 <!-- ───────────────────── One platform: every app ───────────────────── -->
-<section id="apps" class="scroll-mt-20 bg-[#f7f8fb]">
+<section id="apps" class="scroll-mt-20 bg-tnb-mist">
 	<div class="container mx-auto px-4 py-20">
 		<h2 class="section-title">{t({ en: 'One platform. Every app your business runs on.', th: 'แพลตฟอร์มเดียว ครบทุกแอปที่ธุรกิจต้องใช้' })}</h2>
 		<p class="section-lede">{t({ en: 'Turn modules on as you grow. They share one customer list, one product catalogue and one stock ledger.', th: 'เปิดโมดูลเพิ่มได้ตามการเติบโต ทุกโมดูลใช้รายชื่อลูกค้า แคตตาล็อกสินค้า และบัญชีสต็อกชุดเดียวกัน' })}</p>
@@ -393,7 +393,7 @@
 </section>
 
 <!-- ───────────────────── Real numbers ───────────────────── -->
-<section class="bg-tnb-wash">
+<section class="bg-tnb-mist">
 	<div class="container mx-auto px-4 py-16">
 		<div class="grid grid-cols-2 gap-8 text-center sm:grid-cols-4">
 			{#each realStats as s (s.value)}
@@ -441,8 +441,8 @@
 		<h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">{m.mkt_cta_title()}</h2>
 		<p class="mx-auto mt-4 max-w-xl leading-relaxed text-white/70">{m.mkt_cta_subtitle()}</p>
 		<div class="mt-9 flex flex-wrap items-center justify-center gap-4">
-			<a href={localePath(locale, '/pricing')} class="btn-amber">{m.mkt_cta_primary()}</a>
-			<a href={localePath(locale, '/docs')} class="inline-flex items-center rounded-lg border-2 border-white/25 px-7 py-3.5 text-base font-semibold text-white transition hover:bg-white/10">{m.mkt_cta_secondary()}</a>
+			<a href={localePath(locale, '/pricing')} class="btn-primary px-6 py-3 text-base">{m.mkt_start_free()}</a>
+			<a href={localePath(locale, '/docs')} class="inline-flex items-center rounded-lg px-6 py-3 text-base font-semibold text-white ring-1 ring-white/25 transition hover:bg-white/10">{m.mkt_cta_secondary()}</a>
 		</div>
 	</div>
 </section>
@@ -462,24 +462,10 @@
 		background-size: 32px 32px;
 		mask-image: radial-gradient(ellipse at 50% 100%, #000 30%, transparent 75%);
 	}
-	.btn-amber {
-		display: inline-flex;
-		align-items: center;
-		border-radius: 0.5rem;
-		background: var(--color-tnb-amber);
-		padding: 0.875rem 1.75rem;
-		font-weight: 600;
-		color: var(--color-tnb-ink);
-		box-shadow: 0 2px 0 0 var(--color-tnb-amber-deep);
-		transition: transform 0.15s;
-	}
-	.btn-amber:hover {
-		transform: translateY(-2px);
-	}
 	.section-title {
 		text-align: center;
-		font-size: 1.875rem;
-		line-height: 1.25;
+		font-size: 2rem;
+		line-height: 1.15;
 		font-weight: 700;
 		letter-spacing: -0.02em;
 		color: var(--color-tnb-ink);
@@ -487,7 +473,7 @@
 	}
 	@media (min-width: 640px) {
 		.section-title {
-			font-size: 2.25rem;
+			font-size: 3rem;
 		}
 	}
 	.section-lede {

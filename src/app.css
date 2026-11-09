@@ -40,6 +40,11 @@
   --color-tnb-amber-deep: #e08c00;
   --color-tnb-paper: #ffffff;
   --color-tnb-line: #e5e7ef;
+  /* 2026-11 redesign (Notion-calm): a warm grey surface for bento cards and
+   * a quieter divider. Primary actions are now solid blueprint blue; amber
+   * stays as an accent, not the button colour. */
+  --color-tnb-mist: #f7f6f3;
+  --color-tnb-hair: #ececea;
 
   --font-sans:
     "IBM Plex Sans Thai", "Inter", ui-sans-serif, system-ui, -apple-system,
@@ -127,4 +132,46 @@
       "rlig" 1,
       "calt" 1;
   }
+}
+
+/* ─── Marketing buttons (2026-11) ───────────────────────────────
+ * One look everywhere on the www pages: solid blue = the main action,
+ * soft blue = the secondary, ghost = a plain link-button. */
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border-radius: 0.5rem;
+  background: var(--color-tnb-blue);
+  padding: 0.625rem 1.125rem;
+  font-weight: 600;
+  color: #fff;
+  transition: background-color 150ms;
+  &:hover { background: var(--color-tnb-blue-deep); }
+}
+@utility btn-soft {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border-radius: 0.5rem;
+  background: var(--color-tnb-wash);
+  padding: 0.625rem 1.125rem;
+  font-weight: 600;
+  color: var(--color-tnb-blue-deep);
+  transition: background-color 150ms;
+  &:hover { background: var(--color-tnb-wash-deep); }
+}
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  font-weight: 500;
+  color: var(--color-tnb-ink);
+  transition: background-color 150ms;
+  &:hover { background: var(--color-tnb-mist); }
 }
