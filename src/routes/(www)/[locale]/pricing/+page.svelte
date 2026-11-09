@@ -6,8 +6,8 @@
 	 * "everything in X, and:" lists, a grouped comparison table with a sticky
 	 * header, add-ons, FAQ.
 	 *
-	 * There is no self-serve signup yet (accounts are opened by Tonbab), so
-	 * every plan button starts an email with the plan in the subject.
+	 * Free and Business go to self-serve signup (app.tonbab.com/signup — a new
+	 * company starts on the 30-day Business trial, then Free); Enterprise emails us.
 	 */
 	import * as m from '$lib/paraglide/messages';
 	import { Check, Minus, Plus, Building2, Sparkles, Mail } from 'lucide-svelte';
@@ -161,7 +161,7 @@
 				<h2 class="text-lg font-semibold text-tnb-ink">{m.pr_plan_free()}</h2>
 				<p class="mt-1 flex items-baseline gap-1.5"><span class="text-3xl font-bold tracking-tight text-tnb-ink">{thb(0)}</span><span class="text-sm text-tnb-ink-soft">{m.pr_price_free_unit()}</span></p>
 				<p class="mt-2 min-h-12 text-[15px] text-tnb-ink-soft">{m.pr_free_desc()}</p>
-				<a href={mailto(m.pr_mail_subject_free())} class="btn-soft mt-5 w-full">{m.pr_cta_free()}</a>
+				<a href="https://app.tonbab.com/signup" class="btn-soft mt-5 w-full">{m.pr_cta_free()}</a>
 				<p class="mt-7 text-sm font-semibold text-tnb-ink">{m.pr_includes()}</p>
 				<ul class="mt-3 space-y-2.5">
 					{@render bullet(m.pr_b_free_1())}
@@ -187,7 +187,7 @@
 					<p class="mt-1 flex items-baseline gap-1.5"><span class="text-3xl font-bold tracking-tight text-tnb-ink">{thb(3000)}</span><span class="text-sm text-tnb-ink-soft">{m.pr_per_month()}</span></p>
 					<p class="text-xs text-tnb-ink-soft">{m.pr_or_yearly({ price: thb(36000) })}</p>
 					<p class="mt-2 min-h-12 text-[15px] text-tnb-ink-soft">{m.pr_business_desc()}</p>
-					<a href={mailto(m.pr_mail_subject_business())} class="btn-primary mt-5 w-full">{m.pr_cta_business()}</a>
+					<a href="https://app.tonbab.com/signup" class="btn-primary mt-5 w-full">{m.pr_cta_business()}</a>
 					<p class="mt-2 text-xs leading-relaxed text-tnb-ink-soft">{m.pr_trial_note()}</p>
 					<p class="mt-5 text-sm font-semibold text-tnb-ink">{m.pr_everything_free()}</p>
 					<ul class="mt-3 space-y-2.5">

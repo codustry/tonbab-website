@@ -149,12 +149,12 @@
 					</a>
 					<!-- Login is a plain link: app.tonbab.com routes signed-in/out itself. -->
 					<a href="https://app.tonbab.com" class="btn-ghost text-[15px]">{m.mkt_login()}</a>
-					<a href={localePath(toLocale(data.locale), '/pricing')} class="btn-primary px-4 py-2 text-[15px]">{m.mkt_start_free()}</a>
+					<a href="https://app.tonbab.com/signup" class="btn-primary px-4 py-2 text-[15px]">{m.mkt_start_free()}</a>
 				</div>
 			</nav>
 			<!-- Mobile: login stays visible; everything else folds into the panel. -->
 			<div class="flex items-center gap-2 md:hidden">
-				<a href={localePath(toLocale(data.locale), '/pricing')} class="btn-primary px-3.5 py-2 text-sm">{m.mkt_start_free()}</a>
+				<a href="https://app.tonbab.com/signup" class="btn-primary px-3.5 py-2 text-sm">{m.mkt_start_free()}</a>
 				<button
 					type="button"
 					class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-tnb-ink hover:bg-tnb-mist"
@@ -216,7 +216,7 @@
 				<p class="text-lg font-bold tracking-tight text-tnb-ink">{data.siteSettings?.siteName ?? m.site_name()}</p>
 				<p class="mt-2 max-w-xs leading-relaxed text-tnb-ink-soft">{m.site_description()}</p>
 				<div class="mt-5 flex items-center gap-2">
-					<a href={localePath(toLocale(data.locale), '/pricing')} class="btn-primary px-4 py-2">{m.mkt_start_free()}</a>
+					<a href="https://app.tonbab.com/signup" class="btn-primary px-4 py-2">{m.mkt_start_free()}</a>
 					<a href="https://app.tonbab.com" class="btn-ghost">{m.mkt_login()}</a>
 				</div>
 			</div>
