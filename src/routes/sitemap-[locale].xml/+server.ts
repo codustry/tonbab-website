@@ -59,7 +59,10 @@ export const GET: RequestHandler = async ({
   const staticUrls = staticPaths.map((p) => ({
     path: `/${locale}${p}`,
     lastmod: now,
-    alternates: SUPPORTED_LOCALES.map((l) => ({ locale: l, path: `/${l}${p}` })),
+    alternates: SUPPORTED_LOCALES.map((l) => ({
+      locale: l,
+      path: `/${l}${p}`,
+    })),
   }));
 
   const articleUrls = articles.items.map((a) => ({

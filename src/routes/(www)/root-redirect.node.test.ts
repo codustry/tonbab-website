@@ -9,7 +9,11 @@ import { load } from "./+page.server";
  */
 type LoadEvent = Parameters<typeof load>[0];
 
-async function redirectOf(opts: { cookie?: string; acceptLanguage?: string; search?: string }) {
+async function redirectOf(opts: {
+  cookie?: string;
+  acceptLanguage?: string;
+  search?: string;
+}) {
   const event = {
     cookies: {
       get: (name: string) =>
@@ -32,7 +36,10 @@ async function redirectOf(opts: { cookie?: string; acceptLanguage?: string; sear
 
 describe("root redirect is Thai-first", () => {
   it("no cookie, no header → /th", async () => {
-    expect(await redirectOf({})).toMatchObject({ status: 308, location: "/th" });
+    expect(await redirectOf({})).toMatchObject({
+      status: 308,
+      location: "/th",
+    });
   });
 
   it("English browser without a saved choice → /th (not /en)", async () => {

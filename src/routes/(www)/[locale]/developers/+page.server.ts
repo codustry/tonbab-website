@@ -16,7 +16,8 @@ export const load: PageServerLoad = async ({ params, url, locals }) => {
     alternates[l] = canonicalUrl(origin, `/${l}/developers`);
   }
   const seo: PageSeo = {
-    title: locale === "th" ? "นักพัฒนาและ AI — Tonbab" : "Developers & AI — Tonbab",
+    title:
+      locale === "th" ? "นักพัฒนาและ AI — Tonbab" : "Developers & AI — Tonbab",
     description:
       locale === "th"
         ? "REST API, webhook ที่ลงลายเซ็น และตัวเชื่อม AI (MCP) สำหรับ Claude และ ChatGPT — ภายใต้สิทธิ์ของแต่ละคนเสมอ"
