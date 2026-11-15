@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../../app.css';
+	import { TonbabLogo } from '$lib/components/brand';
 	import * as m from '$lib/paraglide/messages';
 	import { localePath, toLocale, getAlternateLocale, SUPPORTED_LOCALES } from '$lib/i18n';
 	import { page } from '$app/state';
@@ -105,17 +106,19 @@
 >
 	<header class="sticky top-0 z-40 border-b border-tnb-hair bg-tnb-paper/90 backdrop-blur">
 		<div class="container mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-4">
-			<a href={`/${toLocale(data.locale)}`} class="flex items-center gap-2 text-xl font-bold tracking-tight text-tnb-ink">
+			<a href={`/${toLocale(data.locale)}`} class="flex shrink-0 items-center gap-2 text-xl font-bold tracking-tight text-tnb-ink" aria-label={data.siteSettings?.siteName ?? m.site_name()}>
 				{#if themeLogoMediaId}
+					<!-- A logo uploaded in the CMS (Design settings) overrides the built-in one. -->
 					<img
 						src={`/api/media/${themeLogoMediaId}`}
 						alt=""
 						class="h-8 w-auto"
 						height="32"
 					/>
+				{:else}
+					<TonbabLogo compact height={30} />
 				{/if}
-				{data.siteSettings?.siteName ?? m.site_name()}</a
-			>
+			</a>
 			<nav class="hidden flex-1 items-center gap-1 whitespace-nowrap text-[15px] lg:flex">
 				<!-- Marketing nav: this fork removes the shop/cart/account surface —
 				     tonbab.com sells a demo, not a catalog. CMS-managed nav.primary
@@ -242,7 +245,7 @@
 	<footer class="border-t border-tnb-hair bg-tnb-paper text-sm">
 		<div class="container mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:grid-cols-2 lg:grid-cols-4">
 			<div>
-				<p class="text-lg font-bold tracking-tight text-tnb-ink">{data.siteSettings?.siteName ?? m.site_name()}</p>
+				<p class="text-tnb-ink" aria-label={data.siteSettings?.siteName ?? m.site_name()}><TonbabLogo height={44} /></p>
 				<p class="mt-2 max-w-xs leading-relaxed text-tnb-ink-soft">{m.site_description()}</p>
 				<div class="mt-5 flex items-center gap-2">
 					<a href="https://app.tonbab.com/signup" class="btn-primary px-4 py-2">{m.mkt_start_free()}</a>
