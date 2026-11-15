@@ -106,7 +106,7 @@
 			<span class="flex gap-0.5" aria-hidden="true">
 				{#each suiteModules.filter((sm) => !sm.earlyAccess) as sm (sm.key)}<span class="h-2 w-2 rounded-full {SUITE_THEME[sm.key].solid}"></span>{/each}
 			</span>
-			{t({ en: 'One Thai-first platform · 6 modules · 3 kiosk apps', th: 'แพลตฟอร์มเดียวสไตล์ไทย · 6 โมดูล · 3 แอปคีออสก์' })}
+			{t({ en: 'One Thai-first platform · 7 modules · 3 kiosk apps', th: 'แพลตฟอร์มเดียว ออกแบบเพื่อธุรกิจไทย · 7 โมดูล · 3 แอปคีออสก์' })}
 		</p>
 		<h1 class="mx-auto max-w-4xl text-[2.6rem] font-bold leading-[1.1] tracking-tight text-tnb-ink sm:text-7xl">
 			{t({ en: 'One system that runs your', th: 'ระบบเดียว ที่ดูแลครบทั้ง' })}
