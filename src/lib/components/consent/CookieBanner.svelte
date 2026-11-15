@@ -42,7 +42,7 @@
 		aria-label={m.cookie_banner_title()}
 	>
 		<div
-			class="container mx-auto max-w-7xl px-4 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+			class="container mx-auto max-w-7xl px-4 py-3 sm:py-4 flex flex-col gap-2.5 sm:gap-3 sm:flex-row sm:items-center sm:justify-between"
 		>
 			<!--
 				max-w-prose on the copy: without it this paragraph ran the full
@@ -52,7 +52,7 @@
 				worst possible property for text asking someone to make a privacy
 				decision.
 			-->
-			<div class="flex-1 max-w-prose text-sm text-muted-foreground">
+			<div class="flex-1 max-w-prose text-xs sm:text-sm text-muted-foreground">
 				<p class="font-medium text-foreground mb-1">{m.cookie_banner_title()}</p>
 				<p>
 					{m.cookie_banner_body()}
@@ -86,7 +86,9 @@
 					</div>
 				{/if}
 			</div>
-			<div class="flex flex-col sm:flex-row gap-2 shrink-0">
+			<!-- Phone: two small buttons on one row, Accept full width below — the
+			     banner used to stack three full-width buttons over ~40% of the screen. -->
+			<div class="grid grid-cols-2 gap-2 sm:flex sm:flex-row shrink-0">
 				{#if detailsOpen}
 					<button
 						type="button"
@@ -117,7 +119,7 @@
 					type="button"
 					disabled={saving}
 					onclick={() => save('all')}
-					class="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:opacity-90 disabled:opacity-50"
+					class="col-span-2 sm:col-span-1 px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:opacity-90 disabled:opacity-50"
 				>
 					{m.cookie_accept_all()}
 				</button>
