@@ -139,6 +139,8 @@ function isConfigurationCheckExempt(pathname: string): boolean {
   if (pathname.startsWith("/src/")) return true;
   if (pathname.startsWith("/_app/")) return true;
   if (pathname === "/favicon.png") return true;
+  if (pathname === "/favicon.svg" || pathname === "/apple-touch-icon.png") return true;
+  if (pathname.startsWith("/brand/")) return true;
   return false;
 }
 
@@ -498,6 +500,9 @@ const analyticsPageViewHook: Handle = async ({ event, resolve }) => {
       path.startsWith("/_app/") ||
       path === "/favicon.png" ||
       path === "/favicon.ico" ||
+      path === "/favicon.svg" ||
+      path === "/apple-touch-icon.png" ||
+      path.startsWith("/brand/") ||
       path === "/robots.txt" ||
       path.startsWith("/sitemap") ||
       path.startsWith("/feed")
