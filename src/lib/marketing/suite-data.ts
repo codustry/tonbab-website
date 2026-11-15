@@ -300,11 +300,12 @@ export const thaiPoints: { title: Bi; body: Bi; icon: string }[] = [
 
 /** Real counts from live customer workspaces (queried 25 Oct 2026). */
 export const realStats: { value: string; label: Bi }[] = [
-	{ value: "8,850+", label: { en: "stock movements posted", th: "รายการเคลื่อนไหวสต็อก" } },
+	{ value: "9,600+", label: { en: "stock movements posted", th: "รายการเคลื่อนไหวสต็อก" } },
 	{ value: "1,000+", label: { en: "products managed", th: "สินค้าที่บริหาร" } },
-	{ value: "439", label: { en: "delivery notes issued", th: "ใบส่งของที่ออกแล้ว" } },
-	// Generally-available modules only — Accounting (early access) is not counted.
-	{ value: "6 + 3", label: { en: "modules + kiosk apps", th: "โมดูล + แอปคีออสก์" } }
+	{ value: "530+", label: { en: "delivery notes issued", th: "ใบส่งของที่ออกแล้ว" } },
+	// Production counts refreshed 2026-11-15 (9,690 movements, 1,047 products, 539 issued DNs).
+	// 7 modules = Operation, People, Commerce, CRM, Service, Docs, Accounting (early access).
+	{ value: "7 + 3", label: { en: "modules + kiosk apps", th: "โมดูล + แอปคีออสก์" } }
 ];
 
 export const kiosks: { icon: string; name: Bi; body: Bi }[] = [
