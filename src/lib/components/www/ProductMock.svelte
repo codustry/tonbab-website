@@ -56,9 +56,48 @@
 			{ en: 'New job', th: 'เปิดงานใหม่' },
 			{ en: 'Maintenance', th: 'แผนบำรุงรักษา' },
 			{ en: 'Reports', th: 'รายงาน' }
+		],
+		docs: [
+			{ en: 'Home', th: 'หน้าหลัก' },
+			{ en: 'Favorites', th: 'รายการโปรด' },
+			{ en: 'SOPs', th: 'SOP' },
+			{ en: 'Databases', th: 'ฐานข้อมูล' },
+			{ en: 'Templates', th: 'เทมเพลต' }
+		],
+		accounting: [
+			{ en: 'Overview', th: 'ภาพรวม' },
+			{ en: 'Sales', th: 'ขาย' },
+			{ en: 'Purchases', th: 'ซื้อ' },
+			{ en: 'Tax', th: 'ภาษี' },
+			{ en: 'Ledger', th: 'แยกประเภท' }
 		]
 	};
-	const activeNav: Record<string, number> = { operation: 0, people: 2, commerce: 2, crm: 1, service: 1 };
+	const activeNav: Record<string, number> = { operation: 0, people: 2, commerce: 2, crm: 1, service: 1, docs: 2, accounting: 1 };
+	const moduleLabel: Record<string, Bi> = {
+		crm: { en: 'CRM', th: 'CRM' },
+		accounting: { en: 'Accounting', th: 'บัญชี' }
+	};
+	const label = $derived(moduleLabel[module] ? t(moduleLabel[module]) : module[0].toUpperCase() + module.slice(1));
+
+	// ── Docs: an SOP page with live collaborators
+	const sopSteps = [
+		{ label: { en: 'Check the PO number on the delivery slip', th: 'ตรวจเลขที่ PO บนใบส่งของ' }, done: true },
+		{ label: { en: 'Count and inspect every carton', th: 'นับและตรวจสภาพทุกกล่อง' }, done: true },
+		{ label: { en: 'Post the goods receipt in Tonbab', th: 'บันทึกรับสินค้าใน Tonbab' }, done: false }
+	];
+	const editors = [
+		{ ini: 'PN', c: 'bg-sky-500' },
+		{ ini: 'KT', c: 'bg-violet-500' },
+		{ ini: 'SW', c: 'bg-amber-500' }
+	];
+
+	// ── Accounting: a tax invoice (example figures)
+	const invLines = [
+		{ d: { en: 'Stainless bracket 40 mm', th: 'ขายึดสเตนเลส 40 มม.' }, q: 200, p: 85 },
+		{ d: { en: 'Installation service', th: 'ค่าบริการติดตั้ง' }, q: 1, p: 6000 }
+	];
+	const invSub = invLines.reduce((a, l) => a + l.q * l.p, 0);
+	const baht = (n: number) => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 	// ── Operation: Job Control
 	const jcRows = [
@@ -130,7 +169,7 @@
 		<aside class="hidden w-40 shrink-0 flex-col gap-0.5 border-r border-tnb-line bg-[#fafbfd] p-2.5 sm:flex">
 			<div class="mb-2 flex items-center gap-2 px-1.5">
 				<span class="h-5 w-5 rounded-md {theme.solid}"></span>
-				<span class="text-xs font-semibold text-tnb-ink">{module === 'crm' ? 'CRM' : module[0].toUpperCase() + module.slice(1)}</span>
+				<span class="text-xs font-semibold text-tnb-ink">{label}</span>
 			</div>
 			{#each nav[module] as item, i (i)}
 				<span class="truncate rounded-md px-2 py-1.5 text-[11.5px] {i === activeNav[module] ? `${theme.chip} font-semibold` : 'text-tnb-ink-soft'}">{t(item)}</span>
@@ -296,6 +335,60 @@
 				<div class="mt-3 flex items-center justify-between rounded-xl {theme.wash} px-3 py-2 text-[11px]">
 					<span class="text-tnb-ink">{t({ en: 'Parts: belt ×1 from stock · labour 2.5 h', th: 'อะไหล่: สายพาน ×1 จากสต็อก · ค่าแรง 2.5 ชม.' })}</span>
 					<span class="rounded-md {theme.solid} px-2 py-0.5 font-semibold text-white">{t({ en: 'Next: Test', th: 'ถัดไป: ทดสอบ' })}</span>
+				</div>
+			{:else if module === 'docs'}
+				<div class="flex items-start justify-between gap-3">
+					<div class="min-w-0">
+						<p class="text-[11px] font-medium text-tnb-ink-soft">{t({ en: 'SOPs / Warehouse', th: 'SOP / คลังสินค้า' })}</p>
+						<p class="truncate text-sm font-semibold text-tnb-ink">{t({ en: 'Receiving goods into stock', th: 'การรับสินค้าเข้าคลัง' })}</p>
+					</div>
+					<span class="flex shrink-0 -space-x-1.5">
+						{#each editors as e (e.ini)}<span class="flex h-6 w-6 items-center justify-center rounded-full text-[9px] font-bold text-white ring-2 ring-white {e.c}">{e.ini}</span>{/each}
+					</span>
+				</div>
+				<p class="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700">✓ {t({ en: 'Verified until 31 Dec', th: 'ยืนยันแล้วถึง 31 ธ.ค.' })}</p>
+				<p class="mt-3 text-[11.5px] leading-relaxed text-tnb-ink-soft">{t({ en: 'Every delivery is checked against its purchase order before it is posted.', th: 'ของทุกล็อตต้องตรวจกับใบสั่งซื้อก่อนบันทึกรับเข้าคลัง' })}</p>
+				<div class="mt-3 space-y-1.5 rounded-xl border border-tnb-line p-3">
+					{#each sopSteps as c (c.label.en)}
+						<p class="flex items-center gap-2 text-[11.5px] {c.done ? 'text-tnb-ink-soft line-through' : 'text-tnb-ink'}">
+							<span class="flex h-4 w-4 shrink-0 items-center justify-center rounded border {c.done ? `${theme.solid} border-transparent text-white` : 'border-tnb-line'} text-[9px]">{c.done ? '✓' : ''}</span>{t(c.label)}
+						</p>
+					{/each}
+					<p class="flex items-center gap-1 pl-6 text-[11px] text-tnb-ink">
+						{t({ en: 'Krit is typing', th: 'กฤตกำลังพิมพ์' })}<span class="inline-block h-3.5 w-0.5 animate-pulse bg-violet-500"></span>
+					</p>
+				</div>
+				<div class="mt-3 flex items-center justify-between rounded-xl {theme.wash} px-3 py-2 text-[11px]">
+					<span class="text-tnb-ink">{t({ en: 'Edited by 3 people today · 👍 4', th: 'แก้ไขวันนี้ 3 คน · 👍 4' })}</span>
+					<span class="rounded-md {theme.solid} px-2 py-0.5 font-semibold text-white">{t({ en: 'Share', th: 'แชร์' })}</span>
+				</div>
+			{:else if module === 'accounting'}
+				<div class="flex items-start justify-between gap-3">
+					<div class="min-w-0">
+						<p class="text-[11px] font-medium text-tnb-ink-soft">INV-2026-0187</p>
+						<p class="truncate text-sm font-semibold text-tnb-ink">{t({ en: 'Tax invoice / Receipt', th: 'ใบกำกับภาษี / ใบเสร็จรับเงิน' })}</p>
+					</div>
+					<span class="shrink-0 rounded-full {theme.chip} px-2 py-0.5 text-[10.5px] font-semibold">{t({ en: 'Early access', th: 'ทดลองใช้' })}</span>
+				</div>
+				<p class="mt-2 truncate text-[11px] text-tnb-ink-soft">{t({ en: 'Customer: Chonburi Steel Co., Ltd. (Head office)', th: 'ลูกค้า: บริษัท ชลบุรีสตีล จำกัด (สำนักงานใหญ่)' })}</p>
+				<div class="mt-3 overflow-hidden rounded-xl border border-tnb-line text-[11px]">
+					<div class="grid grid-cols-[1fr_3rem_5rem] bg-[#fafbfd] px-3 py-1.5 font-semibold text-tnb-ink-soft">
+						<span>{t({ en: 'Item', th: 'รายการ' })}</span><span class="text-right">{t({ en: 'Qty', th: 'จำนวน' })}</span><span class="text-right">{t({ en: 'Amount', th: 'จำนวนเงิน' })}</span>
+					</div>
+					{#each invLines as l (l.d.en)}
+						<div class="grid grid-cols-[1fr_3rem_5rem] border-t border-tnb-line px-3 py-1.5 text-tnb-ink">
+							<span class="truncate">{t(l.d)}</span><span class="text-right tabular-nums">{l.q}</span><span class="text-right tabular-nums">{baht(l.q * l.p)}</span>
+						</div>
+					{/each}
+				</div>
+				<div class="mt-3 ml-auto w-full max-w-[15rem] space-y-1 text-[11px]">
+					<p class="flex justify-between text-tnb-ink-soft"><span>{t({ en: 'Subtotal', th: 'รวมเป็นเงิน' })}</span><span class="tabular-nums">{baht(invSub)}</span></p>
+					<p class="flex justify-between text-tnb-ink-soft"><span>{t({ en: 'VAT 7%', th: 'ภาษีมูลค่าเพิ่ม 7%' })}</span><span class="tabular-nums">{baht(invSub * 0.07)}</span></p>
+					<p class="flex justify-between border-t border-tnb-line pt-1 font-semibold text-tnb-ink"><span>{t({ en: 'Total', th: 'จำนวนเงินรวมทั้งสิ้น' })}</span><span class="tabular-nums">{baht(invSub * 1.07)}</span></p>
+				</div>
+				<div class="mt-3 flex items-center justify-between gap-2 rounded-xl {theme.wash} px-3 py-2 text-[11px]">
+					<span class="truncate text-tnb-ink">{t({ en: 'WHT 3% on service: ฿180.00 · posted to ledger', th: 'หัก ณ ที่จ่าย 3% ค่าบริการ: ฿180.00 · ลงบัญชีแล้ว' })}</span>
+					<span class="shrink-0 rounded-md {theme.solid} px-2 py-0.5 font-semibold text-white">{t({ en: 'Print', th: 'พิมพ์' })}</span>
 				</div>
 			{/if}
 		</div>

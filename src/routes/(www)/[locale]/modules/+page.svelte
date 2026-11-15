@@ -2,12 +2,12 @@
 	import * as m from '$lib/paraglide/messages';
 	import { localePath, toLocale } from '$lib/i18n';
 	import { modulesContent } from '$lib/marketing/modules-data';
-	import { Factory, Users, Store, Handshake, KeyRound, Wrench } from 'lucide-svelte';
+	import { Factory, Users, Store, Handshake, KeyRound, Wrench, BookOpen, Calculator } from 'lucide-svelte';
 	import { SUITE_THEME, type SuiteKey } from '$lib/marketing/suite-data';
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
 	const t = $derived.by(() => (b: { en: string; th: string }) => (locale === 'th' ? b.th : b.en));
-	const icons: Record<string, typeof Factory> = { operation: Factory, people: Users, commerce: Store, crm: Handshake, service: Wrench };
+	const icons: Record<string, typeof Factory> = { operation: Factory, people: Users, commerce: Store, crm: Handshake, service: Wrench, docs: BookOpen, accounting: Calculator };
 </script>
 
 <section class="bg-tnb-wash">
@@ -30,7 +30,10 @@
 					<span class="inline-flex h-12 w-12 items-center justify-center rounded-xl transition group-hover:scale-105 {th.chip}">
 						<Icon class="h-6 w-6" aria-hidden="true" />
 					</span>
-					<h2 class="mt-4 text-xl font-bold text-tnb-ink">{t(mod.name)}</h2>
+					<h2 class="mt-4 flex flex-wrap items-center gap-2 text-xl font-bold text-tnb-ink">
+						{t(mod.name)}
+						{#if mod.earlyAccess}<span class="rounded-full {th.chip} px-2.5 py-0.5 text-xs font-semibold">{m.mkt_early_access()}</span>{/if}
+					</h2>
 					<p class="mt-2 leading-relaxed text-tnb-ink-soft">{t(mod.tagline)}</p>
 				</a>
 			{/each}
@@ -50,11 +53,9 @@
 	<div class="container mx-auto px-4 py-16 text-center">
 		<h2 class="text-3xl font-bold tracking-tight text-white">{m.mod_cta_title()}</h2>
 		<p class="mx-auto mt-4 max-w-xl leading-relaxed text-white/70">{m.mod_cta_body()}</p>
-		<a
-			href={localePath(locale, '/pricing')}
-			class="btn-primary mt-8 px-6 py-3 text-base"
-		>
-			{m.mkt_hero_cta_primary()}
-		</a>
+		<div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+			<a href="https://app.tonbab.com/signup" class="btn-primary px-6 py-3 text-base">{m.mkt_start_free()}</a>
+			<a href={localePath(locale, '/pricing')} class="inline-flex items-center rounded-lg px-6 py-3 text-base font-semibold text-white ring-1 ring-white/25 transition hover:bg-white/10">{m.mod_cta_pricing()}</a>
+		</div>
 	</div>
 </section>

@@ -71,6 +71,19 @@
 			? data.siteSettings.themeLogoMediaId
 			: null,
 	);
+	// One list feeds the desktop dropdown, the mobile panel and the footer,
+	// so a new module can't be added to one and forgotten in the others.
+	const navModules: { key: string; label: () => string; early?: boolean }[] = [
+		{ key: 'operation', label: m.mkt_mod_operation_short },
+		{ key: 'people', label: m.mkt_mod_people_short },
+		{ key: 'commerce', label: m.mkt_mod_commerce_short },
+		{ key: 'crm', label: m.mkt_mod_crm_short },
+		{ key: 'service', label: m.mkt_mod_service_short },
+		{ key: 'docs', label: m.mkt_mod_docs_short },
+		{ key: 'accounting', label: m.mkt_mod_accounting_short, early: true }
+	];
+	const loc = $derived(toLocale(data.locale));
+
 	let mobileOpen = $state(false);
 	// Desktop dropdowns — one open at a time; outside click / Escape closes.
 	let openMenu = $state<'modules' | 'resources' | null>(null);
@@ -118,11 +131,9 @@
 					</button>
 					{#if openMenu === 'modules'}
 						<div class="absolute left-0 top-full z-50 mt-2 w-64 rounded-xl border border-tnb-line bg-tnb-paper p-2 shadow-[0_10px_30px_rgba(23,22,28,0.12)]">
-							<a href={localePath(toLocale(data.locale), '/modules/operation')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_mod_operation_short()}</a>
-							<a href={localePath(toLocale(data.locale), '/modules/people')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_mod_people_short()}</a>
-							<a href={localePath(toLocale(data.locale), '/modules/commerce')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_mod_commerce_short()}</a>
-							<a href={localePath(toLocale(data.locale), '/modules/crm')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_mod_crm_short()}</a>
-							<a href={localePath(toLocale(data.locale), '/modules/service')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_mod_service_short()}</a>
+							{#each navModules as nm (nm.key)}
+								<a href={localePath(loc, `/modules/${nm.key}`)} onclick={() => (openMenu = null)} class="flex items-center justify-between gap-2 rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{nm.label()}{#if nm.early}<span class="rounded-full bg-tnb-mist px-2 py-0.5 text-[11px] font-medium text-tnb-ink-soft">{m.mkt_early_access()}</span>{/if}</a>
+							{/each}
 							<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (openMenu = null)} class="mt-1 block rounded-lg border-t border-tnb-line px-3 py-2 pt-2.5 font-semibold text-tnb-blue hover:bg-tnb-mist">{m.mkt_nav_all_modules()} →</a>
 						</div>
 					{/if}
@@ -141,6 +152,7 @@
 					{#if openMenu === 'resources'}
 						<div class="absolute left-0 top-full z-50 mt-2 w-56 rounded-xl border border-tnb-line bg-tnb-paper p-2 shadow-[0_10px_30px_rgba(23,22,28,0.12)]">
 							<a href={localePath(toLocale(data.locale), '/docs')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_docs()}</a>
+							<a href={localePath(loc, '/developers')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_developers()}</a>
 							<a href={localePath(toLocale(data.locale), '/faq')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_faq()}</a>
 							<a href={localePath(toLocale(data.locale), '/blog')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.nav_blog()}</a>
 							<a href={localePath(toLocale(data.locale), '/story')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.story_nav()}</a>
@@ -184,11 +196,9 @@
 			<nav class="border-t border-tnb-hair bg-tnb-paper px-4 pb-5 pt-3 md:hidden">
 				<p class="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-tnb-ink-soft">{m.mkt_footer_modules()}</p>
 				<div class="flex flex-col gap-1 text-base">
-					<a href={localePath(toLocale(data.locale), '/modules/operation')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_mod_operation_short()}</a>
-					<a href={localePath(toLocale(data.locale), '/modules/people')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_mod_people_short()}</a>
-					<a href={localePath(toLocale(data.locale), '/modules/commerce')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_mod_commerce_short()}</a>
-					<a href={localePath(toLocale(data.locale), '/modules/crm')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_mod_crm_short()}</a>
-					<a href={localePath(toLocale(data.locale), '/modules/service')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_mod_service_short()}</a>
+					{#each navModules as nm (nm.key)}
+						<a href={localePath(loc, `/modules/${nm.key}`)} onclick={() => (mobileOpen = false)} class="flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{nm.label()}{#if nm.early}<span class="rounded-full bg-tnb-mist px-2 py-0.5 text-xs font-medium text-tnb-ink-soft">{m.mkt_early_access()}</span>{/if}</a>
+					{/each}
 					<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-semibold text-tnb-blue hover:bg-tnb-mist">{m.mkt_nav_all_modules()} →</a>
 				</div>
 				<div class="mt-2 flex flex-col gap-1 border-t border-tnb-line pt-2 text-base">
@@ -198,6 +208,7 @@
 				<p class="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-tnb-ink-soft">{m.mkt_footer_resources()}</p>
 				<div class="flex flex-col gap-1 text-base">
 					<a href={localePath(toLocale(data.locale), '/docs')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_docs()}</a>
+					<a href={localePath(loc, '/developers')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_developers()}</a>
 					<a href={localePath(toLocale(data.locale), '/faq')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_faq()}</a>
 					<a href={localePath(toLocale(data.locale), '/blog')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.nav_blog()}</a>
 					<a href={localePath(toLocale(data.locale), '/story')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.story_nav()}</a>
@@ -239,11 +250,9 @@
 			<nav aria-label={m.mkt_footer_modules()}>
 				<p class="text-sm font-medium text-tnb-ink-soft">{m.mkt_footer_modules()}</p>
 				<ul class="mt-3 space-y-2">
-					<li><a href={localePath(toLocale(data.locale), '/modules/operation')} class="text-tnb-ink hover:underline">{m.mkt_mod_operation_short()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/modules/people')} class="text-tnb-ink hover:underline">{m.mkt_mod_people_short()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/modules/commerce')} class="text-tnb-ink hover:underline">{m.mkt_mod_commerce_short()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/modules/crm')} class="text-tnb-ink hover:underline">{m.mkt_mod_crm_short()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/modules/service')} class="text-tnb-ink hover:underline">{m.mkt_mod_service_short()}</a></li>
+					{#each navModules as nm (nm.key)}
+						<li><a href={localePath(loc, `/modules/${nm.key}`)} class="text-tnb-ink hover:underline">{nm.label()}</a>{#if nm.early}<span class="ml-1.5 text-xs text-tnb-ink-soft">· {m.mkt_early_access()}</span>{/if}</li>
+					{/each}
 					<li><a href={localePath(toLocale(data.locale), '/modules')} class="font-medium text-tnb-blue hover:underline">{m.mkt_nav_all_modules()}</a></li>
 				</ul>
 			</nav>
@@ -254,7 +263,8 @@
 					<li><a href={localePath(toLocale(data.locale), '/faq')} class="text-tnb-ink hover:underline">{m.mkt_nav_faq()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/blog')} class="text-tnb-ink hover:underline">{m.nav_blog()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/story')} class="text-tnb-ink hover:underline">{m.story_nav()}</a></li>
-					<li><a href="https://api.tonbab.com/docs" class="text-tnb-ink hover:underline">API</a></li>
+					<li><a href={localePath(loc, '/developers')} class="text-tnb-ink hover:underline">{m.mkt_nav_developers()}</a></li>
+					<li><a href="https://api.tonbab.com/docs" class="text-tnb-ink hover:underline">{m.mkt_footer_api_docs()}</a></li>
 				</ul>
 			</nav>
 			<nav aria-label={m.mkt_footer_company()}>
@@ -262,8 +272,8 @@
 				<ul class="mt-3 space-y-2">
 					<li><a href={localePath(toLocale(data.locale), '/compare')} class="text-tnb-ink hover:underline">{m.mkt_nav_compare()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/pricing')} class="text-tnb-ink hover:underline">{m.mkt_nav_pricing()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/privacy')} class="text-tnb-ink hover:underline">Privacy</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/terms')} class="text-tnb-ink hover:underline">Terms</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/privacy')} class="text-tnb-ink hover:underline">{m.mkt_footer_privacy()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/terms')} class="text-tnb-ink hover:underline">{m.mkt_footer_terms()}</a></li>
 					{#each data.nav.footer as item (item.id)}
 						<li><a href={item.href} class="text-tnb-ink hover:underline">{item.label}</a></li>
 					{/each}
