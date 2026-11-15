@@ -104,7 +104,7 @@
 	<div class="relative container mx-auto px-4 pt-20 pb-16 text-center sm:pt-28">
 		<p class="mb-6 inline-flex items-center gap-2 rounded-full bg-tnb-mist px-3.5 py-1.5 text-sm font-medium text-tnb-ink-soft">
 			<span class="flex gap-0.5" aria-hidden="true">
-				{#each suiteModules as sm (sm.key)}<span class="h-2 w-2 rounded-full {SUITE_THEME[sm.key].solid}"></span>{/each}
+				{#each suiteModules.filter((sm) => !sm.earlyAccess) as sm (sm.key)}<span class="h-2 w-2 rounded-full {SUITE_THEME[sm.key].solid}"></span>{/each}
 			</span>
 			{t({ en: 'One Thai-first platform · 6 modules · 3 kiosk apps', th: 'แพลตฟอร์มเดียวสไตล์ไทย · 6 โมดูล · 3 แอปคีออสก์' })}
 		</p>
@@ -297,7 +297,8 @@
 				<ol class="relative flex justify-between">
 					{#each loopSteps as s, i (i)}
 						{@const th = SUITE_THEME[s.module]}
-						<li class="flex w-10 flex-col items-center">
+						<!-- Edge labels hang inward so the w-24 caption never pokes past the page edge. -->
+						<li class="flex w-10 flex-col {i === 0 ? 'items-start' : i === loopSteps.length - 1 ? 'items-end' : 'items-center'}">
 							<button
 								type="button"
 								onclick={() => { step = i; playing = false; }}
@@ -306,7 +307,7 @@
 								class="flex h-10 w-10 items-center justify-center rounded-full text-xs font-bold ring-4 ring-white transition
 									{i <= step ? `${th.solid} text-white` : 'bg-tnb-line text-tnb-ink-soft hover:bg-tnb-wash-deep'} {step === i ? 'scale-110 shadow-lg' : ''}"
 							>{i + 1}</button>
-							<span class="mt-2 hidden w-24 text-center text-[11.5px] leading-tight font-medium md:block {step === i ? th.text : 'text-tnb-ink-soft'}">{t(s.doc)}</span>
+							<span class="mt-2 hidden w-24 text-[11.5px] leading-tight font-medium md:block {i === 0 ? 'text-left' : i === loopSteps.length - 1 ? 'text-right' : 'text-center'} {step === i ? th.text : 'text-tnb-ink-soft'}">{t(s.doc)}</span>
 						</li>
 					{/each}
 				</ol>
@@ -482,6 +483,11 @@
 		.section-title {
 			font-size: 3rem;
 		}
+	}
+	/* Thai marks stack above/below the line — no negative tracking, a bit more leading. */
+	:global(html[lang='th']) .section-title {
+		letter-spacing: normal;
+		line-height: 1.3;
 	}
 	.section-lede {
 		margin: 1rem auto 0;

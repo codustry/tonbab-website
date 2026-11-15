@@ -1124,5 +1124,6 @@
 	"pr_api_link": "How the API & AI connector work",
 	"pr_accounting_title": "Accounting — invitation-only early access",
 	"pr_accounting_body": "Tonbab's Accounting module (tax invoices, VAT and WHT reports, ledger and statements) is being built with a small group of companies. It isn't priced or included in the plans above yet.",
-	"pr_accounting_cta": "Learn more"
+	"pr_accounting_cta": "Learn more",
+	"story_mail_subject": "Tonbab — our customer story"
 }

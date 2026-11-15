@@ -70,8 +70,9 @@
 	<div class="container mx-auto max-w-3xl px-4 py-16 text-center">
 		<h2 class="text-3xl font-bold tracking-tight text-white">{m.story_customers_title()}</h2>
 		<p class="mx-auto mt-4 leading-relaxed text-white/70">{m.story_customers_body()}</p>
+		<!-- "Talk to us" is an email, not the pricing page it used to point at. -->
 		<a
-			href={localePath(locale, '/pricing')}
+			href={`mailto:hello@tonbab.com?subject=${encodeURIComponent(m.story_mail_subject())}`}
 			class="btn-primary mt-8 px-6 py-3 text-base"
 		>
 			{m.story_cta()}

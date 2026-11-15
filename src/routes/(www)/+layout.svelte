@@ -116,7 +116,7 @@
 				{/if}
 				{data.siteSettings?.siteName ?? m.site_name()}</a
 			>
-			<nav class="hidden flex-1 items-center gap-1 text-[15px] md:flex">
+			<nav class="hidden flex-1 items-center gap-1 whitespace-nowrap text-[15px] lg:flex">
 				<!-- Marketing nav: this fork removes the shop/cart/account surface —
 				     tonbab.com sells a demo, not a catalog. CMS-managed nav.primary
 				     items still render so editors can add links without a deploy. -->
@@ -179,7 +179,7 @@
 				</div>
 			</nav>
 			<!-- Mobile: login stays visible; everything else folds into the panel. -->
-			<div class="flex items-center gap-2 md:hidden">
+			<div class="flex items-center gap-2 lg:hidden">
 				<a href="https://app.tonbab.com/signup" class="btn-primary px-3.5 py-2 text-sm">{m.mkt_start_free()}</a>
 				<button
 					type="button"
@@ -193,7 +193,9 @@
 			</div>
 		</div>
 		{#if mobileOpen}
-			<nav class="border-t border-tnb-hair bg-tnb-paper px-4 pb-5 pt-3 md:hidden">
+			<!-- Scrolls inside itself: the header is sticky, so a panel taller than
+			     the screen would otherwise hide its last rows (language, Log in). -->
+			<nav class="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-tnb-hair bg-tnb-paper px-4 pb-5 pt-3 lg:hidden">
 				<p class="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-tnb-ink-soft">{m.mkt_footer_modules()}</p>
 				<div class="flex flex-col gap-1 text-base">
 					{#each navModules as nm (nm.key)}
@@ -249,33 +251,33 @@
 			</div>
 			<nav aria-label={m.mkt_footer_modules()}>
 				<p class="text-sm font-medium text-tnb-ink-soft">{m.mkt_footer_modules()}</p>
-				<ul class="mt-3 space-y-2">
+				<ul class="mt-2 space-y-0.5">
 					{#each navModules as nm (nm.key)}
-						<li><a href={localePath(loc, `/modules/${nm.key}`)} class="text-tnb-ink hover:underline">{nm.label()}</a>{#if nm.early}<span class="ml-1.5 text-xs text-tnb-ink-soft">· {m.mkt_early_access()}</span>{/if}</li>
+						<li><a href={localePath(loc, `/modules/${nm.key}`)} class="inline-block py-1 text-tnb-ink hover:underline">{nm.label()}</a>{#if nm.early}<span class="ml-1.5 text-xs text-tnb-ink-soft">· {m.mkt_early_access()}</span>{/if}</li>
 					{/each}
-					<li><a href={localePath(toLocale(data.locale), '/modules')} class="font-medium text-tnb-blue hover:underline">{m.mkt_nav_all_modules()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/modules')} class="inline-block py-1 font-medium text-tnb-blue hover:underline">{m.mkt_nav_all_modules()}</a></li>
 				</ul>
 			</nav>
 			<nav aria-label={m.mkt_footer_resources()}>
 				<p class="text-sm font-medium text-tnb-ink-soft">{m.mkt_footer_resources()}</p>
-				<ul class="mt-3 space-y-2">
-					<li><a href={localePath(toLocale(data.locale), '/docs')} class="text-tnb-ink hover:underline">{m.mkt_nav_docs()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/faq')} class="text-tnb-ink hover:underline">{m.mkt_nav_faq()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/blog')} class="text-tnb-ink hover:underline">{m.nav_blog()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/story')} class="text-tnb-ink hover:underline">{m.story_nav()}</a></li>
-					<li><a href={localePath(loc, '/developers')} class="text-tnb-ink hover:underline">{m.mkt_nav_developers()}</a></li>
-					<li><a href="https://api.tonbab.com/docs" class="text-tnb-ink hover:underline">{m.mkt_footer_api_docs()}</a></li>
+				<ul class="mt-2 space-y-0.5">
+					<li><a href={localePath(toLocale(data.locale), '/docs')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_docs()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/faq')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_faq()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/blog')} class="inline-block py-1 text-tnb-ink hover:underline">{m.nav_blog()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/story')} class="inline-block py-1 text-tnb-ink hover:underline">{m.story_nav()}</a></li>
+					<li><a href={localePath(loc, '/developers')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_developers()}</a></li>
+					<li><a href="https://api.tonbab.com/docs" class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_footer_api_docs()}</a></li>
 				</ul>
 			</nav>
 			<nav aria-label={m.mkt_footer_company()}>
 				<p class="text-sm font-medium text-tnb-ink-soft">{m.mkt_footer_company()}</p>
-				<ul class="mt-3 space-y-2">
-					<li><a href={localePath(toLocale(data.locale), '/compare')} class="text-tnb-ink hover:underline">{m.mkt_nav_compare()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/pricing')} class="text-tnb-ink hover:underline">{m.mkt_nav_pricing()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/privacy')} class="text-tnb-ink hover:underline">{m.mkt_footer_privacy()}</a></li>
-					<li><a href={localePath(toLocale(data.locale), '/terms')} class="text-tnb-ink hover:underline">{m.mkt_footer_terms()}</a></li>
+				<ul class="mt-2 space-y-0.5">
+					<li><a href={localePath(toLocale(data.locale), '/compare')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_compare()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/pricing')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_pricing()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/privacy')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_footer_privacy()}</a></li>
+					<li><a href={localePath(toLocale(data.locale), '/terms')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_footer_terms()}</a></li>
 					{#each data.nav.footer as item (item.id)}
-						<li><a href={item.href} class="text-tnb-ink hover:underline">{item.label}</a></li>
+						<li><a href={item.href} class="inline-block py-1 text-tnb-ink hover:underline">{item.label}</a></li>
 					{/each}
 				</ul>
 			</nav>
