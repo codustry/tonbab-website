@@ -2,6 +2,7 @@ import { error } from "@sveltejs/kit";
 import { resolveOrigin } from "$lib/seo";
 import { ShopService } from "$plugins/shop/service";
 import { SUPPORTED_LOCALES } from "$lib/i18n";
+import { modulesContent } from "$lib/marketing/modules-data";
 import type { Locale } from "$lib/server/content/types";
 import type { RequestHandler } from "./$types";
 
@@ -41,21 +42,25 @@ export const GET: RequestHandler = async ({
     locals.content.listPages({ status: "published", onlyPublished: true }),
   ]);
 
-  const staticUrls = [
-    { path: `/${locale}`, lastmod: new Date().toISOString() },
-    { path: `/${locale}/blog`, lastmod: new Date().toISOString() },
-    // Fork: bespoke marketing routes live in code, not the pages table —
-    // without these entries they are invisible to the sitemap.
-    { path: `/${locale}/modules`, lastmod: new Date().toISOString() },
-    { path: `/${locale}/modules/operation`, lastmod: new Date().toISOString() },
-    { path: `/${locale}/modules/people`, lastmod: new Date().toISOString() },
-    { path: `/${locale}/modules/commerce`, lastmod: new Date().toISOString() },
-    { path: `/${locale}/modules/crm`, lastmod: new Date().toISOString() },
-    { path: `/${locale}/modules/service`, lastmod: new Date().toISOString() },
-    { path: `/${locale}/compare`, lastmod: new Date().toISOString() },
-    { path: `/${locale}/story`, lastmod: new Date().toISOString() },
-    { path: `/${locale}/pricing`, lastmod: new Date().toISOString() },
+  // Fork: bespoke marketing routes live in code, not the pages table —
+  // without these entries they are invisible to the sitemap. Module pages
+  // come from modules-data so a new module is listed automatically.
+  const now = new Date().toISOString();
+  const staticPaths = [
+    "",
+    "/blog",
+    "/modules",
+    ...modulesContent.map((mc) => `/modules/${mc.key}`),
+    "/developers",
+    "/compare",
+    "/story",
+    "/pricing",
   ];
+  const staticUrls = staticPaths.map((p) => ({
+    path: `/${locale}${p}`,
+    lastmod: now,
+    alternates: SUPPORTED_LOCALES.map((l) => ({ locale: l, path: `/${l}${p}` })),
+  }));
 
   const articleUrls = articles.items.map((a) => ({
     path: `/${locale}/blog/${a.slug}`,
@@ -124,10 +129,15 @@ export const GET: RequestHandler = async ({
           `    <xhtml:link rel="alternate" hreflang="${a.locale}" href="${origin}${a.path}" />`,
       )
       .join("\n");
+    // x-default = Thai, matching <Seo /> and the Thai-first root redirect.
+    const thAlt = e.alternates?.find((a) => a.locale === "th");
+    const xDefault = thAlt
+      ? `\n    <xhtml:link rel="alternate" hreflang="x-default" href="${origin}${thAlt.path}" />`
+      : "";
     return `  <url>
     <loc>${origin}${e.path}</loc>
     <lastmod>${e.lastmod}</lastmod>
-${alts}
+${alts}${xDefault}
   </url>`;
   };
 

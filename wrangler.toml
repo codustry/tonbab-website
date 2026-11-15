@@ -50,7 +50,7 @@ id = "bf6fdeb22d7049928083674ad849a25b"
 # "production" (including unset) is noindexed — fail-closed (#145).
 WORKERS_ENV = "production"
 SUPPORTED_LOCALES = "en,th"
-DEFAULT_LOCALE = "en"
+DEFAULT_LOCALE = "th"
 PUBLIC_SITE_URL = "https://example.com"
 # CMS_SITE_URL is kept for backwards-compat (R2 media URL generation).
 # Since v1.1 the admin lives at /admin/* on the same host as the public site.
@@ -91,7 +91,7 @@ name = "khaopad-staging"
 [env.staging.vars]
 WORKERS_ENV = "staging"
 SUPPORTED_LOCALES = "en,th"
-DEFAULT_LOCALE = "en"
+DEFAULT_LOCALE = "th"
 PUBLIC_SITE_URL = "https://staging.example.com"
 CMS_SITE_URL = "https://staging.example.com"
 BETTER_AUTH_URL = "https://staging.example.com"
@@ -120,7 +120,7 @@ name = "khaopad"
 [env.production.vars]
 WORKERS_ENV = "production"
 SUPPORTED_LOCALES = "en,th"
-DEFAULT_LOCALE = "en"
+DEFAULT_LOCALE = "th"
 PUBLIC_SITE_URL = "https://example.com"
 CMS_SITE_URL = "https://www.tonbab.com"
 BETTER_AUTH_URL = "https://www.tonbab.com"

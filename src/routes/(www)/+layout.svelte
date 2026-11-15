@@ -3,6 +3,7 @@
 	import * as m from '$lib/paraglide/messages';
 	import { localePath, toLocale, getAlternateLocale, SUPPORTED_LOCALES } from '$lib/i18n';
 	import { page } from '$app/state';
+	import { cookieName, cookieMaxAge } from '$lib/paraglide/runtime';
 	import Seo from '$lib/components/seo/Seo.svelte';
 	import CookieBanner from '$lib/components/consent/CookieBanner.svelte';
 	import HeaderSearch from '$lib/components/www/HeaderSearch.svelte';
@@ -53,6 +54,17 @@
 		return `/${segments.join('/')}${page.url.search}`;
 	});
 
+	// The toggle is the ONE place a visitor states a language preference.
+	// Remember it so bare `/` (Thai-first by default) sends them back to
+	// the language they picked — see (www)/+page.server.ts.
+	function rememberLocale() {
+		try {
+			document.cookie = `${cookieName}=${alternateLocale}; path=/; max-age=${cookieMaxAge}; SameSite=Lax`;
+		} catch {
+			/* cookies blocked — the link still switches language */
+		}
+	}
+
 	const themeLogoMediaId = $derived(
 		typeof data.siteSettings?.themeLogoMediaId === 'string' &&
 			data.siteSettings.themeLogoMediaId
@@ -80,7 +92,7 @@
 >
 	<header class="sticky top-0 z-40 border-b border-tnb-hair bg-tnb-paper/90 backdrop-blur">
 		<div class="container mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-4">
-			<a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-tnb-ink">
+			<a href={`/${toLocale(data.locale)}`} class="flex items-center gap-2 text-xl font-bold tracking-tight text-tnb-ink">
 				{#if themeLogoMediaId}
 					<img
 						src={`/api/media/${themeLogoMediaId}`}
@@ -142,6 +154,8 @@
 					<HeaderSearch locale={toLocale(data.locale)} />
 					<a
 						href={alternateHref}
+						hreflang={alternateLocale}
+						onclick={rememberLocale}
 						data-sveltekit-reload
 						class="rounded-md px-2.5 py-1.5 text-sm text-tnb-ink-soft hover:bg-tnb-mist"
 					>
@@ -195,6 +209,8 @@
 					<HeaderSearch locale={toLocale(data.locale)} />
 					<a
 						href={alternateHref}
+						hreflang={alternateLocale}
+						onclick={rememberLocale}
 						data-sveltekit-reload
 						class="rounded border border-tnb-line px-2.5 py-1.5 text-sm hover:bg-tnb-mist"
 					>

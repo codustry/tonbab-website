@@ -71,8 +71,9 @@
 	{#each Object.entries(alternates) as [altLocale, href] (altLocale)}
 		<link rel="alternate" hreflang={altLocale} {href} />
 	{/each}
-	{#if Object.keys(alternates).length > 0 && alternates.en}
-		<link rel="alternate" hreflang="x-default" href={alternates.en} />
+	<!-- x-default = Thai: tonbab.com is Thai-first, and bare `/` lands on /th. -->
+	{#if Object.keys(alternates).length > 0 && (alternates.th ?? alternates.en)}
+		<link rel="alternate" hreflang="x-default" href={alternates.th ?? alternates.en} />
 	{/if}
 
 	<!-- Twitter Card -->
