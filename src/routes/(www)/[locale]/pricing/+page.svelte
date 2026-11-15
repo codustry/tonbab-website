@@ -10,11 +10,15 @@
 	 * company starts on the 30-day Business trial, then Free); Enterprise emails us.
 	 */
 	import * as m from '$lib/paraglide/messages';
-	import { Check, Minus, Plus, Building2, Sparkles, Mail } from 'lucide-svelte';
+	import { localePath, toLocale } from '$lib/i18n';
+	import { Check, Minus, Plus, Building2, Sparkles, Mail, ArrowRight } from 'lucide-svelte';
+
+	let { data } = $props();
+	const locale = $derived.by(() => toLocale(data.locale));
 
 	type Cell = boolean | string;
 	type Row = { label: () => string; free: Cell; business: Cell; enterprise: Cell };
-	type Group = { title: () => string; rows: Row[] };
+	type Group = { title: () => string; rows: Row[]; note?: () => string; link?: { href: string; label: () => string } };
 
 	const thb = (n: number) => '฿' + n.toLocaleString('en-US');
 	const mailto = (subject: string) => `mailto:hello@tonbab.com?subject=${encodeURIComponent(subject)}`;
@@ -90,13 +94,27 @@
 			]
 		},
 		{
+			// Mirrors plans.ts API_LIMITS (owner-approved 2026-11-15). Free is a
+			// read-only taste; drafts need Business or Enterprise.
+			title: m.pr_g_api,
+			rows: [
+				{ label: m.pr_r_api_access, free: m.pr_r_api_read_only(), business: true, enterprise: true },
+				{ label: m.pr_r_api_drafts, free: false, business: true, enterprise: true },
+				{ label: m.pr_r_api_keys, free: '1', business: '5', enterprise: U() },
+				{ label: m.pr_r_api_webhooks, free: '1', business: '3', enterprise: '20' },
+				{ label: m.pr_r_api_rpm, free: '10', business: '60', enterprise: '600' },
+				{ label: m.pr_r_api_daily, free: '300', business: '20,000', enterprise: '500,000' }
+			],
+			note: m.pr_api_note,
+			link: { href: '/developers', label: m.pr_api_link }
+		},
+		{
 			title: m.pr_g_security,
 			rows: [
 				{ label: m.pr_r_sso, free: false, business: true, enterprise: true },
 				{ label: m.pr_r_roles, free: false, business: true, enterprise: true },
 				{ label: m.pr_r_audit, free: false, business: m.pr_r_audit_1y(), enterprise: m.pr_r_audit_3y() },
 				{ label: m.pr_r_scim, free: false, business: false, enterprise: true },
-				{ label: m.pr_r_api, free: false, business: false, enterprise: true },
 				{ label: m.pr_r_support, free: false, business: true, enterprise: true },
 				{ label: m.pr_r_sla, free: false, business: false, enterprise: true },
 				{ label: m.pr_r_csm, free: false, business: false, enterprise: true }
@@ -171,6 +189,7 @@
 					{@render bullet(m.pr_b_free_5())}
 					{@render bullet(m.pr_b_free_6())}
 					{@render bullet(m.pr_b_free_7())}
+					{@render bullet(m.pr_b_free_8())}
 				</ul>
 			</div>
 		</div>
@@ -200,6 +219,7 @@
 						{@render bullet(m.pr_b_bus_7())}
 						{@render bullet(m.pr_b_bus_8())}
 						{@render bullet(m.pr_b_bus_9())}
+						{@render bullet(m.pr_b_bus_10())}
 					</ul>
 				</div>
 				<!-- Enterprise -->
@@ -254,11 +274,28 @@
 							<td class="border-t border-tnb-hair py-3 pr-3">{@render cell(r.enterprise)}</td>
 						</tr>
 					{/each}
+					{#if g.note || g.link}
+						<tr>
+							<td colspan="4" class="border-t border-tnb-hair pt-3 text-sm leading-relaxed text-tnb-ink-soft">
+								{#if g.note}{g.note()}{/if}
+								{#if g.link}<a href={localePath(locale, g.link.href)} class="ml-1 inline-flex items-center gap-0.5 font-medium text-tnb-blue hover:underline">{g.link.label()}<ArrowRight class="h-3.5 w-3.5" aria-hidden="true" /></a>{/if}
+							</td>
+						</tr>
+					{/if}
 				</tbody>
 			{/each}
 		</table>
 	</div>
 	<p class="mt-4 text-sm text-tnb-ink-soft">{m.pr_vat_note()}</p>
+
+	<!-- Accounting is invitation-only early access: no price, no limits table. -->
+	<div class="mt-10 flex flex-col gap-4 rounded-2xl bg-tnb-mist p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+		<div class="max-w-2xl">
+			<p class="font-semibold text-tnb-ink">{m.pr_accounting_title()}</p>
+			<p class="mt-1.5 text-[15px] leading-relaxed text-tnb-ink-soft">{m.pr_accounting_body()}</p>
+		</div>
+		<a href={localePath(locale, '/modules/accounting')} class="btn-soft shrink-0">{m.pr_accounting_cta()}</a>
+	</div>
 </section>
 
 <!-- Add-ons -->

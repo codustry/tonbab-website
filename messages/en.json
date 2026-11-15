@@ -1053,7 +1053,6 @@
 	"pr_r_audit_1y": "1 year",
 	"pr_r_audit_3y": "3 years, exportable",
 	"pr_r_scim": "SCIM, IP allow-list, enforced 2FA",
-	"pr_r_api": "API & webhooks",
 	"pr_r_support": "Priority support on LINE",
 	"pr_r_sla": "99.9% uptime SLA",
 	"pr_r_csm": "Success manager & staff training",
