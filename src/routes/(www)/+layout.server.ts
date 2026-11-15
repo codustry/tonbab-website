@@ -31,7 +31,7 @@ export const load: LayoutServerLoad = async ({
   // v1.7b: pre-resolve the primary + footer menus into render-ready
   // arrays so the layout's header/footer can iterate without doing
   // any database work itself.
-  const locale = (locals.locale ?? "en") as Locale;
+  const locale = (locals.locale ?? "th") as Locale;
   const nav = await loadNavigation(locals.content, ["primary", "footer"]);
   const renderMenu = (key: string) => {
     const menu = nav.menus[key];

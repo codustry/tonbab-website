@@ -44,7 +44,7 @@ const bindingsHook: Handle = async ({ event, resolve }) => {
   const supportedLocales = (env?.SUPPORTED_LOCALES ?? "en,th")
     .split(",")
     .map((s) => s.trim());
-  const defaultLocale = env?.DEFAULT_LOCALE ?? "en";
+  const defaultLocale = env?.DEFAULT_LOCALE ?? "th";
   // Locale resolution differs by surface, deliberately.
   //
   //   (www)   → URL segment. /en/blog vs /th/blog is SEO-visible and
@@ -540,7 +540,7 @@ const analyticsPageViewHook: Handle = async ({ event, resolve }) => {
         request: event.request,
         sessionId,
         userId: event.locals.user?.id ?? null,
-        locale: localeMatch?.[1] ?? event.locals.locale ?? "en",
+        locale: localeMatch?.[1] ?? event.locals.locale ?? "th",
       }),
     );
   } catch {

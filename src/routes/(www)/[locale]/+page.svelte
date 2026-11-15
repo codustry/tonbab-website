@@ -6,7 +6,8 @@
 		CalendarRange, UserPlus, UserCircle, Store, ShoppingBag, MessageCircle, CreditCard, Kanban, Building2,
 		CalendarClock, Landmark, RefreshCw, BarChart3, Wrench, UserCheck, ShieldCheck, LayoutDashboard, Inbox,
 		MonitorSmartphone, KeyRound, FileSpreadsheet, Languages, QrCode, Scale, Smartphone, Package, Check,
-		ArrowRight, Play, Pause, Handshake, Layers
+		ArrowRight, Play, Pause, Handshake, Layers, BookOpen, Table2, BadgeCheck, FileText, Percent, BookOpenCheck,
+		Bot, Calculator
 	} from 'lucide-svelte';
 	import { countUp } from '$lib/marketing/animate';
 	import ProductMock from '$lib/components/www/ProductMock.svelte';
@@ -24,10 +25,12 @@
 		Briefcase, ShoppingCart, PackageCheck, Boxes, Factory, Truck, ReceiptText, Users, CalendarDays, Clock,
 		CalendarRange, UserPlus, UserCircle, Store, ShoppingBag, MessageCircle, CreditCard, Kanban, Building2,
 		CalendarClock, Landmark, RefreshCw, BarChart3, Wrench, UserCheck, ShieldCheck, LayoutDashboard, Inbox,
-		MonitorSmartphone, KeyRound, FileSpreadsheet, Languages, QrCode, Scale, Smartphone, Package
+		MonitorSmartphone, KeyRound, FileSpreadsheet, Languages, QrCode, Scale, Smartphone, Package, BookOpen, Table2,
+		BadgeCheck, FileText, Percent, BookOpenCheck, Bot
 	};
 	const MODULE_ICON: Record<SuiteKey, typeof Factory> = {
-		operation: Factory, people: Users, commerce: Store, crm: Handshake, service: Wrench, platform: Layers
+		operation: Factory, people: Users, commerce: Store, crm: Handshake, service: Wrench, docs: BookOpen,
+		accounting: Calculator, platform: Layers
 	};
 	const MODULE_LABEL: Record<SuiteKey, Bi> = {
 		operation: { en: 'Operation', th: 'Operation' },
@@ -35,6 +38,8 @@
 		commerce: { en: 'Commerce', th: 'Commerce' },
 		crm: { en: 'CRM', th: 'CRM' },
 		service: { en: 'Service', th: 'Service' },
+		docs: { en: 'Docs', th: 'Docs' },
+		accounting: { en: 'Accounting', th: 'บัญชี' },
 		platform: { en: 'Platform', th: 'แพลตฟอร์ม' }
 	};
 
@@ -69,7 +74,8 @@
 
 	// ── App grid filter
 	let filter = $state<SuiteKey | 'all'>('all');
-	const filters: (SuiteKey | 'all')[] = ['all', 'operation', 'people', 'commerce', 'crm', 'service', 'platform'];
+	const filters: (SuiteKey | 'all')[] = ['all', 'operation', 'people', 'commerce', 'crm', 'service', 'docs', 'accounting', 'platform'];
+	const EARLY = { en: 'Early access', th: 'ทดลองใช้' };
 	const shownApps = $derived(filter === 'all' ? suiteApps : suiteApps.filter((a) => a.module === filter));
 
 	// ── Connected loop stepper
@@ -98,9 +104,9 @@
 	<div class="relative container mx-auto px-4 pt-20 pb-16 text-center sm:pt-28">
 		<p class="mb-6 inline-flex items-center gap-2 rounded-full bg-tnb-mist px-3.5 py-1.5 text-sm font-medium text-tnb-ink-soft">
 			<span class="flex gap-0.5" aria-hidden="true">
-				{#each suiteModules as sm (sm.key)}<span class="h-2 w-2 rounded-full {SUITE_THEME[sm.key].solid}"></span>{/each}
+				{#each suiteModules.filter((sm) => !sm.earlyAccess) as sm (sm.key)}<span class="h-2 w-2 rounded-full {SUITE_THEME[sm.key].solid}"></span>{/each}
 			</span>
-			{t({ en: 'One Thai-first platform · 5 modules · 3 kiosk apps', th: 'แพลตฟอร์มเดียวสไตล์ไทย · 5 โมดูล · 3 แอปคีออสก์' })}
+			{t({ en: 'One Thai-first platform · 6 modules · 3 kiosk apps', th: 'แพลตฟอร์มเดียวสไตล์ไทย · 6 โมดูล · 3 แอปคีออสก์' })}
 		</p>
 		<h1 class="mx-auto max-w-4xl text-[2.6rem] font-bold leading-[1.1] tracking-tight text-tnb-ink sm:text-7xl">
 			{t({ en: 'One system that runs your', th: 'ระบบเดียว ที่ดูแลครบทั้ง' })}
@@ -112,8 +118,8 @@
 		</h1>
 		<p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-tnb-ink-soft">
 			{t({
-				en: 'Purchasing, stock, production, HR, POS, chat, sales and after-sales service — in one database, in Thai and English, on every device.',
-				th: 'จัดซื้อ สต็อก การผลิต บุคคล หน้าร้าน แชท งานขาย และบริการหลังการขาย — ในฐานข้อมูลเดียว ภาษาไทยและอังกฤษ ใช้ได้ทุกอุปกรณ์'
+				en: 'Purchasing, stock, production, HR, POS, chat, sales, after-sales service and your company wiki — in one database, in Thai and English, on every device.',
+				th: 'จัดซื้อ สต็อก การผลิต บุคคล หน้าร้าน แชท งานขาย บริการหลังการขาย และคลังความรู้ของบริษัท — ในฐานข้อมูลเดียว ภาษาไทยและอังกฤษ ใช้ได้ทุกอุปกรณ์'
 			})}
 		</p>
 		<div class="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -145,6 +151,7 @@
 						<span class="flex h-6 w-6 items-center justify-center rounded-full {th.chip}"><Icon class="h-3.5 w-3.5" aria-hidden="true" /></span>
 						{t(sm.name)}
 						<span class="hidden text-xs font-normal text-tnb-ink-soft md:inline">· {t(sm.short)}</span>
+						{#if sm.earlyAccess}<span class="rounded-full {th.chip} px-1.5 py-0.5 text-[10px] font-semibold">{t(EARLY)}</span>{/if}
 						{#if active === i && !userPicked && !reduced}
 							<span class="progress absolute bottom-0 left-0 h-0.5 {th.solid}"></span>
 						{/if}
@@ -157,7 +164,7 @@
 					<div class="fade-in min-w-0"><ProductMock module={activeMod.key} {locale} /></div>
 				{/key}
 				<div class="rounded-2xl bg-white/85 p-5 ring-1 ring-tnb-wash-deep">
-					<p class="text-xs font-semibold uppercase tracking-wider {SUITE_THEME[activeMod.key].text}">{t(activeMod.short)}</p>
+					<p class="text-xs font-semibold uppercase tracking-wider {SUITE_THEME[activeMod.key].text}">{t(activeMod.short)}{#if activeMod.earlyAccess} · {t(EARLY)}{/if}</p>
 					<p class="mt-2 font-semibold leading-snug text-tnb-ink">{t(activeMod.pitch)}</p>
 					<ul class="mt-4 space-y-2.5">
 						{#each activeMod.points as p (p.en)}
@@ -262,14 +269,14 @@
 				{@const Icon = ICONS[app.icon] ?? Layers}
 				{@const th = SUITE_THEME[app.module]}
 				<a
-					href={app.module === 'platform' ? localePath(locale, '/modules') : localePath(locale, `/modules/${app.module}`)}
+					href={app.href ? localePath(locale, app.href) : app.module === 'platform' ? localePath(locale, '/modules') : localePath(locale, `/modules/${app.module}`)}
 					class="group flex gap-3.5 rounded-xl border border-tnb-line/60 bg-white p-4 shadow-[0_1px_2px_rgba(23,22,28,0.05)] transition hover:-translate-y-0.5 hover:shadow-md"
 				>
 					<span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition group-hover:scale-105 {th.chip}"><Icon class="h-5 w-5" aria-hidden="true" /></span>
 					<span class="min-w-0">
 						<span class="block font-semibold text-tnb-ink">{t(app.name)}</span>
 						<span class="mt-0.5 block text-[13.5px] leading-snug text-tnb-ink-soft">{t(app.body)}</span>
-						<span class="mt-1.5 block text-[11px] font-semibold uppercase tracking-wider {th.text}">{t(MODULE_LABEL[app.module])}</span>
+						<span class="mt-1.5 block text-[11px] font-semibold uppercase tracking-wider {th.text}">{t(MODULE_LABEL[app.module])}{#if app.earlyAccess} · {t(EARLY)}{/if}</span>
 					</span>
 				</a>
 			{/each}
@@ -290,7 +297,8 @@
 				<ol class="relative flex justify-between">
 					{#each loopSteps as s, i (i)}
 						{@const th = SUITE_THEME[s.module]}
-						<li class="flex w-10 flex-col items-center">
+						<!-- Edge labels hang inward so the w-24 caption never pokes past the page edge. -->
+						<li class="flex w-10 flex-col {i === 0 ? 'items-start' : i === loopSteps.length - 1 ? 'items-end' : 'items-center'}">
 							<button
 								type="button"
 								onclick={() => { step = i; playing = false; }}
@@ -299,7 +307,7 @@
 								class="flex h-10 w-10 items-center justify-center rounded-full text-xs font-bold ring-4 ring-white transition
 									{i <= step ? `${th.solid} text-white` : 'bg-tnb-line text-tnb-ink-soft hover:bg-tnb-wash-deep'} {step === i ? 'scale-110 shadow-lg' : ''}"
 							>{i + 1}</button>
-							<span class="mt-2 hidden w-24 text-center text-[11.5px] leading-tight font-medium md:block {step === i ? th.text : 'text-tnb-ink-soft'}">{t(s.doc)}</span>
+							<span class="mt-2 hidden w-24 text-[11.5px] leading-tight font-medium md:block {i === 0 ? 'text-left' : i === loopSteps.length - 1 ? 'text-right' : 'text-center'} {step === i ? th.text : 'text-tnb-ink-soft'}">{t(s.doc)}</span>
 						</li>
 					{/each}
 				</ol>
@@ -475,6 +483,11 @@
 		.section-title {
 			font-size: 3rem;
 		}
+	}
+	/* Thai marks stack above/below the line — no negative tracking, a bit more leading. */
+	:global(html[lang='th']) .section-title {
+		letter-spacing: normal;
+		line-height: 1.3;
 	}
 	.section-lede {
 		margin: 1rem auto 0;

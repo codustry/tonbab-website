@@ -10,7 +10,7 @@
  */
 import type { Bi } from "./compare-data";
 
-export type SuiteKey = "operation" | "people" | "commerce" | "crm" | "service" | "platform";
+export type SuiteKey = "operation" | "people" | "commerce" | "crm" | "service" | "docs" | "accounting" | "platform";
 
 export interface SuiteTheme {
 	/** Solid swatch (dots, active tab bar). */
@@ -33,6 +33,8 @@ export const SUITE_THEME: Record<SuiteKey, SuiteTheme> = {
 	commerce: { solid: "bg-orange-500", chip: "bg-orange-50 text-orange-700", text: "text-orange-700", wash: "bg-orange-50", ring: "border-orange-500", hex: "#f97316" },
 	crm: { solid: "bg-fuchsia-600", chip: "bg-fuchsia-50 text-fuchsia-700", text: "text-fuchsia-700", wash: "bg-fuchsia-50", ring: "border-fuchsia-500", hex: "#c026d3" },
 	service: { solid: "bg-teal-600", chip: "bg-teal-50 text-teal-700", text: "text-teal-700", wash: "bg-teal-50", ring: "border-teal-500", hex: "#0d9488" },
+	docs: { solid: "bg-sky-500", chip: "bg-sky-50 text-sky-700", text: "text-sky-700", wash: "bg-sky-50", ring: "border-sky-500", hex: "#0ea5e9" },
+	accounting: { solid: "bg-indigo-600", chip: "bg-indigo-50 text-indigo-700", text: "text-indigo-700", wash: "bg-indigo-50", ring: "border-indigo-500", hex: "#4f46e5" },
 	platform: { solid: "bg-slate-700", chip: "bg-slate-100 text-slate-700", text: "text-slate-700", wash: "bg-slate-50", ring: "border-slate-500", hex: "#334155" }
 };
 
@@ -53,6 +55,8 @@ export interface SuiteModule {
 	pitch: Bi;
 	/** Three proof points shown under the hero window for the active tab. */
 	points: Bi[];
+	/** Invitation-only early access — every surface must label it. */
+	earlyAccess?: boolean;
 }
 
 export const suiteModules: SuiteModule[] = [
@@ -125,6 +129,35 @@ export const suiteModules: SuiteModule[] = [
 			{ en: "Parts from stock or a purchase request", th: "เบิกอะไหล่จากสต็อกหรือเปิดใบขอซื้อ" },
 			{ en: "Technician day view with photos + signature", th: "หน้างานช่างรายวัน พร้อมรูปถ่ายและลายเซ็น" }
 		]
+	},
+	{
+		key: "docs",
+		name: { en: "Docs", th: "Docs" },
+		short: { en: "Company wiki", th: "คลังความรู้" },
+		pitch: {
+			en: "SOPs, policies and meeting notes your team writes together — and actually keeps up to date.",
+			th: "SOP นโยบาย และบันทึกประชุมที่ทีมเขียนร่วมกัน — และดูแลให้เป็นปัจจุบันได้จริง"
+		},
+		points: [
+			{ en: "Real-time editing with attributed history", th: "แก้ไขพร้อมกันแบบเรียลไทม์ พร้อมประวัติว่าใครแก้อะไร" },
+			{ en: "Databases with table, board and calendar views", th: "ฐานข้อมูลพร้อมมุมมองตาราง บอร์ด และปฏิทิน" },
+			{ en: "Verified pages, templates and public links", th: "ยืนยันหน้า เทมเพลต และลิงก์สาธารณะ" }
+		]
+	},
+	{
+		key: "accounting",
+		earlyAccess: true,
+		name: { en: "Accounting", th: "บัญชี" },
+		short: { en: "Thai books", th: "บัญชีแบบไทย" },
+		pitch: {
+			en: "Tax invoices, VAT, withholding tax and the ledger — fed by the same stock and purchases.",
+			th: "ใบกำกับภาษี VAT ภาษีหัก ณ ที่จ่าย และบัญชีแยกประเภท — รับข้อมูลจากสต็อกและการจัดซื้อชุดเดียวกัน"
+		},
+		points: [
+			{ en: "Quotation → tax invoice → receipt", th: "ใบเสนอราคา → ใบกำกับภาษี → ใบเสร็จ" },
+			{ en: "ภ.พ.30 VAT and ภ.ง.ด. WHT reports", th: "รายงาน ภ.พ.30 และ ภ.ง.ด." },
+			{ en: "Invitation-only early access", th: "เปิดให้ทดลองใช้แบบเชิญเท่านั้น" }
+		]
 	}
 ];
 
@@ -181,6 +214,9 @@ export interface SuiteApp {
 	icon: string;
 	name: Bi;
 	body: Bi;
+	/** Override the default link (the module page). */
+	href?: string;
+	earlyAccess?: boolean;
 }
 
 export const suiteApps: SuiteApp[] = [
@@ -217,12 +253,21 @@ export const suiteApps: SuiteApp[] = [
 	{ module: "service", icon: "UserCheck", name: { en: "Technician app", th: "แอปช่าง" }, body: { en: "Today's visits, checklists, photos and customer signature.", th: "งานวันนี้ เช็กลิสต์ รูปถ่าย และลายเซ็นลูกค้า" } },
 	{ module: "service", icon: "ShieldCheck", name: { en: "Warranty & loaners", th: "ประกันและเครื่องสำรอง" }, body: { en: "Warranty checked at intake; loaner units tracked out and back.", th: "ตรวจประกันตอนรับเครื่อง ติดตามเครื่องสำรองที่ให้ยืม" } },
 	{ module: "service", icon: "CalendarRange", name: { en: "Maintenance plans", th: "แผนบำรุงรักษา" }, body: { en: "Preventive maintenance that opens the next job when it is due.", th: "บำรุงรักษาเชิงป้องกัน เปิดงานถัดไปให้เมื่อถึงกำหนด" } },
+	// Docs
+	{ module: "docs", icon: "BookOpen", name: { en: "Wiki pages", th: "หน้าวิกิ" }, body: { en: "Rich pages written together in real time, with attributed history.", th: "หน้าเอกสารที่เขียนร่วมกันแบบเรียลไทม์ พร้อมประวัติว่าใครแก้" } },
+	{ module: "docs", icon: "Table2", name: { en: "Databases", th: "ฐานข้อมูล" }, body: { en: "Typed columns with table, board, calendar and timeline views.", th: "คอลัมน์กำหนดชนิดได้ ดูเป็นตาราง บอร์ด ปฏิทิน หรือไทม์ไลน์" } },
+	{ module: "docs", icon: "BadgeCheck", name: { en: "Verified & recurring pages", th: "หน้าที่ยืนยันแล้วและหน้าทำซ้ำ" }, body: { en: "Owners vouch for SOPs; weekly notes create themselves.", th: "ผู้ดูแลรับรอง SOP บันทึกประจำสัปดาห์สร้างตัวเอง" } },
+	// Accounting (early access)
+	{ module: "accounting", earlyAccess: true, icon: "FileText", name: { en: "Sales documents", th: "เอกสารขาย" }, body: { en: "Quotations, tax invoices, billing notes, receipts, credit/debit notes.", th: "ใบเสนอราคา ใบกำกับภาษี ใบวางบิล ใบเสร็จ ใบลด/เพิ่มหนี้" } },
+	{ module: "accounting", earlyAccess: true, icon: "Percent", name: { en: "VAT & withholding tax", th: "VAT และภาษีหัก ณ ที่จ่าย" }, body: { en: "ภ.พ.30 and ภ.ง.ด. reports, WHT certificates.", th: "รายงาน ภ.พ.30 และ ภ.ง.ด. หนังสือรับรองหัก ณ ที่จ่าย" } },
+	{ module: "accounting", earlyAccess: true, icon: "BookOpenCheck", name: { en: "Ledger & statements", th: "แยกประเภทและงบการเงิน" }, body: { en: "Journals, trial balance, financial statements, period close.", th: "สมุดรายวัน งบทดลอง งบการเงิน และการปิดงวด" } },
 	// Platform
 	{ module: "platform", icon: "LayoutDashboard", name: { en: "Home dashboard", th: "หน้าหลัก" }, body: { en: "What needs you, this week's team schedule, and 30-day pulse.", th: "งานที่รอคุณ ตารางทีมสัปดาห์นี้ และภาพรวม 30 วัน" } },
 	{ module: "platform", icon: "Inbox", name: { en: "Approvals inbox", th: "กล่องอนุมัติ" }, body: { en: "Every approval across modules in one place.", th: "ทุกการอนุมัติจากทุกโมดูลในที่เดียว" } },
 	{ module: "platform", icon: "MonitorSmartphone", name: { en: "Kiosk apps", th: "แอปคีออสก์" }, body: { en: "Pack, Manufacture and POS stations with PIN operator login.", th: "สถานีแพ็กของ ผลิต และ POS เข้าใช้ด้วย PIN ของพนักงาน" } },
 	{ module: "platform", icon: "KeyRound", name: { en: "SSO & roles", th: "SSO และสิทธิ์" }, body: { en: "Microsoft sign-in for your organisation, role-based permissions per company.", th: "เข้าระบบด้วยบัญชี Microsoft ขององค์กร สิทธิ์ตามบทบาทรายบริษัท" } },
-	{ module: "platform", icon: "FileSpreadsheet", name: { en: "Import & export", th: "นำเข้า/ส่งออกข้อมูล" }, body: { en: "Bring products, companies and stock in from Excel.", th: "นำสินค้า บริษัท และสต็อกเข้าจาก Excel" } }
+	{ module: "platform", icon: "FileSpreadsheet", name: { en: "Import & export", th: "นำเข้า/ส่งออกข้อมูล" }, body: { en: "Bring products, companies and stock in from Excel.", th: "นำสินค้า บริษัท และสต็อกเข้าจาก Excel" } },
+	{ module: "platform", icon: "Bot", href: "/developers", name: { en: "API & AI connector", th: "API และตัวเชื่อม AI" }, body: { en: "REST API, webhooks, and Tonbab inside Claude or ChatGPT.", th: "REST API, webhook และใช้ Tonbab ใน Claude หรือ ChatGPT" } }
 ];
 
 /** The connected loop: one order travelling through every module. */
@@ -258,7 +303,8 @@ export const realStats: { value: string; label: Bi }[] = [
 	{ value: "8,850+", label: { en: "stock movements posted", th: "รายการเคลื่อนไหวสต็อก" } },
 	{ value: "1,000+", label: { en: "products managed", th: "สินค้าที่บริหาร" } },
 	{ value: "439", label: { en: "delivery notes issued", th: "ใบส่งของที่ออกแล้ว" } },
-	{ value: "5 + 3", label: { en: "modules + kiosk apps", th: "โมดูล + แอปคีออสก์" } }
+	// Generally-available modules only — Accounting (early access) is not counted.
+	{ value: "6 + 3", label: { en: "modules + kiosk apps", th: "โมดูล + แอปคีออสก์" } }
 ];
 
 export const kiosks: { icon: string; name: Bi; body: Bi }[] = [

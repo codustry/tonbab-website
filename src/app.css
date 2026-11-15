@@ -175,3 +175,15 @@
   transition: background-color 150ms;
   &:hover { background: var(--color-tnb-mist); }
 }
+
+/* ─── Thai typography ───────────────────────────────────────────
+ * Thai has no capitals and its vowel/tone marks stack above and below the
+ * line: letter-spacing pulls the marks away from their base letters and
+ * negative tracking makes them collide. Eyebrows use `uppercase
+ * tracking-wider` and headlines `tracking-tight` for Latin text — neutralise
+ * both on Thai pages (html lang is set per locale by hooks.server.ts). */
+@layer utilities {
+  html[lang="th"] :is(.tracking-wide, .tracking-wider, .tracking-widest, .tracking-tight, .tracking-tighter) {
+    letter-spacing: normal;
+  }
+}

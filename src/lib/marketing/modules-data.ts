@@ -38,6 +38,12 @@ export interface FaqEntry {
 
 export interface ModuleContent {
 	key: string;
+	/**
+	 * Invitation-only early access (Accounting, 2026-11). The page and every
+	 * card that lists the module must say so — never present it as generally
+	 * available.
+	 */
+	earlyAccess?: boolean;
 	name: Bi;
 	tagline: Bi;
 	intro: Bi;
@@ -130,8 +136,8 @@ export const modulesContent: ModuleContent[] = [
 			{
 				title: { en: "Job costing closes the loop", th: "ปิดวงจรด้วยต้นทุนงาน" },
 				body: {
-					en: "POs, work orders, deliveries, services and expenses roll into one job view with a live budget bar. Close the job and hand clean numbers to your accountant — Tonbab feeds accounting, it doesn't pretend to be one.",
-					th: "PO ใบสั่งผลิต การส่งของ งานบริการ และค่าใช้จ่าย รวมเป็นมุมมองงานเดียวพร้อมแถบงบประมาณสด ปิดงานแล้วส่งตัวเลขสะอาด ๆ ให้ฝ่ายบัญชี — Tonbab ป้อนข้อมูลให้ระบบบัญชี ไม่ได้แกล้งเป็นระบบบัญชีเสียเอง"
+					en: "POs, work orders, deliveries, services and expenses roll into one job view with a live budget bar. Close the job and hand clean numbers to your accountant's software — or, for companies in the Accounting early access, post them straight to Tonbab's own ledger.",
+					th: "PO ใบสั่งผลิต การส่งของ งานบริการ และค่าใช้จ่าย รวมเป็นมุมมองงานเดียวพร้อมแถบงบประมาณสด ปิดงานแล้วส่งตัวเลขสะอาด ๆ ให้โปรแกรมบัญชีที่ใช้อยู่ — หรือถ้าอยู่ในกลุ่มทดลองใช้โมดูลบัญชี ก็ลงบัญชีใน Tonbab ได้เลย"
 				}
 			}
 		],
@@ -186,7 +192,7 @@ export const modulesContent: ModuleContent[] = [
 				features: [
 					{ title: { en: "Live budget bar", th: "แถบงบประมาณสด" }, body: { en: "One job view rolls up PO commitments, material issues, services and expenses against budget, live.", th: "มุมมองงานเดียวรวมภาระผูกพันจาก PO การเบิกวัตถุดิบ งานบริการ และค่าใช้จ่าย เทียบงบประมาณแบบสด" } },
 					{ title: { en: "Delivery notes that cost", th: "ใบส่งของที่คิดต้นทุน" }, body: { en: "Shipping issues stock at its true average cost and books it to the job — no end-of-month surprises.", th: "การส่งของตัดสต็อกด้วยต้นทุนเฉลี่ยจริงและบันทึกเข้างาน — ไม่มีเซอร์ไพรส์ตอนสิ้นเดือน" } },
-					{ title: { en: "Hand-off to accounting", th: "ส่งต่อให้ฝ่ายบัญชี" }, body: { en: "Tonbab deliberately does not do bookkeeping — it closes the job with clean, exportable numbers for your accounting system.", th: "Tonbab ตั้งใจไม่ทำบัญชีแยกประเภทเอง — แต่ปิดงานด้วยตัวเลขสะอาดพร้อมส่งออกให้ระบบบัญชีของคุณ" } }
+					{ title: { en: "Hand-off to accounting", th: "ส่งต่อให้ฝ่ายบัญชี" }, body: { en: "Close the job with clean, exportable numbers for your accounting software — or post to Tonbab Accounting (invitation-only early access).", th: "ปิดงานด้วยตัวเลขสะอาดพร้อมส่งออกให้โปรแกรมบัญชีของคุณ — หรือลงโมดูลบัญชีของ Tonbab (เปิดให้ทดลองใช้แบบเชิญ)" } }
 				]
 			},
 			{
@@ -208,7 +214,7 @@ export const modulesContent: ModuleContent[] = [
 		faq: [
 			{
 				q: { en: "Does Tonbab include accounting?", th: "Tonbab มีระบบบัญชีไหม" },
-				a: { en: "No — deliberately. Tonbab handles the operational documents and costing, then exports clean numbers for your accountant or accounting software. Most Thai SMEs already have an accountant they trust.", th: "ไม่มี — โดยตั้งใจ Tonbab ดูแลเอกสารปฏิบัติการและต้นทุน แล้วส่งออกตัวเลขสะอาด ๆ ให้สำนักงานบัญชีหรือโปรแกรมบัญชีของคุณ SME ไทยส่วนใหญ่มีนักบัญชีที่ไว้ใจอยู่แล้ว" }
+				a: { en: "Tonbab's own Accounting module is in invitation-only early access. Operation works perfectly well without it: it handles the operational documents and costing, then exports clean numbers for your accountant or accounting software — most Thai SMEs already have an accountant they trust.", th: "โมดูลบัญชีของ Tonbab เปิดให้ทดลองใช้แบบเชิญอยู่ แต่ Operation ใช้งานได้เต็มที่โดยไม่ต้องมีโมดูลบัญชี: ดูแลเอกสารปฏิบัติการและต้นทุน แล้วส่งออกตัวเลขสะอาด ๆ ให้สำนักงานบัญชีหรือโปรแกรมบัญชีของคุณ — SME ไทยส่วนใหญ่มีนักบัญชีที่ไว้ใจอยู่แล้ว" }
 			},
 			{
 				q: { en: "How is inventory valued?", th: "คลังสินค้าคิดมูลค่าอย่างไร" },
@@ -787,7 +793,7 @@ export const modulesContent: ModuleContent[] = [
 		faq: [
 			{
 				q: { en: "Does Service issue tax invoices?", th: "Service ออกใบกำกับภาษีไหม" },
-				a: { en: "No — Tonbab produces the hand-over document and a billing summary with withholding tax worked out. Your accounting software issues the tax invoice.", th: "ไม่ — Tonbab ออกใบส่งมอบงานซ่อมและสรุปค่าบริการพร้อมคำนวณหัก ณ ที่จ่าย ใบกำกับภาษีออกจากโปรแกรมบัญชีของคุณ" }
+				a: { en: "Not from Service itself — it produces the hand-over document and a billing summary with withholding tax worked out. The tax invoice comes from your accounting software (or Tonbab Accounting, for companies in its invitation-only early access).", th: "Service ไม่ได้ออกเอง — Service ออกใบส่งมอบงานซ่อมและสรุปค่าบริการพร้อมคำนวณหัก ณ ที่จ่าย ส่วนใบกำกับภาษีออกจากโปรแกรมบัญชีของคุณ (หรือโมดูลบัญชีของ Tonbab สำหรับบริษัทที่อยู่ในกลุ่มทดลองใช้แบบเชิญ)" }
 			},
 			{
 				q: { en: "Is the customer's machine counted in our stock?", th: "เครื่องของลูกค้านับเป็นสต็อกของเราไหม" },
@@ -799,7 +805,249 @@ export const modulesContent: ModuleContent[] = [
 			}
 		],
 		related: ["operation", "crm"]
+	},
+	{
+		key: "docs",
+		name: { en: "Docs — company wiki", th: "Docs — คลังความรู้ของบริษัท" },
+		tagline: {
+			en: "Your company wiki and knowledge base — written together, kept current, and sitting right next to the work it describes.",
+			th: "วิกิและคลังความรู้ของบริษัท — เขียนด้วยกัน อัปเดตอยู่เสมอ และอยู่ข้าง ๆ งานที่เนื้อหาพูดถึง"
+		},
+		intro: {
+			en: "SOPs, policies, onboarding guides, meeting notes and checklists live in the same system as your purchase orders and stock. Write together in real time, see who changed what, and mark the pages that matter as verified — so the team trusts what it reads.",
+			th: "SOP นโยบาย คู่มือพนักงานใหม่ บันทึกประชุม และเช็กลิสต์ อยู่ในระบบเดียวกับใบสั่งซื้อและสต็อก เขียนพร้อมกันได้แบบเรียลไทม์ เห็นว่าใครแก้อะไร และยืนยันหน้าที่สำคัญว่ายังถูกต้อง ทีมจึงเชื่อใจสิ่งที่อ่านได้"
+		},
+		screenshotCaption: {
+			en: "A Docs page — rich editor, with the teammates editing it right now",
+			th: "หน้าเอกสารใน Docs — ตัวแก้ไขครบเครื่อง พร้อมเห็นว่าใครกำลังแก้อยู่"
+		},
+		workflow: [
+			{
+				title: { en: "Start from a template", th: "เริ่มจากเทมเพลต" },
+				body: {
+					en: "Pick an SOP, meeting-notes or onboarding template — or a blank page. Headings, tables, checklists, callouts, images and files all live in one editor.",
+					th: "เลือกเทมเพลต SOP บันทึกประชุม หรือเช็กลิสต์รับพนักงานใหม่ — หรือเริ่มจากหน้าว่าง หัวข้อ ตาราง เช็กลิสต์ กล่องข้อความเด่น รูปภาพ และไฟล์ ใส่ได้ครบในตัวแก้ไขเดียว"
+				}
+			},
+			{
+				title: { en: "Write together, live", th: "เขียนพร้อมกันได้สด ๆ" },
+				body: {
+					en: "Several people edit the same page at once and see each other's cursors. Every change is attributed in the page history, so you know who wrote what and can restore an older version.",
+					th: "หลายคนแก้หน้าเดียวกันได้พร้อมกัน เห็นเคอร์เซอร์ของกันและกัน ทุกการแก้ไขถูกเก็บในประวัติพร้อมชื่อคนแก้ รู้ว่าใครเขียนอะไร และย้อนกลับไปเวอร์ชันเก่าได้"
+				}
+			},
+			{
+				title: { en: "Organise with databases", th: "จัดระเบียบด้วยฐานข้อมูล" },
+				body: {
+					en: "Turn a list into a database: rows with typed columns — text, number, date, select, person, checkbox, relation, formula — viewed as a table, board, calendar or timeline.",
+					th: "เปลี่ยนรายการธรรมดาให้เป็นฐานข้อมูล: แต่ละแถวมีคอลัมน์ที่กำหนดชนิดได้ — ข้อความ ตัวเลข วันที่ ตัวเลือก บุคคล ช่องติ๊ก ความสัมพันธ์ สูตร — แล้วดูเป็นตาราง บอร์ด ปฏิทิน หรือไทม์ไลน์"
+				}
+			},
+			{
+				title: { en: "Keep it current", th: "ดูแลให้เป็นปัจจุบัน" },
+				body: {
+					en: "Verify key pages with an owner and an expiry, so stale SOPs get flagged. Recurring pages create themselves — the weekly meeting note is ready before the meeting.",
+					th: "ยืนยันหน้าสำคัญโดยระบุผู้ดูแลและวันหมดอายุ SOP ที่เก่าแล้วจะถูกเตือน ส่วนหน้าที่ต้องทำซ้ำจะสร้างตัวเองตามรอบ — บันทึกประชุมประจำสัปดาห์พร้อมก่อนเข้าห้องประชุม"
+				}
+			},
+			{
+				title: { en: "Find it, share it", th: "ค้นเจอ แชร์ได้" },
+				body: {
+					en: "Search across every page, react to updates, and publish a page to a public link when a customer or supplier needs to read it.",
+					th: "ค้นหาได้ทุกหน้า กดรีแอ็กชันให้อัปเดต และเผยแพร่หน้าเป็นลิงก์สาธารณะเมื่อลูกค้าหรือผู้ขายต้องอ่าน"
+				}
+			},
+			{
+				title: { en: "Let your AI read it", th: "ให้ AI ช่วยอ่าน" },
+				body: {
+					en: "A read-only API and the Tonbab AI connector let Claude or ChatGPT search and quote your docs — never beyond what that person is allowed to see.",
+					th: "API แบบอ่านอย่างเดียวและตัวเชื่อม AI ของ Tonbab ให้ Claude หรือ ChatGPT ค้นและอ้างอิงเอกสารของคุณได้ — ไม่เกินสิทธิ์ที่คนนั้นมองเห็น"
+				}
+			}
+		],
+		diagram: [
+			{ label: { en: "Template", th: "เทมเพลต" }, sub: { en: "SOP, notes, checklist", th: "SOP บันทึก เช็กลิสต์" } },
+			{ label: { en: "Write together", th: "เขียนร่วมกัน" }, sub: { en: "live cursors + history", th: "เห็นกันสด + ประวัติ" } },
+			{ label: { en: "Database", th: "ฐานข้อมูล" }, sub: { en: "typed columns, views", th: "คอลัมน์มีชนิด หลายมุมมอง" } },
+			{ label: { en: "Verify", th: "ยืนยัน" }, sub: { en: "owner + expiry", th: "ผู้ดูแล + วันหมดอายุ" } },
+			{ label: { en: "Share & search", th: "แชร์และค้นหา" }, sub: { en: "public link, AI", th: "ลิงก์สาธารณะ AI" } }
+		],
+		featureGroups: [
+			{
+				title: { en: "Writing", th: "การเขียน" },
+				features: [
+					{ title: { en: "Rich editor", th: "ตัวแก้ไขครบเครื่อง" }, body: { en: "Headings, tables, checklists, callouts, code, images and file attachments — Thai text and typography handled properly.", th: "หัวข้อ ตาราง เช็กลิสต์ กล่องข้อความเด่น โค้ด รูปภาพ และไฟล์แนบ — รองรับภาษาไทยและการจัดตัวอักษรอย่างถูกต้อง" } },
+					{ title: { en: "Real-time collaboration", th: "แก้ไขร่วมกันแบบเรียลไทม์" }, body: { en: "See who is on the page and where they are typing; changes merge as you go.", th: "เห็นว่าใครอยู่ในหน้าและกำลังพิมพ์ตรงไหน การแก้ไขรวมกันให้ทันที" } },
+					{ title: { en: "Attributed history", th: "ประวัติพร้อมชื่อผู้แก้" }, body: { en: "Every version records who changed it; compare and restore in a click.", th: "ทุกเวอร์ชันบันทึกว่าใครแก้ เปรียบเทียบและกู้คืนได้ในคลิกเดียว" } },
+					{ title: { en: "Comments & reactions", th: "คอมเมนต์และรีแอ็กชัน" }, body: { en: "Discuss inline, mention a colleague, and react to announcements.", th: "คุยกันตรงจุดในเนื้อหา แท็กเพื่อนร่วมงาน และกดรีแอ็กชันให้ประกาศ" } }
+				]
+			},
+			{
+				title: { en: "Structure", th: "โครงสร้างข้อมูล" },
+				features: [
+					{ title: { en: "Databases", th: "ฐานข้อมูล" }, body: { en: "Tables with typed columns, relations, rollups and formulas — a supplier list or equipment log without a spreadsheet.", th: "ตารางที่คอลัมน์มีชนิด ความสัมพันธ์ การสรุปค่า และสูตร — ทำทะเบียนผู้ขายหรือสมุดเครื่องจักรได้โดยไม่ต้องใช้ Excel" } },
+					{ title: { en: "Table, board, calendar, timeline", th: "ตาราง บอร์ด ปฏิทิน ไทม์ไลน์" }, body: { en: "One database, several views, each with its own filters and sort.", th: "ฐานข้อมูลเดียว หลายมุมมอง แต่ละมุมมองมีตัวกรองและการเรียงของตัวเอง" } },
+					{ title: { en: "Templates", th: "เทมเพลต" }, body: { en: "Reusable page and database templates for the documents your team writes again and again.", th: "เทมเพลตหน้าและฐานข้อมูลสำหรับเอกสารที่ทีมต้องเขียนซ้ำอยู่เรื่อย ๆ" } },
+					{ title: { en: "Recurring pages", th: "หน้าที่สร้างซ้ำตามรอบ" }, body: { en: "Daily, weekly or monthly pages that create themselves on schedule.", th: "หน้ารายวัน รายสัปดาห์ หรือรายเดือน ที่สร้างตัวเองตามกำหนด" } }
+				]
+			},
+			{
+				title: { en: "Trust & sharing", th: "ความน่าเชื่อถือและการแชร์" },
+				features: [
+					{ title: { en: "Page verification", th: "ยืนยันความถูกต้องของหน้า" }, body: { en: "An owner vouches for a page until a date; expiring and expired pages are flagged.", th: "ผู้ดูแลรับรองหน้าไว้ถึงวันที่กำหนด หน้าที่ใกล้หมดอายุหรือหมดอายุแล้วจะถูกเตือน" } },
+					{ title: { en: "Public share links", th: "ลิงก์แชร์สาธารณะ" }, body: { en: "Publish a single page for customers or suppliers — read-only, revocable any time.", th: "เผยแพร่หน้าเดียวให้ลูกค้าหรือผู้ขายอ่าน — อ่านได้อย่างเดียว ยกเลิกได้ทุกเมื่อ" } },
+					{ title: { en: "Search", th: "ค้นหา" }, body: { en: "Find any page by title or content, in Thai or English.", th: "ค้นหาหน้าได้จากชื่อหรือเนื้อหา ทั้งภาษาไทยและอังกฤษ" } },
+					{ title: { en: "API + AI connector", th: "API + ตัวเชื่อม AI" }, body: { en: "Read-only REST endpoints and MCP tools to search pages and read database rows.", th: "REST API แบบอ่านอย่างเดียวและเครื่องมือ MCP สำหรับค้นหน้าและอ่านแถวในฐานข้อมูล" } }
+				]
+			}
+		],
+		whoFor: [
+			{ en: "Factories and warehouses whose SOPs live in a binder nobody updates.", th: "โรงงานและคลังสินค้าที่ SOP ยังอยู่ในแฟ้มที่ไม่มีใครอัปเดต" },
+			{ en: "Growing teams onboarding new staff every month.", th: "ทีมที่กำลังโต มีพนักงานใหม่เข้ามาทุกเดือน" },
+			{ en: "Owners tired of answers scattered across LINE groups.", th: "เจ้าของกิจการที่เบื่อคำตอบกระจัดกระจายอยู่ในกลุ่ม LINE" },
+			{ en: "Anyone paying for a separate wiki next to their ERP.", th: "ใครก็ตามที่จ่ายค่าวิกิแยกอีกตัวข้าง ๆ ERP" }
+		],
+		faq: [
+			{
+				q: { en: "Is Docs a separate product?", th: "Docs เป็นโปรแกรมแยกหรือเปล่า" },
+				a: { en: "No — it is a module inside Tonbab, on every plan. It uses the same members, roles and sign-in as the rest of the system.", th: "ไม่ใช่ — Docs เป็นโมดูลหนึ่งใน Tonbab มีในทุกแพ็กเกจ ใช้สมาชิก สิทธิ์ และการเข้าระบบชุดเดียวกับส่วนอื่น" }
+			},
+			{
+				q: { en: "What are the limits on Free?", th: "แพ็กเกจฟรีใช้ได้แค่ไหน" },
+				a: { en: "Free includes up to 200 pages. Business and Enterprise have unlimited pages, plus public share links and databases.", th: "แพ็กเกจฟรีสร้างได้ถึง 200 หน้า ส่วน Business และ Enterprise ไม่จำกัดจำนวนหน้า พร้อมลิงก์แชร์สาธารณะและฐานข้อมูล" }
+			},
+			{
+				q: { en: "Can AI assistants read our docs?", th: "ให้ผู้ช่วย AI อ่านเอกสารของเราได้ไหม" },
+				a: { en: "Yes, if you connect them. Through the Tonbab AI connector, Claude or ChatGPT can search and read pages — only the ones the connecting person can already see.", th: "ได้ ถ้าคุณเชื่อมต่อเอง ผ่านตัวเชื่อม AI ของ Tonbab ให้ Claude หรือ ChatGPT ค้นและอ่านหน้าได้ — เฉพาะหน้าที่คนที่เชื่อมต่อมีสิทธิ์เห็นอยู่แล้ว" }
+			}
+		],
+		related: ["operation", "people"]
+	},
+	{
+		key: "accounting",
+		earlyAccess: true,
+		name: { en: "Accounting — Thai books, built in", th: "บัญชี — ระบบบัญชีไทยในตัว" },
+		tagline: {
+			en: "Sales documents, VAT and withholding tax, the general ledger and financial statements — in the same system as your stock and purchases.",
+			th: "เอกสารขาย ภาษีมูลค่าเพิ่มและภาษีหัก ณ ที่จ่าย บัญชีแยกประเภท และงบการเงิน — อยู่ในระบบเดียวกับสต็อกและการจัดซื้อ"
+		},
+		intro: {
+			en: "Issue quotations, tax invoices and receipts, record bills and expenses, and let stock movements from Operation post to the ledger automatically. VAT and WHT reports come out in the forms Thai accountants already use. Accounting is in invitation-only early access while we build it with the first companies.",
+			th: "ออกใบเสนอราคา ใบกำกับภาษี และใบเสร็จ บันทึกค่าใช้จ่ายและบิลซื้อ แล้วให้การเคลื่อนไหวสต็อกจาก Operation ลงบัญชีให้อัตโนมัติ รายงานภาษีซื้อ-ขายและภาษีหัก ณ ที่จ่าย ออกมาในรูปแบบที่นักบัญชีไทยคุ้นเคย ตอนนี้โมดูลบัญชีเปิดให้ทดลองใช้แบบเชิญเท่านั้น ระหว่างที่เราพัฒนาไปพร้อมกับบริษัทกลุ่มแรก"
+		},
+		screenshotCaption: {
+			en: "A tax invoice in Accounting — Thai layout, Sarabun typeface",
+			th: "ใบกำกับภาษีในโมดูลบัญชี — รูปแบบไทย ฟอนต์สารบรรณ"
+		},
+		workflow: [
+			{
+				title: { en: "Quote and invoice", th: "เสนอราคาและออกใบแจ้งหนี้" },
+				body: {
+					en: "Quotation → invoice / tax invoice → billing note → receipt, each converted from the last. Credit and debit notes correct an issued invoice the proper way.",
+					th: "ใบเสนอราคา → ใบแจ้งหนี้/ใบกำกับภาษี → ใบวางบิล → ใบเสร็จรับเงิน แปลงต่อกันทีละขั้น ส่วนใบลดหนี้และใบเพิ่มหนี้ใช้แก้ใบกำกับที่ออกไปแล้วอย่างถูกวิธี"
+				}
+			},
+			{
+				title: { en: "Record bills and expenses", th: "บันทึกบิลซื้อและค่าใช้จ่าย" },
+				body: {
+					en: "Supplier bills and expenses carry input VAT and withholding tax, and you issue the WHT certificate when you pay.",
+					th: "บิลจากผู้ขายและค่าใช้จ่ายบันทึกภาษีซื้อและภาษีหัก ณ ที่จ่าย และออกหนังสือรับรองการหักภาษี ณ ที่จ่ายได้ตอนจ่ายเงิน"
+				}
+			},
+			{
+				title: { en: "Stock posts itself", th: "สต็อกลงบัญชีเอง" },
+				body: {
+					en: "Goods receipts, issues and deliveries from Operation post to the ledger at their real cost — no re-keying between the warehouse and the books.",
+					th: "การรับของ เบิกของ และส่งของจาก Operation ลงบัญชีด้วยต้นทุนจริงให้เอง — ไม่ต้องคีย์ซ้ำระหว่างคลังสินค้ากับบัญชี"
+				}
+			},
+			{
+				title: { en: "Bank and assets", th: "ธนาคารและสินทรัพย์" },
+				body: {
+					en: "Track bank accounts and payments, and register fixed assets that depreciate on schedule.",
+					th: "ติดตามบัญชีธนาคารและการรับ-จ่ายเงิน และลงทะเบียนสินทรัพย์ถาวรที่คิดค่าเสื่อมราคาตามรอบ"
+				}
+			},
+			{
+				title: { en: "Tax reports", th: "รายงานภาษี" },
+				body: {
+					en: "VAT reports for ภ.พ.30 and withholding-tax reports for ภ.ง.ด.3 / ภ.ง.ด.53, ready to export for filing.",
+					th: "รายงานภาษีซื้อ-ขายสำหรับ ภ.พ.30 และรายงานภาษีหัก ณ ที่จ่ายสำหรับ ภ.ง.ด.3 / ภ.ง.ด.53 พร้อมส่งออกไปยื่น"
+				}
+			},
+			{
+				title: { en: "Close the period", th: "ปิดงวดบัญชี" },
+				body: {
+					en: "Review the general ledger and trial balance, close the period so nothing changes behind you, and print the financial statements.",
+					th: "ตรวจบัญชีแยกประเภทและงบทดลอง ปิดงวดเพื่อไม่ให้ใครแก้ย้อนหลัง แล้วพิมพ์งบการเงิน"
+				}
+			}
+		],
+		diagram: [
+			{ label: { en: "Quotation", th: "ใบเสนอราคา" }, sub: { en: "to the customer", th: "ส่งลูกค้า" } },
+			{ label: { en: "Tax invoice", th: "ใบกำกับภาษี" }, sub: { en: "output VAT", th: "ภาษีขาย" } },
+			{ label: { en: "Receipt", th: "ใบเสร็จ" }, sub: { en: "money in, WHT", th: "รับเงิน หัก ณ ที่จ่าย" } },
+			{ label: { en: "Journal", th: "สมุดรายวัน" }, sub: { en: "auto from documents", th: "ลงจากเอกสารอัตโนมัติ" } },
+			{ label: { en: "Ledger", th: "แยกประเภท" }, sub: { en: "trial balance", th: "งบทดลอง" } },
+			{ label: { en: "Statements", th: "งบการเงิน" }, sub: { en: "period close", th: "ปิดงวด" } }
+		],
+		featureGroups: [
+			{
+				title: { en: "Sales & purchases", th: "ขายและซื้อ" },
+				features: [
+					{ title: { en: "Sales documents", th: "เอกสารฝั่งขาย" }, body: { en: "Quotations, invoices / tax invoices, billing notes, receipts, credit and debit notes.", th: "ใบเสนอราคา ใบแจ้งหนี้/ใบกำกับภาษี ใบวางบิล ใบเสร็จรับเงิน ใบลดหนี้ และใบเพิ่มหนี้" } },
+					{ title: { en: "Bills & expenses", th: "บิลซื้อและค่าใช้จ่าย" }, body: { en: "Supplier bills and expenses with input VAT and withholding tax.", th: "บิลจากผู้ขายและค่าใช้จ่าย พร้อมภาษีซื้อและภาษีหัก ณ ที่จ่าย" } },
+					{ title: { en: "Thai print templates", th: "แบบฟอร์มพิมพ์แบบไทย" }, body: { en: "Clean, familiar document layouts in the Sarabun typeface — the look Thai accountants and customers expect.", th: "หน้าเอกสารเรียบร้อยแบบที่คุ้นตา ใช้ฟอนต์สารบรรณ — หน้าตาที่นักบัญชีและลูกค้าไทยคาดหวัง" } }
+				]
+			},
+			{
+				title: { en: "Thai tax", th: "ภาษีไทย" },
+				features: [
+					{ title: { en: "VAT reports (ภ.พ.30)", th: "รายงานภาษีมูลค่าเพิ่ม (ภ.พ.30)" }, body: { en: "Input and output VAT reports for the monthly return.", th: "รายงานภาษีซื้อและภาษีขาย สำหรับยื่นแบบรายเดือน" } },
+					{ title: { en: "Withholding tax (ภ.ง.ด.)", th: "ภาษีหัก ณ ที่จ่าย (ภ.ง.ด.)" }, body: { en: "WHT certificates and ภ.ง.ด.3 / ภ.ง.ด.53 reports.", th: "หนังสือรับรองการหักภาษี ณ ที่จ่าย และรายงาน ภ.ง.ด.3 / ภ.ง.ด.53" } }
+				]
+			},
+			{
+				title: { en: "Books", th: "สมุดบัญชี" },
+				features: [
+					{ title: { en: "Chart of accounts", th: "ผังบัญชี" }, body: { en: "A Thai chart of accounts to start from, editable to fit your business.", th: "ผังบัญชีแบบไทยให้เริ่มต้น ปรับแก้ให้เข้ากับธุรกิจได้" } },
+					{ title: { en: "Journals & general ledger", th: "สมุดรายวันและบัญชีแยกประเภท" }, body: { en: "Documents post journal entries automatically; manual journals when you need them.", th: "เอกสารลงสมุดรายวันให้อัตโนมัติ และบันทึกรายการเองได้เมื่อจำเป็น" } },
+					{ title: { en: "Trial balance & statements", th: "งบทดลองและงบการเงิน" }, body: { en: "Trial balance, profit and loss, and balance sheet for any period.", th: "งบทดลอง งบกำไรขาดทุน และงบแสดงฐานะการเงิน เลือกงวดได้" } },
+					{ title: { en: "Period close", th: "ปิดงวด" }, body: { en: "Lock a closed period so the numbers you reported stay the numbers on file.", th: "ล็อกงวดที่ปิดแล้ว ตัวเลขที่รายงานไปจึงตรงกับในระบบเสมอ" } }
+				]
+			},
+			{
+				title: { en: "Connected to operations", th: "เชื่อมกับงานปฏิบัติการ" },
+				features: [
+					{ title: { en: "Stock posting", th: "ลงบัญชีสต็อก" }, body: { en: "Receipts, issues and deliveries from Operation post at their real average cost.", th: "การรับ เบิก และส่งของจาก Operation ลงบัญชีด้วยต้นทุนเฉลี่ยจริง" } },
+					{ title: { en: "Bank", th: "ธนาคาร" }, body: { en: "Bank accounts, money in and money out, matched to documents.", th: "บัญชีธนาคาร เงินเข้า-ออก จับคู่กับเอกสาร" } },
+					{ title: { en: "Fixed assets", th: "สินทรัพย์ถาวร" }, body: { en: "Asset register with scheduled depreciation.", th: "ทะเบียนสินทรัพย์พร้อมคิดค่าเสื่อมราคาตามรอบ" } }
+				]
+			}
+		],
+		whoFor: [
+			{ en: "Companies already running Operation that want stock and the books in one place.", th: "บริษัทที่ใช้ Operation อยู่แล้ว และอยากให้สต็อกกับบัญชีอยู่ที่เดียวกัน" },
+			{ en: "In-house accountants who re-key delivery notes and bills into another program.", th: "นักบัญชีในบริษัทที่ต้องคีย์ใบส่งของและบิลซ้ำลงอีกโปรแกรม" },
+			{ en: "Owners who want VAT and WHT numbers without waiting for month-end.", th: "เจ้าของกิจการที่อยากเห็นตัวเลข VAT และภาษีหัก ณ ที่จ่ายโดยไม่ต้องรอสิ้นเดือน" },
+			{ en: "Teams willing to give feedback while the module is in early access.", th: "ทีมที่พร้อมให้ความเห็น ระหว่างที่โมดูลยังอยู่ในช่วงทดลองใช้" }
+		],
+		faq: [
+			{
+				q: { en: "Can we use Accounting now?", th: "ใช้โมดูลบัญชีได้เลยไหม" },
+				a: { en: "Accounting is in invitation-only early access. Email hello@tonbab.com if you would like to be considered — until it opens to everyone, Tonbab exports clean documents for your current accounting software.", th: "ตอนนี้โมดูลบัญชีเปิดให้ทดลองใช้แบบเชิญเท่านั้น หากสนใจ อีเมลมาที่ hello@tonbab.com — ระหว่างนี้ Tonbab ส่งออกเอกสารให้โปรแกรมบัญชีที่คุณใช้อยู่ได้ตามปกติ" }
+			},
+			{
+				q: { en: "Do we have to leave PEAK, FlowAccount or Express?", th: "ต้องเลิกใช้ PEAK, FlowAccount หรือ Express ไหม" },
+				a: { en: "No. Many teams keep their accountant's software, and Tonbab keeps handing it clean documents. Accounting is there for companies that want everything in one system.", th: "ไม่ต้อง หลายทีมยังใช้โปรแกรมของนักบัญชีต่อ และ Tonbab ก็ส่งเอกสารให้ได้เหมือนเดิม โมดูลบัญชีมีไว้สำหรับบริษัทที่อยากรวมทุกอย่างไว้ในระบบเดียว" }
+			},
+			{
+				q: { en: "Is it certified or connected to the Revenue Department?", th: "ได้รับการรับรองหรือเชื่อมกับกรมสรรพากรหรือยัง" },
+				a: { en: "Not at this stage. Tonbab prepares the reports and documents; your accountant files them as usual.", th: "ยังไม่ได้ในตอนนี้ Tonbab จัดทำรายงานและเอกสารให้ ส่วนการยื่นแบบ นักบัญชีของคุณยังยื่นตามปกติ" }
+			}
+		],
+		related: ["operation", "service"]
 	}
+
 ];
 
 export function getModule(key: string): ModuleContent | undefined {

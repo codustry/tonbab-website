@@ -3,14 +3,20 @@
 	import { localePath, toLocale } from '$lib/i18n';
 	import { getModule } from '$lib/marketing/modules-data';
 	import ModuleFlowDiagram from '$lib/components/www/ModuleFlowDiagram.svelte';
-	import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-svelte';
+	import { ArrowLeft, ArrowRight, BookOpen, Mail } from 'lucide-svelte';
 	import ProductMock from '$lib/components/www/ProductMock.svelte';
-	import { SUITE_THEME } from '$lib/marketing/suite-data';
+	import { SUITE_THEME, type SuiteKey } from '$lib/marketing/suite-data';
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
 	const t = $derived.by(() => (b: { en: string; th: string }) => (locale === 'th' ? b.th : b.en));
 	const mod = $derived.by(() => getModule(data.moduleKey)!);
-	const mockKey = $derived(mod.key as 'operation' | 'people' | 'commerce' | 'crm' | 'service');
+	const mockKey = $derived(mod.key as Exclude<SuiteKey, 'platform'>);
+	const MODULE_LABEL: Record<string, { en: string; th: string }> = {
+		crm: { en: 'CRM', th: 'CRM' },
+		accounting: { en: 'Accounting', th: 'บัญชี' }
+	};
+	const moduleLabel = $derived(MODULE_LABEL[mod.key] ? t(MODULE_LABEL[mod.key]) : mod.key[0].toUpperCase() + mod.key.slice(1));
+	const earlyMail = $derived(`mailto:hello@tonbab.com?subject=${encodeURIComponent(m.mod_early_mail_subject())}`);
 	const theme = $derived(SUITE_THEME[mockKey]);
 	const relatedMods = $derived.by(() =>
 		mod.related.flatMap((k) => {
@@ -28,10 +34,22 @@
 		</a>
 		<div class="mt-4 grid items-center gap-10 lg:grid-cols-2">
 			<div>
-				<p class="mb-3 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-semibold {theme.text} ring-1 ring-tnb-line"><span class="h-2 w-2 rounded-full {theme.solid}"></span>{mod.key === 'crm' ? 'CRM' : mod.key[0].toUpperCase() + mod.key.slice(1)}</p>
+				<p class="mb-3 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-semibold {theme.text} ring-1 ring-tnb-line"><span class="h-2 w-2 rounded-full {theme.solid}"></span>{moduleLabel}{#if mod.earlyAccess}<span class="text-tnb-ink-soft">· {m.mkt_early_access()}</span>{/if}</p>
 				<h1 class="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-tnb-blue-deep sm:text-5xl">{t(mod.name)}</h1>
 				<p class="mt-4 max-w-2xl text-xl leading-relaxed text-tnb-ink">{t(mod.tagline)}</p>
 				<p class="mt-4 max-w-2xl leading-relaxed text-tnb-ink-soft">{t(mod.intro)}</p>
+				{#if mod.earlyAccess}
+					<div class="mt-6 max-w-2xl rounded-xl bg-tnb-paper p-5 ring-1 ring-tnb-line">
+						<p class="font-semibold text-tnb-ink">{m.mod_early_title()}</p>
+						<p class="mt-1.5 text-[15px] leading-relaxed text-tnb-ink-soft">{m.mod_early_body()}</p>
+						<a href={earlyMail} class="btn-soft mt-4"><Mail class="h-4 w-4" aria-hidden="true" />{m.mod_early_cta()}</a>
+					</div>
+				{:else}
+					<div class="mt-6 flex flex-wrap gap-3">
+						<a href="https://app.tonbab.com/signup" class="btn-primary px-5 py-2.5">{m.mkt_start_free()}</a>
+						<a href={localePath(locale, '/pricing')} class="btn-soft px-5 py-2.5">{m.mod_cta_pricing()}</a>
+					</div>
+				{/if}
 			</div>
 			{#if mod.heroArt}
 				<figure class="overflow-hidden rounded-xl border border-tnb-line bg-tnb-paper shadow-[0_1px_3px_rgba(23,22,28,0.07)]">
@@ -85,7 +103,7 @@
 <!-- Feature groups -->
 <section class="bg-tnb-paper">
 	<div class="container mx-auto px-4 py-16">
-		<h2 class="text-2xl font-bold tracking-tight text-tnb-ink">{m.mod_features_title()}</h2>
+		<h2 class="text-2xl font-bold tracking-tight text-tnb-ink">{mod.earlyAccess ? m.mod_early_features_title() : m.mod_features_title()}</h2>
 		<div class="mt-8 space-y-12">
 			{#each mod.featureGroups as group (group.title.en)}
 				<div>
@@ -168,13 +186,17 @@
 <!-- CTA -->
 <section class="bg-tnb-ink">
 	<div class="container mx-auto px-4 py-16 text-center">
-		<h2 class="text-3xl font-bold tracking-tight text-white">{m.mod_cta_title()}</h2>
-		<p class="mx-auto mt-4 max-w-xl leading-relaxed text-white/70">{m.mod_cta_body()}</p>
-		<a
-			href={localePath(locale, '/pricing')}
-			class="btn-primary mt-8 px-6 py-3 text-base"
-		>
-			{m.mkt_hero_cta_primary()}
-		</a>
+		{#if mod.earlyAccess}
+			<h2 class="text-3xl font-bold tracking-tight text-white">{m.mod_early_title()}</h2>
+			<p class="mx-auto mt-4 max-w-xl leading-relaxed text-white/70">{m.mod_early_body()}</p>
+			<a href={earlyMail} class="btn-primary mt-8 px-6 py-3 text-base"><Mail class="h-4 w-4" aria-hidden="true" />{m.mod_early_cta()}</a>
+		{:else}
+			<h2 class="text-3xl font-bold tracking-tight text-white">{m.mod_cta_title()}</h2>
+			<p class="mx-auto mt-4 max-w-xl leading-relaxed text-white/70">{m.mod_cta_body()}</p>
+			<div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+				<a href="https://app.tonbab.com/signup" class="btn-primary px-6 py-3 text-base">{m.mkt_start_free()}</a>
+				<a href={localePath(locale, '/pricing')} class="inline-flex items-center rounded-lg px-6 py-3 text-base font-semibold text-white ring-1 ring-white/25 transition hover:bg-white/10">{m.mod_cta_pricing()}</a>
+			</div>
+		{/if}
 	</div>
 </section>

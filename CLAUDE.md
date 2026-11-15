@@ -4,9 +4,12 @@
 
 The public marketing website for **Tonbab (ต้นแบบ)** — the Thai-first
 all-in-one ERP by Codustry — at **tonbab.com**. Bilingual, **Thai-first**
-(default locale `th`, full English mirror). Showcases the five modules
-(Operation, People, Commerce+POS, CRM, SSO), compares Tonbab honestly against
-Thai and global ERPs, and hosts product docs, FAQ, and a blog.
+(default locale `th`, full English mirror — bare `/` always lands on `/th`
+unless the visitor picked English with the header toggle). Showcases the
+modules (Operation, People, Commerce+POS, CRM, Service, Docs, and Accounting
+in invitation-only early access — always label it so), the API + MCP AI
+connector at /developers, compares Tonbab honestly against Thai and global
+ERPs, and hosts product docs, FAQ, and a blog.
 
 - **App (login target)**: https://app.tonbab.com — the navbar "เข้าสู่ระบบ"
   button is a plain link there; the app routes signed-in/out users itself.

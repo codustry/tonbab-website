@@ -99,11 +99,9 @@
 	<div class="container mx-auto px-4 py-16 text-center">
 		<h2 class="text-3xl font-bold tracking-tight text-white">{m.cmp_split_title()}</h2>
 		<p class="mx-auto mt-4 max-w-2xl leading-relaxed text-white/70">{m.cmp_split_body()}</p>
-		<a
-			href={localePath(locale, '/pricing')}
-			class="btn-primary mt-8 px-6 py-3 text-base"
-		>
-			{m.cmp_cta()}
-		</a>
+		<div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+			<a href="https://app.tonbab.com/signup" class="btn-primary px-6 py-3 text-base">{m.mkt_start_free()}</a>
+			<a href={localePath(locale, '/pricing')} class="inline-flex items-center rounded-lg px-6 py-3 text-base font-semibold text-white ring-1 ring-white/25 transition hover:bg-white/10">{m.mod_cta_pricing()}</a>
+		</div>
 	</div>
 </section>
