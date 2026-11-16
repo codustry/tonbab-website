@@ -1131,7 +1131,7 @@
 	"pr_starter_desc": "For a small team that has outgrown Free.",
 	"pr_standard_desc": "For a growing team that needs roles, lots and payroll.",
 	"pr_or_monthly": "or {price} / month",
-	"pr_yearly_saves": "Pay yearly and get two months free.",
+	"pr_yearly_saves": "2 months free on yearly",
 	"pr_cta_trial": "Start 30-day free trial",
 	"pr_everything_starter": "Everything in Starter, and:",
 	"pr_everything_standard": "Everything in Standard, and:",
@@ -1150,5 +1150,8 @@
 	"pr_jump": "Jump to",
 	"pr_ao_support": "Enterprise support pack",
 	"pr_ao_support_d": "99.9% uptime SLA, a named success manager, onboarding and staff training.",
-	"pr_addon_enterprise": "For Enterprise"
+	"pr_addon_enterprise": "For Enterprise",
+	"pr_bill_label": "Billing",
+	"pr_bill_yearly": "Pay yearly",
+	"pr_bill_monthly": "Pay monthly"
 }

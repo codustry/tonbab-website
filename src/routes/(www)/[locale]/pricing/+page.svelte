@@ -2,7 +2,9 @@
 	/**
 	 * Pricing (2026-11-16, owner-approved five plans). Numbers mirror the
 	 * product's single source, codustry/workflow src/lib/shared/plans.ts —
-	 * change them there first, then here. Five plan cards, then a comparison
+	 * change them there first, then here. Layout after notion.com/pricing: two
+	 * plan panels with a yearly / monthly switch, "everything in X, and:" lists,
+	 * then a comparison
 	 * table grouped by module, each module in its own colour (the same colours
 	 * the app uses), add-ons, FAQ.
 	 *
@@ -12,10 +14,12 @@
 	 */
 	import * as m from '$lib/paraglide/messages';
 	import { localePath, toLocale } from '$lib/i18n';
-	import { Check, Minus, Plus, Building2, Mail, ArrowRight, LayoutGrid, Boxes, ShoppingBag, Handshake, Users, Wrench, FileText, Plug, ShieldCheck } from 'lucide-svelte';
+	import { Check, Minus, Plus, Building2, Sparkles, Mail, ArrowRight, LayoutGrid, Boxes, ShoppingBag, Handshake, Users, Wrench, FileText, Plug, ShieldCheck } from 'lucide-svelte';
 
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
+	// Notion-style billing switch: yearly first (two months free).
+	let yearly = $state(true);
 
 	type Cell = boolean | string;
 	/** One value per plan, cheapest first: Free, Starter, Standard, Business, Enterprise. */
@@ -183,45 +187,65 @@
 	{/if}
 {/snippet}
 
+{#snippet planCol(p: Plan)}
+	<div class="flex flex-col">
+		<h2 class="flex flex-wrap items-center gap-2 text-lg font-semibold text-tnb-ink">
+			{#if p.key === 'enterprise'}<Building2 class="h-4 w-4" aria-hidden="true" />{/if}
+			{p.name()}
+			{#if p.best}<span class="rounded-full bg-tnb-blue/10 px-2 py-0.5 text-xs font-medium text-tnb-blue">{m.pr_recommended()}</span>{/if}
+		</h2>
+		<p class="mt-1 flex flex-wrap items-baseline gap-x-1.5">
+			{#if p.quoted}<span class="text-sm text-tnb-ink-soft">{m.pr_from()}</span>{/if}
+			<span class="text-3xl font-bold tracking-tight tabular-nums text-tnb-ink">{thb(yearly || !p.monthly ? p.yearly : p.monthly)}</span>
+			<span class="text-sm text-tnb-ink-soft">{p.key === 'free' ? m.pr_price_free_unit() : yearly || !p.monthly ? m.pr_per_year() : m.pr_per_month()}</span>
+		</p>
+		<p class="text-xs leading-snug text-tnb-ink-soft md:min-h-12">
+			{#if p.monthly}{yearly ? m.pr_or_monthly({ price: thb(p.monthly) }) : m.pr_or_yearly({ price: thb(p.yearly) })}{:else if p.quoted}{m.pr_enterprise_price_note()}{/if}
+		</p>
+		<p class="mt-2 text-[15px] leading-snug text-tnb-ink-soft md:min-h-24">{p.desc()}</p>
+		{#if p.key === 'enterprise'}
+			<a href={mailto(m.pr_mail_subject_enterprise())} class="mt-5 inline-flex w-full items-center justify-center rounded-lg bg-tnb-paper px-4 py-2.5 font-semibold text-tnb-blue-deep transition hover:bg-white/70">{m.pr_cta_enterprise()}</a>
+		{:else}
+			<a href="https://app.tonbab.com/signup" class="{p.best ? 'btn-primary' : 'btn-soft'} mt-5 w-full">{p.key === 'free' ? m.pr_cta_free() : m.pr_cta_trial()}</a>
+		{/if}
+		<p class="mt-7 text-sm font-semibold text-tnb-ink">{p.lead()}</p>
+		<ul class="mt-3 space-y-2.5">
+			{#each p.bullets as b (b())}
+				<li class="flex gap-2.5 text-[15px] leading-snug text-tnb-ink"><Check class="mt-0.5 h-4 w-4 shrink-0 text-tnb-ink-soft" aria-hidden="true" />{b()}</li>
+			{/each}
+		</ul>
+	</div>
+{/snippet}
+
 <!-- Hero -->
 <section class="container mx-auto max-w-7xl px-4 pb-10 pt-16 sm:pt-24">
 	<h1 class="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight text-tnb-ink sm:text-6xl">{m.pr_hero_title()}</h1>
 	<p class="mt-5 max-w-2xl text-lg leading-relaxed text-tnb-ink-soft">{m.pr_hero_sub()}</p>
-	<p class="mt-3 text-sm text-tnb-ink-soft">{m.pr_vat_note()} {m.pr_yearly_saves()}</p>
+	<div class="mt-6 flex flex-wrap items-center gap-3">
+		<div class="inline-flex rounded-full bg-tnb-mist p-1 text-sm font-medium" role="radiogroup" aria-label={m.pr_bill_label()}>
+			<button type="button" role="radio" aria-checked={yearly} onclick={() => (yearly = true)} class="rounded-full px-4 py-1.5 transition {yearly ? 'bg-tnb-paper text-tnb-ink shadow-sm' : 'text-tnb-ink-soft'}">{m.pr_bill_yearly()}</button>
+			<button type="button" role="radio" aria-checked={!yearly} onclick={() => (yearly = false)} class="rounded-full px-4 py-1.5 transition {!yearly ? 'bg-tnb-paper text-tnb-ink shadow-sm' : 'text-tnb-ink-soft'}">{m.pr_bill_monthly()}</button>
+		</div>
+		<span class="rounded-full bg-tnb-blue/10 px-2.5 py-1 text-xs font-medium text-tnb-blue">{m.pr_yearly_saves()}</span>
+	</div>
+	<p class="mt-3 text-sm text-tnb-ink-soft">{m.pr_vat_note()}</p>
 </section>
 
-<!-- Plans: five cards, cheapest first; Business is the recommended one -->
+<!-- Plans, after notion.com/pricing: the two entry plans on a plain panel, the three growth plans together on a tinted one -->
 <section class="container mx-auto max-w-7xl px-4">
-	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-		{#each plans as p (p.key)}
-			<div class="flex flex-col rounded-2xl border p-5 {p.best ? 'border-tnb-blue bg-tnb-wash' : 'border-tnb-hair bg-tnb-paper'}">
-				<h2 class="flex flex-wrap items-center gap-2 text-lg font-semibold text-tnb-ink">
-					{#if p.key === 'enterprise'}<Building2 class="h-4 w-4" aria-hidden="true" />{/if}
-					{p.name()}
-					{#if p.best}<span class="rounded-full bg-tnb-blue px-2 py-0.5 text-xs font-medium text-white">{m.pr_recommended()}</span>{/if}
-				</h2>
-				<p class="mt-2 flex flex-wrap items-baseline gap-x-1.5">
-					{#if p.quoted}<span class="text-sm text-tnb-ink-soft">{m.pr_from()}</span>{/if}
-					<span class="text-3xl font-bold tracking-tight tabular-nums text-tnb-ink">{thb(p.yearly)}</span>
-					<span class="text-sm text-tnb-ink-soft">{p.key === 'free' ? m.pr_price_free_unit() : m.pr_per_year()}</span>
-				</p>
-				<p class="text-xs xl:min-h-12 leading-snug text-tnb-ink-soft">
-					{#if p.monthly}{m.pr_or_monthly({ price: thb(p.monthly) })}{:else if p.quoted}{m.pr_enterprise_price_note()}{/if}
-				</p>
-				<p class="mt-2 text-sm xl:min-h-24 leading-snug text-tnb-ink-soft">{p.desc()}</p>
-				{#if p.key === 'enterprise'}
-					<a href={mailto(m.pr_mail_subject_enterprise())} class="btn-soft mt-4 w-full">{m.pr_cta_enterprise()}</a>
-				{:else}
-					<a href="https://app.tonbab.com/signup" class="{p.best ? 'btn-primary' : 'btn-soft'} mt-4 w-full">{p.key === 'free' ? m.pr_cta_free() : m.pr_cta_trial()}</a>
-				{/if}
-				<p class="mt-6 text-sm font-semibold text-tnb-ink">{p.lead()}</p>
-				<ul class="mt-3 space-y-2">
-					{#each p.bullets as b (b())}
-						<li class="flex gap-2 text-sm leading-snug text-tnb-ink"><Check class="mt-0.5 h-4 w-4 shrink-0 text-tnb-ink-soft" aria-hidden="true" />{b()}</li>
-					{/each}
-				</ul>
+	<div class="grid gap-4 xl:grid-cols-[2fr_3fr]">
+		<div class="rounded-2xl border border-tnb-hair bg-tnb-paper p-6 sm:p-8">
+			<p class="text-xl font-semibold leading-snug text-tnb-ink">{m.pr_panel_start()}</p>
+			<div class="mt-8 grid gap-10 md:grid-cols-2 md:gap-8">
+				{#each plans.slice(0, 2) as p (p.key)}{@render planCol(p)}{/each}
 			</div>
-		{/each}
+		</div>
+		<div class="rounded-2xl bg-tnb-wash p-6 sm:p-8">
+			<p class="flex items-center gap-2 text-xl font-semibold leading-snug text-tnb-ink"><Sparkles class="h-5 w-5 text-tnb-amber" aria-hidden="true" />{m.pr_panel_grow()}</p>
+			<div class="mt-8 grid gap-10 md:grid-cols-3 md:gap-8">
+				{#each plans.slice(2) as p (p.key)}{@render planCol(p)}{/each}
+			</div>
+		</div>
 	</div>
 	<p class="mt-4 text-sm text-tnb-ink-soft">{m.pr_trial_note()}</p>
 </section>
@@ -244,7 +268,7 @@
 					{#each plans as p (p.key)}
 						<th class="z-10 border-b border-tnb-hair bg-tnb-paper px-2 py-3 align-bottom lg:sticky lg:top-16">
 							<div class="text-sm font-semibold {p.best ? 'text-tnb-blue' : 'text-tnb-ink'}">{p.name()}</div>
-							<div class="text-xs font-normal tabular-nums text-tnb-ink-soft">{#if p.quoted}{m.pr_from()} {/if}{thb(p.yearly)}{#if p.key !== 'free'} {m.pr_per_year()}{/if}</div>
+							<div class="text-xs font-normal tabular-nums text-tnb-ink-soft">{#if p.quoted}{m.pr_from()} {/if}{thb(yearly || !p.monthly ? p.yearly : p.monthly)}{#if p.key !== 'free'} {yearly || !p.monthly ? m.pr_per_year() : m.pr_per_month_short()}{/if}</div>
 						</th>
 					{/each}
 				</tr>

@@ -1131,7 +1131,7 @@
 	"pr_starter_desc": "สำหรับทีมเล็กที่เริ่มใช้เกินขีดจำกัดของ Free",
 	"pr_standard_desc": "สำหรับทีมที่กำลังโต ต้องการกำหนดสิทธิ์ ล็อตสินค้า และเงินเดือน",
 	"pr_or_monthly": "หรือ {price} / เดือน",
-	"pr_yearly_saves": "ชำระรายปี ใช้ฟรี 2 เดือน",
+	"pr_yearly_saves": "รายปีใช้ฟรี 2 เดือน",
 	"pr_cta_trial": "ทดลองใช้ฟรี 30 วัน",
 	"pr_everything_starter": "ทุกอย่างใน Starter และ:",
 	"pr_everything_standard": "ทุกอย่างใน Standard และ:",
@@ -1150,5 +1150,8 @@
 	"pr_jump": "ไปที่",
 	"pr_ao_support": "แพ็กซัพพอร์ต Enterprise",
 	"pr_ao_support_d": "รับประกันระบบพร้อมใช้ 99.9% ผู้ดูแลลูกค้าเฉพาะ ตั้งค่าเริ่มต้นและอบรมพนักงาน",
-	"pr_addon_enterprise": "สำหรับ Enterprise"
+	"pr_addon_enterprise": "สำหรับ Enterprise",
+	"pr_bill_label": "รอบการชำระ",
+	"pr_bill_yearly": "ชำระรายปี",
+	"pr_bill_monthly": "ชำระรายเดือน"
 }
