@@ -206,7 +206,7 @@
 				</div>
 				<div class="mt-4 flex flex-wrap gap-1.5">
 					{#each jcDocs as d, i (d)}
-						<span class="rounded-md border border-tnb-line bg-white px-2 py-0.5 text-[10.5px] font-semibold text-tnb-ink-soft">{d}<span class="ml-1 font-normal text-tnb-ink-soft/70">×{[3, 2, 4, 4, 1, 2][i]}</span></span>
+						<span class="rounded-md border border-tnb-line bg-white px-2 py-0.5 text-[10.5px] font-semibold text-tnb-ink-soft">{d}<span class="ml-1 font-normal text-tnb-ink-soft">×{[3, 2, 4, 4, 1, 2][i]}</span></span>
 					{/each}
 				</div>
 			{:else if module === 'people'}

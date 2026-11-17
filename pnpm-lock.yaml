@@ -8,7 +8,16 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/anuphan':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@fontsource/ibm-plex-sans-thai':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource/noto-sans-thai-looped':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource/plus-jakarta-sans':
         specifier: ^5.3.0
         version: 5.3.0
       '@inlang/paraglide-js':
@@ -1200,8 +1209,17 @@ packages:
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
 
+  '@fontsource/anuphan@5.3.0':
+    resolution: {integrity: sha512-1vWJrY2shVTVE4Bv1BheXKQKWI4DxNSWF64++zt7wbRuYef8QV1tJItvHHxN6+1fknwanIM8RKsXiR0RuHPlhA==}
+
   '@fontsource/ibm-plex-sans-thai@5.3.0':
     resolution: {integrity: sha512-olXzgcA/CTk0PibqGMJrheml3/z8N9VzNLcHkzv9tCoBqnaMoxYYwZp4PZrDkPuOCUe1gW942e9f5fGOOlr3zg==}
+
+  '@fontsource/noto-sans-thai-looped@5.3.0':
+    resolution: {integrity: sha512-10a1WIfSNARWUlkiHC709gUF92WyduKdspctM352s3WLt7EXVlf7HwQycjpQ3j17AfCZG/upu4mUtGADF+ppaw==}
+
+  '@fontsource/plus-jakarta-sans@5.3.0':
+    resolution: {integrity: sha512-9WRw3G74Ve4cyPApAZSXLPY5DiLOZXDn7Q7dIBjFBpA0Pj56ljDItEdy2UUajjJxRuTg2HkMLO5C3K2nAQORWg==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -3672,7 +3690,13 @@ snapshots:
 
   '@floating-ui/utils@0.2.11': {}
 
+  '@fontsource/anuphan@5.3.0': {}
+
   '@fontsource/ibm-plex-sans-thai@5.3.0': {}
+
+  '@fontsource/noto-sans-thai-looped@5.3.0': {}
+
+  '@fontsource/plus-jakarta-sans@5.3.0': {}
 
   '@humanfs/core@0.19.1': {}
 

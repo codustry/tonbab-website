@@ -1,26 +1,49 @@
-import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import { SUPPORTED_LOCALES } from "$lib/i18n";
-import type { Locale } from "$lib/server/content/types";
-import { canonicalUrl, resolveOrigin, type PageSeo } from "$lib/seo";
+import { marketingContext } from "$lib/server/marketing/page";
+import {
+  HOME_CRUMB,
+  faqJsonLd,
+  marketingSeo,
+  softwareJsonLd,
+} from "$lib/seo/site";
+import * as m from "$lib/paraglide/messages";
 
-export const load: PageServerLoad = async ({ params, url, locals }) => {
-  if (!SUPPORTED_LOCALES.includes(params.locale as Locale)) {
-    error(404, "Not found");
-  }
-  const locale = params.locale as Locale;
-  const settings = await locals.content.getSettings().catch(() => null);
-  const origin = resolveOrigin(url, settings?.cdnBaseUrl);
-  const alternates: Partial<Record<Locale, string>> = {};
-  for (const l of SUPPORTED_LOCALES) {
-    alternates[l] = canonicalUrl(origin, `/${l}/pricing`);
-  }
-  const seo: PageSeo = {
-    title: locale === "th" ? "ราคา — Tonbab" : "Pricing — Tonbab",
-    canonical: canonicalUrl(origin, `/${locale}/pricing`),
+// Same eight Q&As the page renders (pricing/+page.svelte `faqs`).
+const FAQ = [
+  [m.pr_q1, m.pr_a1],
+  [m.pr_q2, m.pr_a2],
+  [m.pr_q3, m.pr_a3],
+  [m.pr_q4, m.pr_a4],
+  [m.pr_q5, m.pr_a5],
+  [m.pr_q6, m.pr_a6],
+  [m.pr_q7, m.pr_a7],
+  [m.pr_q8, m.pr_a8],
+] as const;
+
+export const load: PageServerLoad = async (event) => {
+  const { locale, cdnBaseUrl } = await marketingContext(event);
+  const th = locale === "th";
+  const seo = marketingSeo({
+    url: event.url,
+    cdnBaseUrl,
     locale,
-    alternates,
-    ogType: "website",
-  };
+    path: "/pricing",
+    title: th
+      ? "ราคา Tonbab: เริ่มฟรี แพ็กเกจเริ่ม ฿2,990/ปี ทุกแพ็กเกจได้ทุกโมดูล"
+      : "Tonbab Pricing: Free Plan, Paid Plans from ฿2,990/yr, Every Module Included",
+    description: th
+      ? "ราคาระบบ ERP Tonbab ต่อบริษัท ก่อน VAT: Free ฿0, Starter ฿2,990, Standard ฿6,000, Business ฿14,400 และ Enterprise เริ่ม ฿42,000 ต่อปี ทดลอง Business ฟรี 30 วัน"
+      : "Tonbab ERP pricing per company, before VAT: Free ฿0, Starter ฿2,990, Standard ฿6,000, Business ฿14,400 and Enterprise from ฿42,000 per year. 30-day Business trial.",
+    breadcrumbs: [
+      { name: th ? HOME_CRUMB.th : HOME_CRUMB.en, path: "" },
+      { name: th ? "ราคา" : "Pricing", path: "/pricing" },
+    ],
+    jsonLd: [
+      softwareJsonLd(locale),
+      faqJsonLd(
+        FAQ.map(([q, a]) => ({ q: q({}, { locale }), a: a({}, { locale }) })),
+      ),
+    ],
+  });
   return { locale, seo };
 };

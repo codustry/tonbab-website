@@ -1,26 +1,25 @@
-import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import { SUPPORTED_LOCALES } from "$lib/i18n";
-import type { Locale } from "$lib/server/content/types";
-import { canonicalUrl, resolveOrigin, type PageSeo } from "$lib/seo";
+import { marketingContext } from "$lib/server/marketing/page";
+import { HOME_CRUMB, marketingSeo } from "$lib/seo/site";
 
-export const load: PageServerLoad = async ({ params, url, locals }) => {
-  if (!SUPPORTED_LOCALES.includes(params.locale as Locale)) {
-    error(404, "Not found");
-  }
-  const locale = params.locale as Locale;
-  const settings = await locals.content.getSettings().catch(() => null);
-  const origin = resolveOrigin(url, settings?.cdnBaseUrl);
-  const alternates: Partial<Record<Locale, string>> = {};
-  for (const l of SUPPORTED_LOCALES) {
-    alternates[l] = canonicalUrl(origin, `/${l}/story`);
-  }
-  const seo: PageSeo = {
-    title: locale === "th" ? "เรื่องราวของเรา — Tonbab" : "Our story — Tonbab",
-    canonical: canonicalUrl(origin, `/${locale}/story`),
+export const load: PageServerLoad = async (event) => {
+  const { locale, cdnBaseUrl } = await marketingContext(event);
+  const th = locale === "th";
+  const seo = marketingSeo({
+    url: event.url,
+    cdnBaseUrl,
     locale,
-    alternates,
-    ogType: "website",
-  };
+    path: "/story",
+    title: th
+      ? "เรื่องราวของ Tonbab (ต้นแบบ) — ERP ที่สร้างจากงานจริงของธุรกิจไทย"
+      : "The Tonbab (ต้นแบบ) Story — an ERP Built Inside Real Thai Operations",
+    description: th
+      ? "Tonbab เกิดจากการทำงานจริงในโรงงานและธุรกิจไทย พัฒนาโดย Codustry และใช้งานจริงทุกวัน อ่านที่มาของชื่อ ต้นแบบ และวิธีที่เราสร้างระบบ"
+      : "Tonbab grew out of real Thai factories and businesses, built by Codustry and used every day. Read where the name ต้นแบบ comes from and how we build.",
+    breadcrumbs: [
+      { name: th ? HOME_CRUMB.th : HOME_CRUMB.en, path: "" },
+      { name: th ? "เรื่องราวของเรา" : "Our story", path: "/story" },
+    ],
+  });
   return { locale, seo };
 };

@@ -1,6 +1,47 @@
 import { resolveOrigin } from "$lib/seo";
 import type { RequestHandler } from "./$types";
 
+/** Never crawled: CMS admin + JSON endpoints. */
+const AI_PRIVATE_PATHS = ["/admin/", "/api/"];
+
+/**
+ * Search + AI crawler tokens, as published by each vendor (checked
+ * 2026-11-17). Grouped: search indexers, AI search / answer bots, user-
+ * triggered fetchers, and training crawlers (allowed by owner choice).
+ */
+const AI_AGENTS = [
+  // Search engines (Bing powers ChatGPT search + Copilot)
+  "Googlebot",
+  "Bingbot",
+  "Applebot",
+  "DuckDuckBot",
+  "YandexBot",
+  // AI search / answer engines
+  "OAI-SearchBot",
+  "Claude-SearchBot",
+  "PerplexityBot",
+  "DuckAssistBot",
+  "meta-webindexer",
+  // User-triggered fetchers (a person asked an assistant to read a page)
+  "ChatGPT-User",
+  "Claude-User",
+  "Perplexity-User",
+  "MistralAI-User",
+  "meta-externalfetcher",
+  // Model training / grounding (owner opted in)
+  "GPTBot",
+  "ClaudeBot",
+  "anthropic-ai",
+  "Google-Extended",
+  "Applebot-Extended",
+  "CCBot",
+  "meta-externalagent",
+  "FacebookBot",
+  "Amazonbot",
+  "Bytespider",
+  "cohere-ai",
+];
+
 /**
  * GET /robots.txt
  *
@@ -26,11 +67,24 @@ export const GET: RequestHandler = async ({ url, platform, locals }) => {
   const origin = resolveOrigin(url, settings?.cdnBaseUrl);
 
   const isProd = env === "production";
+  // Owner policy (2026-11-17): WELCOME search and AI crawlers — Tonbab
+  // wants to be found and recommended by Google, Bing, ChatGPT, Claude,
+  // Perplexity, Gemini, Copilot and Apple Intelligence. AI agents are named
+  // explicitly so a future "default deny" anywhere upstream is visibly
+  // contradicted here. A named group replaces the `*` group for that bot,
+  // so it repeats the admin/api disallows.
+  const disallow = AI_PRIVATE_PATHS.map((p) => `Disallow: ${p}`).join("\n");
   const body = isProd
-    ? `User-agent: *
+    ? `# tonbab.com — search engines and AI assistants are welcome.
+# Plain-Markdown site summary for LLMs: ${origin}/llms.txt (full: ${origin}/llms-full.txt)
+
+${AI_AGENTS.map((a) => `User-agent: ${a}`).join("\n")}
 Allow: /
-Disallow: /admin/
-Disallow: /api/
+${disallow}
+
+User-agent: *
+Allow: /
+${disallow}
 
 Sitemap: ${origin}/sitemap.xml
 `

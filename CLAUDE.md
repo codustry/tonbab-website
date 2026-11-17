@@ -42,15 +42,17 @@ accent only, never the button colour. Demo-booking runs on Khao Pad Forms.
 ## Honesty rules (from the build proposal)
 
 - **Never invent traction stats.** Use real production numbers only.
-- **Plans are real since 2026-11-09** (owner-approved): Free ฿0, Business
-  ฿3,000/mo or ฿36,000/yr, Enterprise from ฿99,000/yr (includes a 99.9% SLA),
-  plus add-ons — all prices **excl. 7% VAT**. The single source is the product
-  repo's `src/lib/shared/plans.ts`; /pricing mirrors it — change the product
-  first, then this site. Still no self-host and no public-GitHub claims.
+- **Plans** (owner, 2026-11-16; Free seat change 2026-11-17): Free ฿0 (1
+  user), Starter ฿2,990/yr (5), Standard ฿6,000/yr (10), Business ฿14,400/yr
+  (25), Enterprise from ฿42,000/yr (100+, quoted); monthly = yearly ÷ 10;
+  Enterprise support pack ฿48,000/yr — all prices **excl. 7% VAT**. The single
+  source is the product repo's `src/lib/shared/plans.ts`; /pricing and
+  `src/lib/seo/site.ts` (PLAN_FACTS → JSON-LD, llms.txt) mirror it — change the
+  product first, then both. Still no self-host and no public-GitHub claims.
 - **Self-serve signup is live** at https://app.tonbab.com/signup (since
   2026-11-09): email-verified, a new company starts on the 30-day Business
   trial, then Free. "Start free" / Free / Business buttons link there;
-  Enterprise emails hello@tonbab.com.
+  Enterprise emails sales@codustry.com.
 - /compare cites competitors with dated source footnotes. Never claim Thai
   rivals lack Thai tax compliance (PEAK/FlowAccount/AccRevo are strong there);
   lead with the manufacturing gap, transparent THB, and the split-stack story.
@@ -63,13 +65,45 @@ Policy, footer copyright — must name this entity, never "Tonbab" alone and
 never the khaopad placeholder. Legal pages are seeded via the CMS legal
 templates and must be edited to carry this entity before publishing.
 
+## SEO / AI search (2026-11)
+
+- Every hand-built page builds its `seo` with `marketingSeo()` from
+  `$lib/seo/site.ts` (canonical, hreflang th/en/x-default, per-page OG card,
+  breadcrumbs, JSON-LD). Entity facts (name, Codustry, contact, plans) live
+  ONLY in `site.ts` — llms.txt, JSON-LD and pages read them from there.
+- FAQPage JSON-LD only where the same Q&As are visible on the page.
+- New page → add it to the sitemap list (`sitemap-[locale].xml`), give it an
+  OG card in `scripts/seo/og.ts`, run `pnpm seo:og`, bump `SITE_UPDATED`.
+- AI crawlers are WELCOME (owner policy): robots.txt names them with Allow;
+  /llms.txt, /llms-full.txt and /md/<locale>/<path> are generated from the
+  same data files as the pages. Never add a bot block.
+- Feature claims in `features-data.ts` carry a status (live / in development /
+  coming soon); never upgrade one without the code shipping in the app repo.
+
+## Help docs (/docs) and the sales deck (/pitch)
+
+- **/[locale]/docs is code-owned Markdown** since 2026-11-17:
+  `src/content/docs/<th|en>/<section>/<slug>.md` (frontmatter: title,
+  description, section, order, updated). Sidebar order/labels live in
+  `$lib/server/docs` (DOC_SECTIONS). Every instruction is verified against the
+  app repo; TH and EN files share slugs and must say the same thing. The old
+  CMS "docs" pages are shadowed by this route. FAQ and blog stay in the CMS.
+- **/pitch** is the customer keynote (noindex, public by URL). Source =
+  the Slides artifact export in `src/content/pitch/` (deck.json, deck.css,
+  slides/*.html) + assets in `static/pitch/assets/<blobId>.*`. After the deck
+  changes: re-export those files from the artifact (and any new /_blob assets),
+  run `pnpm pitch:build`, commit `src/lib/pitch/deck.generated.ts`.
+- Un-prefixed paths (`/developers`, `/docs/...`, `/pricing`) 308 to the
+  visitor's locale (hooks.server.ts `unprefixedRedirectHook`).
+
 ## Customer stories
 
 /story tells the origin + customer stories. Only REAL stories: the product
 was built and dogfooded inside real operations (the production stats are
 the proof). Never invent testimonials; a tenant may be named only after
-their explicit consent — until then the customer-story section stays a
-"coming soon" invitation.
+their explicit consent. Owner-confirmed logo/name permission (2026-11-17) is
+recorded in `src/lib/marketing/customers-data.ts` — only those companies
+appear; no testimonials or metrics are attributed without separate consent.
 
 ## Tech stack (inherited from Khao Pad)
 

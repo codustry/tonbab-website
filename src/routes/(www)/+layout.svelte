@@ -6,6 +6,10 @@
 	import { page } from '$app/state';
 	import { cookieName, cookieMaxAge } from '$lib/paraglide/runtime';
 	import Seo from '$lib/components/seo/Seo.svelte';
+	// Preload the two body-text faces so Thai text paints in its final font
+	// without waiting for app.css to be parsed (LCP is a text block).
+	import plexThai400 from '@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-400-normal.woff2?url';
+	import plexLatin400 from '@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-latin-400-normal.woff2?url';
 	import CookieBanner from '$lib/components/consent/CookieBanner.svelte';
 	import HeaderSearch from '$lib/components/www/HeaderSearch.svelte';
 	import { Menu, X, ChevronDown } from 'lucide-svelte';
@@ -98,6 +102,11 @@
 	onkeydown={(e) => { if (e.key === 'Escape') openMenu = null; }}
 />
 
+<svelte:head>
+	<link rel="preload" as="font" type="font/woff2" href={plexThai400} crossorigin="anonymous" />
+	<link rel="preload" as="font" type="font/woff2" href={plexLatin400} crossorigin="anonymous" />
+</svelte:head>
+
 <Seo seo={pageSeo} defaults={seoDefaults} locale={toLocale(data.locale)} />
 
 <div
@@ -141,6 +150,7 @@
 						</div>
 					{/if}
 				</div>
+				<a href={localePath(loc, '/features')} class="rounded-md px-3 py-1.5 text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_features()}</a>
 				<a href={localePath(toLocale(data.locale), '/compare')} class="rounded-md px-3 py-1.5 text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_compare()}</a>
 				<a href={localePath(toLocale(data.locale), '/pricing')} class="rounded-md px-3 py-1.5 text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_pricing()}</a>
 				<div class="relative">
@@ -156,9 +166,13 @@
 						<div class="absolute left-0 top-full z-50 mt-2 w-56 rounded-xl border border-tnb-line bg-tnb-paper p-2 shadow-[0_10px_30px_rgba(23,22,28,0.12)]">
 							<a href={localePath(toLocale(data.locale), '/docs')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_docs()}</a>
 							<a href={localePath(loc, '/developers')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_developers()}</a>
+							<a href="https://api.tonbab.com/docs" onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_footer_api_docs()} ↗</a>
 							<a href={localePath(toLocale(data.locale), '/faq')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_faq()}</a>
 							<a href={localePath(toLocale(data.locale), '/blog')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.nav_blog()}</a>
 							<a href={localePath(toLocale(data.locale), '/story')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.story_nav()}</a>
+							<a href={localePath(loc, '/customers')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_customers()}</a>
+							<a href={localePath(loc, '/migration')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_migration()}</a>
+							<a href={localePath(loc, '/what-is-tonbab')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_what_is()}</a>
 						</div>
 					{/if}
 				</div>
@@ -207,6 +221,7 @@
 					<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-semibold text-tnb-blue hover:bg-tnb-mist">{m.mkt_nav_all_modules()} →</a>
 				</div>
 				<div class="mt-2 flex flex-col gap-1 border-t border-tnb-line pt-2 text-base">
+					<a href={localePath(loc, '/features')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_features()}</a>
 					<a href={localePath(toLocale(data.locale), '/compare')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_compare()}</a>
 					<a href={localePath(toLocale(data.locale), '/pricing')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_pricing()}</a>
 				</div>
@@ -214,9 +229,12 @@
 				<div class="flex flex-col gap-1 text-base">
 					<a href={localePath(toLocale(data.locale), '/docs')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_docs()}</a>
 					<a href={localePath(loc, '/developers')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_developers()}</a>
+					<a href="https://api.tonbab.com/docs" onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_footer_api_docs()} ↗</a>
 					<a href={localePath(toLocale(data.locale), '/faq')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_faq()}</a>
 					<a href={localePath(toLocale(data.locale), '/blog')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.nav_blog()}</a>
 					<a href={localePath(toLocale(data.locale), '/story')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.story_nav()}</a>
+					<a href={localePath(loc, '/customers')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_customers()}</a>
+					<a href={localePath(loc, '/migration')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_migration()}</a>
 					{#each data.nav.primary as item (item.id)}
 						<a href={item.href} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{item.label}</a>
 					{/each}
@@ -275,8 +293,12 @@
 			<nav aria-label={m.mkt_footer_company()}>
 				<p class="text-sm font-medium text-tnb-ink-soft">{m.mkt_footer_company()}</p>
 				<ul class="mt-2 space-y-0.5">
+					<li><a href={localePath(loc, '/what-is-tonbab')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_what_is()}</a></li>
+					<li><a href={localePath(loc, '/features')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_features()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/compare')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_compare()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/pricing')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_pricing()}</a></li>
+					<li><a href={localePath(loc, '/customers')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_customers()}</a></li>
+					<li><a href={localePath(loc, '/migration')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_migration()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/privacy')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_footer_privacy()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/terms')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_footer_terms()}</a></li>
 					{#each data.nav.footer as item (item.id)}
@@ -287,7 +309,15 @@
 		</div>
 		<div class="border-t border-tnb-hair">
 			<div class="container mx-auto max-w-6xl px-4 py-6 text-tnb-ink-soft">
-				<p>{m.footer_copyright({ year: new Date().getFullYear().toString() })}</p>
+				<div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+					<p>{m.footer_copyright({ year: new Date().getFullYear().toString() })}</p>
+					<p>
+						<a href="https://www.codustry.com" class="hover:underline">{m.mkt_footer_product_of()}</a>
+						<span class="mx-2 text-tnb-line">·</span>{m.mkt_footer_contact()}:
+						<a href="mailto:sales@codustry.com" class="hover:underline">sales@codustry.com</a>
+						<span class="mx-1">·</span><a href="tel:028734448" class="hover:underline">02-873-4448</a>
+					</p>
+				</div>
 			</div>
 		</div>
 	</footer>

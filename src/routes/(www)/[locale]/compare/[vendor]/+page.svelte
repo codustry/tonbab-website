@@ -1,0 +1,64 @@
+<script lang="ts">
+	import { localePath, toLocale } from '$lib/i18n';
+	import { getVendorCompare, vendorCompares } from '$lib/marketing/compare-vendors';
+	import type { Bi } from '$lib/marketing/compare-data';
+	import Breadcrumbs from '$lib/components/www/Breadcrumbs.svelte';
+	import CtaBand from '$lib/components/www/CtaBand.svelte';
+	import { ArrowRight } from 'lucide-svelte';
+
+	let { data } = $props();
+	const locale = $derived(toLocale(data.locale));
+	const th = $derived(locale === 'th');
+	const t = (b: Bi) => (locale === 'th' ? b.th : b.en);
+	const v = $derived(getVendorCompare(data.vendorSlug)!);
+	const others = $derived(vendorCompares.filter((x) => x.slug !== v.slug));
+</script>
+
+<article>
+	<section class="bg-tnb-paper">
+		<div class="container mx-auto max-w-4xl px-4 pt-8 pb-12">
+			<Breadcrumbs {locale} items={[{ name: th ? 'เปรียบเทียบ' : 'Compare', path: '/compare' }, { name: `Tonbab vs ${v.name}` }]} />
+			<h1 class="mt-8 text-4xl leading-tight font-bold tracking-tight text-balance text-tnb-ink sm:text-5xl">{th ? `Tonbab กับ ${v.name} ต่างกันอย่างไร?` : `Tonbab vs ${v.name}: what's the difference?`}</h1>
+			<p class="mt-6 text-lg leading-relaxed text-tnb-ink">{t(v.summary)}</p>
+		</div>
+	</section>
+
+	<section class="bg-tnb-mist">
+		<div class="container mx-auto max-w-4xl px-4 py-12">
+			<h2 class="text-2xl font-bold tracking-tight text-tnb-ink">{th ? 'ตารางเปรียบเทียบ' : 'Side by side'}</h2>
+			<div class="mt-6 overflow-x-auto rounded-xl bg-white ring-1 ring-tnb-line">
+				<table class="w-full min-w-[36rem] text-left text-[15px]">
+					<thead class="bg-tnb-paper text-sm text-tnb-ink-soft"><tr><th scope="col" class="w-1/4 px-4 py-3 font-medium"></th><th scope="col" class="px-4 py-3 font-semibold text-tnb-ink">{v.name}</th><th scope="col" class="px-4 py-3 font-semibold text-tnb-blue">Tonbab</th></tr></thead>
+					<tbody>
+						{#each v.rows as r (r.label.en)}
+							<tr class="border-t border-tnb-line align-top"><th scope="row" class="px-4 py-3 font-medium text-tnb-ink">{t(r.label)}</th><td class="px-4 py-3 text-tnb-ink-soft">{t(r.them)}</td><td class="px-4 py-3 text-tnb-ink">{t(r.tonbab)}</td></tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+			<p class="mt-3 text-xs leading-relaxed text-tnb-ink-soft">{t(v.verified)}{#if v.sourceUrl} — <a href={v.sourceUrl} rel="nofollow noopener" class="underline">{v.sourceUrl.replace('https://', '')}</a>{/if}. {th ? 'ราคาและฟีเจอร์อาจเปลี่ยนแปลง โปรดตรวจสอบกับผู้ขายโดยตรง ชื่อผลิตภัณฑ์เป็นเครื่องหมายการค้าของเจ้าของ' : 'Prices and features change — check with each vendor. Product names are trademarks of their owners.'}</p>
+		</div>
+	</section>
+
+	<section class="bg-tnb-paper">
+		<div class="container mx-auto grid max-w-4xl gap-6 px-4 py-12 sm:grid-cols-2">
+			<div class="rounded-xl border border-tnb-line p-6">
+				<h2 class="text-lg font-bold text-tnb-ink">{th ? `เลือก ${v.name} ถ้า…` : `Choose ${v.name} if…`}</h2>
+				<ul class="mt-3 list-disc space-y-2 pl-5 text-tnb-ink-soft">{#each v.chooseThem as c (c.en)}<li>{t(c)}</li>{/each}</ul>
+			</div>
+			<div class="rounded-xl border-2 border-tnb-blue/40 bg-tnb-wash/40 p-6">
+				<h2 class="text-lg font-bold text-tnb-ink">{th ? 'เลือก Tonbab ถ้า…' : 'Choose Tonbab if…'}</h2>
+				<ul class="mt-3 list-disc space-y-2 pl-5 text-tnb-ink">{#each v.chooseTonbab as c (c.en)}<li>{t(c)}</li>{/each}</ul>
+			</div>
+		</div>
+		<div class="container mx-auto max-w-4xl px-4 pb-14">
+			<p class="leading-relaxed text-tnb-ink-soft">{th ? `ใช้ ${v.name} อยู่และอยากย้ายมา? เรารับย้ายข้อมูลจากโปรแกรมบัญชีเดิมผ่าน Excel` : `Using ${v.name} and want to move? We migrate from existing accounting software via Excel.`} <a href={localePath(locale, '/migration')} class="font-medium text-tnb-blue hover:underline">{th ? 'บริการย้ายข้อมูล' : 'Migration service'}</a></p>
+			<ul class="mt-6 flex flex-wrap gap-3">
+				{#each others as o (o.slug)}<li><a href={localePath(locale, `/compare/${o.slug}`)} class="inline-flex items-center gap-1 rounded-full bg-tnb-mist px-4 py-2 text-sm font-medium text-tnb-ink hover:text-tnb-blue">Tonbab vs {o.name}<ArrowRight class="h-4 w-4" aria-hidden="true" /></a></li>{/each}
+				<li><a href={localePath(locale, '/compare')} class="inline-flex items-center gap-1 rounded-full bg-tnb-mist px-4 py-2 text-sm font-medium text-tnb-ink hover:text-tnb-blue">{th ? 'เทียบกับ ERP อื่นทั้งหมด' : 'All ERP comparisons'}<ArrowRight class="h-4 w-4" aria-hidden="true" /></a></li>
+			</ul>
+		</div>
+	</section>
+</article>
+
+<CtaBand {locale} />

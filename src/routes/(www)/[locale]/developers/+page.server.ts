@@ -1,31 +1,25 @@
-import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import { SUPPORTED_LOCALES } from "$lib/i18n";
-import type { Locale } from "$lib/server/content/types";
-import { canonicalUrl, resolveOrigin, type PageSeo } from "$lib/seo";
+import { marketingContext } from "$lib/server/marketing/page";
+import { HOME_CRUMB, marketingSeo } from "$lib/seo/site";
 
-export const load: PageServerLoad = async ({ params, url, locals }) => {
-  if (!SUPPORTED_LOCALES.includes(params.locale as Locale)) {
-    error(404, "Not found");
-  }
-  const locale = params.locale as Locale;
-  const settings = await locals.content.getSettings().catch(() => null);
-  const origin = resolveOrigin(url, settings?.cdnBaseUrl);
-  const alternates: Partial<Record<Locale, string>> = {};
-  for (const l of SUPPORTED_LOCALES) {
-    alternates[l] = canonicalUrl(origin, `/${l}/developers`);
-  }
-  const seo: PageSeo = {
-    title:
-      locale === "th" ? "นักพัฒนาและ AI — Tonbab" : "Developers & AI — Tonbab",
-    description:
-      locale === "th"
-        ? "REST API, webhook ที่ลงลายเซ็น และตัวเชื่อม AI (MCP) สำหรับ Claude และ ChatGPT — ภายใต้สิทธิ์ของแต่ละคนเสมอ"
-        : "Tonbab's REST API, signed webhooks and the MCP AI connector for Claude and ChatGPT — always within each person's own permissions.",
-    canonical: canonicalUrl(origin, `/${locale}/developers`),
+export const load: PageServerLoad = async (event) => {
+  const { locale, cdnBaseUrl } = await marketingContext(event);
+  const th = locale === "th";
+  const seo = marketingSeo({
+    url: event.url,
+    cdnBaseUrl,
     locale,
-    alternates,
-    ogType: "website",
-  };
+    path: "/developers",
+    title: th
+      ? "API และ MCP เชื่อม ERP กับ ChatGPT Claude Zapier | Tonbab"
+      : "Tonbab API & MCP — Connect Your ERP to Claude, ChatGPT, Zapier",
+    description: th
+      ? "REST API, webhook ที่ลงลายเซ็น และ MCP server ให้ผู้ช่วย AI อย่าง Claude และ ChatGPT ทำงานกับข้อมูลบริษัทของคุณ ภายใต้สิทธิ์ของแต่ละคน เขียนได้เฉพาะเอกสารร่าง"
+      : "Tonbab's REST API, signed webhooks and MCP server let Claude, ChatGPT, Zapier and Make work with your company data — always within each person's permissions, writes as drafts.",
+    breadcrumbs: [
+      { name: th ? HOME_CRUMB.th : HOME_CRUMB.en, path: "" },
+      { name: th ? "นักพัฒนาและ AI" : "Developers & AI", path: "/developers" },
+    ],
+  });
   return { locale, seo };
 };

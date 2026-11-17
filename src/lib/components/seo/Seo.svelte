@@ -58,7 +58,14 @@
 	{/if}
 	{#if image}
 		<meta property="og:image" content={image} />
+		<!-- Every card (generated /og/*.jpg and the /og.jpg fallback) is 1200×630. -->
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={title} />
 	{/if}
+	{#each Object.keys(alternates).filter((l) => l !== (seo?.locale ?? locale)) as altL (altL)}
+		<meta property="og:locale:alternate" content={localeToOg(altL as Locale)} />
+	{/each}
 	<meta property="og:site_name" content={defaults.siteName} />
 	{#if ogType === 'article' && seo?.publishedTime}
 		<meta property="article:published_time" content={seo.publishedTime} />
@@ -100,6 +107,9 @@
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -- trusted: server-built JSON-LD with </script> escaped -->
 		{@html '<script type="application/ld+json">' + safeJson + '<' + '/script>'}
 	{/each}
+
+	<!-- AI answer engines: plain-Markdown summary of the whole site. -->
+	<link rel="alternate" type="text/markdown" title="llms.txt" href="/llms.txt" />
 
 	<!-- RSS auto-discovery -->
 	<link rel="alternate" type="application/rss+xml" title={defaults.siteName} href="/feed.xml" />

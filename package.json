@@ -20,7 +20,7 @@
 		"db:seed": "tsx scripts/seed.ts",
 		"setup": "tsx scripts/setup.ts",
 		"wrangler:dev": "wrangler dev",
-		"deploy": "pnpm build && wrangler deploy",
+		"deploy": "pnpm build && wrangler deploy && node scripts/seo/indexnow.mjs",
 		"db:seed:registry": "tsx scripts/seed-registry-demo.ts",
 		"db:seed:specs": "tsx scripts/seed-specs-demo.ts",
 		"db:seed:demo-user": "tsx scripts/seed-demo-user.ts",
@@ -28,10 +28,16 @@
 		"db:seed:media": "tsx scripts/seed-shop-media.ts",
 		"guard:css": "node scripts/css-inventory.mjs",
 		"guard:css:update": "node scripts/css-inventory.mjs --update",
-		"guard:head": "node scripts/head-guard.mjs"
+		"guard:head": "node scripts/head-guard.mjs",
+		"seo:indexnow": "node scripts/seo/indexnow.mjs",
+		"seo:og": "tsx scripts/seo/og.ts",
+		"pitch:build": "tsx scripts/pitch/build.ts"
 	},
 	"dependencies": {
+		"@fontsource/anuphan": "^5.3.0",
 		"@fontsource/ibm-plex-sans-thai": "^5.3.0",
+		"@fontsource/noto-sans-thai-looped": "^5.3.0",
+		"@fontsource/plus-jakarta-sans": "^5.3.0",
 		"@inlang/paraglide-js": "^2.0.0",
 		"@sveltejs/adapter-cloudflare": "^5.0.0",
 		"@sveltejs/kit": "^2.57.1",
