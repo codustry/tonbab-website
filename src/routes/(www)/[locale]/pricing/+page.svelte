@@ -51,7 +51,7 @@
 			key: 'core', title: m.pr_g_core, tone: 'slate', icon: LayoutGrid,
 			rows: [
 				{ label: m.pr_r_members, v: ['1', '5', '10', '25', '100+'] },
-				{ label: m.pr_r_storage, v: ['5 GB', '30 GB', '50 GB', '100 GB', '1 TB'] },
+				{ label: m.pr_r_storage, v: ['5 GB', '15 GB', '50 GB', '100 GB', '1 TB'] },
 				{ label: m.pr_r_file, v: ['50 MB', '200 MB', '1 GB', '5 GB', '20 GB'] },
 				{ label: m.pr_r_multi_company, v: from(4) }
 			]
@@ -59,7 +59,7 @@
 		{
 			key: 'operation', title: m.pr_g_operation, tone: 'blue', icon: Boxes,
 			rows: [
-				{ label: m.pr_r_products, v: ['300', '1,000', '5,000', U(), U()] },
+				{ label: m.pr_r_products, v: ['100', '1,000', '5,000', U(), U()] },
 				{ label: m.pr_r_warehouses, v: ['2', '3', '5', '10', U()] },
 				{ label: m.pr_r_pos_month, v: ['30', '100', '300', U(), U()] },
 				{ label: m.pr_r_lots, v: from(2) },
@@ -144,16 +144,16 @@
 	];
 
 	const addOns: { name: () => string; detail?: () => string; price: number; once?: boolean; business?: boolean; enterprise?: boolean; inEnterprise?: boolean }[] = [
-		{ name: m.pr_ao_storage, price: 1000 },
-		{ name: m.pr_ao_members, price: 3000, business: true },
-		{ name: m.pr_ao_shop, price: 2400, business: true },
-		{ name: m.pr_ao_pos, price: 1200, business: true },
-		{ name: m.pr_ao_channels, detail: m.pr_ao_channels_d, price: 3600, business: true, inEnterprise: true },
-		{ name: m.pr_ao_slips, price: 600, once: true, business: true, inEnterprise: true },
-		{ name: m.pr_ao_hik, price: 3600, business: true, inEnterprise: true },
-		{ name: m.pr_ao_sla, price: 12000, business: true },
-		{ name: m.pr_ao_onboarding, detail: m.pr_ao_onboarding_d, price: 15000, once: true },
-		{ name: m.pr_ao_support, detail: m.pr_ao_support_d, price: 48000, enterprise: true }
+		{ name: m.pr_ao_storage, price: 900 },
+		{ name: m.pr_ao_members, price: 2400, business: true },
+		{ name: m.pr_ao_shop, price: 1800, business: true },
+		{ name: m.pr_ao_pos, price: 900, business: true },
+		{ name: m.pr_ao_channels, detail: m.pr_ao_channels_d, price: 2400, business: true, inEnterprise: true },
+		{ name: m.pr_ao_slips, price: 400, once: true, business: true, inEnterprise: true },
+		{ name: m.pr_ao_hik, price: 2400, business: true, inEnterprise: true },
+		{ name: m.pr_ao_sla, price: 6000, business: true },
+		{ name: m.pr_ao_onboarding, detail: m.pr_ao_onboarding_d, price: 9900, once: true },
+		{ name: m.pr_ao_support, detail: m.pr_ao_support_d, price: 24000, enterprise: true }
 	];
 
 	const faqs: [() => string, () => string][] = [

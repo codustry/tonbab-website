@@ -24,7 +24,7 @@ Until stock push-back is available, keep updating stock quantities in your Shope
 
 ## Which plan includes channels
 
-All sales channels are included in Enterprise. On Business, you can add them for ฿3,600 a year (covering every channel). See [Plans and billing](/en/docs/getting-started/plans-and-billing).
+All sales channels are included in Enterprise. On Business, you can add them for ฿2,400 a year (covering every channel). See [Plans and billing](/en/docs/getting-started/plans-and-billing).
 
 ## Connect a Shopee or Lazada shop
 

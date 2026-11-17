@@ -44,7 +44,7 @@ Employees with **Eligible for overtime** turned off don't get overtime.
 
 ## Connect HikCentral scanners
 
-For companies using Hikvision's HikCentral (included in Enterprise, or ฿3,600 a year as a Business add-on):
+For companies using Hikvision's HikCentral (included in Enterprise, or ฿2,400 a year as a Business add-on):
 
 1. Go to **Time** › **HikCentral**, tab **Connection**, and click **Create connection**.
 2. Enter the values shown into HikCentral under System › Third-Party Integration › Data Interchange. The password is shown only once, so copy it.

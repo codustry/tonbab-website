@@ -30,7 +30,7 @@ Free 0 บาท, Starter 2,990 บาท/ปี, Standard 6,000 บาท/ป�
 
 ### ย้ายข้อมูลจากโปรแกรมเดิมได้ไหม
 
-ได้ ย้ายจาก FlowAccount, PEAK, Express, Xero, QuickBooks และโปรแกรมบัญชีอื่นผ่าน Excel หรือให้ทีมงานช่วยย้ายด้วยบริการ Onboarding 15,000 บาท ดู [ย้ายข้อมูล](/th/docs/migration/migrate-from-other-software)
+ได้ ย้ายจาก FlowAccount, PEAK, Express, Xero, QuickBooks และโปรแกรมบัญชีอื่นผ่าน Excel หรือให้ทีมงานช่วยย้ายด้วยบริการ Onboarding 9,900 บาท ดู [ย้ายข้อมูล](/th/docs/migration/migrate-from-other-software)
 
 ### เชื่อม Shopee และ Lazada ได้ไหม
 

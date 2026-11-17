@@ -54,7 +54,7 @@ If you also want history such as quotations, sales documents, receipts and journ
 
 ## Let our team do it
 
-Onboarding costs ฿15,000 (one-time, before VAT). Our team sets up your company, prepares and imports your data from your previous software, and trains your team. For Enterprise customers, onboarding is part of the Enterprise support pack.
+Onboarding costs ฿9,900 (one-time, before VAT). Our team sets up your company, prepares and imports your data from your previous software, and trains your team. For Enterprise customers, onboarding is part of the Enterprise support pack.
 
 Contact sales@codustry.com or 02-873-4448.
 

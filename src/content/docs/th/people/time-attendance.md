@@ -44,7 +44,7 @@ updated: 2026-11-17
 
 ## เชื่อมเครื่องสแกน HikCentral
 
-สำหรับบริษัทที่ใช้ระบบ HikCentral ของ Hikvision (รวมใน Enterprise หรือซื้อเพิ่มสำหรับ Business 3,600 บาทต่อปี)
+สำหรับบริษัทที่ใช้ระบบ HikCentral ของ Hikvision (รวมใน Enterprise หรือซื้อเพิ่มสำหรับ Business 2,400 บาทต่อปี)
 
 1. ไปที่ **เวลาทำงาน** › **HikCentral** แท็บ **การเชื่อมต่อ** แล้วกด **สร้างการเชื่อมต่อ**
 2. นำค่าที่แสดงไปกรอกใน HikCentral ที่เมนู System › Third-Party Integration › Data Interchange รหัสผ่านจะแสดงครั้งเดียว ให้คัดลอกเก็บไว้
