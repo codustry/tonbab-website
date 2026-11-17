@@ -28,7 +28,7 @@
 	type Group = { key: string; title: () => string; tone: Tone; icon: typeof Check; rows: Row[]; note?: () => string; link?: { href: string; label: () => string } };
 
 	const thb = (n: number) => '฿' + n.toLocaleString('en-US');
-	const mailto = (subject: string) => `mailto:hello@tonbab.com?subject=${encodeURIComponent(subject)}`;
+	const mailto = (subject: string) => `mailto:sales@codustry.com?subject=${encodeURIComponent(subject)}`;
 	const U = () => m.pr_unlimited();
 	/** Included from plan number `i` upward (0 = Free … 4 = Enterprise). */
 	const from = (i: number): Row['v'] => [0 >= i, 1 >= i, 2 >= i, 3 >= i, 4 >= i];
@@ -362,6 +362,6 @@
 	<div class="rounded-2xl bg-tnb-mist px-6 py-12 text-center sm:px-12">
 		<h2 class="text-2xl font-bold tracking-tight text-tnb-ink sm:text-3xl">{m.pr_contact_title()}</h2>
 		<p class="mx-auto mt-3 max-w-xl text-tnb-ink-soft">{m.pr_contact_sub()}</p>
-		<a href="mailto:hello@tonbab.com" class="btn-primary mt-7"><Mail class="h-4 w-4" aria-hidden="true" />{m.pr_contact_cta()}</a>
+		<a href="mailto:sales@codustry.com" class="btn-primary mt-7"><Mail class="h-4 w-4" aria-hidden="true" />{m.pr_contact_cta()}</a>
 	</div>
 </section>

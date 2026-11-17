@@ -1034,7 +1034,7 @@ export const modulesContent: ModuleContent[] = [
 		faq: [
 			{
 				q: { en: "Can we use Accounting now?", th: "ใช้โมดูลบัญชีได้เลยไหม" },
-				a: { en: "Accounting is in invitation-only early access. Email hello@tonbab.com if you would like to be considered — until it opens to everyone, Tonbab exports clean documents for your current accounting software.", th: "ตอนนี้โมดูลบัญชีเปิดให้ทดลองใช้แบบเชิญเท่านั้น หากสนใจ อีเมลมาที่ hello@tonbab.com — ระหว่างนี้ Tonbab ส่งออกเอกสารให้โปรแกรมบัญชีที่คุณใช้อยู่ได้ตามปกติ" }
+				a: { en: "Accounting is in invitation-only early access. Email sales@codustry.com if you would like to be considered — until it opens to everyone, Tonbab exports clean documents for your current accounting software.", th: "ตอนนี้โมดูลบัญชีเปิดให้ทดลองใช้แบบเชิญเท่านั้น หากสนใจ อีเมลมาที่ sales@codustry.com — ระหว่างนี้ Tonbab ส่งออกเอกสารให้โปรแกรมบัญชีที่คุณใช้อยู่ได้ตามปกติ" }
 			},
 			{
 				q: { en: "Do we have to leave PEAK, FlowAccount or Express?", th: "ต้องเลิกใช้ PEAK, FlowAccount หรือ Express ไหม" },

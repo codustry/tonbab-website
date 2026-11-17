@@ -16,7 +16,7 @@
 		accounting: { en: 'Accounting', th: 'บัญชี' }
 	};
 	const moduleLabel = $derived(MODULE_LABEL[mod.key] ? t(MODULE_LABEL[mod.key]) : mod.key[0].toUpperCase() + mod.key.slice(1));
-	const earlyMail = $derived(`mailto:hello@tonbab.com?subject=${encodeURIComponent(m.mod_early_mail_subject())}`);
+	const earlyMail = $derived(`mailto:sales@codustry.com?subject=${encodeURIComponent(m.mod_early_mail_subject())}`);
 	const theme = $derived(SUITE_THEME[mockKey]);
 	const relatedMods = $derived.by(() =>
 		mod.related.flatMap((k) => {

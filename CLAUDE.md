@@ -52,7 +52,7 @@ accent only, never the button colour. Demo-booking runs on Khao Pad Forms.
 - **Self-serve signup is live** at https://app.tonbab.com/signup (since
   2026-11-09): email-verified, a new company starts on the 30-day Business
   trial, then Free. "Start free" / Free / Business buttons link there;
-  Enterprise emails hello@tonbab.com.
+  Enterprise emails sales@codustry.com.
 - /compare cites competitors with dated source footnotes. Never claim Thai
   rivals lack Thai tax compliance (PEAK/FlowAccount/AccRevo are strong there);
   lead with the manufacturing gap, transparent THB, and the split-stack story.
