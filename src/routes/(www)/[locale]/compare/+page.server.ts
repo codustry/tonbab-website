@@ -1,26 +1,25 @@
-import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import { SUPPORTED_LOCALES } from "$lib/i18n";
-import type { Locale } from "$lib/server/content/types";
-import { canonicalUrl, resolveOrigin, type PageSeo } from "$lib/seo";
+import { marketingContext } from "$lib/server/marketing/page";
+import { HOME_CRUMB, marketingSeo } from "$lib/seo/site";
 
-export const load: PageServerLoad = async ({ params, url, locals }) => {
-  if (!SUPPORTED_LOCALES.includes(params.locale as Locale)) {
-    error(404, "Not found");
-  }
-  const locale = params.locale as Locale;
-  const settings = await locals.content.getSettings().catch(() => null);
-  const origin = resolveOrigin(url, settings?.cdnBaseUrl);
-  const alternates: Partial<Record<Locale, string>> = {};
-  for (const l of SUPPORTED_LOCALES) {
-    alternates[l] = canonicalUrl(origin, `/${l}/compare`);
-  }
-  const seo: PageSeo = {
-    title: locale === "th" ? "เปรียบเทียบ — Tonbab" : "Compare — Tonbab",
-    canonical: canonicalUrl(origin, `/${locale}/compare`),
+export const load: PageServerLoad = async (event) => {
+  const { locale, cdnBaseUrl } = await marketingContext(event);
+  const th = locale === "th";
+  const seo = marketingSeo({
+    url: event.url,
+    cdnBaseUrl,
     locale,
-    alternates,
-    ogType: "website",
-  };
+    path: "/compare",
+    title: th
+      ? "เปรียบเทียบโปรแกรม ERP และโปรแกรมบัญชีในไทย: Tonbab, FlowAccount, PEAK, Odoo, SAP"
+      : "Compare ERP Software in Thailand: Tonbab vs FlowAccount, PEAK, Odoo, SAP B1",
+    description: th
+      ? "เทียบ Tonbab กับโปรแกรมบัญชีไทยและ ERP ต่างประเทศ: ราคา งานผลิต ภาษาไทย และภาษีไทย พร้อมแหล่งอ้างอิงและวันที่ตรวจสอบ เขียนอย่างเป็นธรรม"
+      : "Tonbab compared with Thai accounting apps and global ERPs on price, manufacturing, Thai language and Thai tax — with dated sources, written fairly.",
+    breadcrumbs: [
+      { name: th ? HOME_CRUMB.th : HOME_CRUMB.en, path: "" },
+      { name: th ? "เปรียบเทียบ" : "Compare", path: "/compare" },
+    ],
+  });
   return { locale, seo };
 };

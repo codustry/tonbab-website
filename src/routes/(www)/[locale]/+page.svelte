@@ -16,6 +16,8 @@
 		type SuiteKey
 	} from '$lib/marketing/suite-data';
 	import type { Bi } from '$lib/marketing/compare-data';
+	import { features } from '$lib/marketing/features-data';
+	import LogoWall from '$lib/components/www/LogoWall.svelte';
 
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
@@ -45,14 +47,20 @@
 
 	// Motion is opt-out: reduced-motion visitors get static, fully-rendered sections.
 	let reduced = $state(false);
+	// Autoplay starts only after the page has settled: the timers and their
+	// re-renders used to compete with first paint on slow phones (Lighthouse
+	// mobile LCP 8.3 s, TBT 5 s on 2026-11-17).
+	let settled = $state(false);
 	$effect(() => {
 		reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const id = setTimeout(() => (settled = true), 4000);
+		return () => clearTimeout(id);
 	});
 
 	// ── Hero: rotating word
 	let wordIdx = $state(0);
 	$effect(() => {
-		if (reduced) return;
+		if (reduced || !settled) return;
 		const id = setInterval(() => (wordIdx = (wordIdx + 1) % heroWords.length), 2200);
 		return () => clearInterval(id);
 	});
@@ -62,7 +70,7 @@
 	let active = $state(0);
 	let userPicked = $state(false);
 	$effect(() => {
-		if (reduced || userPicked) return;
+		if (reduced || userPicked || !settled) return;
 		const id = setInterval(() => (active = (active + 1) % suiteModules.length), 6500);
 		return () => clearInterval(id);
 	});
@@ -82,7 +90,7 @@
 	let step = $state(0);
 	let playing = $state(true);
 	$effect(() => {
-		if (reduced || !playing) return;
+		if (reduced || !playing || !settled) return;
 		const id = setInterval(() => (step = (step + 1) % loopSteps.length), 3800);
 		return () => clearInterval(id);
 	});
@@ -106,7 +114,7 @@
 			<span class="flex gap-0.5" aria-hidden="true">
 				{#each suiteModules.filter((sm) => !sm.earlyAccess) as sm (sm.key)}<span class="h-2 w-2 rounded-full {SUITE_THEME[sm.key].solid}"></span>{/each}
 			</span>
-			{t({ en: 'One Thai-first platform · 7 modules · 3 kiosk apps', th: 'แพลตฟอร์มเดียว ออกแบบเพื่อธุรกิจไทย · 7 โมดูล · 3 แอปคีออสก์' })}
+			{t({ en: 'Thai-first cloud ERP for SMEs · 7 modules · 3 kiosk apps', th: 'โปรแกรม ERP ภาษาไทยสำหรับ SME · 7 โมดูล · 3 แอปคีออสก์' })}
 		</p>
 		<h1 class="mx-auto max-w-4xl text-[2.6rem] font-bold leading-[1.1] tracking-tight text-tnb-ink sm:text-7xl">
 			{t({ en: 'One system that runs your', th: 'ระบบเดียว ที่ดูแลครบทั้ง' })}
@@ -152,7 +160,7 @@
 						{t(sm.name)}
 						<span class="hidden text-xs font-normal text-tnb-ink-soft md:inline">· {t(sm.short)}</span>
 						{#if sm.earlyAccess}<span class="rounded-full {th.chip} px-1.5 py-0.5 text-[10px] font-semibold">{t(EARLY)}</span>{/if}
-						{#if active === i && !userPicked && !reduced}
+						{#if active === i && !userPicked && !reduced && settled}
 							<span class="progress absolute bottom-0 left-0 h-0.5 {th.solid}"></span>
 						{/if}
 					</button>
@@ -180,6 +188,15 @@
 			</div>
 			<p class="mt-3 text-xs text-tnb-ink-soft/80">{t({ en: 'Illustrated screens with example data.', th: 'ภาพหน้าจอจำลองพร้อมข้อมูลตัวอย่าง' })}</p>
 		</div>
+	</div>
+</section>
+
+<!-- ───────────────────── Customers ───────────────────── -->
+<section class="border-y border-tnb-hair bg-tnb-mist" aria-labelledby="customers-title">
+	<div class="container mx-auto max-w-6xl px-4 py-12">
+		<h2 id="customers-title" class="text-center text-sm font-semibold tracking-wider text-tnb-ink-soft uppercase">{t({ en: 'Thai companies running on Tonbab every day', th: 'บริษัทไทยที่ทำงานบน Tonbab ทุกวัน' })}</h2>
+		<div class="mt-6"><LogoWall {locale} /></div>
+		<p class="mt-5 text-center"><a href={localePath(locale, '/customers')} class="text-sm font-medium text-tnb-blue hover:underline">{t({ en: 'Meet our customers', th: 'ดูลูกค้าของเรา' })} →</a></p>
 	</div>
 </section>
 
@@ -293,7 +310,7 @@
 		<div class="mx-auto mt-12 max-w-5xl">
 			<div class="relative">
 				<div aria-hidden="true" class="absolute top-5 right-5 left-5 h-0.5 bg-tnb-line"></div>
-				<div aria-hidden="true" class="absolute top-5 left-5 h-0.5 bg-tnb-ink/70 transition-[width] duration-500" style="width:calc((100% - 2.5rem) * {step / (loopSteps.length - 1)})"></div>
+				<div aria-hidden="true" class="absolute top-5 right-5 left-5 h-0.5 origin-left bg-tnb-ink/70 transition-transform duration-500" style="transform:scaleX({step / (loopSteps.length - 1)})"></div>
 				<ol class="relative flex justify-between">
 					{#each loopSteps as s, i (i)}
 						{@const th = SUITE_THEME[s.module]}
@@ -355,6 +372,27 @@
 	</div>
 </section>
 
+<!-- ───────────────────── Standout features ───────────────────── -->
+<section class="bg-tnb-mist">
+	<div class="container mx-auto px-4 py-20">
+		<h2 class="section-title">{t({ en: 'What other systems leave out', th: 'สิ่งที่ระบบทั่วไปไม่มี' })}</h2>
+		<p class="section-lede">{t({ en: 'Each one has its own page with the real status — live, in development or coming soon.', th: 'แต่ละเรื่องมีหน้าอธิบายพร้อมสถานะตามจริง — ใช้งานได้ กำลังพัฒนา หรือเร็ว ๆ นี้' })}</p>
+		<ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+			{#each features as f (f.key)}
+				{@const th = SUITE_THEME[f.module]}
+				<li>
+					<a href={localePath(locale, `/features/${f.key}`)} class="group flex h-full flex-col rounded-xl border border-tnb-line/60 bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md">
+						<span class="flex items-center gap-2 text-[11px] font-semibold tracking-wider uppercase {th.text}"><span class="h-2 w-2 rounded-full {th.solid}"></span>{t(MODULE_LABEL[f.module])}{#if f.earlyAccess} · {t(EARLY)}{/if}</span>
+						<span class="mt-2 font-semibold text-tnb-ink group-hover:text-tnb-blue">{t(f.keyword)}</span>
+						<span class="mt-1.5 text-[14px] leading-snug text-tnb-ink-soft">{t(f.lede)}</span>
+					</a>
+				</li>
+			{/each}
+		</ul>
+		<p class="mt-8 text-center"><a href={localePath(locale, '/features')} class="btn-soft">{t({ en: 'All features', th: 'ดูฟีเจอร์ทั้งหมด' })}<ArrowRight class="h-4 w-4" aria-hidden="true" /></a></p>
+	</div>
+</section>
+
 <!-- ───────────────────── Kiosks & mobile ───────────────────── -->
 <section class="overflow-hidden bg-white">
 	<div class="container mx-auto grid items-center gap-14 px-4 py-20 lg:grid-cols-2">
@@ -362,6 +400,7 @@
 			<p class="text-sm font-semibold tracking-wider text-tnb-blue uppercase">{t({ en: 'On the floor, not just the office', th: 'ใช้ได้ถึงหน้างาน ไม่ใช่แค่ในออฟฟิศ' })}</p>
 			<h2 class="mt-3 text-3xl font-bold tracking-tight text-tnb-ink sm:text-4xl">{t({ en: 'Kiosk apps for every station', th: 'แอปคีออสก์สำหรับทุกสถานี' })}</h2>
 			<p class="mt-4 leading-relaxed text-tnb-ink-soft">{t({ en: 'Put a tablet at the packing bench, the production line or the counter. Operators sign in with a PIN, and everything they do lands in the same records the office sees.', th: 'วางแท็บเล็ตไว้ที่โต๊ะแพ็ก ไลน์ผลิต หรือหน้าร้าน พนักงานเข้าใช้ด้วย PIN และทุกอย่างที่ทำจะลงในข้อมูลชุดเดียวกับที่ออฟฟิศเห็น' })}</p>
+			<p class="mt-4"><a href={localePath(locale, '/features/kiosk')} class="font-medium text-tnb-blue hover:underline">{t({ en: 'How the kiosk apps work', th: 'ดูการทำงานของแอปคีออสก์' })} →</a></p>
 			<div class="mt-8 space-y-3">
 				{#each kiosks as k (k.icon)}
 					{@const Icon = ICONS[k.icon] ?? Layers}
@@ -503,6 +542,8 @@
 		animation: fade-in 0.4s ease-out;
 	}
 	.progress {
+		width: 100%;
+		transform-origin: left;
 		animation: progress 6.5s linear forwards;
 	}
 	@keyframes word-in {
@@ -513,9 +554,10 @@
 		from { opacity: 0.2; transform: translateY(6px); }
 		to { opacity: 1; transform: none; }
 	}
+	/* transform, not width: compositor-only, no layout per frame. */
 	@keyframes progress {
-		from { width: 0; }
-		to { width: 100%; }
+		from { transform: scaleX(0); }
+		to { transform: scaleX(1); }
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.word, .fade-in, .progress { animation: none; }

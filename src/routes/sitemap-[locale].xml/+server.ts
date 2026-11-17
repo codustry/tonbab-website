@@ -3,6 +3,9 @@ import { resolveOrigin } from "$lib/seo";
 import { ShopService } from "$plugins/shop/service";
 import { SUPPORTED_LOCALES } from "$lib/i18n";
 import { modulesContent } from "$lib/marketing/modules-data";
+import { features } from "$lib/marketing/features-data";
+import { vendorCompares } from "$lib/marketing/compare-vendors";
+import { SITE_UPDATED } from "$lib/seo/site";
 import type { Locale } from "$lib/server/content/types";
 import type { RequestHandler } from "./$types";
 
@@ -45,20 +48,27 @@ export const GET: RequestHandler = async ({
   // Fork: bespoke marketing routes live in code, not the pages table —
   // without these entries they are invisible to the sitemap. Module pages
   // come from modules-data so a new module is listed automatically.
-  const now = new Date().toISOString();
+  // lastmod is the real last edit of the hand-built pages (SITE_UPDATED),
+  // not "now": Google ignores lastmod values that change on every fetch.
   const staticPaths = [
     "",
-    "/blog",
+    "/what-is-tonbab",
     "/modules",
     ...modulesContent.map((mc) => `/modules/${mc.key}`),
-    "/developers",
-    "/compare",
-    "/story",
+    "/features",
+    ...features.map((f) => `/features/${f.key}`),
     "/pricing",
+    "/compare",
+    ...vendorCompares.map((v) => `/compare/${v.slug}`),
+    "/migration",
+    "/customers",
+    "/developers",
+    "/story",
+    "/blog",
   ];
   const staticUrls = staticPaths.map((p) => ({
     path: `/${locale}${p}`,
-    lastmod: now,
+    lastmod: SITE_UPDATED,
     alternates: SUPPORTED_LOCALES.map((l) => ({
       locale: l,
       path: `/${l}${p}`,

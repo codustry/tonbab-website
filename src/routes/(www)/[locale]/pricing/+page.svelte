@@ -50,7 +50,7 @@
 		{
 			key: 'core', title: m.pr_g_core, tone: 'slate', icon: LayoutGrid,
 			rows: [
-				{ label: m.pr_r_members, v: ['5', '5', '10', '25', '100'] },
+				{ label: m.pr_r_members, v: ['1', '5', '10', '25', '100+'] },
 				{ label: m.pr_r_storage, v: ['5 GB', '30 GB', '50 GB', '100 GB', '1 TB'] },
 				{ label: m.pr_r_file, v: ['50 MB', '200 MB', '1 GB', '5 GB', '20 GB'] },
 				{ label: m.pr_r_multi_company, v: from(4) }
