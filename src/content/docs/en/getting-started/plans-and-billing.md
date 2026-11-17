@@ -13,7 +13,7 @@ Tonbab has 5 plans. Free costs nothing and has no time limit. New companies get 
 | Plan | Per year | Per month | Users | Storage / per file |
 |---|---|---|---|---|
 | Free | ฿0 | ฿0 | 1 | 5 GB / 50 MB |
-| Starter | ฿2,990 | ฿299 | 5 | 30 GB / 200 MB |
+| Starter | ฿2,990 | ฿299 | 5 | 15 GB / 200 MB |
 | Standard | ฿6,000 | ฿600 | 10 | 50 GB / 1 GB |
 | Business | ฿14,400 | ฿1,440 | 25 | 100 GB / 5 GB |
 | Enterprise | from ฿42,000 | yearly only | 100+ | 1 TB / 20 GB |
@@ -35,7 +35,7 @@ The monthly price is a tenth of the yearly price, so paying yearly gives you two
 
 | Item | Free | Starter | Standard | Business | Enterprise |
 |---|---|---|---|---|---|
-| Products | 300 | 1,000 | 5,000 | Unlimited | Unlimited |
+| Products | 100 | 1,000 | 5,000 | Unlimited | Unlimited |
 | Warehouses | 2 | 3 | 5 | 10 | Unlimited |
 | Purchase orders per month | 30 | 100 | 300 | Unlimited | Unlimited |
 | Shops (POS) | 1 | 1 | 2 | 5 | Unlimited |
@@ -46,14 +46,18 @@ The monthly price is a tenth of the yearly price, so paying yearly gives you two
 | Service jobs per month | 20 | 50 | 200 | Unlimited | Unlimited |
 | Docs pages | 200 | 500 | 2,000 | Unlimited | Unlimited |
 
-## Add-ons (per year)
+## Add-ons
 
-- Extra 100 GB storage: ฿1,000/year
-- All sales channels (LINE, Shopee, Lazada, Meta and more) for Business: ฿3,600/year
-- HikCentral connector for Business: ฿3,600/year
-- One extra shop for Business: ฿2,400/year
-- Onboarding (setup and data migration): ฿15,000 one-time
-- Enterprise support pack (99.9% SLA, named success manager, onboarding): ฿48,000/year
+- Extra 100 GB storage: ฿900/year
+- +5 users for Business: ฿2,400/year
+- One extra shop for Business: ฿1,800/year
+- One extra POS device for Business: ฿900/year
+- All sales channels (Shopee, Lazada and more) for Business: ฿2,400/year
+- 1,000 slip checks for Business: ฿400 one-time
+- HikCentral connector for Business: ฿2,400/year
+- Priority SLA for Business: ฿6,000/year
+- Onboarding (setup and data migration): ฿9,900 one-time
+- Enterprise support pack (99.9% SLA, named success manager, onboarding): ฿24,000/year
 
 Enterprise already includes all sales channels, HikCentral and 5,000 slip checks a month.
 

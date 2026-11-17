@@ -343,8 +343,8 @@ export const features: FeatureContent[] = [
       },
     ],
     plan: {
-      th: "ทุกแพ็กเกจ — Free 2 คลัง 300 สินค้า; ล็อตและซีเรียลเริ่มที่ Standard",
-      en: "Every plan — Free has 2 warehouses and 300 products; lots and serials start on Standard.",
+      th: "ทุกแพ็กเกจ — Free 2 คลัง 100 สินค้า; ล็อตและซีเรียลเริ่มที่ Standard",
+      en: "Every plan — Free has 2 warehouses and 100 products; lots and serials start on Standard.",
     },
     faq: [
       {
@@ -923,8 +923,8 @@ export const features: FeatureContent[] = [
       },
     ],
     plan: {
-      th: "แชท LINE OA และ Meta ใช้ได้ใน Commerce; Shopee/Lazada อยู่ในแพ็กเสริมช่องทางขาย ฿3,600/ปี (รวมใน Enterprise)",
-      en: "LINE OA and Meta chat are part of Commerce; Shopee/Lazada are in the sales-channels add-on, ฿3,600/yr (included in Enterprise).",
+      th: "แชท LINE OA และ Meta ใช้ได้ใน Commerce; Shopee/Lazada อยู่ในแพ็กเสริมช่องทางขาย ฿2,400/ปี (รวมใน Enterprise)",
+      en: "LINE OA and Meta chat are part of Commerce; Shopee/Lazada are in the sales-channels add-on, ฿2,400/yr (included in Enterprise).",
     },
     faq: [
       {

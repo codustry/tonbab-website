@@ -45,7 +45,7 @@ accent only, never the button colour. Demo-booking runs on Khao Pad Forms.
 - **Plans** (owner, 2026-11-16; Free seat change 2026-11-17): Free ฿0 (1
   user), Starter ฿2,990/yr (5), Standard ฿6,000/yr (10), Business ฿14,400/yr
   (25), Enterprise from ฿42,000/yr (100+, quoted); monthly = yearly ÷ 10;
-  Enterprise support pack ฿48,000/yr — all prices **excl. 7% VAT**. The single
+  Enterprise support pack ฿24,000/yr — all prices **excl. 7% VAT**. The single
   source is the product repo's `src/lib/shared/plans.ts`; /pricing and
   `src/lib/seo/site.ts` (PLAN_FACTS → JSON-LD, llms.txt) mirror it — change the
   product first, then both. Still no self-host and no public-GitHub claims.

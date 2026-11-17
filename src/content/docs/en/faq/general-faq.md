@@ -30,7 +30,7 @@ Accounting is in **early access** for invited companies only. Contact us if you'
 
 ### Can I move my data from my current software?
 
-Yes. Move from FlowAccount, PEAK, Express, Xero, QuickBooks and other accounting software via Excel, or have our team do it with the ฿15,000 onboarding service. See [Data migration](/en/docs/migration/migrate-from-other-software).
+Yes. Move from FlowAccount, PEAK, Express, Xero, QuickBooks and other accounting software via Excel, or have our team do it with the ฿9,900 onboarding service. See [Data migration](/en/docs/migration/migrate-from-other-software).
 
 ### Does it connect to Shopee and Lazada?
 

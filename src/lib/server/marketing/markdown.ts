@@ -50,8 +50,8 @@ ${rows}
 
 ${
   th
-    ? `ราคาต่อบริษัท ก่อน VAT 7% · ทุกแพ็กเกจได้ทุกโมดูล ต่างกันที่ขนาดและฟีเจอร์ขั้นสูง · ทดลองแพ็กเกจ Business ฟรี ${TRIAL_DAYS} วัน แล้วใช้ต่อแบบ Free · แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี · Onboarding ${baht(15000)} ครั้งเดียว · แพ็กเสริมช่องทางขาย (Shopee/Lazada) ${baht(3600)}/ปี`
-    : `Per company, before 7% VAT · every plan includes every module; plans differ by scale and advanced features · ${TRIAL_DAYS}-day Business trial, then Free · Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr · Onboarding ${baht(15000)} once · Sales-channels add-on (Shopee/Lazada) ${baht(3600)}/yr`
+    ? `ราคาต่อบริษัท ก่อน VAT 7% · ทุกแพ็กเกจได้ทุกโมดูล ต่างกันที่ขนาดและฟีเจอร์ขั้นสูง · ทดลองแพ็กเกจ Business ฟรี ${TRIAL_DAYS} วัน แล้วใช้ต่อแบบ Free · แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี · Onboarding ${baht(9900)} ครั้งเดียว · แพ็กเสริมช่องทางขาย (Shopee/Lazada) ${baht(2400)}/ปี`
+    : `Per company, before 7% VAT · every plan includes every module; plans differ by scale and advanced features · ${TRIAL_DAYS}-day Business trial, then Free · Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr · Onboarding ${baht(9900)} once · Sales-channels add-on (Shopee/Lazada) ${baht(2400)}/yr`
 }`;
 }
 

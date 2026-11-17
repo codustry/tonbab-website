@@ -88,7 +88,7 @@ export const PLAN_FACTS: {
     from: true,
   },
 ];
-export const SUPPORT_PACK_YEARLY = 48000;
+export const SUPPORT_PACK_YEARLY = 24000;
 export const TRIAL_DAYS = 30;
 
 /** Organization (publisher) — emitted on the home page and /about-tonbab. */
