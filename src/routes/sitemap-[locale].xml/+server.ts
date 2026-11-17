@@ -6,6 +6,7 @@ import { modulesContent } from "$lib/marketing/modules-data";
 import { features } from "$lib/marketing/features-data";
 import { vendorCompares } from "$lib/marketing/compare-vendors";
 import { SITE_UPDATED } from "$lib/seo/site";
+import { listDocs } from "$lib/server/docs";
 import type { Locale } from "$lib/server/content/types";
 import type { RequestHandler } from "./$types";
 
@@ -66,9 +67,14 @@ export const GET: RequestHandler = async ({
     "/story",
     "/blog",
   ];
+  // Help docs (code-owned Markdown) — each carries its own `updated` date.
+  const docUpdated = new Map(
+    listDocs(locale).map((d) => [`/docs${d.path}`, d.updated]),
+  );
+  staticPaths.push(...docUpdated.keys());
   const staticUrls = staticPaths.map((p) => ({
     path: `/${locale}${p}`,
-    lastmod: SITE_UPDATED,
+    lastmod: docUpdated.get(p) || SITE_UPDATED,
     alternates: SUPPORTED_LOCALES.map((l) => ({
       locale: l,
       path: `/${l}${p}`,

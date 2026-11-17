@@ -6,6 +6,10 @@
 	import { page } from '$app/state';
 	import { cookieName, cookieMaxAge } from '$lib/paraglide/runtime';
 	import Seo from '$lib/components/seo/Seo.svelte';
+	// Preload the two body-text faces so Thai text paints in its final font
+	// without waiting for app.css to be parsed (LCP is a text block).
+	import plexThai400 from '@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-400-normal.woff2?url';
+	import plexLatin400 from '@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-latin-400-normal.woff2?url';
 	import CookieBanner from '$lib/components/consent/CookieBanner.svelte';
 	import HeaderSearch from '$lib/components/www/HeaderSearch.svelte';
 	import { Menu, X, ChevronDown } from 'lucide-svelte';
@@ -98,6 +102,11 @@
 	onkeydown={(e) => { if (e.key === 'Escape') openMenu = null; }}
 />
 
+<svelte:head>
+	<link rel="preload" as="font" type="font/woff2" href={plexThai400} crossorigin="anonymous" />
+	<link rel="preload" as="font" type="font/woff2" href={plexLatin400} crossorigin="anonymous" />
+</svelte:head>
+
 <Seo seo={pageSeo} defaults={seoDefaults} locale={toLocale(data.locale)} />
 
 <div
@@ -157,6 +166,7 @@
 						<div class="absolute left-0 top-full z-50 mt-2 w-56 rounded-xl border border-tnb-line bg-tnb-paper p-2 shadow-[0_10px_30px_rgba(23,22,28,0.12)]">
 							<a href={localePath(toLocale(data.locale), '/docs')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_docs()}</a>
 							<a href={localePath(loc, '/developers')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_developers()}</a>
+							<a href="https://api.tonbab.com/docs" onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_footer_api_docs()} ↗</a>
 							<a href={localePath(toLocale(data.locale), '/faq')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_faq()}</a>
 							<a href={localePath(toLocale(data.locale), '/blog')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.nav_blog()}</a>
 							<a href={localePath(toLocale(data.locale), '/story')} onclick={() => (openMenu = null)} class="block rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{m.story_nav()}</a>
@@ -219,6 +229,7 @@
 				<div class="flex flex-col gap-1 text-base">
 					<a href={localePath(toLocale(data.locale), '/docs')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_docs()}</a>
 					<a href={localePath(loc, '/developers')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_developers()}</a>
+					<a href="https://api.tonbab.com/docs" onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_footer_api_docs()} ↗</a>
 					<a href={localePath(toLocale(data.locale), '/faq')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_faq()}</a>
 					<a href={localePath(toLocale(data.locale), '/blog')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.nav_blog()}</a>
 					<a href={localePath(toLocale(data.locale), '/story')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.story_nav()}</a>

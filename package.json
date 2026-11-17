@@ -30,10 +30,14 @@
 		"guard:css:update": "node scripts/css-inventory.mjs --update",
 		"guard:head": "node scripts/head-guard.mjs",
 		"seo:indexnow": "node scripts/seo/indexnow.mjs",
-		"seo:og": "tsx scripts/seo/og.ts"
+		"seo:og": "tsx scripts/seo/og.ts",
+		"pitch:build": "tsx scripts/pitch/build.ts"
 	},
 	"dependencies": {
+		"@fontsource/anuphan": "^5.3.0",
 		"@fontsource/ibm-plex-sans-thai": "^5.3.0",
+		"@fontsource/noto-sans-thai-looped": "^5.3.0",
+		"@fontsource/plus-jakarta-sans": "^5.3.0",
 		"@inlang/paraglide-js": "^2.0.0",
 		"@sveltejs/adapter-cloudflare": "^5.0.0",
 		"@sveltejs/kit": "^2.57.1",

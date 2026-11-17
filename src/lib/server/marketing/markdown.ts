@@ -14,6 +14,7 @@ import {
   type VendorCompare,
 } from "$lib/marketing/compare-vendors";
 import { customers } from "$lib/marketing/customers-data";
+import { getDoc, listDocs } from "$lib/server/docs";
 import { migrationFaq } from "$lib/marketing/migration-data";
 import { whatFaq } from "$lib/marketing/about-data";
 import {
@@ -165,6 +166,12 @@ ${features.map((f) => link("en", `/features/${f.key}`, f.keyword.en, f.lede.en))
 ${link("en", "/developers", "API and MCP", "REST API, signed webhooks and an MCP server for Claude, ChatGPT and other MCP clients")}
 ${link("en", "/migration", "Data migration", "from FlowAccount, PEAK, Express, Xero, QuickBooks and others via Excel")}
 
+## Help docs
+${listDocs("en")
+  .filter((d) => d.path)
+  .map((d) => link("en", `/docs${d.path}`, d.title, d.description))
+  .join("\n")}
+
 ## Comparisons
 ${link("en", "/compare", "Tonbab vs Thai and global ERPs")}
 ${vendorCompares.map((v) => link("en", `/compare/${v.slug}`, `Tonbab vs ${v.name}`)).join("\n")}
@@ -198,6 +205,13 @@ export function llmsFullTxt(): string {
           .map((q) => `**${tr(q.q, l)}**\n${tr(q.a, l)}`)
           .join("\n\n"),
       ...vendorCompares.map((v) => compareMd(v, l).replace(/^# /, "## ")),
+      `## ${th ? "คู่มือการใช้งาน" : "Help docs"}`,
+      ...listDocs(l)
+        .filter((d) => d.path)
+        .map((d) => {
+          const full = getDoc(l, d.path.slice(1))!;
+          return `### ${d.title}\n${SITE_ORIGIN}/${l}/docs${d.path}\n\n${full.body.trim().replace(/^### /gm, "##### ").replace(/^## /gm, "#### ")}`;
+        }),
       "---",
     );
   }
@@ -221,6 +235,10 @@ export function pageMarkdown(l: Locale, path: string): string | null {
       `# ${l === "th" ? "ย้ายข้อมูลมา Tonbab" : "Migrating to Tonbab"}\n\n` +
       migrationFaq.map((q) => `**${tr(q.q, l)}**\n${tr(q.a, l)}`).join("\n\n")
     );
+  if (p === "docs" || p.startsWith("docs/")) {
+    const d = getDoc(l, p.slice(5));
+    return d ? `# ${d.title}\n\n${d.description}\n\n${d.body.trim()}` : null;
+  }
   const [section, key] = p.split("/");
   if (section === "features" && key) {
     const f = features.find((x) => x.key === key);

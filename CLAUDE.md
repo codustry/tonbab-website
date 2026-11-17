@@ -80,6 +80,22 @@ templates and must be edited to carry this entity before publishing.
 - Feature claims in `features-data.ts` carry a status (live / in development /
   coming soon); never upgrade one without the code shipping in the app repo.
 
+## Help docs (/docs) and the sales deck (/pitch)
+
+- **/[locale]/docs is code-owned Markdown** since 2026-11-17:
+  `src/content/docs/<th|en>/<section>/<slug>.md` (frontmatter: title,
+  description, section, order, updated). Sidebar order/labels live in
+  `$lib/server/docs` (DOC_SECTIONS). Every instruction is verified against the
+  app repo; TH and EN files share slugs and must say the same thing. The old
+  CMS "docs" pages are shadowed by this route. FAQ and blog stay in the CMS.
+- **/pitch** is the customer keynote (noindex, public by URL). Source =
+  the Slides artifact export in `src/content/pitch/` (deck.json, deck.css,
+  slides/*.html) + assets in `static/pitch/assets/<blobId>.*`. After the deck
+  changes: re-export those files from the artifact (and any new /_blob assets),
+  run `pnpm pitch:build`, commit `src/lib/pitch/deck.generated.ts`.
+- Un-prefixed paths (`/developers`, `/docs/...`, `/pricing`) 308 to the
+  visitor's locale (hooks.server.ts `unprefixedRedirectHook`).
+
 ## Customer stories
 
 /story tells the origin + customer stories. Only REAL stories: the product

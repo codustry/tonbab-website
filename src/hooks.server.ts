@@ -10,7 +10,8 @@ import {
 } from "$lib/server/config/platform-status";
 import { createContentProvider } from "$lib/server/content";
 import { QueryCache } from "$lib/server/content/query/cache";
-import { localeFromPathname } from "$lib/i18n";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES, localeFromPathname } from "$lib/i18n";
+import type { Locale } from "$lib/server/content/types";
 import { R2MediaService } from "$lib/server/media";
 import { initPlugins } from "$lib/plugins";
 
@@ -554,7 +555,47 @@ const analyticsPageViewHook: Handle = async ({ event, resolve }) => {
   return response;
 };
 
+/**
+ * Un-prefixed public paths (`/developers`, `/docs/...`, `/pitch`, `/pricing`)
+ * → the visitor's locale (header-toggle cookie, else Thai). Other sites link
+ * here without a locale (api.tonbab.com/docs → www.tonbab.com/developers) and
+ * those links used to 404. 308 keeps the method and tells search engines the
+ * localized URL is the real one. Reserved prefixes (admin, api, assets, the
+ * cart/checkout/order stubs) and anything that looks like a file are left
+ * alone.
+ */
+const UNPREFIXED_RESERVED = new Set([
+  "admin", "api", "_app", "md", "feeds", "cart", "checkout", "lookup", "order",
+  "og", "brand", "pitch",
+]);
+const unprefixedRedirectHook: Handle = async ({ event, resolve }) => {
+  const { pathname, search } = event.url;
+  const method = event.request.method;
+  if ((method === "GET" || method === "HEAD") && pathname !== "/") {
+    const first = pathname.split("/")[1] ?? "";
+    if (
+      first &&
+      !SUPPORTED_LOCALES.includes(first as Locale) &&
+      !UNPREFIXED_RESERVED.has(first) &&
+      !first.includes(".") &&
+      !pathname.startsWith("/customers/") // static customer logos
+    ) {
+      const cookieLocale = event.cookies.get(paraglideRuntime.cookieName);
+      const locale =
+        cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
+          ? cookieLocale
+          : DEFAULT_LOCALE;
+      return new Response(null, {
+        status: 308,
+        headers: { Location: `/${locale}${pathname}${search}` },
+      });
+    }
+  }
+  return resolve(event);
+};
+
 export const handle = sequence(
+  unprefixedRedirectHook,
   surfaceHook,
   bindingsHook,
   configurationGuardHook,

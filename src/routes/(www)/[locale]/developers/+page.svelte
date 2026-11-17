@@ -136,13 +136,35 @@
 		}
 	];
 
-	// Mirrors the product's plans.ts API_LIMITS (owner-approved 2026-11-15).
-	const limits: { label: Bi; free: Bi | string; business: Bi | string; enterprise: Bi | string }[] = [
-		{ label: { en: 'Access', th: 'การใช้งาน' }, free: { en: 'Read-only', th: 'อ่านอย่างเดียว' }, business: { en: 'Read + drafts', th: 'อ่าน + สร้างฉบับร่าง' }, enterprise: { en: 'Read + drafts', th: 'อ่าน + สร้างฉบับร่าง' } },
-		{ label: { en: 'API keys', th: 'API key' }, free: '1', business: '5', enterprise: { en: 'Unlimited', th: 'ไม่จำกัด' } },
-		{ label: { en: 'Webhook endpoints', th: 'ปลายทาง webhook' }, free: '1', business: '3', enterprise: '20' },
-		{ label: { en: 'Requests per minute', th: 'คำขอต่อนาที' }, free: '10', business: '60', enterprise: '600' },
-		{ label: { en: 'Calls per day', th: 'จำนวนเรียกต่อวัน' }, free: '300', business: '20,000', enterprise: '500,000' }
+	// Mirrors the product's plans.ts API_LIMITS (codustry/workflow, checked 2026-11-17).
+	const PLAN_COLS = [m.pr_plan_free, m.pr_plan_starter, m.pr_plan_standard, m.pr_plan_business, m.pr_plan_enterprise];
+	const RO: Bi = { en: 'Read-only', th: 'อ่านอย่างเดียว' };
+	const RW: Bi = { en: 'Read + drafts', th: 'อ่าน + สร้างฉบับร่าง' };
+	const UNL: Bi = { en: 'Unlimited', th: 'ไม่จำกัด' };
+	const limits: { label: Bi; v: (Bi | string)[] }[] = [
+		{ label: { en: 'Access', th: 'การใช้งาน' }, v: [RO, RW, RW, RW, RW] },
+		{ label: { en: 'API keys', th: 'API key' }, v: ['1', '2', '3', '5', UNL] },
+		{ label: { en: 'Webhook endpoints', th: 'ปลายทาง webhook' }, v: ['1', '1', '2', '3', '20'] },
+		{ label: { en: 'Requests per minute', th: 'คำขอต่อนาที' }, v: ['10', '30', '60', '60', '600'] },
+		{ label: { en: 'Calls per day', th: 'จำนวนเรียกต่อวัน' }, v: ['300', '3,000', '10,000', '20,000', '500,000'] }
+	];
+	const OPENAPI = 'https://api.tonbab.com/v1/openapi.json';
+	const quick: { title: Bi; body: Bi; code: string }[] = [
+		{
+			title: { en: '1 · Create a key', th: '1 · สร้าง API key' },
+			body: { en: 'An admin creates a company key in Settings → API, choosing only the scopes the integration needs. Use a tnb_test_ key while you build — writes are validated but never saved.', th: 'ผู้ดูแลระบบสร้าง key ของบริษัทในหน้าตั้งค่า API เลือกเฉพาะขอบเขตที่ต้องใช้ ระหว่างพัฒนาใช้ key แบบ tnb_test_ — คำขอเขียนถูกตรวจครบแต่ไม่บันทึกจริง' },
+			code: 'export TONBAB_API_KEY=tnb_test_…'
+		},
+		{
+			title: { en: '2 · Call the REST API', th: '2 · เรียก REST API' },
+			body: { en: 'Send the key as a Bearer token. Writes create drafts for a person to review; add an Idempotency-Key so retries never duplicate.', th: 'ส่ง key เป็น Bearer token การเขียนข้อมูลสร้างเป็นฉบับร่างให้คนตรวจ ใส่ Idempotency-Key เพื่อให้การส่งซ้ำไม่สร้างรายการซ้ำ' },
+			code: 'curl https://api.tonbab.com/v1/products \\\n  -H "Authorization: Bearer $TONBAB_API_KEY"'
+		},
+		{
+			title: { en: '3 · Connect an AI assistant (MCP)', th: '3 · เชื่อมผู้ช่วย AI (MCP)' },
+			body: { en: 'MCP clients such as Claude or ChatGPT connect to the MCP endpoint and sign in with OAuth — the user picks the company and consents to scopes; access never exceeds their role.', th: 'ไคลเอนต์ MCP เช่น Claude หรือ ChatGPT เชื่อมที่ MCP endpoint แล้วเข้าสู่ระบบด้วย OAuth — ผู้ใช้เลือกบริษัทและยินยอมขอบเขต สิทธิ์ไม่เกินบทบาทของผู้ใช้' },
+			code: 'https://api.tonbab.com/mcp'
+		}
 	];
 	const cellText = (v: Bi | string) => (typeof v === 'string' ? v : t(v));
 </script>
@@ -255,28 +277,46 @@
 	</div>
 </section>
 
+<!-- Quickstart -->
+<section id="quickstart" class="scroll-mt-20 bg-tnb-mist">
+	<div class="container mx-auto max-w-6xl px-4 py-20">
+		<p class="text-sm font-semibold uppercase tracking-wider text-tnb-ink-soft">{t({ en: 'Getting started', th: 'เริ่มต้นใช้งาน' })}</p>
+		<h2 class="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-tnb-ink text-balance sm:text-4xl">{t({ en: 'From zero to your first call in three steps', th: 'เริ่มเรียก API ได้ใน 3 ขั้นตอน' })}</h2>
+		<ol class="mt-10 grid gap-5 lg:grid-cols-3">
+			{#each quick as q (q.title.en)}
+				<li class="flex min-w-0 flex-col rounded-2xl bg-white p-6 ring-1 ring-tnb-line">
+					<h3 class="font-semibold text-tnb-ink">{t(q.title)}</h3>
+					<p class="mt-2 flex-1 text-[15px] leading-relaxed text-tnb-ink-soft">{t(q.body)}</p>
+					<pre class="mt-4 overflow-x-auto rounded-xl bg-tnb-ink p-3 text-[12.5px] leading-relaxed text-white"><code>{q.code}</code></pre>
+				</li>
+			{/each}
+		</ol>
+		<div class="mt-8 flex flex-wrap gap-3">
+			<a href={API_DOCS} class="btn-primary px-5 py-2.5">{t({ en: 'API reference', th: 'เอกสารอ้างอิง API' })} — api.tonbab.com/docs<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+			<a href={OPENAPI} class="btn-soft px-5 py-2.5">OpenAPI spec (JSON)</a>
+			<a href={localePath(locale, '/docs/api/api-and-mcp-quickstart')} class="btn-ghost">{t({ en: 'Step-by-step guide', th: 'คู่มือทีละขั้น' })}</a>
+		</div>
+	</div>
+</section>
+
 <!-- Limits per plan -->
 <section class="container mx-auto max-w-6xl px-4 pb-20">
 	<div class="rounded-2xl border border-tnb-hair p-6 sm:p-8">
 		<h2 class="text-2xl font-bold tracking-tight text-tnb-ink">{t({ en: 'Limits by plan', th: 'โควตาตามแพ็กเกจ' })}</h2>
 		<p class="mt-2 text-tnb-ink-soft">{t({ en: 'Per company, across the REST API and the AI connector together.', th: 'นับต่อบริษัท รวมทั้ง REST API และตัวเชื่อม AI' })}</p>
 		<div class="mt-6 overflow-x-auto">
-			<table class="w-full min-w-[520px] border-separate border-spacing-0 text-left">
+			<table class="w-full min-w-[640px] border-separate border-spacing-0 text-left">
 				<thead>
 					<tr>
 						<th class="w-[34%] border-b border-tnb-hair py-2.5"><span class="sr-only">{t({ en: 'Limit', th: 'โควตา' })}</span></th>
-						<th class="border-b border-tnb-hair py-2.5 pr-3 text-sm font-semibold text-tnb-ink">{m.pr_plan_free()}</th>
-						<th class="border-b border-tnb-hair py-2.5 pr-3 text-sm font-semibold text-tnb-ink">{m.pr_plan_business()}</th>
-						<th class="border-b border-tnb-hair py-2.5 pr-3 text-sm font-semibold text-tnb-ink">{m.pr_plan_enterprise()}</th>
+						{#each PLAN_COLS as p (p)}<th class="border-b border-tnb-hair py-2.5 pr-3 text-sm font-semibold text-tnb-ink">{p()}</th>{/each}
 					</tr>
 				</thead>
 				<tbody>
 					{#each limits as r (r.label.en)}
 						<tr>
 							<th scope="row" class="border-b border-tnb-hair py-3 pr-4 text-[15px] font-medium text-tnb-ink">{t(r.label)}</th>
-							<td class="border-b border-tnb-hair py-3 pr-3 text-sm tabular-nums text-tnb-ink">{cellText(r.free)}</td>
-							<td class="border-b border-tnb-hair py-3 pr-3 text-sm tabular-nums text-tnb-ink">{cellText(r.business)}</td>
-							<td class="border-b border-tnb-hair py-3 pr-3 text-sm tabular-nums text-tnb-ink">{cellText(r.enterprise)}</td>
+							{#each r.v as v, i (i)}<td class="border-b border-tnb-hair py-3 pr-3 text-sm tabular-nums text-tnb-ink">{cellText(v)}</td>{/each}
 						</tr>
 					{/each}
 				</tbody>

@@ -14,6 +14,9 @@ export interface Customer {
   /** Brand shown on the wall when it differs from the company name. */
   brand?: string;
   logo?: string;
+  /** Intrinsic logo size (keeps the right aspect ratio, no layout shift). */
+  w?: number;
+  h?: number;
   /** Logo is light-on-dark or needs a dark tile. */
   darkTile?: boolean;
 }
@@ -22,16 +25,23 @@ export const customers: Customer[] = [
   {
     name: { th: "บจก. คิเนติค เอ็นจิเนียริ่ง", en: "Kinetic Engineering" },
     logo: "/customers/kinetic-engineering.svg",
+    w: 150,
+    h: 18,
   },
   {
     name: { th: "House of Scent", en: "House of Scent" },
     brand: "LE HORM",
     logo: "/customers/le-horm.png",
+    w: 432,
+    h: 90,
   },
   {
     name: { th: "N-Rich 78", en: "N-Rich 78" },
     brand: "Kirirhom",
     logo: "/customers/kirirhom.png",
+    w: 360,
+    h: 170,
+    darkTile: true,
   },
   { name: { th: "Alta Trade & Supply", en: "Alta Trade & Supply" } },
   { name: { th: "Amnuay Foods and Frozen", en: "Amnuay Foods and Frozen" } },
@@ -45,5 +55,7 @@ export const customers: Customer[] = [
   {
     name: { th: "Codustry (Thailand)", en: "Codustry (Thailand)" },
     logo: "/brand/codustry-logo.svg",
+    w: 1260,
+    h: 200,
   },
 ];

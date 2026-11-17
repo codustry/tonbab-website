@@ -67,8 +67,8 @@ export const features: FeatureContent[] = [
       en: "POS System for Thai Shops — Live Stock, PromptPay | Tonbab",
     },
     metaDescription: {
-      th: "ระบบ POS ขายหน้าร้านบนแท็บเล็ต iPad และ Sunmi รับเงินสด PromptPay และบัตร ตัดสต็อกทันที ปิดกะกระทบยอด พิมพ์ใบเสร็จ 80 มม. เริ่มใช้ฟรี",
-      en: "Tablet POS for Thai shops: cash, PromptPay and card, stock deducted on every sale, shift close reconciliation and 80 mm receipts. Runs on iPad, Android and Sunmi. Free plan.",
+      th: "ระบบ POS ขายหน้าร้านบนแท็บเล็ต iPad และ Sunmi รับเงินสด PromptPay และบัตร ตัดสต็อกทันที สรุปยอดปิดวัน พิมพ์ใบเสร็จ 80 มม. เริ่มใช้ฟรี",
+      en: "Tablet POS for Thai shops: cash, PromptPay and card, stock deducted on every sale, a close-of-day report and 80 mm receipts. Runs on iPad, Android and Sunmi. Free plan.",
     },
     eyebrow: { th: "Commerce · POS หน้าร้าน", en: "Commerce · Point of sale" },
     h1: {
@@ -80,8 +80,8 @@ export const features: FeatureContent[] = [
       en: "Sell from a tablet or Sunmi device, take every payment type, and every bill deducts stock from the same ledger purchasing and the warehouse use.",
     },
     answer: {
-      th: "ระบบ POS ของ Tonbab คือแอปขายหน้าร้านแบบติดตั้งได้ (PWA) ที่ใช้บนแท็บเล็ต iPad Android หรือเครื่อง Sunmi รับเงินสด PromptPay และบัตร ตัดสต็อกทันทีเมื่อขาย มีเปิด-ปิดกะพร้อมกระทบยอดเงินสด พิมพ์ใบเสร็จ และดูยอดขายรายร้านได้ในระบบ ERP เดียวกับจัดซื้อและคลังสินค้า",
-      en: "Tonbab POS is an installable web app (PWA) for iPad, Android tablets and Sunmi devices. It takes cash, PromptPay and card, deducts stock at the moment of sale, opens and closes shifts with a cash count, prints receipts and reports sales per shop — inside the same ERP as purchasing and inventory.",
+      th: "ระบบ POS ของ Tonbab คือแอปขายหน้าร้านแบบติดตั้งได้ (PWA) ที่ใช้บนแท็บเล็ต iPad Android หรือเครื่อง Sunmi รับเงินสด PromptPay และบัตร ตัดสต็อกทันทีเมื่อขาย สรุปยอดปิดวันตามช่องทางชำระ พิมพ์ใบเสร็จ และดูยอดขายรายร้านได้ในระบบ ERP เดียวกับจัดซื้อและคลังสินค้า",
+      en: "Tonbab POS is an installable web app (PWA) for iPad, Android tablets and Sunmi devices. It takes cash, PromptPay and card, deducts stock at the moment of sale, gives a close-of-day report by payment type, prints receipts and reports sales per shop — inside the same ERP as purchasing and inventory.",
     },
     visual: "pos",
     highlights: [
@@ -100,10 +100,10 @@ export const features: FeatureContent[] = [
         },
       },
       {
-        title: { th: "เปิด-ปิดกะ กระทบยอด", en: "Shift open, close and count" },
+        title: { th: "สรุปยอดปิดวัน", en: "Close-of-day report" },
         body: {
-          th: "เปิดกะด้วยเงินทอนตั้งต้น ปิดกะนับเงินจริงเทียบยอดระบบ เห็นส่วนต่างทันที",
-          en: "Open with a float, close with a counted cash total, and see the difference against the system immediately.",
+          th: "ปิดวันแล้วเห็นยอดขายของร้านนั้นแยกตามเงินสด PromptPay และบัตร รายงานเต็มทุกช่องทางดูได้ใน Commerce",
+          en: "Close the day to see that shop's sales split by cash, PromptPay and card; the full all-channel report lives in Commerce.",
         },
       },
       {

@@ -82,7 +82,7 @@
 					<p class="text-[11px] font-semibold uppercase tracking-wider text-tnb-ink-soft">{t({ en: 'Sales channels', th: 'ช่องทางขาย' })}</p>
 					{#each channels as c (c.name)}<div class="flex items-center justify-between gap-2 rounded-lg px-2.5 py-1.5 text-[13px] ring-1 {stateStyle[c.s]}"><span class="font-medium">{c.name}</span><span class="text-[10.5px]">{t(stateLabel[c.s])}</span></div>{/each}
 				</div>
-				<div class="mx-auto rounded-xl bg-orange-500 px-3 py-4 text-center text-xs font-semibold text-white">Tonbab<br />Commerce</div>
+				<div class="mx-auto rounded-xl bg-orange-700 px-3 py-4 text-center text-xs font-semibold text-white">Tonbab<br />Commerce</div>
 				<div class="space-y-1.5">
 					<p class="text-[11px] font-semibold uppercase tracking-wider text-tnb-ink-soft">{t({ en: 'Chat inbox', th: 'กล่องแชท' })}</p>
 					{#each chats as c (c.name)}<div class="flex items-center justify-between gap-2 rounded-lg px-2.5 py-1.5 text-[13px] ring-1 {stateStyle[c.s]}"><span class="font-medium">{c.name}</span><span class="text-[10.5px]">{t(stateLabel[c.s])}</span></div>{/each}
@@ -150,7 +150,7 @@
 					<div class="mt-2 flex justify-between"><span>{t({ en: 'Latte', th: 'ลาเต้' })} ×2</span><span class="tabular-nums">฿130</span></div>
 					<div class="flex justify-between"><span>{t({ en: 'Mug', th: 'แก้วมัค' })}</span><span class="tabular-nums">฿290</span></div>
 					<div class="mt-2 flex justify-between border-t border-tnb-line pt-2 font-semibold"><span>{t({ en: 'Total', th: 'รวม' })}</span><span class="tabular-nums">฿420</span></div>
-					<p class="mt-3 rounded-lg bg-orange-500 py-2 text-center font-semibold text-white">PromptPay QR</p>
+					<p class="mt-3 rounded-lg bg-orange-700 py-2 text-center font-semibold text-white">PromptPay QR</p>
 				</div>
 			</div>
 		{:else}

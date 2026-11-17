@@ -125,6 +125,14 @@ const cards: Card[] = [
     },
   },
   {
+    slug: "docs",
+    eyebrow: { th: "คู่มือการใช้งาน", en: "Help docs" },
+    title: {
+      th: "วิธีใช้ Tonbab ทีละขั้นตอน",
+      en: "Step-by-step Tonbab guides",
+    },
+  },
+  {
     slug: "story",
     eyebrow: { th: "เรื่องราวของเรา", en: "Our story" },
     title: {
@@ -194,7 +202,9 @@ if (!existsSync(CHROME))
 mkdirSync(OUT, { recursive: true });
 const tmp = join(tmpdir(), `tonbab-og-${process.pid}`);
 mkdirSync(tmp, { recursive: true });
-for (const c of cards) {
+// ONLY=docs,pricing regenerates just those cards.
+const only = process.env.ONLY?.split(",");
+for (const c of cards.filter((x) => !only || only.includes(x.slug))) {
   for (const l of ["th", "en"] as const) {
     const f = join(tmp, `${c.slug}-${l}.html`);
     const png = join(tmp, `${c.slug}-${l}.png`);
