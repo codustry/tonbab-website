@@ -110,21 +110,36 @@ export function moduleMd(m: ModuleContent, l: Locale): string {
 
 export function compareMd(v: VendorCompare, l: Locale): string {
   const th = l === "th";
-  return [
-    `# Tonbab vs ${v.name}`,
+  const parts = [
+    `# ${th ? `${v.name} กับ Tonbab ต่างกันอย่างไร` : `${v.name} vs Tonbab`}`,
     url(l, `/compare/${v.slug}`),
     tr(v.summary, l),
     `| | ${v.name} | Tonbab |\n|---|---|---|\n` +
       v.rows
-        .map(
-          (r) =>
-            `| ${tr(r.label, l)} | ${tr(r.them, l)} | ${tr(r.tonbab, l)} |`,
-        )
+        .map((r) => `| ${tr(r.label, l)} | ${tr(r.them, l)} | ${tr(r.tonbab, l)} |`)
         .join("\n"),
-    `_${tr(v.verified, l)}${v.sourceUrl ? ` (${v.sourceUrl})` : ""}_`,
+  ];
+  if (v.plans.length)
+    parts.push(
+      `## ${th ? `ราคา ${v.name}` : `${v.name} pricing`}`,
+      v.plans.map((p) => `- **${tr(p.name, l)}** — ${tr(p.price, l)} · ${tr(p.note, l)}`).join("\n"),
+    );
+  if (v.plansNote) parts.push(tr(v.plansNote, l));
+  if (v.scenario)
+    parts.push(
+      `## ${th ? "ตัวอย่างค่าใช้จ่ายต่อปี" : "Worked yearly cost"}: ${tr(v.scenario.title, l)}`,
+      `- **${v.name}:** ${tr(v.scenario.them, l)} → ${tr(v.scenario.themTotal, l)}\n- **Tonbab:** ${tr(v.scenario.tonbab, l)} → ${tr(v.scenario.tonbabTotal, l)}` +
+        (v.scenario.note ? `\n\n${tr(v.scenario.note, l)}` : ""),
+    );
+  for (const s of v.sections) parts.push(`## ${tr(s.h, l)}`, s.p.map((p) => tr(p, l)).join("\n\n"));
+  parts.push(
     `**${th ? `เลือก ${v.name} ถ้า` : `Choose ${v.name} if`}:** ${v.chooseThem.map((c) => tr(c, l)).join(" ")}`,
     `**${th ? "เลือก Tonbab ถ้า" : "Choose Tonbab if"}:** ${v.chooseTonbab.map((c) => tr(c, l)).join(" ")}`,
-  ].join("\n\n");
+    `## ${th ? "คำถามที่พบบ่อย" : "FAQ"}`,
+    v.faq.map((q) => `**${tr(q.q, l)}**\n${tr(q.a, l)}`).join("\n\n"),
+    `_${tr(v.verified, l)}${v.sources.length ? ` (${v.sources.map((s) => s.url).join(", ")})` : ""}_`,
+  );
+  return parts.join("\n\n");
 }
 
 function factsMd(l: Locale): string {
@@ -174,7 +189,7 @@ ${listDocs("en")
 
 ## Comparisons
 ${link("en", "/compare", "Tonbab vs Thai and global ERPs")}
-${vendorCompares.map((v) => link("en", `/compare/${v.slug}`, `Tonbab vs ${v.name}`)).join("\n")}
+${vendorCompares.map((v) => link("en", `/compare/${v.slug}`, `${v.name} vs Tonbab`)).join("\n")}
 
 ## Optional
 ${link("en", "/story", "Our story")}

@@ -41,7 +41,7 @@ export const thaiVendors: ThaiVendorRow[] = [
 	{
 		name: "PEAK",
 		what: { en: "Accounting (firm-oriented)", th: "บัญชี (เน้นสำนักงานบัญชี)" },
-		price: { en: "Free → ฿3,500/mo", th: "ฟรี → ฿3,500/เดือน" },
+		price: { en: "Free → ฿35,000/yr (20 users)", th: "ฟรี → ฿35,000/ปี (20 ผู้ใช้)" },
 		mfg: "no",
 		mfgNote: {
 			en: "Own manual documents a manual workaround — designed for buy-sell & service businesses",
@@ -52,7 +52,7 @@ export const thaiVendors: ThaiVendorRow[] = [
 	{
 		name: "ZORT",
 		what: { en: "Inventory / order management", th: "จัดการสต็อก / ออเดอร์" },
-		price: { en: "฿1,800/3mo → ฿99,000/yr", th: "฿1,800/3เดือน → ฿99,000/ปี" },
+		price: { en: "฿6,300 → ฿24,000/yr (1–3 users)", th: "฿6,300 → ฿24,000/ปี (1–3 ผู้ใช้)" },
 		mfg: "no",
 		mfgNote: { en: "Kitting only", th: "ทำได้แค่จัดชุดสินค้า (kitting)" },
 		enUi: "yes"
@@ -112,8 +112,8 @@ export const globalVendors: GlobalVendorRow[] = [
 	{
 		name: "Odoo",
 		price: {
-			en: "~€24.90–37.40/user/mo (Thailand billed on the EUR list, ~฿800+/user/mo)",
-			th: "~€24.90–37.40/ผู้ใช้/เดือน (ไทยคิดตามราคายุโรป ~฿800+/ผู้ใช้/เดือน)"
+			en: "US$16.90–32.00/user/mo billed yearly (Thai page lists USD; no THB price)",
+			th: "US$16.90–32.00/ผู้ใช้/เดือน เมื่อจ่ายรายปี (หน้าไทยแสดงเป็นดอลลาร์ ไม่มีราคาบาท)"
 		},
 		openSource: {
 			en: "Community LGPLv3 — but Thai tax reports are Enterprise-only",
@@ -181,6 +181,6 @@ export const globalVendors: GlobalVendorRow[] = [
 
 /** Verification note shown under the tables. */
 export const sourceNote: Bi = {
-	en: "All claims verified against vendor sites, official documentation, public repositories, and Thai partner pricing pages, August 2026. Prices change — check each vendor for current figures. PEAK, FlowAccount and AccRevo are genuinely strong on Thai tax (ภ.พ.30 / e-Tax) — that is exactly why they work well as the accounting layer beside Tonbab.",
-	th: "ทุกข้อมูลตรวจสอบจากเว็บไซต์ผู้ขาย เอกสารทางการ ซอร์สโค้ดสาธารณะ และหน้าราคาพาร์ทเนอร์ไทย ณ สิงหาคม 2026 ราคาอาจเปลี่ยนแปลง — ตรวจสอบกับผู้ขายแต่ละราย ทั้งนี้ PEAK, FlowAccount และ AccRevo เก่งเรื่องภาษีไทยจริง (ภ.พ.30 / e-Tax) — นั่นคือเหตุผลที่ระบบเหล่านี้ทำงานร่วมกับ Tonbab ได้ดีในฐานะระบบบัญชี"
+	en: "All claims verified against vendor sites, official documentation, public repositories, and Thai partner pricing pages in August 2026; FlowAccount, PEAK, ZORT and Odoo prices re-checked 18 November 2026. Prices change — check each vendor for current figures. PEAK, FlowAccount and AccRevo are genuinely strong on Thai tax (ภ.พ.30 / e-Tax) — that is exactly why they work well as the accounting layer beside Tonbab.",
+	th: "ทุกข้อมูลตรวจสอบจากเว็บไซต์ผู้ขาย เอกสารทางการ ซอร์สโค้ดสาธารณะ และหน้าราคาพาร์ทเนอร์ไทย ณ สิงหาคม 2569 (ราคา FlowAccount PEAK ZORT และ Odoo ตรวจซ้ำเมื่อ 18 พ.ย. 2569) ราคาอาจเปลี่ยนแปลง — ตรวจสอบกับผู้ขายแต่ละราย ทั้งนี้ PEAK, FlowAccount และ AccRevo เก่งเรื่องภาษีไทยจริง (ภ.พ.30 / e-Tax) — นั่นคือเหตุผลที่ระบบเหล่านี้ทำงานร่วมกับ Tonbab ได้ดีในฐานะระบบบัญชี"
 };
