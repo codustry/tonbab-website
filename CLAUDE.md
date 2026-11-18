@@ -43,9 +43,9 @@ accent only, never the button colour. Demo-booking runs on Khao Pad Forms.
 ## Honesty rules (from the build proposal)
 
 - **Never invent traction stats.** Use real production numbers only.
-- **Plans** (owner, 2026-11-16; Free seat change 2026-11-17): Free ฿0 (1
-  user), Starter ฿2,990/yr (5), Standard ฿6,000/yr (10), Business ฿14,400/yr
-  (25), Enterprise from ฿42,000/yr (100+, quoted); monthly = yearly ÷ 10;
+- **Plans** (owner, 2026-11-16, re-priced 2026-11-18; Free seat change 2026-11-17): Free ฿0 (1
+  user), Starter ฿2,990/yr (5), Standard ฿9,900/yr (10), Business ฿39,900/yr
+  (25), Enterprise from ฿120,000/yr (100+, quoted); monthly = yearly ÷ 10;
   Enterprise support pack ฿24,000/yr — all prices **excl. 7% VAT**. Accounting
   is in every paid plan from Starter (plans.ts feature `accounting`, 2026-11-18). The single
   source is the product repo's `src/lib/shared/plans.ts`; /pricing and

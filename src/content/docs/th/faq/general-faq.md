@@ -18,7 +18,7 @@ Tonbab (ต้นแบบ) เป็นระบบ ERP บนคลาวด�
 
 ### ราคาเท่าไร
 
-Free 0 บาท, Starter 2,990 บาท/ปี, Standard 6,000 บาท/ปี, Business 14,400 บาท/ปี และ Enterprise เริ่มต้น 42,000 บาท/ปี (ก่อน VAT 7%) จ่ายรายเดือนได้ในราคาหนึ่งในสิบของรายปี ดู [แพ็กเกจและค่าบริการ](/th/docs/getting-started/plans-and-billing)
+Free 0 บาท, Starter 2,990 บาท/ปี, Standard 9,900 บาท/ปี, Business 39,900 บาท/ปี และ Enterprise เริ่มต้น 120,000 บาท/ปี (ก่อน VAT 7%) จ่ายรายเดือนได้ในราคาหนึ่งในสิบของรายปี ดู [แพ็กเกจและค่าบริการ](/th/docs/getting-started/plans-and-billing)
 
 ### แพ็กเกจ Free ใช้ได้กี่คน
 

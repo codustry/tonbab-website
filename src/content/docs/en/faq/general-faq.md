@@ -18,7 +18,7 @@ Yes. Sign up at [app.tonbab.com/signup](https://app.tonbab.com/signup). New comp
 
 ### How much does it cost?
 
-Free ฿0, Starter ฿2,990/year, Standard ฿6,000/year, Business ฿14,400/year and Enterprise from ฿42,000/year (before 7% VAT). Monthly billing costs a tenth of the yearly price. See [Plans and billing](/en/docs/getting-started/plans-and-billing).
+Free ฿0, Starter ฿2,990/year, Standard ฿9,900/year, Business ฿39,900/year and Enterprise from ฿120,000/year (before 7% VAT). Monthly billing costs a tenth of the yearly price. See [Plans and billing](/en/docs/getting-started/plans-and-billing).
 
 ### How many users does the Free plan include?
 

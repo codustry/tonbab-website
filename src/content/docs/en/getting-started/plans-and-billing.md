@@ -14,9 +14,9 @@ Tonbab has 5 plans. Free costs nothing and has no time limit. New companies get 
 |---|---|---|---|---|
 | Free | ฿0 | ฿0 | 1 | 5 GB / 50 MB |
 | Starter | ฿2,990 | ฿299 | 5 | 15 GB / 200 MB |
-| Standard | ฿6,000 | ฿600 | 10 | 50 GB / 1 GB |
-| Business | ฿14,400 | ฿1,440 | 25 | 100 GB / 5 GB |
-| Enterprise | from ฿42,000 | yearly only | 100+ | 1 TB / 20 GB |
+| Standard | ฿9,900 | ฿990 | 10 | 50 GB / 1 GB |
+| Business | ฿39,900 | ฿3,990 | 25 | 100 GB / 5 GB |
+| Enterprise | from ฿120,000 | yearly only | 100+ | 1 TB / 20 GB |
 
 The monthly price is a tenth of the yearly price, so paying yearly gives you two months free. Each plan includes everything in the cheaper plans.
 

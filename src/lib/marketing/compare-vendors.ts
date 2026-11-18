@@ -70,7 +70,7 @@ export const CATEGORY_LABEL: Record<VendorCategory, Bi> = {
 };
 
 // ── Tonbab facts (mirror the product's plans.ts; per company per year, before VAT) ──
-export const TONBAB_YEARLY = { starter: 2990, standard: 6000, business: 14400, enterprise: 42000, setup: 9900, channels: 2400, hikcentral: 2400 };
+export const TONBAB_YEARLY = { starter: 2990, standard: 9900, business: 39900, enterprise: 120000, setup: 9900, channels: 2400, hikcentral: 2400 };
 const baht = (n: number) => "฿" + n.toLocaleString("en-US");
 const B = {
   starter: baht(TONBAB_YEARLY.starter),
@@ -181,12 +181,12 @@ export const vendorCompares: VendorCompare[] = [
     ],
     plansNote: bi("ราคารายเดือนมีโปรโมชันเป็นช่วง ๆ เงินเดือน (Payroll) ขายแยก", "Monthly prices run promotions from time to time. Payroll is sold separately."),
     scenario: {
-      title: bi("บริษัทซื้อมาขายไป 10 คน มี 2 คลัง ต้องการบัญชี สต็อก และเงินเดือนพนักงาน 10 คน", "A 10-person trading company with 2 warehouses that needs accounting, stock and payroll for 10 staff"),
+      title: bi("บริษัท 10 คน มี 2 คลัง ต้องการบัญชี สต็อก เงินเดือน และอยากติดตามลูกค้าและดีลด้วย", "A 10-person company with 2 warehouses that needs accounting, stock and payroll, and wants to track customers and deals"),
       them: bi("Pro Business ฿5,490 (หลายคลัง) + FlowAccount Payroll ฿2,990", "Pro Business ฿5,490 (multi-warehouse) + FlowAccount Payroll ฿2,990"),
-      themTotal: bi("≈ ฿8,480 ต่อปี", "≈ ฿8,480 per year"),
+      themTotal: bi("≈ ฿8,480 ต่อปี + ระบบ CRM แยก", "≈ ฿8,480 per year + a separate CRM"),
       tonbab: bi(`Standard ${B.standard} — บัญชี สต็อก 5 คลัง ล็อต เงินเดือน 50 คน ผู้ใช้ 10 คน พร้อม CRM และ POS`, `Standard ${B.standard} — accounting, stock in 5 warehouses, lots, payroll for 50, 10 users, with CRM and POS`),
       tonbabTotal: bi(`${B.standard} ต่อปี`, `${B.standard} per year`),
-      note: bi("ถ้าต้องการ e-Tax Invoice หรือมีคนทำงานบัญชีอย่างเดียวมากกว่า 10 คน FlowAccount Pro ที่ผู้ใช้ไม่จำกัดคุ้มกว่า", "If you need e-Tax Invoice, or more than 10 people working only in the books, FlowAccount Pro with unlimited users is the better deal."),
+      note: bi("สำหรับบัญชี สต็อก และเงินเดือนอย่างเดียว FlowAccount ถูกกว่าราว ฿1,400 ต่อปี Tonbab คุ้มเมื่อคุณใช้ CRM POS RFQ หรือการผลิตในระบบเดียวกันด้วย ถ้าต้องการ e-Tax Invoice หรือมีคนทำบัญชีอย่างเดียวมากกว่า 10 คน FlowAccount Pro ที่ผู้ใช้ไม่จำกัดคุ้มกว่า", "For accounting, stock and payroll alone, FlowAccount is about ฿1,400 a year cheaper. Tonbab pays off when you also run CRM, POS, RFQs or production in the same system. If you need e-Tax Invoice, or more than 10 people working only in the books, FlowAccount Pro with unlimited users is the better deal."),
     },
     sections: [
       { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
@@ -209,7 +209,7 @@ export const vendorCompares: VendorCompare[] = [
       bi("อยากได้บัญชี POS CRM HR และสต็อกในระบบเดียว ราคาเดียว", "You want accounting, POS, CRM, HR and stock in one system at one price."),
     ],
     faq: [
-      { q: bi("Tonbab ถูกกว่า FlowAccount ไหม?", "Is Tonbab cheaper than FlowAccount?"), a: bi(`ขึ้นกับสิ่งที่ใช้ ถ้าใช้บัญชีอย่างเดียว FlowAccount Standard ฿1,990/ปี ถูกกว่า ถ้าต้องการบัญชี สต็อกหลายคลัง และเงินเดือน Tonbab Standard ${B.standard}/ปี ครอบคลุมทั้งหมดในราคาเดียว ส่วน FlowAccount Pro Business + Payroll รวมประมาณ ฿8,480/ปี (ราคาก่อน VAT ณ 18 พ.ย. 2569)`, `It depends. For accounting alone, FlowAccount Standard at ฿1,990/yr is cheaper. For accounting plus multi-warehouse stock and payroll, Tonbab Standard covers it all for ${B.standard}/yr, while FlowAccount Pro Business + Payroll comes to about ฿8,480/yr (before VAT, 18 Nov 2026).`) },
+      { q: bi("Tonbab ถูกกว่า FlowAccount ไหม?", "Is Tonbab cheaper than FlowAccount?"), a: bi(`ไม่ถ้าใช้แค่บัญชี — FlowAccount Standard ฿1,990/ปี และ Pro ฿2,990/ปี ถูกกว่า สำหรับบัญชี สต็อกหลายคลัง และเงินเดือน FlowAccount Pro Business + Payroll รวมประมาณ ฿8,480/ปี ส่วน Tonbab Standard ${B.standard}/ปี ซึ่งรวม CRM POS RFQ และล็อตสินค้าไว้ในราคาเดียวกัน (ราคาก่อน VAT ณ 18 พ.ย. 2569)`, `Not for accounting alone — FlowAccount Standard (฿1,990/yr) and Pro (฿2,990/yr) are cheaper. For accounting, multi-warehouse stock and payroll, FlowAccount Pro Business + Payroll is about ฿8,480/yr; Tonbab Standard is ${B.standard}/yr and also includes CRM, POS, RFQs and lots (before VAT, 18 Nov 2026).`) },
       { q: bi("Tonbab ออกใบกำกับภาษีได้ไหม?", "Can Tonbab issue tax invoices?"), a: bi("ได้ ในโมดูลบัญชี (Starter ขึ้นไป) มีใบเสนอราคา ใบแจ้งหนี้/ใบกำกับภาษี ใบวางบิล ใบเสร็จ ใบลดหนี้ รายงาน ภ.พ.30 และหัก ณ ที่จ่าย แต่ยังไม่รองรับ e-Tax Invoice", "Yes. Accounting (Starter and up) issues quotations, invoices/tax invoices, billing notes, receipts and credit notes, with PP30 and withholding-tax reports. e-Tax Invoice is not supported yet.") },
       faqMigrate("FlowAccount"),
       faqTry,
@@ -253,12 +253,12 @@ export const vendorCompares: VendorCompare[] = [
     ],
     plansNote: bi("เอกสารไม่จำกัดทุกแพ็กเกจ เกินโควตาฟรีมีแพ็กเกจเครดิตเริ่ม ฿0.50/รายการ ตั้งแต่ 1 ส.ค. 2569", "Unlimited documents on every plan; above the free quota, credit packs from ฿0.50 per item since 1 Aug 2026."),
     scenario: {
-      title: bi("บริษัท 10 คน ต้องการบัญชีและสต็อกพร้อมล็อตสินค้า", "A 10-person company that needs accounting and stock with lots"),
+      title: bi("บริษัท 10 คน ต้องการบัญชี สต็อกพร้อมล็อตสินค้า และเงินเดือน", "A 10-person company that needs accounting, stock with lots, and payroll"),
       them: bi("PEAK PRO ฿9,000 (10 ผู้ใช้ FIFO ล็อต) · เงินเดือนคิดแยก", "PEAK PRO ฿9,000 (10 users, FIFO, lots) · payroll extra"),
-      themTotal: bi("≈ ฿9,000+ ต่อปี", "≈ ฿9,000+ per year"),
-      tonbab: bi(`Standard ${B.standard} — 10 ผู้ใช้ บัญชี ล็อตและซีเรียล เงินเดือน CRM POS`, `Standard ${B.standard} — 10 users, accounting, lots and serials, payroll, CRM, POS`),
+      themTotal: bi("฿9,000 ต่อปี + PEAK Payroll", "฿9,000 per year + PEAK Payroll"),
+      tonbab: bi(`Standard ${B.standard} — 10 ผู้ใช้ บัญชี ล็อตและซีเรียล เงินเดือนรวมแล้ว พร้อม CRM และ POS`, `Standard ${B.standard} — 10 users, accounting, lots and serials, payroll included, plus CRM and POS`),
       tonbabTotal: bi(`${B.standard} ต่อปี`, `${B.standard} per year`),
-      note: bi("ถ้าต้องการ e-Tax Invoice หรือทำงานร่วมกับสำนักงานบัญชีที่ใช้ PEAK อยู่แล้ว PEAK ยังเป็นตัวเลือกที่ดี", "If you need e-Tax Invoice or work with an accounting firm already on PEAK, PEAK remains a good choice."),
+      note: bi("ราคาใกล้เคียงกัน ถ้าต้องการบัญชีอย่างเดียว ต้องการ e-Tax Invoice หรือทำงานกับสำนักงานบัญชีที่ใช้ PEAK อยู่แล้ว PEAK ยังเป็นตัวเลือกที่ดี", "The prices are close. If you only need accounting, need e-Tax Invoice, or work with an accounting firm already on PEAK, PEAK remains a good choice."),
     },
     sections: [
       { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
@@ -376,12 +376,12 @@ export const vendorCompares: VendorCompare[] = [
     ],
     plansNote: bi("ไม่มีแพ็กเกจรายเดือน บริการเสริมต่อปี: ผู้ใช้ +1 ฿3,900 · คลัง +1 ฿3,900 · ช่องทาง +1 ฿5,200 · ออเดอร์ +1,000 ฿3,500", "No plain monthly plan. Yearly add-ons: +1 user ฿3,900 · +1 warehouse ฿3,900 · +1 channel ฿5,200 · +1,000 orders ฿3,500."),
     scenario: {
-      title: bi("ร้านออนไลน์ทีม 5 คน 2 คลัง ขายบน Shopee ประมาณ 2,000 ออเดอร์ต่อเดือน", "A 5-person online shop with 2 warehouses selling on Shopee, ~2,000 orders a month"),
+      title: bi("ร้านทีม 5 คน 2 คลัง ประมาณ 2,000 ออเดอร์ต่อเดือน ขายบนมาร์เก็ตเพลส", "A 5-person shop with 2 warehouses, ~2,000 orders a month, selling on marketplaces"),
       them: bi("Professional ฿15,000 + ผู้ใช้เพิ่ม 2 คน ฿7,800", "Professional ฿15,000 + 2 extra users ฿7,800"),
-      themTotal: bi("≈ ฿22,800 ต่อปี (ไม่รวมบัญชี)", "≈ ฿22,800 per year (no accounting)"),
+      themTotal: bi("≈ ฿22,800 ต่อปี (ไม่รวมบัญชี)", "≈ ฿22,800 per year (accounting not included)"),
       tonbab: bi(`Business ${B.business} + ทุกช่องทางขาย ${B.channels} — 25 ผู้ใช้ ออเดอร์ไม่จำกัด บัญชี POS`, `Business ${B.business} + all sales channels ${B.channels} — 25 users, unlimited orders, accounting, POS`),
       tonbabTotal: bi(`${baht(TONBAB_YEARLY.business + TONBAB_YEARLY.channels)} ต่อปี`, `${baht(TONBAB_YEARLY.business + TONBAB_YEARLY.channels)} per year`),
-      note: bi("ZORT ทำงานเชื่อมมาร์เก็ตเพลสมานานและเชี่ยวชาญด้านนี้ ถ้าธุรกิจคุณคือขายออนไลน์ล้วน ควรทดลองทั้งสองระบบกับร้านจริงก่อนตัดสินใจ", "ZORT has long, focused experience with marketplace sync. If you sell purely online, trial both with your real shops before deciding."),
+      note: bi(`ถ้าธุรกิจคุณคือขายบนมาร์เก็ตเพลสเป็นหลัก ZORT ถูกกว่าและเชี่ยวชาญด้านนี้มานาน Tonbab คุ้มเมื่อคุณมีหน้าร้าน ขายส่ง ผลิตเอง หรือต้องการบัญชีและเงินเดือนในระบบเดียว ถ้าไม่ต้องดึงออเดอร์จากมาร์เก็ตเพลส Standard ${B.standard} รองรับ 3,000 ออเดอร์ต่อเดือนและ 10 ผู้ใช้`, `If you mostly sell on marketplaces, ZORT is cheaper and has long, focused experience there. Tonbab pays off when you also run a shop counter, wholesale or your own production, or want accounting and payroll in one system. Without marketplace order sync, Standard at ${B.standard} covers 3,000 orders a month and 10 users.`),
     },
     sections: [
       { h: bi("ต่างกันตรงไหน", "The real difference"), p: [

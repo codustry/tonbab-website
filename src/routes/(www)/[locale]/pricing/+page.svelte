@@ -184,9 +184,9 @@
 	const plans: Plan[] = [
 		{ key: 'free', name: m.pr_plan_free, yearly: 0, monthly: null, desc: m.pr_free_desc, lead: m.pr_includes, bullets: [m.pr_b_free_1, m.pr_b_free_2, m.pr_b_free_3, m.pr_b_free_4, m.pr_b_free_5, m.pr_b_free_6, m.pr_b_free_7, m.pr_b_free_8] },
 		{ key: 'starter', name: m.pr_plan_starter, yearly: 2990, monthly: 299, desc: m.pr_starter_desc, lead: m.pr_everything_free, bullets: [m.pr_b_sta_1, m.pr_b_sta_6, m.pr_b_sta_2, m.pr_b_sta_3, m.pr_b_sta_4, m.pr_b_sta_5] },
-		{ key: 'standard', name: m.pr_plan_standard, yearly: 6000, monthly: 600, desc: m.pr_standard_desc, lead: m.pr_everything_starter, bullets: [m.pr_b_std_1, m.pr_b_std_2, m.pr_b_std_3, m.pr_b_std_4, m.pr_b_std_5, m.pr_b_std_6] },
-		{ key: 'business', name: m.pr_plan_business, yearly: 14400, monthly: 1440, desc: m.pr_business_desc, lead: m.pr_everything_standard, bullets: [m.pr_b_bus_1, m.pr_b_bus_2, m.pr_b_bus_3, m.pr_b_bus_4, m.pr_b_bus_5, m.pr_b_bus_6, m.pr_b_bus_7, m.pr_b_bus_8, m.pr_b_bus_9], best: true },
-		{ key: 'enterprise', name: m.pr_plan_enterprise, yearly: 42000, monthly: null, desc: m.pr_enterprise_desc, lead: m.pr_everything_business, bullets: [m.pr_b_ent_1, m.pr_b_ent_2, m.pr_b_ent_3, m.pr_b_ent_4, m.pr_b_ent_5, m.pr_b_ent_7, m.pr_b_ent_6], quoted: true }
+		{ key: 'standard', name: m.pr_plan_standard, yearly: 9900, monthly: 990, desc: m.pr_standard_desc, lead: m.pr_everything_starter, bullets: [m.pr_b_std_1, m.pr_b_std_2, m.pr_b_std_3, m.pr_b_std_4, m.pr_b_std_5, m.pr_b_std_6] },
+		{ key: 'business', name: m.pr_plan_business, yearly: 39900, monthly: 3990, desc: m.pr_business_desc, lead: m.pr_everything_standard, bullets: [m.pr_b_bus_1, m.pr_b_bus_2, m.pr_b_bus_3, m.pr_b_bus_4, m.pr_b_bus_5, m.pr_b_bus_6, m.pr_b_bus_7, m.pr_b_bus_8, m.pr_b_bus_9], best: true },
+		{ key: 'enterprise', name: m.pr_plan_enterprise, yearly: 120000, monthly: null, desc: m.pr_enterprise_desc, lead: m.pr_everything_business, bullets: [m.pr_b_ent_1, m.pr_b_ent_2, m.pr_b_ent_3, m.pr_b_ent_4, m.pr_b_ent_5, m.pr_b_ent_7, m.pr_b_ent_6], quoted: true }
 	];
 </script>
 

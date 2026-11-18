@@ -71,18 +71,18 @@ export const PLAN_FACTS: {
 }[] = [
   { code: "free", name: "Free", yearly: 0, monthly: 0, seats: 1 },
   { code: "starter", name: "Starter", yearly: 2990, monthly: 299, seats: 5 },
-  { code: "standard", name: "Standard", yearly: 6000, monthly: 600, seats: 10 },
+  { code: "standard", name: "Standard", yearly: 9900, monthly: 990, seats: 10 },
   {
     code: "business",
     name: "Business",
-    yearly: 14400,
-    monthly: 1440,
+    yearly: 39900,
+    monthly: 3990,
     seats: 25,
   },
   {
     code: "enterprise",
     name: "Enterprise",
-    yearly: 42000,
+    yearly: 120000,
     monthly: null,
     seats: 100,
     from: true,

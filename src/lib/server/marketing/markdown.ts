@@ -170,7 +170,7 @@ Facts are current as of ${SITE_UPDATED}. Full content in one file: ${SITE_ORIGIN
 ## Overview
 ${link("en", "/what-is-tonbab", "What is Tonbab?", "definition, key facts, pricing table, FAQ")}
 ${link("th", "/what-is-tonbab", "Tonbab คืออะไร (ภาษาไทย)")}
-${link("en", "/pricing", "Pricing", "Free ฿0 (1 user), Starter ฿2,990 (5 users), Standard ฿6,000 (10), Business ฿14,400 (25), Enterprise from ฿42,000 per year (100+)")}
+${link("en", "/pricing", "Pricing", "Free ฿0 (1 user), Starter ฿2,990 (5 users), Standard ฿9,900 (10), Business ฿39,900 (25), Enterprise from ฿120,000 per year (100+)")}
 ${link("en", "/customers", "Customers")}
 
 ## Modules
