@@ -26,7 +26,7 @@ One. Starter has 5, Standard 10, Business 25 and Enterprise 100+. Staff who sign
 
 ### Can I use accounting right away?
 
-Yes, on any paid plan from **Starter** up. The Free plan doesn't include Accounting; a new company's 30-day Business trial does. See [Accounting overview](/en/docs/accounting/accounting-overview).
+Yes, on every plan, **Free included**. Plans differ by size (users, storage, documents), not by features. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ### Can I move my data from my current software?
 

@@ -3,10 +3,10 @@ title: "e-GP Government Tenders: Leads from Thai Procurement Notices"
 description: "Pull Thai government procurement notices from e-GP twice a day by keyword and watched agency, then add the best ones to your pipeline."
 section: crm
 order: 4
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
-The **Government tenders** menu pulls procurement notices from the Comptroller General's e-GP system automatically, based on your keywords and the agencies you watch. Reps can move promising notices into the pipeline in one click. This feature is in the Business plan and up.
+The **Government tenders** menu pulls procurement notices from the Comptroller General's e-GP system automatically, based on your keywords and the agencies you watch. Reps can move promising notices into the pipeline in one click. This feature is in every plan, Free included.
 
 ## How notices come in
 

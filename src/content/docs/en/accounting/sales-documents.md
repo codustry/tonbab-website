@@ -8,7 +8,7 @@ updated: 2026-11-18
 
 All sales documents are under **Sales** in Accounting. They link in a chain, from quotation to invoice or tax invoice to receipt, and Tonbab posts to the books automatically when a document is issued.
 
-> **Plans:** Accounting is included from the Starter plan up. See [Accounting overview](/en/docs/accounting/accounting-overview).
+> **Plans:** Accounting is included in every plan, Free included. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ## Document types
 

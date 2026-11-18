@@ -1,6 +1,6 @@
 ---
 title: "Tonbab Accounting: Getting Started"
-description: "Tonbab's Thai accounting, included from the Starter plan: chart of accounts, sales and purchase documents, tax, bank rec and year-end close."
+description: "Tonbab's Thai accounting, included in every plan: chart of accounts, sales and purchase documents, tax, bank rec and year-end close."
 section: accounting
 order: 1
 updated: 2026-11-18
@@ -8,7 +8,7 @@ updated: 2026-11-18
 
 Tonbab Accounting covers Thai bookkeeping from the chart of accounts and sales and purchase documents to withholding tax, VAT, financial statements and year-end close.
 
-> **Plans:** Accounting is included in every paid plan, from Starter up. The Free plan doesn't include it; a new company's 30-day Business trial does. Pick Accounting when you sign up; to add it to an existing company, contact sales@codustry.com or 02-873-4448. The starter chart of accounts and depreciation rates are drafts, so have your auditor review them before relying on them.
+> **Plans:** Accounting is included in every plan, Free included; plans differ only by size, such as the number of users. It's on for every company and already ticked when you sign up. The starter chart of accounts and depreciation rates are drafts, so have your auditor review them before relying on them.
 
 ## Accounting menus
 

@@ -3,10 +3,10 @@ title: "RFQ Price Comparison and Landed Import Cost"
 description: "Record quotes from several vendors on a PR, compare domestic and international offers by landed cost (freight, duty, FX) and award."
 section: operation
 order: 2
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
-RFQ price comparison lives on the **Price Comparison** tab of a purchase request. Procurement records quotes from several vendors, compares them side by side and awards the winner. The awarded price is written onto the PR automatically. This feature is in the Standard plan and up.
+RFQ price comparison lives on the **Price Comparison** tab of a purchase request. Procurement records quotes from several vendors, compares them side by side and awards the winner. The awarded price is written onto the PR automatically. This feature is in every plan, Free included.
 
 ## Record a quote
 

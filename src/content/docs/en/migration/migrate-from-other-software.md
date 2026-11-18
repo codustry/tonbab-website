@@ -12,7 +12,7 @@ You can move your data from FlowAccount, PEAK, Express, Xero, QuickBooks and oth
 
 1. Master data: products, companies/partners, warehouses and BOMs
 2. Opening stock
-3. Chart of accounts and opening balances (if you use Accounting, included from the Starter plan)
+3. Chart of accounts and opening balances (if you use Accounting, included in every plan)
 4. Employees and payroll
 
 ## 1. Master data from Excel

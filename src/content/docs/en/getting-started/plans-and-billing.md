@@ -1,6 +1,6 @@
 ---
 title: "Tonbab Plans and Billing"
-description: "Compare Tonbab's 5 plans, Free, Starter, Standard, Business and Enterprise: yearly prices before VAT, users, storage, main limits and add-ons."
+description: "Compare Tonbab's 5 plans, Free, Starter, Standard, Business and Enterprise: every feature on every plan, yearly prices before VAT, users, storage, limits and add-ons."
 section: getting-started
 order: 5
 updated: 2026-11-18
@@ -20,17 +20,29 @@ Tonbab has 5 plans. Free costs nothing and has no time limit. New companies get 
 
 The monthly price is a tenth of the yearly price, so paying yearly gives you two months free. Each plan includes everything in the cheaper plans.
 
-## Key features by plan
+## Every feature on every plan
 
-| Feature | From plan |
+Every plan, Free included, has every module and feature. Plans differ by size: users, storage and the limits below. This includes:
+
+- Accounting (tax invoices, VAT and withholding tax, ledger) and the connector for FlowAccount, PEAK or Express
+- Payroll and recruitment
+- Manufacturing (BOM, work orders and routing), lots and serials, RFQ price comparison
+- e-GP government tenders and field sales visits
+- Service estimates and quotes
+- Public doc links and doc databases
+- Kitchen printing and a custom domain
+- Custom roles and SSO
+- Beam payments and your shop's own PromptPay QR
+- API and AI connectors (read-only on Free; drafts from Starter)
+
+## What still depends on the plan
+
+| Item | Plan |
 |---|---|
-| Beam payments and your shop's own PromptPay QR | Free |
-| API and AI connectors (read-only on Free) | Free |
-| Accounting (tax invoices, VAT and withholding tax, ledger) | Starter |
-| Automatic slip checks | Starter |
-| Lots and serials, RFQ price comparison, payroll, custom roles | Standard |
-| Manufacturing (BOM and work orders), e-GP government tenders, field sales visits, recruitment, SSO | Business |
-| Several companies, all sales channels, HikCentral attendance devices | Enterprise |
+| Automatic slip checks | Starter and up |
+| 1-year audit history, priority support on LINE | Business and Enterprise |
+| Several companies with consolidated reports, SCIM, IP allow-list, enforced two-factor sign-in, 3-year audit history | Enterprise |
+| All sales channels, HikCentral attendance devices | Enterprise (add-on for Business) |
 
 ## Main limits
 
@@ -43,14 +55,16 @@ The monthly price is a tenth of the yearly price, so paying yearly gives you two
 | POS devices | 1 | 2 | 5 | 10 | Unlimited |
 | Orders per month | 300 | 1,000 | 3,000 | Unlimited | Unlimited |
 | CRM customers | 200 | 1,000 | 5,000 | Unlimited | Unlimited |
+| CRM open deals | 50 | 200 | 1,000 | Unlimited | Unlimited |
 | HR employees | 10 | 10 | 50 | 200 | Unlimited |
 | Service jobs per month | 20 | 50 | 200 | Unlimited | Unlimited |
 | Docs pages | 200 | 500 | 2,000 | Unlimited | Unlimited |
 
+Need more users? Move to the next plan; there's no extra-user add-on. API quotas per plan are in [API and MCP quickstart](/en/docs/api/api-and-mcp-quickstart).
+
 ## Add-ons
 
 - Extra 100 GB storage: ฿900/year
-- +5 users for Business: ฿2,400/year
 - One extra shop for Business: ฿1,800/year
 - One extra POS device for Business: ฿900/year
 - All sales channels (Shopee, Lazada and more) for Business: ฿2,400/year

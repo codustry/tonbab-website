@@ -8,7 +8,7 @@ updated: 2026-11-18
 
 In Tonbab you withhold tax when you record a payment to a vendor. Tonbab issues the withholding tax certificate (50 tawi) with its number and gathers the items into each month's PND3, PND53 or PND54 attachment.
 
-> **Plans:** Accounting is included from the Starter plan up. See [Accounting overview](/en/docs/accounting/accounting-overview). Employee 50 tawi certificates from payroll are covered in [Payroll](/en/docs/people/payroll).
+> **Plans:** Accounting is included in every plan, Free included. See [Accounting overview](/en/docs/accounting/accounting-overview). Employee 50 tawi certificates from payroll are covered in [Payroll](/en/docs/people/payroll).
 
 ## Withhold tax when paying
 

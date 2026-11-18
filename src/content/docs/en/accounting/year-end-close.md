@@ -8,7 +8,7 @@ updated: 2026-11-18
 
 The **Year-end close** page checks you're ready to close the fiscal year, posts the closing entry and locks every period of the year. It also holds your audited figures and a checklist of the year's filings.
 
-> **Plans:** Accounting is included from the Starter plan up. See [Accounting overview](/en/docs/accounting/accounting-overview).
+> **Plans:** Accounting is included in every plan, Free included. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ## Before you close
 

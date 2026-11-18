@@ -3,7 +3,7 @@ title: "Service and Repair Jobs, Maintenance Plans and Rentals"
 description: "Run workshop and on-site repair jobs, estimate and hand to sales for a quote, issue parts, plan maintenance and manage rentals and loans."
 section: service
 order: 1
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 The Service module handles after-sales work end to end: taking a machine in, inspecting, estimating, issuing parts, repairing and handing back, plus scheduled maintenance plans and machines you rent out or lend.
@@ -35,7 +35,7 @@ Service makes a **cost estimate**, and sales issues the quotation.
 2. Sales opens the CRM deal and clicks **Create numbered quotation**, which is issued through Accounting.
 3. Once the customer's answer is recorded, the job moves on by itself. If the customer declines, you can charge the inspection fee you've set.
 
-You can revise an estimate; Tonbab keeps revisions 1, 2 and so on. Service quotes are in the Standard plan and up.
+You can revise an estimate; Tonbab keeps revisions 1, 2 and so on. Service quotes are in every plan, Free included.
 
 ## My jobs (technician view)
 

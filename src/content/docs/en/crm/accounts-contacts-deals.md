@@ -51,7 +51,7 @@ An admin sets the threshold in **Sales Org & Goals** › **Approvals** (**Requir
 
 ## Numbered quotations
 
-Official quotations are issued only by Accounting, so there is one quotation numbering series. On the deal, click **Create numbered quotation**. Tonbab opens an accounting quotation linked to the deal, and its status (awaiting customer, accepted, declined) shows back on the deal. See [Sales documents](/en/docs/accounting/sales-documents) (Accounting is included from the Starter plan up).
+Official quotations are issued only by Accounting, so there is one quotation numbering series. On the deal, click **Create numbered quotation**. Tonbab opens an accounting quotation linked to the deal, and its status (awaiting customer, accepted, declined) shows back on the deal. See [Sales documents](/en/docs/accounting/sales-documents) (Accounting is included in every plan).
 
 ## From deal to job
 
