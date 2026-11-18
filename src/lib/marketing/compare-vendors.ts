@@ -9,7 +9,8 @@
  *  - never claim Thai rivals lack Thai tax compliance (they are strong there);
  *  - say plainly when the other product is the better fit;
  *  - Tonbab facts mirror the product (plans.ts) — Accounting is included from
- *    Starter since 2026-11-18; e-Tax Invoice is not supported yet.
+ *    every plan, and since 2026-11-18 EVERY feature is on every plan (plans
+ *    differ by size); e-Tax Invoice is not supported yet.
  *
  * Re-verified 2026-11-18 (competitor pricing pages + docs). Prices before VAT.
  * Tonbab prices come from TONBAB_YEARLY below — when plans change, update it
@@ -91,8 +92,8 @@ const TONBAB_TYPE = bi(
   "All-department cloud ERP: accounting, purchasing, stock, manufacturing, POS, CRM, HR, service, docs",
 );
 const TONBAB_ACC = bi(
-  "รวมในแพ็กเกจ Starter ขึ้นไป — ใบเสนอราคาถึงใบกำกับภาษี ใบเสร็จ บิลซื้อ สมุดบัญชี งบการเงิน",
-  "Included from Starter — quotation to tax invoice, receipts, bills, ledger, financial statements",
+  "มีในทุกแพ็กเกจ รวม Free — ใบเสนอราคาถึงใบกำกับภาษี ใบเสร็จ บิลซื้อ สมุดบัญชี งบการเงิน",
+  "On every plan, Free included — quotation to tax invoice, receipts, bills, ledger, financial statements",
 );
 const TONBAB_TAX = bi(
   "ภ.พ.30 · 50 ทวิ · ภ.ง.ด.3/53 ในบัญชี และ ภ.ง.ด.1 · ประกันสังคม ในเงินเดือน · ยังไม่รองรับ e-Tax Invoice",
@@ -103,16 +104,16 @@ const TONBAB_MFG = bi(
   "Yes — BOM, work orders, routing, planned-vs-actual cost, QC",
 );
 const TONBAB_STOCK = bi(
-  "หลายคลังทุกแพ็กเกจ · ล็อตและซีเรียล (Standard ขึ้นไป) · ต้นทุนถึงคลังสำหรับสินค้านำเข้า",
-  "Multi-warehouse on every plan · lots and serials (Standard+) · landed cost for imports",
+  "หลายคลังทุกแพ็กเกจ · ล็อตและซีเรียล · ต้นทุนถึงคลังสำหรับสินค้านำเข้า",
+  "Multi-warehouse on every plan · lots and serials · landed cost for imports",
 );
 const TONBAB_POS = bi(
-  "มีในทุกแพ็กเกจ — บัตรและพร้อมเพย์ผ่าน Beam, QR พร้อมเพย์ของร้าน, ตรวจสลิป (Starter+), ใบสั่งครัว (Standard+)",
-  "On every plan — cards and PromptPay via Beam, your own PromptPay QR, slip checking (Starter+), kitchen tickets (Standard+)",
+  "มีในทุกแพ็กเกจ — บัตรและพร้อมเพย์ผ่าน Beam, QR พร้อมเพย์ของร้าน, ตรวจสลิป (Starter+), ใบสั่งครัว",
+  "On every plan — cards and PromptPay via Beam, your own PromptPay QR, slip checking (Starter+), kitchen tickets",
 );
 const TONBAB_HR = bi(
-  "การลา เวลาทำงาน และเงินเดือน (Standard ขึ้นไป พนักงาน 50 คน · Business 200 คน)",
-  "Leave, attendance and payroll (Standard+ for 50 staff · Business 200)",
+  "การลา เวลาทำงาน และเงินเดือน ทุกแพ็กเกจ (พนักงาน Free/Starter 10 · Standard 50 · Business 200 คน)",
+  "Leave, attendance and payroll on every plan (10 staff on Free/Starter · 50 on Standard · 200 on Business)",
 );
 const TONBAB_USERS = bi("Starter 5 · Standard 10 · Business 25 · Enterprise 100+ คน", "Starter 5 · Standard 10 · Business 25 · Enterprise 100+ users");
 const TONBAB_LANG = bi("ไทยและอังกฤษครบทุกหน้า สลับได้ทันที", "Full Thai and English, switch any time");
@@ -141,8 +142,8 @@ const youtUse = (name: string) => ({
   h: bi("ใช้คู่กันได้ไหม", "Can you use both?"),
   p: [
     bi(
-      `ได้ หลายบริษัทให้สำนักงานบัญชีทำงานบน ${name} ต่อ และใช้ Tonbab ดูแลจัดซื้อ สต็อก การผลิต และหน้าร้าน แล้วส่งเอกสารที่สะอาดให้ฝ่ายบัญชี เมื่อพร้อมจะรวมบัญชีมาไว้ที่เดียวก็ทำได้ เพราะบัญชีรวมอยู่ในแพ็กเกจ Tonbab ตั้งแต่ Starter`,
-      `Yes. Many companies keep their accounting firm on ${name} and run purchasing, stock, production and retail in Tonbab, handing over clean documents. When you want one system, Tonbab's accounting is already in every plan from Starter.`,
+      `ได้ หลายบริษัทให้สำนักงานบัญชีทำงานบน ${name} ต่อ และใช้ Tonbab ดูแลจัดซื้อ สต็อก การผลิต และหน้าร้าน แล้วส่งเอกสารที่สะอาดให้ฝ่ายบัญชี เมื่อพร้อมจะรวมบัญชีมาไว้ที่เดียวก็ทำได้ เพราะบัญชีรวมอยู่ในทุกแพ็กเกจของ Tonbab`,
+      `Yes. Many companies keep their accounting firm on ${name} and run purchasing, stock, production and retail in Tonbab, handing over clean documents. When you want one system, Tonbab's accounting is already in every plan.`,
     ),
   ],
 });
@@ -157,8 +158,8 @@ export const vendorCompares: VendorCompare[] = [
     verified: bi("ข้อมูล FlowAccount ตรวจจากหน้าราคาและศูนย์ช่วยเหลือของ FlowAccount เมื่อ 18 พ.ย. 2569", "FlowAccount facts checked on FlowAccount's pricing page and help centre, 18 Nov 2026"),
     sources: [{ label: "flowaccount.com/pricing", url: "https://flowaccount.com/pricing" }],
     summary: bi(
-      "FlowAccount เป็นโปรแกรมบัญชีออนไลน์ยอดนิยมของไทย เด่นเรื่องออกเอกสารขาย ภาษี และ e-Tax ราคาเริ่มต้นเข้าถึงง่าย ส่วน Tonbab เป็น ERP ที่มีบัญชีรวมอยู่ตั้งแต่แพ็กเกจ Starter พร้อมจัดซื้อ สต็อกหลายคลัง การผลิต POS CRM และเงินเดือนในฐานข้อมูลเดียว เหมาะกับธุรกิจที่งานก่อนถึงบัญชีซับซ้อน เช่น โรงงาน ผู้นำเข้า และร้านที่มีหลายสาขา",
-      "FlowAccount is a popular Thai online accounting app — strong on sales documents, tax and e-Tax, with an easy entry price. Tonbab is an ERP with accounting included from the Starter plan, plus purchasing, multi-warehouse stock, manufacturing, POS, CRM and payroll in one database — a fit when the work before the books is complex: factories, importers, multi-branch shops.",
+      "FlowAccount เป็นโปรแกรมบัญชีออนไลน์ยอดนิยมของไทย เด่นเรื่องออกเอกสารขาย ภาษี และ e-Tax ราคาเริ่มต้นเข้าถึงง่าย ส่วน Tonbab เป็น ERP ที่มีบัญชีรวมอยู่ในทุกแพ็กเกจ พร้อมจัดซื้อ สต็อกหลายคลัง การผลิต POS CRM และเงินเดือนในฐานข้อมูลเดียว เหมาะกับธุรกิจที่งานก่อนถึงบัญชีซับซ้อน เช่น โรงงาน ผู้นำเข้า และร้านที่มีหลายสาขา",
+      "FlowAccount is a popular Thai online accounting app — strong on sales documents, tax and e-Tax, with an easy entry price. Tonbab is an ERP with accounting included in every plan, plus purchasing, multi-warehouse stock, manufacturing, POS, CRM and payroll in one database — a fit when the work before the books is complex: factories, importers, multi-branch shops.",
     ),
     rows: [
       row("ประเภท", "What it is", bi("โปรแกรมบัญชีออนไลน์ + MobilePOS", "Online accounting + MobilePOS"), TONBAB_TYPE),
@@ -167,7 +168,7 @@ export const vendorCompares: VendorCompare[] = [
       row("บัญชีและภาษีไทย", "Accounting & Thai tax", bi("มี — จุดแข็งหลัก รวม e-Tax", "Yes — a core strength, including e-Tax"), TONBAB_ACC),
       row("สต็อก", "Inventory", bi("เริ่มที่ Pro · หลายคลัง (สูงสุด 50) ใน Pro Business · ไม่พบล็อต/ซีเรียล", "From Pro · multiple warehouses (up to 50) on Pro Business · lots/serials not found"), TONBAB_STOCK),
       row("การผลิต (BOM / ใบสั่งผลิต)", "Manufacturing (BOM / work orders)", bi("ไม่มี — มี BOQ สำหรับงานรับเหมา", "No — a BOQ document for contracting only"), TONBAB_MFG),
-      row("จัดซื้อเทียบราคา (RFQ)", "Purchasing RFQ comparison", bi("ไม่พบ", "Not found"), bi("มี โหมดในประเทศและนำเข้า (Standard ขึ้นไป)", "Yes, domestic and import modes (Standard+)")),
+      row("จัดซื้อเทียบราคา (RFQ)", "Purchasing RFQ comparison", bi("ไม่พบ", "Not found"), bi("มี โหมดในประเทศและนำเข้า", "Yes, domestic and import modes")),
       row("POS หน้าร้าน", "POS", bi("MobilePOS ทุกแพ็กเกจ", "MobilePOS on every plan"), TONBAB_POS),
       row("เงินเดือน", "Payroll", bi("FlowAccount Payroll (ผลิตภัณฑ์แยก)", "FlowAccount Payroll (separate product)"), TONBAB_HR),
       row("CRM", "CRM", bi("ไม่มีในตัว เชื่อม Readyplanet CRM", "Not built in; integrates Readyplanet CRM"), TONBAB_CRM),
@@ -210,7 +211,7 @@ export const vendorCompares: VendorCompare[] = [
     ],
     faq: [
       { q: bi("Tonbab ถูกกว่า FlowAccount ไหม?", "Is Tonbab cheaper than FlowAccount?"), a: bi(`ไม่ถ้าใช้แค่บัญชี — FlowAccount Standard ฿1,990/ปี และ Pro ฿2,990/ปี ถูกกว่า สำหรับบัญชี สต็อกหลายคลัง และเงินเดือน FlowAccount Pro Business + Payroll รวมประมาณ ฿8,480/ปี ส่วน Tonbab Standard ${B.standard}/ปี ซึ่งรวม CRM POS RFQ และล็อตสินค้าไว้ในราคาเดียวกัน (ราคาก่อน VAT ณ 18 พ.ย. 2569)`, `Not for accounting alone — FlowAccount Standard (฿1,990/yr) and Pro (฿2,990/yr) are cheaper. For accounting, multi-warehouse stock and payroll, FlowAccount Pro Business + Payroll is about ฿8,480/yr; Tonbab Standard is ${B.standard}/yr and also includes CRM, POS, RFQs and lots (before VAT, 18 Nov 2026).`) },
-      { q: bi("Tonbab ออกใบกำกับภาษีได้ไหม?", "Can Tonbab issue tax invoices?"), a: bi("ได้ ในโมดูลบัญชี (Starter ขึ้นไป) มีใบเสนอราคา ใบแจ้งหนี้/ใบกำกับภาษี ใบวางบิล ใบเสร็จ ใบลดหนี้ รายงาน ภ.พ.30 และหัก ณ ที่จ่าย แต่ยังไม่รองรับ e-Tax Invoice", "Yes. Accounting (Starter and up) issues quotations, invoices/tax invoices, billing notes, receipts and credit notes, with PP30 and withholding-tax reports. e-Tax Invoice is not supported yet.") },
+      { q: bi("Tonbab ออกใบกำกับภาษีได้ไหม?", "Can Tonbab issue tax invoices?"), a: bi("ได้ ในโมดูลบัญชี (ทุกแพ็กเกจ) มีใบเสนอราคา ใบแจ้งหนี้/ใบกำกับภาษี ใบวางบิล ใบเสร็จ ใบลดหนี้ รายงาน ภ.พ.30 และหัก ณ ที่จ่าย แต่ยังไม่รองรับ e-Tax Invoice", "Yes. Accounting (every plan) issues quotations, invoices/tax invoices, billing notes, receipts and credit notes, with PP30 and withholding-tax reports. e-Tax Invoice is not supported yet.") },
       faqMigrate("FlowAccount"),
       faqTry,
     ],
@@ -228,8 +229,8 @@ export const vendorCompares: VendorCompare[] = [
       { label: "PEAK help: manufacturing", url: "https://intercom.help/peak/en/articles/14086754" },
     ],
     summary: bi(
-      "PEAK เป็นโปรแกรมบัญชีออนไลน์ที่สำนักงานบัญชีไทยนิยม เด่นเรื่องภาษี e-Tax และงานบัญชีครบ ส่วน Tonbab เป็น ERP ที่มีบัญชีรวมอยู่ตั้งแต่ Starter และเน้นงานปฏิบัติการ ตั้งแต่จัดซื้อ สต็อก การผลิต จนถึงหน้าร้านและงานขาย",
-      "PEAK is an online accounting app favoured by Thai accounting firms — strong on tax, e-Tax and complete bookkeeping. Tonbab is an ERP with accounting included from Starter, focused on operations: purchasing, stock and manufacturing through to retail and sales.",
+      "PEAK เป็นโปรแกรมบัญชีออนไลน์ที่สำนักงานบัญชีไทยนิยม เด่นเรื่องภาษี e-Tax และงานบัญชีครบ ส่วน Tonbab เป็น ERP ที่มีบัญชีรวมอยู่ในทุกแพ็กเกจ และเน้นงานปฏิบัติการ ตั้งแต่จัดซื้อ สต็อก การผลิต จนถึงหน้าร้านและงานขาย",
+      "PEAK is an online accounting app favoured by Thai accounting firms — strong on tax, e-Tax and complete bookkeeping. Tonbab is an ERP with accounting in every plan, focused on operations: purchasing, stock and manufacturing through to retail and sales.",
     ),
     rows: [
       row("ประเภท", "What it is", bi("โปรแกรมบัญชีออนไลน์ (เน้นสำนักงานบัญชี)", "Online accounting (firm-oriented)"), TONBAB_TYPE),
@@ -317,8 +318,8 @@ export const vendorCompares: VendorCompare[] = [
       title: bi("โรงงาน 10 คน ต้องการ BOM ใบสั่งผลิต สต็อก และบัญชี", "A 10-person factory that needs BOMs, work orders, stock and accounting"),
       them: bi("Manufacturer 10 ผู้ใช้ ฿87,000/ปี + ค่าวางระบบ ฿90,000 (ปีแรก) + โปรแกรมบัญชีแยก", "Manufacturer 10 users ฿87,000/yr + onboarding ฿90,000 (first year) + separate accounting software"),
       themTotal: bi("≈ ฿177,000 ปีแรก (ไม่รวมบัญชี)", "≈ ฿177,000 first year (accounting not included)"),
-      tonbab: bi(`Business ${B.business} (25 ผู้ใช้ การผลิต บัญชี เงินเดือน) + บริการตั้งค่า ${B.setup} ถ้าต้องการ`, `Business ${B.business} (25 users, manufacturing, accounting, payroll) + optional ${B.setup} setup`),
-      tonbabTotal: bi(`${baht(TONBAB_YEARLY.business)}–${baht(TONBAB_YEARLY.business + TONBAB_YEARLY.setup)} ปีแรก`, `${baht(TONBAB_YEARLY.business)}–${baht(TONBAB_YEARLY.business + TONBAB_YEARLY.setup)} first year`),
+      tonbab: bi(`Standard ${B.standard} (10 ผู้ใช้ การผลิต บัญชี เงินเดือน ทุกฟีเจอร์) + บริการตั้งค่า ${B.setup} ถ้าต้องการ`, `Standard ${B.standard} (10 users, manufacturing, accounting, payroll — every feature) + optional ${B.setup} setup`),
+      tonbabTotal: bi(`${baht(TONBAB_YEARLY.standard)}–${baht(TONBAB_YEARLY.standard + TONBAB_YEARLY.setup)} ปีแรก`, `${baht(TONBAB_YEARLY.standard)}–${baht(TONBAB_YEARLY.standard + TONBAB_YEARLY.setup)} first year`),
       note: bi("MineERP มีการวางแผนการผลิตด้วย AI และทีมวางระบบให้ ค่าวางระบบนั้นรวมบริการที่ปรึกษาที่ Tonbab ไม่ได้รวมไว้ในราคาแพ็กเกจ", "MineERP includes AI production scheduling and a hands-on implementation team; its onboarding fee buys consulting that Tonbab doesn't bundle into the plan price."),
     },
     sections: [
@@ -327,7 +328,7 @@ export const vendorCompares: VendorCompare[] = [
         bi("MineERP ไม่มีบัญชีในตัวและเชื่อมกับ FlowAccount แทน ใน Tonbab การรับสินค้า เบิกวัตถุดิบ และส่งของลงบัญชีด้วยต้นทุนจริงในระบบเดียว", "MineERP has no built-in accounting and links to FlowAccount instead. In Tonbab, goods receipts, material issues and deliveries post to the ledger at real cost in the same system."),
       ] },
       { h: bi("ราคาและวิธีเริ่มต้น", "Price and how you start"), p: [
-        bi(`MineERP คิดตามจำนวนผู้ใช้ เริ่ม ฿46,800/ปี บวกค่าวางระบบ ฿50,000 ขึ้นไป Tonbab คิดต่อบริษัท Business ${B.business}/ปี สำหรับ 25 ผู้ใช้ สมัครแล้วใช้ได้ทันทีพร้อมทดลอง 30 วัน`, `MineERP prices by user tier from ฿46,800/yr plus onboarding from ฿50,000. Tonbab prices per company — Business is ${B.business}/yr for 25 users — and you can start today with a 30-day trial.`),
+        bi(`MineERP คิดตามจำนวนผู้ใช้ เริ่ม ฿46,800/ปี บวกค่าวางระบบ ฿50,000 ขึ้นไป Tonbab คิดต่อบริษัท ทุกแพ็กเกจได้ทุกฟีเจอร์ ต่างกันแค่ขนาด เช่น Standard ${B.standard}/ปี สำหรับ 10 ผู้ใช้ หรือ Business ${B.business}/ปี สำหรับ 25 ผู้ใช้ สมัครแล้วใช้ได้ทันทีพร้อมทดลอง 30 วัน`, `MineERP prices by user tier from ฿46,800/yr plus onboarding from ฿50,000. Tonbab prices per company with every feature on every plan — e.g. Standard at ${B.standard}/yr for 10 users or Business at ${B.business}/yr for 25 — and you can start today with a 30-day trial.`),
       ] },
     ],
     chooseThem: [
@@ -341,7 +342,7 @@ export const vendorCompares: VendorCompare[] = [
     ],
     faq: [
       { q: bi("MineERP ราคาเท่าไร?", "How much does MineERP cost?"), a: bi("ตามหน้า mineerp.com/pricing (18 พ.ย. 2569) แพ็กเกจ Trader เริ่ม ฿46,800/ปี (5 ผู้ใช้) และ Manufacturer เริ่ม ฿70,800/ปี (5 ผู้ใช้) บวกค่าวางระบบ ฿50,000–140,000 ครั้งเดียว ราคาก่อน VAT", "Per mineerp.com/pricing (18 Nov 2026): Trader from ฿46,800/yr (5 users) and Manufacturer from ฿70,800/yr (5 users), plus a one-time onboarding fee of ฿50,000–140,000, before VAT.") },
-      { q: bi("MineERP มีระบบบัญชีไหม?", "Does MineERP include accounting?"), a: bi("ไม่มีในตัว เว็บไซต์ระบุว่าส่งออกเป็น Excel หรือเชื่อม FlowAccount ผ่าน API ส่วน Tonbab มีบัญชีรวมในแพ็กเกจ Starter ขึ้นไป", "Not built in — its site says it exports to Excel or connects to FlowAccount by API. Tonbab includes accounting from the Starter plan.") },
+      { q: bi("MineERP มีระบบบัญชีไหม?", "Does MineERP include accounting?"), a: bi("ไม่มีในตัว เว็บไซต์ระบุว่าส่งออกเป็น Excel หรือเชื่อม FlowAccount ผ่าน API ส่วน Tonbab มีบัญชีรวมในทุกแพ็กเกจ", "Not built in — its site says it exports to Excel or connects to FlowAccount by API. Tonbab includes accounting in every plan.") },
       faqMigrate("MineERP"),
       faqTry,
     ],
@@ -414,8 +415,8 @@ export const vendorCompares: VendorCompare[] = [
     verified: bi("ข้อมูล Express จากเว็บไซต์และเอกสารของผู้พัฒนา ตรวจเมื่อ ส.ค. 2569 — ราคาปัจจุบันโปรดสอบถามตัวแทนจำหน่าย", "Express facts from the vendor's website and documentation, checked Aug 2026 — ask a dealer for current prices"),
     sources: [],
     summary: bi(
-      "Express เป็นโปรแกรมบัญชีแบบติดตั้งบนเครื่องที่ธุรกิจไทยใช้มานาน นักบัญชีคุ้นเคย ส่วน Tonbab เป็นระบบคลาวด์ ใช้ได้ทุกที่ทุกอุปกรณ์ มีบัญชีรวมตั้งแต่ Starter และครอบคลุมงานผลิต สต็อก POS และงานขาย",
-      "Express is long-established Thai on-premise accounting software that accountants know well. Tonbab is cloud-based, works on any device, includes accounting from Starter, and covers manufacturing, stock, POS and sales.",
+      "Express เป็นโปรแกรมบัญชีแบบติดตั้งบนเครื่องที่ธุรกิจไทยใช้มานาน นักบัญชีคุ้นเคย ส่วน Tonbab เป็นระบบคลาวด์ ใช้ได้ทุกที่ทุกอุปกรณ์ มีบัญชีรวมในทุกแพ็กเกจ และครอบคลุมงานผลิต สต็อก POS และงานขาย",
+      "Express is long-established Thai on-premise accounting software that accountants know well. Tonbab is cloud-based, works on any device, includes accounting in every plan, and covers manufacturing, stock, POS and sales.",
     ),
     rows: [
       row("ประเภท", "What it is", bi("โปรแกรมบัญชี ติดตั้งบนเครื่อง", "Accounting, installed on-premise"), bi("ERP บนคลาวด์ เว็บ มือถือ แท็บเล็ต", "Cloud ERP on web, phone and tablet")),
@@ -603,7 +604,7 @@ export const vendorCompares: VendorCompare[] = [
     rows: [
       row("ประเภท", "What it is", bi("ระบบ HR และเงินเดือน", "HR and payroll system"), TONBAB_TYPE),
       row("ราคา (≤20 พนักงาน)", "Price (≤20 staff)", bi("Lite ฿690 · Basic ฿1,290 · Pro ฿3,090 ต่อเดือน (รายปี = 10 เท่า)", "Lite ฿690 · Basic ฿1,290 · Pro ฿3,090 per month (yearly = 10×)"), bi(`Standard ${B.standard}/ปี (พนักงาน 50 คน) รวมทุกโมดูล`, `Standard ${B.standard}/yr (50 staff), every module included`)),
-      row("เงินเดือน", "Payroll", bi("เริ่มที่ Basic (Lite ไม่มีเงินเดือน)", "From Basic (Lite has no payroll)"), bi("Standard ขึ้นไป — ภ.ง.ด.1 ประกันสังคม สลิป", "Standard+ — PND 1, social security, payslips")),
+      row("เงินเดือน", "Payroll", bi("เริ่มที่ Basic (Lite ไม่มีเงินเดือน)", "From Basic (Lite has no payroll)"), bi("ทุกแพ็กเกจ — ภ.ง.ด.1 ประกันสังคม สลิป", "Every plan — PND 1, social security, payslips")),
       row("ประเมินผล / KPI", "Performance / KPI", bi("Pro และ Pro+ (PMS KPI OKR)", "Pro and Pro+ (PMS, KPI, OKR)"), bi("KPI สำหรับทีมขายใน CRM · ยังไม่มีระบบประเมินผล HR เต็มรูปแบบ", "Sales KPIs in CRM · no full HR performance system yet")),
       row("เครื่องสแกนเวลา", "Time clocks", bi("บริการเสริม เช่น เช็กอินด้วยพิกัด ฿50/คน/เดือน", "Add-ons such as geo check-in ฿50/person/mo"), bi(`เชื่อม HikCentral (บริการเสริม ${B.hikcentral}/ปี)`, `HikCentral link (${B.hikcentral}/yr add-on)`)),
       row("บัญชี สต็อก การขาย", "Accounting, stock, sales", bi("ไม่มี (ระบบ HR โดยเฉพาะ)", "No (HR-only)"), bi("มีในระบบเดียวกัน", "In the same system")),
@@ -695,7 +696,7 @@ export const vendorCompares: VendorCompare[] = [
       row("ประเภท", "What it is", bi("POS ร้านอาหาร", "Restaurant POS"), TONBAB_TYPE),
       row("ราคา (ต่อร้าน)", "Price (per shop)", bi("Quick Service เริ่ม ฿1,090/เดือน · Full Service เริ่ม ฿1,790/เดือน · ฮาร์ดแวร์แยก", "Quick Service from ฿1,090/mo · Full Service from ฿1,790/mo · hardware separate"), TONBAB_PRICE),
       row("เดลิเวอรี", "Delivery", bi("รับออเดอร์ LINE MAN เข้าระบบ — จุดแข็งหลัก", "LINE MAN orders flow in — a core strength"), bi("ช่องทาง LINE และมาร์เก็ตเพลสเป็นบริการเสริม (Business) · ยังไม่เชื่อม LINE MAN", "LINE and marketplace channels as an add-on (Business) · no LINE MAN link yet")),
-      row("ครัว", "Kitchen", bi("จอครัว (KDS)", "Kitchen display (KDS)"), bi("ใบสั่งครัวและหลายเครื่องพิมพ์ (Standard+)", "Kitchen tickets and multiple printers (Standard+)")),
+      row("ครัว", "Kitchen", bi("จอครัว (KDS)", "Kitchen display (KDS)"), bi("ใบสั่งครัวและหลายเครื่องพิมพ์ (ทุกแพ็กเกจ)", "Kitchen tickets and multiple printers (every plan)")),
       row("วัตถุดิบและบัญชี", "Ingredients and accounting", bi("ไม่พบบัญชีในตัว", "No built-in accounting found"), bi("ตัดสต็อกตามสูตร จัดซื้อ บัญชี เงินเดือน ในระบบเดียว", "Recipe stock deduction, purchasing, accounting, payroll in one system")),
     ],
     plans: [

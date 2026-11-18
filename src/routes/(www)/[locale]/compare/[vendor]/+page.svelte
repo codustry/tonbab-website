@@ -15,9 +15,9 @@
 	const baht = (n: number) => '฿' + n.toLocaleString('en-US');
 	const tonbabPlans = $derived([
 		{ name: 'Free', price: '฿0', note: th ? '1 ผู้ใช้ · POS 1 เครื่อง · สินค้า 100 รายการ' : '1 user · 1 POS · 100 products' },
-		{ name: 'Starter', price: baht(TONBAB_YEARLY.starter), note: th ? '5 ผู้ใช้ · บัญชี · ตรวจสลิป' : '5 users · accounting · slip checking' },
-		{ name: 'Standard', price: baht(TONBAB_YEARLY.standard), note: th ? '10 ผู้ใช้ · เงินเดือน · ล็อต · RFQ' : '10 users · payroll · lots · RFQ' },
-		{ name: 'Business', price: baht(TONBAB_YEARLY.business), note: th ? '25 ผู้ใช้ · ไม่จำกัดสินค้าและออเดอร์ · SSO' : '25 users · unlimited products and orders · SSO' },
+		{ name: 'Starter', price: baht(TONBAB_YEARLY.starter), note: th ? '5 ผู้ใช้ · สินค้า 1,000 รายการ · ออเดอร์ 1,000/เดือน' : '5 users · 1,000 products · 1,000 orders/mo' },
+		{ name: 'Standard', price: baht(TONBAB_YEARLY.standard), note: th ? '10 ผู้ใช้ · สินค้า 5,000 รายการ · พนักงาน 50 คน' : '10 users · 5,000 products · 50 employees' },
+		{ name: 'Business', price: baht(TONBAB_YEARLY.business), note: th ? '25 ผู้ใช้ · ไม่จำกัดสินค้าและออเดอร์ · พนักงาน 200 คน' : '25 users · unlimited products and orders · 200 employees' },
 		{ name: 'Enterprise', price: (th ? 'เริ่ม ' : 'from ') + baht(TONBAB_YEARLY.enterprise), note: th ? '100+ ผู้ใช้ · หลายบริษัท' : '100+ users · several companies' }
 	]);
 </script>
@@ -79,7 +79,7 @@
 								<li class="py-3"><div class="flex flex-wrap items-baseline justify-between gap-x-3"><span class="font-medium text-tnb-ink">{p.name}</span><span class="text-tnb-ink">{p.price}{th ? '/ปี' : '/yr'}</span></div><p class="mt-0.5 text-sm text-tnb-ink-soft">{p.note}</p></li>
 							{/each}
 						</ul>
-						<p class="mt-3 text-sm leading-relaxed text-tnb-ink-soft">{th ? 'ราคาต่อบริษัท ไม่ใช่ต่อคน ทุกแพ็กเกจได้ทุกโมดูล (บัญชีตั้งแต่ Starter)' : 'Per company, not per user. Every plan gets every module (accounting from Starter).'} <a href={localePath(locale, '/pricing')} class="font-medium text-tnb-blue hover:underline">{th ? 'ดูราคาทั้งหมด' : 'Full pricing'}</a></p>
+						<p class="mt-3 text-sm leading-relaxed text-tnb-ink-soft">{th ? 'ราคาต่อบริษัท ไม่ใช่ต่อคน ทุกแพ็กเกจได้ทุกโมดูลและทุกฟีเจอร์ ต่างกันแค่ขนาด' : 'Per company, not per user. Every plan gets every module and feature — plans differ only by size.'} <a href={localePath(locale, '/pricing')} class="font-medium text-tnb-blue hover:underline">{th ? 'ดูราคาทั้งหมด' : 'Full pricing'}</a></p>
 					</div>
 				</div>
 			</div>

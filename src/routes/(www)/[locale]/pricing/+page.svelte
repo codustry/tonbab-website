@@ -63,10 +63,10 @@
 				{ label: m.pr_r_products, v: ['100', '1,000', '5,000', U(), U()] },
 				{ label: m.pr_r_warehouses, v: ['2', '3', '5', '10', U()] },
 				{ label: m.pr_r_pos_month, v: ['30', '100', '300', U(), U()] },
-				{ label: m.pr_r_lots, v: from(2) },
-				{ label: m.pr_r_rfq, v: from(2) },
-				{ label: m.pr_r_manufacturing, v: from(3) },
-				{ label: m.pr_r_accounting, v: from(4) }
+				{ label: m.pr_r_lots, v: from(0) },
+				{ label: m.pr_r_rfq, v: from(0) },
+				{ label: m.pr_r_manufacturing, v: from(0) },
+				{ label: m.pr_r_accounting, v: from(0) }
 			]
 		},
 		{
@@ -78,9 +78,9 @@
 				{ label: m.pr_r_beam, v: from(0) },
 				{ label: m.pr_r_promptpay, v: from(0) },
 				{ label: m.pr_r_slip_verify, v: from(1) },
-				{ label: m.pr_r_kitchen, v: from(2) },
+				{ label: m.pr_r_kitchen, v: from(0) },
 				{ label: m.pr_r_channels, v: [false, false, false, m.pr_addon(), m.pr_included()] },
-				{ label: m.pr_r_domain, v: from(4) }
+				{ label: m.pr_r_domain, v: from(0) }
 			]
 		},
 		{
@@ -88,16 +88,16 @@
 			rows: [
 				{ label: m.pr_r_customers, v: ['200', '1,000', '5,000', U(), U()] },
 				{ label: m.pr_r_deals, v: ['50', '200', '1,000', U(), U()] },
-				{ label: m.pr_r_egp, v: from(3) },
-				{ label: m.pr_r_visits, v: from(3) }
+				{ label: m.pr_r_egp, v: from(0) },
+				{ label: m.pr_r_visits, v: from(0) }
 			]
 		},
 		{
 			key: 'people', title: m.pr_g_people, tone: 'violet', icon: Users,
 			rows: [
 				{ label: m.pr_r_employees, v: ['10', '10', '50', '200', U()] },
-				{ label: m.pr_r_payroll, v: from(2) },
-				{ label: m.pr_r_recruit, v: from(3) },
+				{ label: m.pr_r_payroll, v: from(0) },
+				{ label: m.pr_r_recruit, v: from(0) },
 				{ label: m.pr_r_hik, v: [false, false, false, m.pr_addon(), m.pr_included()] }
 			]
 		},
@@ -105,25 +105,25 @@
 			key: 'service', title: m.pr_g_service, tone: 'teal', icon: Wrench,
 			rows: [
 				{ label: m.pr_r_jobs, v: ['20', '50', '200', U(), U()] },
-				{ label: m.pr_r_quotes, v: from(2) }
+				{ label: m.pr_r_quotes, v: from(0) }
 			]
 		},
 		{
 			key: 'docs', title: m.pr_g_docs, tone: 'sky', icon: FileText,
 			rows: [
 				{ label: m.pr_r_pages, v: ['200', '500', '2,000', U(), U()] },
-				{ label: m.pr_r_share, v: from(2) },
-				{ label: m.pr_r_dbs, v: from(3) }
+				{ label: m.pr_r_share, v: from(0) },
+				{ label: m.pr_r_dbs, v: from(0) }
 			]
 		},
 		{
-			// plans.ts F('accounting', 'starter') — owner, 2026-11-18: in every paid plan, not Free.
+			// plans.ts F('accounting', 'free') — owner, 2026-11-18: every feature on every plan.
 			key: 'accounting', title: m.pr_g_accounting, tone: 'indigo', icon: Calculator,
 			rows: [
-				{ label: m.pr_r_acc_sales, v: from(1) },
-				{ label: m.pr_r_acc_bills, v: from(1) },
-				{ label: m.pr_r_acc_tax, v: from(1) },
-				{ label: m.pr_r_acc_books, v: from(1) }
+				{ label: m.pr_r_acc_sales, v: from(0) },
+				{ label: m.pr_r_acc_bills, v: from(0) },
+				{ label: m.pr_r_acc_tax, v: from(0) },
+				{ label: m.pr_r_acc_books, v: from(0) }
 			],
 			note: m.pr_accounting_body,
 			link: { href: '/modules/accounting', label: m.pr_accounting_cta }
@@ -145,8 +145,8 @@
 		{
 			key: 'security', title: m.pr_g_security, tone: 'emerald', icon: ShieldCheck,
 			rows: [
-				{ label: m.pr_r_roles, v: from(2) },
-				{ label: m.pr_r_sso, v: from(3) },
+				{ label: m.pr_r_roles, v: from(0) },
+				{ label: m.pr_r_sso, v: from(0) },
 				{ label: m.pr_r_audit, v: [false, false, false, m.pr_r_audit_1y(), m.pr_r_audit_3y()] },
 				{ label: m.pr_r_support, v: from(3) },
 				{ label: m.pr_r_scim, v: from(4) },
@@ -158,7 +158,6 @@
 
 	const addOns: { name: () => string; detail?: () => string; price: number; once?: boolean; business?: boolean; enterprise?: boolean; inEnterprise?: boolean }[] = [
 		{ name: m.pr_ao_storage, price: 900 },
-		{ name: m.pr_ao_members, price: 2400, business: true },
 		{ name: m.pr_ao_shop, price: 1800, business: true },
 		{ name: m.pr_ao_pos, price: 900, business: true },
 		{ name: m.pr_ao_channels, detail: m.pr_ao_channels_d, price: 2400, business: true, inEnterprise: true },
@@ -183,9 +182,9 @@
 	type Plan = { key: string; name: () => string; yearly: number; monthly: number | null; desc: () => string; lead: () => string; bullets: (() => string)[]; best?: boolean; quoted?: boolean };
 	const plans: Plan[] = [
 		{ key: 'free', name: m.pr_plan_free, yearly: 0, monthly: null, desc: m.pr_free_desc, lead: m.pr_includes, bullets: [m.pr_b_free_1, m.pr_b_free_2, m.pr_b_free_3, m.pr_b_free_4, m.pr_b_free_5, m.pr_b_free_6, m.pr_b_free_7, m.pr_b_free_8] },
-		{ key: 'starter', name: m.pr_plan_starter, yearly: 2990, monthly: 299, desc: m.pr_starter_desc, lead: m.pr_everything_free, bullets: [m.pr_b_sta_1, m.pr_b_sta_6, m.pr_b_sta_2, m.pr_b_sta_3, m.pr_b_sta_4, m.pr_b_sta_5] },
-		{ key: 'standard', name: m.pr_plan_standard, yearly: 9900, monthly: 990, desc: m.pr_standard_desc, lead: m.pr_everything_starter, bullets: [m.pr_b_std_1, m.pr_b_std_2, m.pr_b_std_3, m.pr_b_std_4, m.pr_b_std_5, m.pr_b_std_6] },
-		{ key: 'business', name: m.pr_plan_business, yearly: 39900, monthly: 3990, desc: m.pr_business_desc, lead: m.pr_everything_standard, bullets: [m.pr_b_bus_1, m.pr_b_bus_2, m.pr_b_bus_3, m.pr_b_bus_4, m.pr_b_bus_5, m.pr_b_bus_6, m.pr_b_bus_7, m.pr_b_bus_8, m.pr_b_bus_9], best: true },
+		{ key: 'starter', name: m.pr_plan_starter, yearly: 2990, monthly: 299, desc: m.pr_starter_desc, lead: m.pr_everything_free, bullets: [m.pr_b_sta_1, m.pr_b_sta_2, m.pr_b_sta_3, m.pr_b_sta_4, m.pr_b_sta_5] },
+		{ key: 'standard', name: m.pr_plan_standard, yearly: 9900, monthly: 990, desc: m.pr_standard_desc, lead: m.pr_everything_starter, bullets: [m.pr_b_std_1, m.pr_b_std_2, m.pr_b_std_3, m.pr_b_std_5] },
+		{ key: 'business', name: m.pr_plan_business, yearly: 39900, monthly: 3990, desc: m.pr_business_desc, lead: m.pr_everything_standard, bullets: [m.pr_b_bus_1, m.pr_b_bus_2, m.pr_b_bus_3, m.pr_b_bus_5, m.pr_b_bus_6, m.pr_b_bus_7, m.pr_b_bus_9], best: true },
 		{ key: 'enterprise', name: m.pr_plan_enterprise, yearly: 120000, monthly: null, desc: m.pr_enterprise_desc, lead: m.pr_everything_business, bullets: [m.pr_b_ent_1, m.pr_b_ent_2, m.pr_b_ent_3, m.pr_b_ent_4, m.pr_b_ent_5, m.pr_b_ent_7, m.pr_b_ent_6], quoted: true }
 	];
 </script>

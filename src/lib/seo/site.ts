@@ -147,7 +147,7 @@ export function softwareJsonLd(locale: Locale): Record<string, unknown> {
     offers: PLAN_FACTS.map((p) => ({
       "@type": "Offer",
       name: p.name,
-      description: `${p.seats}${p.from ? "+" : ""} ${p.seats === 1 ? "user" : "users"}, ${p.code === "free" ? "every module except Accounting" : "every module"}, billed yearly (monthly = yearly ÷ 10)`,
+      description: `${p.seats}${p.from ? "+" : ""} ${p.seats === 1 ? "user" : "users"}, every module and feature, billed yearly (monthly = yearly ÷ 10)`,
       price: p.yearly,
       priceCurrency: "THB",
       url: `${SITE_ORIGIN}/${locale}/pricing`,
