@@ -55,7 +55,7 @@ export interface SuiteModule {
 	pitch: Bi;
 	/** Three proof points shown under the hero window for the active tab. */
 	points: Bi[];
-	/** Invitation-only early access — every surface must label it. */
+	/** Early-access flag — no module currently sets it (Accounting is included from Starter since 2026-11-18). */
 	earlyAccess?: boolean;
 }
 
@@ -146,7 +146,6 @@ export const suiteModules: SuiteModule[] = [
 	},
 	{
 		key: "accounting",
-		earlyAccess: true,
 		name: { en: "Accounting", th: "บัญชี" },
 		short: { en: "Thai books", th: "บัญชีแบบไทย" },
 		pitch: {
@@ -156,7 +155,7 @@ export const suiteModules: SuiteModule[] = [
 		points: [
 			{ en: "Quotation → tax invoice → receipt", th: "ใบเสนอราคา → ใบกำกับภาษี → ใบเสร็จ" },
 			{ en: "ภ.พ.30 VAT and ภ.ง.ด. WHT reports", th: "รายงาน ภ.พ.30 และ ภ.ง.ด." },
-			{ en: "Invitation-only early access", th: "เปิดให้ทดลองใช้แบบเชิญเท่านั้น" }
+			{ en: "Included from the Starter plan", th: "รวมอยู่ในแพ็กเกจ Starter ขึ้นไป" }
 		]
 	}
 ];
@@ -257,10 +256,10 @@ export const suiteApps: SuiteApp[] = [
 	{ module: "docs", icon: "BookOpen", name: { en: "Wiki pages", th: "หน้าวิกิ" }, body: { en: "Rich pages written together in real time, with attributed history.", th: "หน้าเอกสารที่เขียนร่วมกันแบบเรียลไทม์ พร้อมประวัติว่าใครแก้" } },
 	{ module: "docs", icon: "Table2", name: { en: "Databases", th: "ฐานข้อมูล" }, body: { en: "Typed columns with table, board, calendar and timeline views.", th: "คอลัมน์กำหนดชนิดได้ ดูเป็นตาราง บอร์ด ปฏิทิน หรือไทม์ไลน์" } },
 	{ module: "docs", icon: "BadgeCheck", name: { en: "Verified & recurring pages", th: "หน้าที่ยืนยันแล้วและหน้าทำซ้ำ" }, body: { en: "Owners vouch for SOPs; weekly notes create themselves.", th: "ผู้ดูแลรับรอง SOP บันทึกประจำสัปดาห์สร้างตัวเอง" } },
-	// Accounting (early access)
-	{ module: "accounting", earlyAccess: true, icon: "FileText", name: { en: "Sales documents", th: "เอกสารขาย" }, body: { en: "Quotations, tax invoices, billing notes, receipts, credit/debit notes.", th: "ใบเสนอราคา ใบกำกับภาษี ใบวางบิล ใบเสร็จ ใบลด/เพิ่มหนี้" } },
-	{ module: "accounting", earlyAccess: true, icon: "Percent", name: { en: "VAT & withholding tax", th: "VAT และภาษีหัก ณ ที่จ่าย" }, body: { en: "ภ.พ.30 and ภ.ง.ด. reports, WHT certificates.", th: "รายงาน ภ.พ.30 และ ภ.ง.ด. หนังสือรับรองหัก ณ ที่จ่าย" } },
-	{ module: "accounting", earlyAccess: true, icon: "BookOpenCheck", name: { en: "Ledger & statements", th: "แยกประเภทและงบการเงิน" }, body: { en: "Journals, trial balance, financial statements, period close.", th: "สมุดรายวัน งบทดลอง งบการเงิน และการปิดงวด" } },
+	// Accounting
+	{ module: "accounting", icon: "FileText", name: { en: "Sales documents", th: "เอกสารขาย" }, body: { en: "Quotations, tax invoices, billing notes, receipts, credit/debit notes.", th: "ใบเสนอราคา ใบกำกับภาษี ใบวางบิล ใบเสร็จ ใบลด/เพิ่มหนี้" } },
+	{ module: "accounting", icon: "Percent", name: { en: "VAT & withholding tax", th: "VAT และภาษีหัก ณ ที่จ่าย" }, body: { en: "ภ.พ.30 and ภ.ง.ด. reports, WHT certificates.", th: "รายงาน ภ.พ.30 และ ภ.ง.ด. หนังสือรับรองหัก ณ ที่จ่าย" } },
+	{ module: "accounting", icon: "BookOpenCheck", name: { en: "Ledger & statements", th: "แยกประเภทและงบการเงิน" }, body: { en: "Journals, trial balance, financial statements, period close.", th: "สมุดรายวัน งบทดลอง งบการเงิน และการปิดงวด" } },
 	// Platform
 	{ module: "platform", icon: "LayoutDashboard", name: { en: "Home dashboard", th: "หน้าหลัก" }, body: { en: "What needs you, this week's team schedule, and 30-day pulse.", th: "งานที่รอคุณ ตารางทีมสัปดาห์นี้ และภาพรวม 30 วัน" } },
 	{ module: "platform", icon: "Inbox", name: { en: "Approvals inbox", th: "กล่องอนุมัติ" }, body: { en: "Every approval across modules in one place.", th: "ทุกการอนุมัติจากทุกโมดูลในที่เดียว" } },
@@ -304,7 +303,7 @@ export const realStats: { value: string; label: Bi }[] = [
 	{ value: "1,000+", label: { en: "products managed", th: "สินค้าที่บริหาร" } },
 	{ value: "530+", label: { en: "delivery notes issued", th: "ใบส่งของที่ออกแล้ว" } },
 	// Production counts refreshed 2026-11-15 (9,690 movements, 1,047 products, 539 issued DNs).
-	// 7 modules = Operation, People, Commerce, CRM, Service, Docs, Accounting (early access).
+	// 7 modules = Operation, People, Commerce, CRM, Service, Docs, Accounting.
 	{ value: "7 + 3", label: { en: "modules + kiosk apps", th: "โมดูล + แอปคีออสก์" } }
 ];
 

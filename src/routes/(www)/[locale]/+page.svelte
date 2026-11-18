@@ -80,11 +80,11 @@
 		userPicked = true;
 	}
 
-	// ── App grid filter
-	let filter = $state<SuiteKey | 'all'>('all');
-	const filters: (SuiteKey | 'all')[] = ['all', 'operation', 'people', 'commerce', 'crm', 'service', 'docs', 'accounting', 'platform'];
-	const EARLY = { en: 'Early access', th: 'ทดลองใช้' };
-	const shownApps = $derived(filter === 'all' ? suiteApps : suiteApps.filter((a) => a.module === filter));
+	// ── App directory: every app, grouped by module (8 groups instead of 40 cards)
+	const GROUPS: SuiteKey[] = ['operation', 'people', 'commerce', 'crm', 'service', 'docs', 'accounting', 'platform'];
+	const appGroups = GROUPS.map((key) => ({ key, apps: suiteApps.filter((a) => a.module === key) }));
+	const appHref = (a: (typeof suiteApps)[number]) =>
+		localePath(locale, a.href ?? (a.module === 'platform' ? '/modules' : `/modules/${a.module}`));
 
 	// ── Connected loop stepper
 	let step = $state(0);
@@ -112,7 +112,7 @@
 	<div class="relative container mx-auto px-4 pt-20 pb-16 text-center sm:pt-28">
 		<p class="mb-6 inline-flex items-center gap-2 rounded-full bg-tnb-mist px-3.5 py-1.5 text-sm font-medium text-tnb-ink-soft">
 			<span class="flex gap-0.5" aria-hidden="true">
-				{#each suiteModules.filter((sm) => !sm.earlyAccess) as sm (sm.key)}<span class="h-2 w-2 rounded-full {SUITE_THEME[sm.key].solid}"></span>{/each}
+				{#each suiteModules as sm (sm.key)}<span class="h-2 w-2 rounded-full {SUITE_THEME[sm.key].solid}"></span>{/each}
 			</span>
 			{t({ en: 'Thai-first cloud ERP for SMEs · 7 modules · 3 kiosk apps', th: 'โปรแกรม ERP ภาษาไทยสำหรับ SME · 7 โมดูล · 3 แอปคีออสก์' })}
 		</p>
@@ -159,7 +159,6 @@
 						<span class="flex h-6 w-6 items-center justify-center rounded-full {th.chip}"><Icon class="h-3.5 w-3.5" aria-hidden="true" /></span>
 						{t(sm.name)}
 						<span class="hidden text-xs font-normal text-tnb-ink-soft md:inline">· {t(sm.short)}</span>
-						{#if sm.earlyAccess}<span class="rounded-full {th.chip} px-1.5 py-0.5 text-[10px] font-semibold">{t(EARLY)}</span>{/if}
 						{#if active === i && !userPicked && !reduced && settled}
 							<span class="progress absolute bottom-0 left-0 h-0.5 {th.solid}"></span>
 						{/if}
@@ -172,7 +171,7 @@
 					<div class="fade-in min-w-0"><ProductMock module={activeMod.key} {locale} /></div>
 				{/key}
 				<div class="rounded-2xl bg-white/85 p-5 ring-1 ring-tnb-wash-deep">
-					<p class="text-xs font-semibold uppercase tracking-wider {SUITE_THEME[activeMod.key].text}">{t(activeMod.short)}{#if activeMod.earlyAccess} · {t(EARLY)}{/if}</p>
+					<p class="text-xs font-semibold uppercase tracking-wider {SUITE_THEME[activeMod.key].text}">{t(activeMod.short)}</p>
 					<p class="mt-2 font-semibold leading-snug text-tnb-ink">{t(activeMod.pitch)}</p>
 					<ul class="mt-4 space-y-2.5">
 						{#each activeMod.points as p (p.en)}
@@ -260,44 +259,42 @@
 </section>
 
 <!-- ───────────────────── One platform: every app ───────────────────── -->
-<section id="apps" class="scroll-mt-20 bg-tnb-mist">
+<section id="apps" class="scroll-mt-20 bg-tnb-mist" aria-labelledby="apps-title">
 	<div class="container mx-auto px-4 py-20">
-		<h2 class="section-title">{t({ en: 'One platform. Every app your business runs on.', th: 'แพลตฟอร์มเดียว ครบทุกแอปที่ธุรกิจต้องใช้' })}</h2>
+		<h2 id="apps-title" class="section-title">{t({ en: 'One platform. Every app your business runs on.', th: 'แพลตฟอร์มเดียว ครบทุกแอปที่ธุรกิจต้องใช้' })}</h2>
 		<p class="section-lede">{t({ en: 'Turn modules on as you grow. They share one customer list, one product catalogue and one stock ledger.', th: 'เปิดโมดูลเพิ่มได้ตามการเติบโต ทุกโมดูลใช้รายชื่อลูกค้า แคตตาล็อกสินค้า และบัญชีสต็อกชุดเดียวกัน' })}</p>
 
-		<div class="mt-10 flex flex-wrap justify-center gap-2" role="group" aria-label={t({ en: 'Filter apps by module', th: 'กรองแอปตามโมดูล' })}>
-			{#each filters as f (f)}
-				<button
-					type="button"
-					aria-pressed={filter === f}
-					onclick={() => (filter = f)}
-					class="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-semibold transition
-						{filter === f ? (f === 'all' ? 'bg-tnb-ink text-white' : `${SUITE_THEME[f].solid} text-white`) : 'bg-white text-tnb-ink-soft ring-1 ring-tnb-line hover:text-tnb-ink'}"
-				>
-					{#if f !== 'all'}<span class="h-2 w-2 rounded-full {filter === f ? 'bg-white' : SUITE_THEME[f].solid}"></span>{/if}
-					{f === 'all' ? t({ en: 'All apps', th: 'ทั้งหมด' }) : t(MODULE_LABEL[f])}
-					<span class="font-normal opacity-70">{f === 'all' ? suiteApps.length : suiteApps.filter((a) => a.module === f).length}</span>
-				</button>
+		<!-- One quiet card per module with a plain icon + name list: the whole suite scans
+		     at a glance instead of 40 bordered cards. Every app still links to its page. -->
+		<div class="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+			{#each appGroups as g (g.key)}
+				{@const th = SUITE_THEME[g.key]}
+				{@const ModIcon = MODULE_ICON[g.key]}
+				<div class="rounded-2xl bg-white p-4 ring-1 ring-tnb-hair sm:p-5">
+					<h3 class="flex items-center gap-2">
+						<span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg {th.chip}"><ModIcon class="h-4 w-4" aria-hidden="true" /></span>
+						{#if g.key === 'platform'}
+							<span class="min-w-0 font-semibold text-tnb-ink">{t(MODULE_LABEL[g.key])}</span>
+						{:else}
+							<a href={localePath(locale, `/modules/${g.key}`)} class="min-w-0 font-semibold text-tnb-ink hover:underline">{t(MODULE_LABEL[g.key])}</a>
+						{/if}
+						<span class="ml-auto text-xs text-tnb-ink-soft">{g.apps.length}<span class="sr-only"> {t({ en: 'apps', th: 'แอป' })}</span></span>
+					</h3>
+					<ul class="mt-3 space-y-0.5 border-t border-tnb-hair pt-3">
+						{#each g.apps as app (app.name.en)}
+							{@const Icon = ICONS[app.icon] ?? Layers}
+							<li>
+								<a href={appHref(app)} title={t(app.body)} class="group -mx-2 flex items-start gap-2 rounded-md px-2 py-1 text-[14px] leading-snug text-tnb-ink-soft transition hover:bg-tnb-mist hover:text-tnb-ink">
+									<Icon class="mt-0.5 h-4 w-4 shrink-0 {th.text} opacity-80 group-hover:opacity-100" aria-hidden="true" />
+									<span class="min-w-0">{t(app.name)}</span>
+								</a>
+							</li>
+						{/each}
+					</ul>
+				</div>
 			{/each}
 		</div>
-
-		<div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-			{#each shownApps as app (app.module + app.name.en)}
-				{@const Icon = ICONS[app.icon] ?? Layers}
-				{@const th = SUITE_THEME[app.module]}
-				<a
-					href={app.href ? localePath(locale, app.href) : app.module === 'platform' ? localePath(locale, '/modules') : localePath(locale, `/modules/${app.module}`)}
-					class="group flex gap-3.5 rounded-xl border border-tnb-line/60 bg-white p-4 shadow-[0_1px_2px_rgba(23,22,28,0.05)] transition hover:-translate-y-0.5 hover:shadow-md"
-				>
-					<span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition group-hover:scale-105 {th.chip}"><Icon class="h-5 w-5" aria-hidden="true" /></span>
-					<span class="min-w-0">
-						<span class="block font-semibold text-tnb-ink">{t(app.name)}</span>
-						<span class="mt-0.5 block text-[13.5px] leading-snug text-tnb-ink-soft">{t(app.body)}</span>
-						<span class="mt-1.5 block text-[11px] font-semibold uppercase tracking-wider {th.text}">{t(MODULE_LABEL[app.module])}{#if app.earlyAccess} · {t(EARLY)}{/if}</span>
-					</span>
-				</a>
-			{/each}
-		</div>
+		<p class="mt-8 text-center"><a href={localePath(locale, '/modules')} class="btn-soft">{t({ en: `Explore all ${suiteApps.length} apps`, th: `ดูทั้ง ${suiteApps.length} แอป` })}<ArrowRight class="h-4 w-4" aria-hidden="true" /></a></p>
 	</div>
 </section>
 
@@ -382,7 +379,7 @@
 				{@const th = SUITE_THEME[f.module]}
 				<li>
 					<a href={localePath(locale, `/features/${f.key}`)} class="group flex h-full flex-col rounded-xl border border-tnb-line/60 bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md">
-						<span class="flex items-center gap-2 text-[11px] font-semibold tracking-wider uppercase {th.text}"><span class="h-2 w-2 rounded-full {th.solid}"></span>{t(MODULE_LABEL[f.module])}{#if f.earlyAccess} · {t(EARLY)}{/if}</span>
+						<span class="flex items-center gap-2 text-[11px] font-semibold tracking-wider uppercase {th.text}"><span class="h-2 w-2 rounded-full {th.solid}"></span>{t(MODULE_LABEL[f.module])}</span>
 						<span class="mt-2 font-semibold text-tnb-ink group-hover:text-tnb-blue">{t(f.keyword)}</span>
 						<span class="mt-1.5 text-[14px] leading-snug text-tnb-ink-soft">{t(f.lede)}</span>
 					</a>
