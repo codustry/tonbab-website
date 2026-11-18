@@ -1,14 +1,14 @@
 ---
-title: "Sales Documents and Tax Invoices (Early Access)"
+title: "Sales Documents and Tax Invoices"
 description: "Issue quotations, invoices, tax invoices, receipts, cash sales, and credit and debit notes in Tonbab Accounting, then take payment."
 section: accounting
 order: 2
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 All sales documents are under **Sales** in Accounting. They link in a chain, from quotation to invoice or tax invoice to receipt, and Tonbab posts to the books automatically when a document is issued.
 
-> **Early access:** Accounting is available to invited companies only. See [Accounting overview](/en/docs/accounting/accounting-overview).
+> **Plans:** Accounting is included from the Starter plan up. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ## Document types
 

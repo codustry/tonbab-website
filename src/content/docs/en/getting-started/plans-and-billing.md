@@ -3,7 +3,7 @@ title: "Tonbab Plans and Billing"
 description: "Compare Tonbab's 5 plans, Free, Starter, Standard, Business and Enterprise: yearly prices before VAT, users, storage, main limits and add-ons."
 section: getting-started
 order: 5
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 Tonbab has 5 plans. Free costs nothing and has no time limit. New companies get a 30-day Business trial, then move to Free automatically. All prices below are before 7% VAT.
@@ -26,6 +26,7 @@ The monthly price is a tenth of the yearly price, so paying yearly gives you two
 |---|---|
 | Beam payments and your shop's own PromptPay QR | Free |
 | API and AI connectors (read-only on Free) | Free |
+| Accounting (tax invoices, VAT and withholding tax, ledger) | Starter |
 | Automatic slip checks | Starter |
 | Lots and serials, RFQ price comparison, payroll, custom roles | Standard |
 | Manufacturing (BOM and work orders), e-GP government tenders, field sales visits, recruitment, SSO | Business |

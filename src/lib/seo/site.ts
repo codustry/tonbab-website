@@ -28,7 +28,7 @@ export const SITE_ORIGIN = "https://www.tonbab.com";
  * sitemap uses it as <lastmod> (Google ignores lastmod values that change
  * on every crawl, so this must be a real date, bumped with real edits).
  */
-export const SITE_UPDATED = "2026-11-17";
+export const SITE_UPDATED = "2026-11-18";
 
 export const ENTITY = {
   name: "Tonbab",
@@ -147,7 +147,7 @@ export function softwareJsonLd(locale: Locale): Record<string, unknown> {
     offers: PLAN_FACTS.map((p) => ({
       "@type": "Offer",
       name: p.name,
-      description: `${p.seats}${p.from ? "+" : ""} ${p.seats === 1 ? "user" : "users"}, every module, billed yearly (monthly = yearly ÷ 10)`,
+      description: `${p.seats}${p.from ? "+" : ""} ${p.seats === 1 ? "user" : "users"}, ${p.code === "free" ? "every module except Accounting" : "every module"}, billed yearly (monthly = yearly ÷ 10)`,
       price: p.yearly,
       priceCurrency: "THB",
       url: `${SITE_ORIGIN}/${locale}/pricing`,

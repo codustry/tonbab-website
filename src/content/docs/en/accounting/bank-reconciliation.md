@@ -1,14 +1,14 @@
 ---
-title: "Cash, Bank and Bank Reconciliation (Early Access)"
+title: "Cash, Bank and Bank Reconciliation"
 description: "Add bank accounts, import statements from 12 Thai banks as Excel or CSV, match lines automatically and sign off your bank reconciliation."
 section: accounting
 order: 6
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 **Cash and bank** manages your cash and bank accounts and reconciles them with bank statements. Import a statement file, Tonbab matches it against your books, and you confirm the matches or record what's missing.
 
-> **Early access:** Accounting is available to invited companies only. See [Accounting overview](/en/docs/accounting/accounting-overview).
+> **Plans:** Accounting is included from the Starter plan up. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ## Add a bank account
 

@@ -3,7 +3,7 @@ title: "Tonbab Frequently Asked Questions"
 description: "Short answers about Tonbab pricing, the free trial, users per plan, accounting, data migration, Shopee and Lazada, mobile and security."
 section: faq
 order: 1
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 Common questions customers ask about Tonbab, with links to the related guides. If your question isn't here, contact sales@codustry.com or 02-873-4448.
@@ -26,7 +26,7 @@ One. Starter has 5, Standard 10, Business 25 and Enterprise 100+. Staff who sign
 
 ### Can I use accounting right away?
 
-Accounting is in **early access** for invited companies only. Contact us if you're interested. See [Accounting overview](/en/docs/accounting/accounting-overview).
+Yes, on any paid plan from **Starter** up. The Free plan doesn't include Accounting; a new company's 30-day Business trial does. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ### Can I move my data from my current software?
 

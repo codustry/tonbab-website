@@ -39,7 +39,7 @@ export interface DocHeading {
 }
 
 /** Sidebar order + labels. Unknown sections sort last under their key. */
-export const DOC_SECTIONS: { key: string; label: Bi; earlyAccess?: boolean }[] =
+export const DOC_SECTIONS: { key: string; label: Bi }[] =
   [
     {
       key: "getting-started",
@@ -74,8 +74,7 @@ export const DOC_SECTIONS: { key: string; label: Bi; earlyAccess?: boolean }[] =
     },
     {
       key: "accounting",
-      label: { th: "บัญชี (Early access)", en: "Accounting (early access)" },
-      earlyAccess: true,
+      label: { th: "บัญชี", en: "Accounting" },
     },
     {
       key: "thai-compliance",

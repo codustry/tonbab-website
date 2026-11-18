@@ -5,8 +5,8 @@
  * HONESTY RULES (CLAUDE.md): every claim here was checked against the app
  * repo (codustry/workflow) on 2026-11-17 — routes, server modules and
  * plans.ts gates. Things that are not live say so with a `status` of
- * "dev" (in development) or "soon" (coming soon); Accounting features
- * carry the early-access label. Never upgrade a status without the code.
+ * "dev" (in development) or "soon" (coming soon). Accounting is included
+ * from Starter up (owner, 2026-11-18). Never upgrade a status without the code.
  *
  * Each page leads with `answer` — a short, factual "what is it" paragraph
  * that search snippets and AI answer engines can quote verbatim.
@@ -51,6 +51,11 @@ export interface FeatureContent {
   }[];
   /** Plan / availability note, from plans.ts. */
   plan: Bi;
+  /**
+   * Legacy invitation-only label. No feature sets it since Accounting opened
+   * to every paid plan (2026-11-18); kept optional only because the home page
+   * still reads it.
+   */
   earlyAccess?: boolean;
   faq: { q: Bi; a: Bi }[];
   related: string[];
@@ -587,7 +592,6 @@ export const features: FeatureContent[] = [
   {
     key: "thai-tax",
     module: "accounting",
-    earlyAccess: true,
     keyword: {
       th: "หนังสือรับรองหัก ณ ที่จ่าย 50 ทวิ",
       en: "Thai withholding tax certificate (50 Tawi)",
@@ -601,8 +605,8 @@ export const features: FeatureContent[] = [
       en: "Issue Thai withholding tax certificates (50 Tawi) straight from payments with the payee's tax ID and address, plus VAT reports, PP30 and PND 3/53 exports for filing.",
     },
     eyebrow: {
-      th: "บัญชี · ภาษีไทย · Early access",
-      en: "Accounting · Thai tax · Early access",
+      th: "บัญชี · ภาษีไทย",
+      en: "Accounting · Thai tax",
     },
     h1: {
       th: "ภาษีไทยครบ ตั้งแต่ 50 ทวิ ถึง ภ.พ.30",
@@ -665,8 +669,8 @@ export const features: FeatureContent[] = [
       },
     ],
     plan: {
-      th: "โมดูลบัญชีเปิดแบบเชิญ (Early access) ใช้งานจริงแล้วกับบริษัทกลุ่มแรก ภาษีเงินเดือนอยู่ใน People (Standard ขึ้นไป)",
-      en: "Accounting is invitation-only early access, already in daily use at the first companies. Payroll tax lives in People (Standard and up).",
+      th: "โมดูลบัญชีรวมอยู่ในแพ็กเกจ Starter ขึ้นไป (Free ไม่มี) ภาษีเงินเดือนอยู่ใน People (Standard ขึ้นไป)",
+      en: "Accounting is included from Starter up (not on Free). Payroll tax lives in People (Standard and up).",
     },
     faq: [
       {
@@ -681,12 +685,12 @@ export const features: FeatureContent[] = [
       },
       {
         q: {
-          th: "โมดูลบัญชีเปิดให้ทุกคนหรือยัง?",
-          en: "Is Accounting open to everyone?",
+          th: "แพ็กเกจไหนมีโมดูลบัญชี?",
+          en: "Which plans include Accounting?",
         },
         a: {
-          th: "ยังเปิดแบบเชิญ ติดต่อ sales@codustry.com หากต้องการเข้าร่วม ระหว่างนี้ Tonbab ส่งออกเอกสารให้โปรแกรมบัญชีที่คุณใช้อยู่ได้",
-          en: "Not yet — it is invitation-only. Email sales@codustry.com to join. Meanwhile Tonbab exports documents for your current accounting software.",
+          th: "ทุกแพ็กเกจแบบเสียเงิน ตั้งแต่ Starter ขึ้นไป ส่วน Free ไม่มี บริษัทใหม่ทดลองใช้ได้ในช่วงทดลองแพ็กเกจ Business 30 วัน ถ้ายังใช้โปรแกรมบัญชีเดิมอยู่ Tonbab ก็ส่งออกเอกสารให้ได้",
+          en: "Every paid plan, from Starter up — Free does not include it. A new company can try it during the 30-day Business trial. If you keep your current accounting software, Tonbab still exports documents for it.",
         },
       },
     ],

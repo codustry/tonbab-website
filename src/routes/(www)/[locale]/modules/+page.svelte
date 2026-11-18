@@ -32,7 +32,6 @@
 					</span>
 					<h2 class="mt-4 flex flex-wrap items-center gap-2 text-xl font-bold text-tnb-ink">
 						{t(mod.name)}
-						{#if mod.earlyAccess}<span class="rounded-full {th.chip} px-2.5 py-0.5 text-xs font-semibold">{m.mkt_early_access()}</span>{/if}
 					</h2>
 					<p class="mt-2 leading-relaxed text-tnb-ink-soft">{t(mod.tagline)}</p>
 				</a>

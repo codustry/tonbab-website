@@ -50,8 +50,8 @@ ${rows}
 
 ${
   th
-    ? `ราคาต่อบริษัท ก่อน VAT 7% · ทุกแพ็กเกจได้ทุกโมดูล ต่างกันที่ขนาดและฟีเจอร์ขั้นสูง · ทดลองแพ็กเกจ Business ฟรี ${TRIAL_DAYS} วัน แล้วใช้ต่อแบบ Free · แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี · Onboarding ${baht(9900)} ครั้งเดียว · แพ็กเสริมช่องทางขาย (Shopee/Lazada) ${baht(2400)}/ปี`
-    : `Per company, before 7% VAT · every plan includes every module; plans differ by scale and advanced features · ${TRIAL_DAYS}-day Business trial, then Free · Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr · Onboarding ${baht(9900)} once · Sales-channels add-on (Shopee/Lazada) ${baht(2400)}/yr`
+    ? `ราคาต่อบริษัท ก่อน VAT 7% · ทุกแพ็กเกจได้ทุกโมดูล (โมดูลบัญชีตั้งแต่ Starter) ต่างกันที่ขนาดและฟีเจอร์ขั้นสูง · ทดลองแพ็กเกจ Business ฟรี ${TRIAL_DAYS} วัน แล้วใช้ต่อแบบ Free · แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี · Onboarding ${baht(9900)} ครั้งเดียว · แพ็กเสริมช่องทางขาย (Shopee/Lazada) ${baht(2400)}/ปี`
+    : `Per company, before 7% VAT · every plan includes every module (Accounting from Starter); plans differ by scale and advanced features · ${TRIAL_DAYS}-day Business trial, then Free · Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr · Onboarding ${baht(9900)} once · Sales-channels add-on (Shopee/Lazada) ${baht(2400)}/yr`
 }`;
 }
 
@@ -59,7 +59,7 @@ export function featureMd(f: FeatureContent, l: Locale): string {
   const th = l === "th";
   const parts = [
     `# ${tr(f.h1, l)}`,
-    `${tr(f.eyebrow, l)}${f.earlyAccess ? " · Early access" : ""} — ${url(l, `/features/${f.key}`)}`,
+    `${tr(f.eyebrow, l)} — ${url(l, `/features/${f.key}`)}`,
     tr(f.answer, l),
     `## ${th ? "ทำอะไรได้บ้าง" : "What it does"}`,
     f.highlights
@@ -88,7 +88,7 @@ export function featureMd(f: FeatureContent, l: Locale): string {
 export function moduleMd(m: ModuleContent, l: Locale): string {
   const th = l === "th";
   return [
-    `# ${tr(m.name, l)}${m.earlyAccess ? " (Early access)" : ""}`,
+    `# ${tr(m.name, l)}`,
     url(l, `/modules/${m.key}`),
     `${tr(m.tagline, l)} ${tr(m.intro, l)}`,
     `## ${th ? "ขั้นตอนการทำงาน" : "How it works"}`,
@@ -148,7 +148,7 @@ export function llmsTxt(): string {
     `- [${title}](${url(l, p)})${note ? `: ${note}` : ""}`;
   return `# Tonbab (ต้นแบบ)
 
-> Tonbab (ต้นแบบ) is a Thai-first cloud ERP for SMEs by Codustry (Thailand) Co., Ltd. One database for purchasing, inventory, manufacturing, POS, sales channels and chat, CRM, field service, HR and payroll, a company wiki, and Thai accounting (accounting in invitation-only early access). Thai and English, on web, iOS and Android. Free plan; paid plans from ฿2,990/year before VAT. Sign up at ${ENTITY.signupUrl}. Sales: ${ENTITY.email}, ${ENTITY.phoneDisplay}.
+> Tonbab (ต้นแบบ) is a Thai-first cloud ERP for SMEs by Codustry (Thailand) Co., Ltd. One database for purchasing, inventory, manufacturing, POS, sales channels and chat, CRM, field service, HR and payroll, a company wiki, and Thai accounting (included from the Starter plan). Thai and English, on web, iOS and Android. Free plan; paid plans from ฿2,990/year before VAT. Sign up at ${ENTITY.signupUrl}. Sales: ${ENTITY.email}, ${ENTITY.phoneDisplay}.
 
 Facts are current as of ${SITE_UPDATED}. Full content in one file: ${SITE_ORIGIN}/llms-full.txt. Every page also has a Markdown version under ${SITE_ORIGIN}/md/<locale>/<path> (e.g. ${SITE_ORIGIN}/md/en/features/pos).
 
@@ -159,7 +159,7 @@ ${link("en", "/pricing", "Pricing", "Free ฿0 (1 user), Starter ฿2,990 (5 use
 ${link("en", "/customers", "Customers")}
 
 ## Modules
-${modulesContent.map((m) => link("en", `/modules/${m.key}`, m.name.en, m.tagline.en + (m.earlyAccess ? " (early access)" : ""))).join("\n")}
+${modulesContent.map((m) => link("en", `/modules/${m.key}`, m.name.en, m.tagline.en)).join("\n")}
 
 ## Features
 ${features.map((f) => link("en", `/features/${f.key}`, f.keyword.en, f.lede.en)).join("\n")}

@@ -1,14 +1,14 @@
 ---
-title: "Year-End Close and Financial Statements (Early Access)"
+title: "Year-End Close and Financial Statements"
 description: "Close your fiscal year in Tonbab: pre-close checklist, depreciation, stock posting, audited figures, period locks and year-end filings."
 section: accounting
 order: 7
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 The **Year-end close** page checks you're ready to close the fiscal year, posts the closing entry and locks every period of the year. It also holds your audited figures and a checklist of the year's filings.
 
-> **Early access:** Accounting is available to invited companies only. See [Accounting overview](/en/docs/accounting/accounting-overview).
+> **Plans:** Accounting is included from the Starter plan up. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ## Before you close
 
