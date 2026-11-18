@@ -21,7 +21,7 @@
 		[th ? 'ผู้พัฒนา' : 'Made by', th ? `${ENTITY.publisher.legalNameTh} (Codustry)` : ENTITY.publisher.legalName],
 		[th ? 'ภาษา' : 'Languages', th ? 'ไทย (หลัก) และอังกฤษ' : 'Thai (primary) and English'],
 		[th ? 'ใช้งานบน' : 'Runs on', th ? 'เว็บ, PWA, แอป iOS และ Android (มีโหมดคีออสก์)' : 'Web, PWA, iOS and Android apps (with kiosk mode)'],
-		[th ? 'โมดูล' : 'Modules', 'Operation, Commerce, CRM, People, Service, Docs, ' + (th ? 'บัญชี (Starter ขึ้นไป)' : 'Accounting (Starter and up)')],
+		[th ? 'โมดูล' : 'Modules', 'Operation, Commerce, CRM, People, Service, Docs, ' + (th ? 'บัญชี (ทุกโมดูลมีในทุกแพ็กเกจ)' : 'Accounting (every module on every plan)')],
 		[th ? 'ราคาเริ่มต้น' : 'Starting price', th ? `ฟรี; แพ็กเกจเสียเงินเริ่ม ${baht(2990)}/ปี (ก่อน VAT)` : `Free; paid plans from ${baht(2990)}/yr (before VAT)`],
 		[th ? 'ทดลองใช้' : 'Trial', th ? `แพ็กเกจ Business ${TRIAL_DAYS} วัน แล้วใช้ต่อแบบ Free` : `${TRIAL_DAYS}-day Business trial, then Free`],
 		[th ? 'เข้าใช้งาน' : 'Sign in', ENTITY.appUrl.replace('https://', '')],
@@ -84,7 +84,7 @@
 					</tbody>
 				</table>
 			</div>
-			<p class="mt-3 text-sm text-tnb-ink-soft">{th ? `ทุกแพ็กเกจได้ทุกโมดูล (โมดูลบัญชีตั้งแต่ Starter) ต่างกันที่ขนาดและฟีเจอร์ขั้นสูง แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี` : `Every plan includes every module (Accounting from Starter); plans differ by scale and advanced features. Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr.`} <a href={localePath(locale, '/pricing')} class="font-medium text-tnb-blue hover:underline">{th ? 'ดูรายละเอียดราคา' : 'Full pricing'}</a></p>
+			<p class="mt-3 text-sm text-tnb-ink-soft">{th ? `ทุกแพ็กเกจได้ทุกโมดูลและทุกฟีเจอร์ รวมถึงบัญชี ต่างกันที่ขนาด เช่น จำนวนผู้ใช้และพื้นที่ แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี` : `Every plan includes every module and feature, Accounting included; plans differ by size, such as users and storage. Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr.`} <a href={localePath(locale, '/pricing')} class="font-medium text-tnb-blue hover:underline">{th ? 'ดูรายละเอียดราคา' : 'Full pricing'}</a></p>
 		</div>
 	</section>
 

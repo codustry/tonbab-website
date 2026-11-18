@@ -3,10 +3,10 @@ title: "Recruitment: Job Postings, Applicants, Interviews, Hiring"
 description: "Publish a careers page, post jobs, track applicants, schedule interviews, send offers and contracts online, then hire as an employee."
 section: people
 order: 5
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
-The **Recruitment** menu covers everything from posting a job to a new hire's first day. Candidates fill in their application, pick an interview time, accept the offer and submit onboarding documents through their own link. This feature is in the Business plan and up.
+The **Recruitment** menu covers everything from posting a job to a new hire's first day. Candidates fill in their application, pick an interview time, accept the offer and submit onboarding documents through their own link. This feature is in every plan, Free included.
 
 ## Your careers page
 

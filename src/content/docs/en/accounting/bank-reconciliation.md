@@ -8,7 +8,7 @@ updated: 2026-11-18
 
 **Cash and bank** manages your cash and bank accounts and reconciles them with bank statements. Import a statement file, Tonbab matches it against your books, and you confirm the matches or record what's missing.
 
-> **Plans:** Accounting is included from the Starter plan up. See [Accounting overview](/en/docs/accounting/accounting-overview).
+> **Plans:** Accounting is included in every plan, Free included. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ## Add a bank account
 

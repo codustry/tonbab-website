@@ -14,7 +14,7 @@
 
 	// Differentiators that live on their own canonical pages.
 	const more: { href: string; title: Bi; body: Bi; badge?: Bi }[] = [
-		{ href: '/modules/accounting', title: { th: 'โปรแกรมบัญชีไทย', en: 'Thai accounting' }, body: { th: 'ผังบัญชีไทย เอกสารครบสาย กระทบยอดธนาคารที่เรียนรู้ได้ หลายสกุลเงิน สินทรัพย์ งบการเงินสิ้นปี', en: 'Thai CoA, full document chain, learning bank reconciliation, multi-currency, fixed assets, year-end statements.' }, badge: { th: 'ตั้งแต่ Starter', en: 'From Starter' } },
+		{ href: '/modules/accounting', title: { th: 'โปรแกรมบัญชีไทย', en: 'Thai accounting' }, body: { th: 'ผังบัญชีไทย เอกสารครบสาย กระทบยอดธนาคารที่เรียนรู้ได้ หลายสกุลเงิน สินทรัพย์ งบการเงินสิ้นปี', en: 'Thai CoA, full document chain, learning bank reconciliation, multi-currency, fixed assets, year-end statements.' } },
 		{ href: '/modules/crm', title: { th: 'ระบบ CRM และเซลส์ภาคสนาม', en: 'CRM and field sales' }, body: { th: 'ไปป์ไลน์ แผนเยี่ยมลูกค้า เช็คอิน GPS คิวถึงรอบสั่งซ้ำ และ KPI', en: 'Pipeline, visit plans, GPS check-ins, reorder-due queue and KPIs.' } },
 		{ href: '/developers', title: { th: 'API และ MCP สำหรับ AI', en: 'API and MCP for AI' }, body: { th: 'REST API และ MCP ให้ Claude ChatGPT Zapier Make ทำงานกับข้อมูลของคุณตามสิทธิ์', en: 'REST API and MCP so Claude, ChatGPT, Zapier and Make work with your data within permissions.' } },
 		{ href: '/migration', title: { th: 'บริการย้ายข้อมูล', en: 'Data migration service' }, body: { th: 'ย้ายจาก FlowAccount, PEAK, Express, Xero, QuickBooks และโปรแกรมอื่นผ่าน Excel', en: 'Move from FlowAccount, PEAK, Express, Xero, QuickBooks and others via Excel.' } }

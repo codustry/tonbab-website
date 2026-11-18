@@ -50,8 +50,8 @@ ${rows}
 
 ${
   th
-    ? `ราคาต่อบริษัท ก่อน VAT 7% · ทุกแพ็กเกจได้ทุกโมดูล (โมดูลบัญชีตั้งแต่ Starter) ต่างกันที่ขนาดและฟีเจอร์ขั้นสูง · ทดลองแพ็กเกจ Business ฟรี ${TRIAL_DAYS} วัน แล้วใช้ต่อแบบ Free · แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี · Onboarding ${baht(9900)} ครั้งเดียว · แพ็กเสริมช่องทางขาย (Shopee/Lazada) ${baht(2400)}/ปี`
-    : `Per company, before 7% VAT · every plan includes every module (Accounting from Starter); plans differ by scale and advanced features · ${TRIAL_DAYS}-day Business trial, then Free · Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr · Onboarding ${baht(9900)} once · Sales-channels add-on (Shopee/Lazada) ${baht(2400)}/yr`
+    ? `ราคาต่อบริษัท ก่อน VAT 7% · ทุกแพ็กเกจได้ทุกโมดูลและทุกฟีเจอร์ รวมถึงบัญชี ต่างกันที่ขนาด (หลายบริษัทและการควบคุมความปลอดภัยระดับองค์กรอยู่ใน Enterprise) · ทดลองแพ็กเกจ Business ฟรี ${TRIAL_DAYS} วัน แล้วใช้ต่อแบบ Free · แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี · Onboarding ${baht(9900)} ครั้งเดียว · แพ็กเสริมช่องทางขาย (Shopee/Lazada) ${baht(2400)}/ปี`
+    : `Per company, before 7% VAT · every plan includes every module and feature, Accounting included; plans differ by size (several companies and enterprise IT controls are Enterprise) · ${TRIAL_DAYS}-day Business trial, then Free · Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr · Onboarding ${baht(9900)} once · Sales-channels add-on (Shopee/Lazada) ${baht(2400)}/yr`
 }`;
 }
 
@@ -163,7 +163,7 @@ export function llmsTxt(): string {
     `- [${title}](${url(l, p)})${note ? `: ${note}` : ""}`;
   return `# Tonbab (ต้นแบบ)
 
-> Tonbab (ต้นแบบ) is a Thai-first cloud ERP for SMEs by Codustry (Thailand) Co., Ltd. One database for purchasing, inventory, manufacturing, POS, sales channels and chat, CRM, field service, HR and payroll, a company wiki, and Thai accounting (included from the Starter plan). Thai and English, on web, iOS and Android. Free plan; paid plans from ฿2,990/year before VAT. Sign up at ${ENTITY.signupUrl}. Sales: ${ENTITY.email}, ${ENTITY.phoneDisplay}.
+> Tonbab (ต้นแบบ) is a Thai-first cloud ERP for SMEs by Codustry (Thailand) Co., Ltd. One database for purchasing, inventory, manufacturing, POS, sales channels and chat, CRM, field service, HR and payroll, a company wiki, and Thai accounting (included in every plan). Thai and English, on web, iOS and Android. Free plan; paid plans from ฿2,990/year before VAT. Sign up at ${ENTITY.signupUrl}. Sales: ${ENTITY.email}, ${ENTITY.phoneDisplay}.
 
 Facts are current as of ${SITE_UPDATED}. Full content in one file: ${SITE_ORIGIN}/llms-full.txt. Every page also has a Markdown version under ${SITE_ORIGIN}/md/<locale>/<path> (e.g. ${SITE_ORIGIN}/md/en/features/pos).
 

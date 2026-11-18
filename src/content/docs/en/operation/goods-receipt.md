@@ -3,7 +3,7 @@ title: "Goods Receipts (GR): Receive Purchase Orders into Stock"
 description: "Receive purchase orders into stock, take partial deliveries, record lots and serials, quarantine rejects and reverse a receipt."
 section: operation
 order: 4
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 A goods receipt (GR) records what actually arrived against a purchase order. When you click **Post to Inventory**, the goods enter stock at cost and the PO updates to partially or fully received.
@@ -30,7 +30,7 @@ If a product is tracked, **Post to Inventory** asks for:
 - **Serial numbers**, one per line, or
 - a **Lot** number with manufacture and expiry dates. Leave the lot number blank and Tonbab generates one.
 
-Lot and serial tracking is in the Standard plan and up. See [Inventory and warehouses](/en/docs/operation/inventory-and-warehouses).
+Lot and serial tracking is in every plan, Free included. See [Inventory and warehouses](/en/docs/operation/inventory-and-warehouses).
 
 ## Receiving service lines
 

@@ -3,10 +3,10 @@ title: "Payroll, Social Security, PND1, PND1K and 50 Tawi"
 description: "Run payroll in Tonbab with tax and social security, payslips and bank files, plus PND1, SPS 1-10, PND1K and 50 tawi filing files."
 section: people
 order: 4
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
-Payroll in Tonbab works from pay rates, recurring earnings and deductions, overtime and leave, then produces payslips, a bank transfer file and the files for the Revenue Department and Social Security Office. Payroll is in the Standard plan and up, and only people with the salary permission can see it.
+Payroll in Tonbab works from pay rates, recurring earnings and deductions, overtime and leave, then produces payslips, a bank transfer file and the files for the Revenue Department and Social Security Office. Payroll is in every plan, Free included, and only people with the salary permission can see it.
 
 ## Before your first payroll
 

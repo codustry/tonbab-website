@@ -3,7 +3,7 @@ title: "Inventory, Warehouses, Transfers, Lots and Units"
 description: "View stock and movements, transfer between warehouses, adjust stock, track lots and serials, and set units of measure in Tonbab."
 section: operation
 order: 5
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 The **Warehouse Controls** menu in the Operation app holds everything about stock: balances, movements, transfers, adjustments and serial numbers. Products and warehouses themselves are under **Master Data**.
@@ -31,7 +31,7 @@ The **Stock Balance** page shows quantity and value per warehouse. Cards at the 
 
 ## Lots and serials
 
-Turn tracking on in the product form (Standard plan and up).
+Turn tracking on in the product form (every plan).
 
 - **Batch / Lot Tracking** records lots at goods receipt and work order completion. When shipping, Tonbab picks the lot nearest expiry first (FEFO), or you can choose one.
 - **Serial Number Tracking**. See every serial on the **Serials** page with its status: In Stock, Issued / Delivered, or Damaged / Scrapped.

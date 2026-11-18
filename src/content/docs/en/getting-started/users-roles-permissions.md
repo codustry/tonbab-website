@@ -3,7 +3,7 @@ title: "Add Users, Roles and Permissions in Tonbab"
 description: "How to add and invite users, assign roles, grant extra permissions to one person, protect sensitive and salary data, and how many users each plan includes."
 section: getting-started
 order: 2
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 Admins add users in **User Settings** and give each person one or more **Roles**. A role is a baseline set of permissions. If someone needs more than their role allows, you can grant extra permissions to that one person under **Custom Access**.
@@ -65,4 +65,4 @@ On the user's page you'll find **Reset Password** (Tonbab generates a temporary 
 
 ## Single sign-on (SSO)
 
-On the Business and Enterprise plans, set up SSO on the **Single Sign-On** settings page.
+On every plan, set up SSO on the **Single Sign-On** settings page.

@@ -32,7 +32,7 @@ These details are printed on your quotations, purchase orders and tax invoices, 
 
 - Address, province, postal code, company phone and the company email shown on documents.
 - **SKU prefix**: 2–5 capital letters. For example, HOS gives product codes like HOS-0001.
-- Pick at least one module: Operations, Accounting, Sales & POS, CRM, People, Service and Docs. Accounting is included from the Starter plan up (and during the Business trial).
+- Pick at least one module: Operations, Accounting, Sales & POS, CRM, People, Service and Docs. Accounting is already ticked for you; every module, Accounting included, is in every plan.
 - Accept the Terms and Privacy Policy, then click **Create company**.
 
 ### 4. Confirm your email

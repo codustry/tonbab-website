@@ -8,7 +8,7 @@ updated: 2026-11-18
 
 The **Purchases** group in Accounting records vendor bills and expenses, then pays them one at a time or many at once. Tonbab withholds tax and issues the 50 tawi certificate when you pay.
 
-> **Plans:** Accounting is included from the Starter plan up. See [Accounting overview](/en/docs/accounting/accounting-overview).
+> **Plans:** Accounting is included in every plan, Free included. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ## Record a bill or expense
 
