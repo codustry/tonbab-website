@@ -1,14 +1,14 @@
 ---
-title: "Tonbab Accounting (Early Access): Getting Started"
-description: "Tonbab's Thai accounting, in invitation-only early access: chart of accounts, sales and purchase documents, tax, bank rec and year-end close."
+title: "Tonbab Accounting: Getting Started"
+description: "Tonbab's Thai accounting, included in every plan: chart of accounts, sales and purchase documents, tax, bank rec and year-end close."
 section: accounting
 order: 1
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 Tonbab Accounting covers Thai bookkeeping from the chart of accounts and sales and purchase documents to withholding tax, VAT, financial statements and year-end close.
 
-> **Early access:** Accounting is available only to invited companies. It isn't offered at sign-up or self-serve yet. To join, contact sales@codustry.com or 02-873-4448. The starter chart of accounts and depreciation rates are drafts, so have your auditor review them before relying on them.
+> **Plans:** Accounting is included in every plan, Free included; plans differ only by size, such as the number of users. It's on for every company and already ticked when you sign up. The starter chart of accounts and depreciation rates are drafts, so have your auditor review them before relying on them.
 
 ## Accounting menus
 

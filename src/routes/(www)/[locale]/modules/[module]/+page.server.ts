@@ -79,12 +79,12 @@ const SEO: Record<string, { title: Bi; description: Bi; crumb: Bi }> = {
   accounting: {
     crumb: { th: "บัญชี", en: "Accounting" },
     title: {
-      th: "โปรแกรมบัญชีออนไลน์ภาษาไทย ในระบบเดียวกับงานจริง (Early access) | Tonbab",
-      en: "Thai Online Accounting Inside Your ERP (Early Access) | Tonbab",
+      th: "โปรแกรมบัญชีออนไลน์ภาษาไทย ในระบบเดียวกับงานจริง | Tonbab",
+      en: "Thai Online Accounting Inside Your ERP | Tonbab",
     },
     description: {
-      th: "โปรแกรมบัญชีของ Tonbab: ผังบัญชีไทย เอกสารขาย-ซื้อครบสาย ภ.พ.30 50 ทวิ ภ.ง.ด.3/53 กระทบยอดธนาคารที่เรียนรู้ได้ หลายสกุลเงิน สินทรัพย์ และงบการเงินสิ้นปี เปิดแบบเชิญ",
-      en: "Thai accounting inside your ERP: Thai chart of accounts, full document chain, PP30, 50 Tawi, PND 3/53, bank reconciliation, multi-currency, fixed assets. Early access.",
+      th: "โปรแกรมบัญชีของ Tonbab: ผังบัญชีไทย เอกสารขาย-ซื้อครบสาย ภ.พ.30 50 ทวิ ภ.ง.ด.3/53 กระทบยอดธนาคารที่เรียนรู้ได้ หลายสกุลเงิน สินทรัพย์ และงบการเงินสิ้นปี มีในทุกแพ็กเกจ",
+      en: "Thai accounting inside your ERP: Thai chart of accounts, full document chain, PP30, 50 Tawi, PND 3/53, bank reconciliation, multi-currency, fixed assets. In every plan.",
     },
   },
 };

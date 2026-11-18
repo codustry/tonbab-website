@@ -29,11 +29,11 @@ export const load: PageServerLoad = async (event) => {
     locale,
     path: "/pricing",
     title: th
-      ? "ราคา Tonbab: เริ่มฟรี แพ็กเกจเริ่ม ฿2,990/ปี ทุกแพ็กเกจได้ทุกโมดูล"
-      : "Tonbab Pricing: Free Plan, Paid Plans from ฿2,990/yr, Every Module Included",
+      ? "ราคา Tonbab: เริ่มฟรี แพ็กเกจเริ่ม ฿2,990/ปี รวมโมดูลบัญชี"
+      : "Tonbab Pricing: Free Plan, Paid Plans from ฿2,990/yr, Accounting Included",
     description: th
-      ? "ราคาระบบ ERP Tonbab ต่อบริษัท ก่อน VAT: Free ฿0, Starter ฿2,990, Standard ฿6,000, Business ฿14,400 และ Enterprise เริ่ม ฿42,000 ต่อปี ทดลอง Business ฟรี 30 วัน"
-      : "Tonbab ERP pricing per company, before VAT: Free ฿0, Starter ฿2,990, Standard ฿6,000, Business ฿14,400 and Enterprise from ฿42,000 per year. 30-day Business trial.",
+      ? "ราคาระบบ ERP Tonbab ต่อบริษัท ก่อน VAT: Free ฿0, Starter ฿2,990, Standard ฿9,900, Business ฿39,900 และ Enterprise เริ่ม ฿120,000 ต่อปี ทดลอง Business ฟรี 30 วัน"
+      : "Tonbab ERP pricing per company, before VAT: Free ฿0, Starter ฿2,990, Standard ฿9,900, Business ฿39,900 and Enterprise from ฿120,000 per year. 30-day Business trial.",
     breadcrumbs: [
       { name: th ? HOME_CRUMB.th : HOME_CRUMB.en, path: "" },
       { name: th ? "ราคา" : "Pricing", path: "/pricing" },

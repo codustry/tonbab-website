@@ -3,7 +3,7 @@ title: "Thai Tax and Labour Compliance in Tonbab"
 description: "Where Tonbab handles Thai tax and labour rules: VAT and PP30, withholding tax, PND1, PND1K, social security, leave and overtime."
 section: thai-compliance
 order: 1
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 Tonbab was built for Thai businesses from the start, covering documents, tax and labour law. This page summarises which module handles each topic and when filings are due, so you can see it all in one place.
@@ -25,7 +25,7 @@ At sign-up, Tonbab records your **Tax ID (13 digits)**, branch (head office or a
 | Tax customers withheld from you | Receipts and a card on the tax filings page | Supports your PND50 |
 | PND50, PND51, DBD e-Filing, บอจ.5 | Checklist in [Year-end close](/en/docs/accounting/year-end-close) | Annual deadlines |
 
-These are in Accounting, which is **early access for invited companies only**. Electronic tax invoices (e-Tax Invoice) aren't supported yet.
+These are in Accounting, which is included in **every plan**, Free included. Electronic tax invoices (e-Tax Invoice) aren't supported yet.
 
 ## Payroll and social security
 

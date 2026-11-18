@@ -3,7 +3,7 @@ title: "Docs: Build Your Company Wiki and SOPs"
 description: "Use Tonbab Docs to write manuals and SOPs together, share with your team or publish to the web, build databases and search everything."
 section: docs
 order: 1
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 **Docs** is your company wiki inside Tonbab. Use it for working manuals, SOPs, policies and notes. Several people can edit at once, you control who can view or edit, and pages show up in the same search as everything else in Tonbab.
@@ -36,13 +36,13 @@ For SOPs and policies, use **Verify page…** to set an owner and an expiry date
 Click **Share** on the page.
 
 - Add people or roles, or use **As space** to follow the space's access. Sub-pages inherit from their parent.
-- **Publish to web**: click **Publish** to create a link anyone can read without signing in. Choose whether to include sub-pages and when the link expires (Standard and up).
+- **Publish to web**: click **Publish** to create a link anyone can read without signing in. Choose whether to include sub-pages and when the link expires (every plan).
 
 An admin can turn off web publishing for the whole company.
 
 ## Databases
 
-Add a database to a page (Business and up), empty or from a template such as a task tracker or content calendar.
+Add a database to a page (every plan), empty or from a template such as a task tracker or content calendar.
 
 - Views: Table, Board, List, Gallery and Calendar.
 - Property types: text, number, select, multi-select, date, person, checkbox, URL, email, phone, relation, rollup, formula and a link to an ERP record.

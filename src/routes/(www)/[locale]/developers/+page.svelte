@@ -229,7 +229,7 @@
 						<li class="flex gap-2.5 text-[15px] leading-snug text-tnb-ink"><Check class="mt-0.5 h-4 w-4 shrink-0 text-tnb-ink-soft" aria-hidden="true" />{t(r)}</li>
 					{/each}
 				</ul>
-				<p class="mt-4 text-sm text-tnb-ink-soft">{t({ en: 'Drafting needs Business or Enterprise; Free connections are read-only.', th: 'การสร้างฉบับร่างใช้ได้ในแพ็กเกจ Business และ Enterprise ส่วนแพ็กเกจฟรีอ่านได้อย่างเดียว' })}</p>
+				<p class="mt-4 text-sm text-tnb-ink-soft">{t({ en: 'Drafting works on every paid plan, from Starter; Free connections are read-only.', th: 'การสร้างฉบับร่างใช้ได้ทุกแพ็กเกจที่ชำระเงิน ตั้งแต่ Starter ส่วนแพ็กเกจฟรีอ่านได้อย่างเดียว' })}</p>
 			</div>
 		</div>
 

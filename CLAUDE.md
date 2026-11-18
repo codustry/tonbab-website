@@ -7,7 +7,8 @@ all-in-one ERP by Codustry — at **tonbab.com**. Bilingual, **Thai-first**
 (default locale `th`, full English mirror — bare `/` always lands on `/th`
 unless the visitor picked English with the header toggle). Showcases the
 modules (Operation, People, Commerce+POS, CRM, Service, Docs, and Accounting
-in invitation-only early access — always label it so), the API + MCP AI
+— owner 2026-11-18: no longer invitation-only; included in every plan, Free
+included, and pre-ticked at signup; never call it early access), the API + MCP AI
 connector at /developers, compares Tonbab honestly against Thai and global
 ERPs, and hosts product docs, FAQ, and a blog.
 
@@ -42,10 +43,26 @@ accent only, never the button colour. Demo-booking runs on Khao Pad Forms.
 ## Honesty rules (from the build proposal)
 
 - **Never invent traction stats.** Use real production numbers only.
-- **Plans** (owner, 2026-11-16; Free seat change 2026-11-17): Free ฿0 (1
-  user), Starter ฿2,990/yr (5), Standard ฿6,000/yr (10), Business ฿14,400/yr
-  (25), Enterprise from ฿42,000/yr (100+, quoted); monthly = yearly ÷ 10;
-  Enterprise support pack ฿24,000/yr — all prices **excl. 7% VAT**. The single
+- **Plans** (owner, 2026-11-16, re-priced 2026-11-18; Free seat change 2026-11-17): Free ฿0 (1
+  user), Starter ฿2,990/yr (5), Standard ฿9,900/yr (10), Business ฿39,900/yr
+  (25), Enterprise from ฿120,000/yr (100+, quoted); monthly = yearly ÷ 10;
+  Enterprise support pack ฿24,000/yr — all prices **excl. 7% VAT**.
+  **Every feature on every plan, Free included — plans differ by SIZE only**
+  (owner 2026-11-18, product PR codustry/workflow#1485): users, storage, file
+  size, products, warehouses, POs/month, shops, POS devices, orders/month, CRM
+  customers/open deals, employees, service jobs/month, doc pages, API quotas.
+  Accounting, payroll, manufacturing, lots/serials, RFQ, custom roles, SSO,
+  recruitment, e-GP, field visits, service quotes, public doc links, doc
+  databases, kitchen printing, custom domain and the accounting connector are
+  on every plan — never write "Standard and up", "Business ขึ้นไป" etc. for
+  them. Still tiered: several companies + consolidated reports, SCIM, IP
+  allow-list, enforced 2FA, 3-year audit history → Enterprise; 1-year audit
+  history + priority LINE support → Business; Enterprise support pack.
+  We sell no slip checks (shops connect their own EasySlip/Thunder/SlipOK key)
+  and no priority-SLA add-on (removed 2026-11-18). Add-ons: all sales
+  channels and HikCentral (฿2,400/yr each for Business; included in
+  Enterprise). API: Free read-only, drafts from Starter. **No extra-user
+  add-on** — more users means the next plan. The single
   source is the product repo's `src/lib/shared/plans.ts`; /pricing and
   `src/lib/seo/site.ts` (PLAN_FACTS → JSON-LD, llms.txt) mirror it — change the
   product first, then both. Still no self-host and no public-GitHub claims.

@@ -2,7 +2,9 @@
 	import * as m from '$lib/paraglide/messages';
 	import { localePath, toLocale } from '$lib/i18n';
 	import { thaiVendors, globalVendors, sourceNote, type Verdict } from '$lib/marketing/compare-data';
-	import { Check, X, Minus } from 'lucide-svelte';
+	import { Check, X, Minus, ArrowRight } from 'lucide-svelte';
+	import { vendorCompares, CATEGORY_LABEL, type VendorCategory } from '$lib/marketing/compare-vendors';
+	const CATS: VendorCategory[] = ['accounting', 'erp', 'inventory', 'pos', 'hr'];
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
 	const t = $derived.by(() => (b: { en: string; th: string }) => (locale === 'th' ? b.th : b.en));
@@ -26,6 +28,28 @@
 	<div class="container mx-auto px-4 py-16 text-center">
 		<h1 class="mx-auto max-w-3xl text-4xl font-bold leading-tight tracking-tight text-tnb-blue-deep sm:text-5xl">{m.cmp_title()}</h1>
 		<p class="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-tnb-ink-soft">{m.cmp_lede()}</p>
+	</div>
+</section>
+
+<section class="bg-tnb-paper" aria-labelledby="h2h">
+	<div class="container mx-auto px-4 pt-14">
+		<h2 id="h2h" class="text-2xl font-bold tracking-tight text-tnb-ink">{locale === 'th' ? 'เทียบแบบตัวต่อตัว' : 'Head-to-head comparisons'}</h2>
+		<p class="mt-2 text-tnb-ink-soft">{locale === 'th' ? 'ราคาแต่ละแพ็กเกจ ตัวอย่างค่าใช้จ่ายต่อปี และกรณีที่อีกฝ่ายเหมาะกว่า' : "Every plan's price, a worked yearly cost, and when the other product is the better fit"}</p>
+		<div class="mt-6 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+			{#each CATS as c (c)}
+				{@const list = vendorCompares.filter((v) => v.category === c)}
+				{#if list.length}
+					<div>
+						<h3 class="text-sm font-semibold text-tnb-ink-soft">{t(CATEGORY_LABEL[c])}</h3>
+						<ul class="mt-2 space-y-1">
+							{#each list as v (v.slug)}
+								<li><a href={localePath(locale, `/compare/${v.slug}`)} class="group inline-flex items-center gap-1 py-1 font-medium text-tnb-ink hover:text-tnb-blue">{v.name} vs Tonbab<ArrowRight class="h-4 w-4 opacity-40 group-hover:opacity-100" aria-hidden="true" /></a></li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
+			{/each}
+		</div>
 	</div>
 </section>
 

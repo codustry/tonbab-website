@@ -3,7 +3,7 @@ title: "Tonbab Frequently Asked Questions"
 description: "Short answers about Tonbab pricing, the free trial, users per plan, accounting, data migration, Shopee and Lazada, mobile and security."
 section: faq
 order: 1
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 Common questions customers ask about Tonbab, with links to the related guides. If your question isn't here, contact sales@codustry.com or 02-873-4448.
@@ -18,7 +18,7 @@ Yes. Sign up at [app.tonbab.com/signup](https://app.tonbab.com/signup). New comp
 
 ### How much does it cost?
 
-Free ฿0, Starter ฿2,990/year, Standard ฿6,000/year, Business ฿14,400/year and Enterprise from ฿42,000/year (before 7% VAT). Monthly billing costs a tenth of the yearly price. See [Plans and billing](/en/docs/getting-started/plans-and-billing).
+Free ฿0, Starter ฿2,990/year, Standard ฿9,900/year, Business ฿39,900/year and Enterprise from ฿120,000/year (before 7% VAT). Monthly billing costs a tenth of the yearly price. See [Plans and billing](/en/docs/getting-started/plans-and-billing).
 
 ### How many users does the Free plan include?
 
@@ -26,7 +26,7 @@ One. Starter has 5, Standard 10, Business 25 and Enterprise 100+. Staff who sign
 
 ### Can I use accounting right away?
 
-Accounting is in **early access** for invited companies only. Contact us if you're interested. See [Accounting overview](/en/docs/accounting/accounting-overview).
+Yes, on every plan, **Free included**. Plans differ by size (users, storage, documents), not by features. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ### Can I move my data from my current software?
 

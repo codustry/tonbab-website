@@ -18,8 +18,8 @@ export const whatFaq: { q: Bi; a: Bi }[] = [
   {
     q: { th: "Tonbab ราคาเท่าไร?", en: "How much does Tonbab cost?" },
     a: {
-      th: "มีแพ็กเกจ Free ฿0 (ผู้ใช้ 1 คน), Starter ฿2,990/ปี (5 คน), Standard ฿6,000/ปี (10 คน), Business ฿14,400/ปี (25 คน) และ Enterprise เริ่มต้น ฿42,000/ปี (100 คนขึ้นไป) ราคาก่อน VAT 7% จ่ายรายเดือนได้ที่หนึ่งในสิบของราคารายปี ทุกแพ็กเกจได้ทุกโมดูล",
-      en: "Free ฿0 (1 user), Starter ฿2,990/yr (5 users), Standard ฿6,000/yr (10), Business ฿14,400/yr (25) and Enterprise from ฿42,000/yr (100+), before 7% VAT. Monthly billing is one tenth of the yearly price. Every plan includes every module.",
+      th: "มีแพ็กเกจ Free ฿0 (ผู้ใช้ 1 คน), Starter ฿2,990/ปี (5 คน), Standard ฿9,900/ปี (10 คน), Business ฿39,900/ปี (25 คน) และ Enterprise เริ่มต้น ฿120,000/ปี (100 คนขึ้นไป) ราคาก่อน VAT 7% จ่ายรายเดือนได้ที่หนึ่งในสิบของราคารายปี ทุกแพ็กเกจได้ทุกโมดูลและทุกฟีเจอร์ รวมถึงบัญชี ต่างกันที่ขนาด เช่น จำนวนผู้ใช้และพื้นที่",
+      en: "Free ฿0 (1 user), Starter ฿2,990/yr (5 users), Standard ฿9,900/yr (10), Business ฿39,900/yr (25) and Enterprise from ฿120,000/yr (100+), before 7% VAT. Monthly billing is one tenth of the yearly price. Every plan includes every module and feature, Accounting included; plans differ by size, such as users and storage.",
     },
   },
   {
@@ -28,8 +28,8 @@ export const whatFaq: { q: Bi; a: Bi }[] = [
       en: "How is Tonbab different from online accounting software?",
     },
     a: {
-      th: "โปรแกรมบัญชีเน้นเอกสารขาย-ซื้อและภาษี Tonbab เป็น ERP ที่ครอบคลุมงานก่อนถึงบัญชีด้วย เช่น จัดซื้อพร้อมเทียบราคาต้นทุนถึงคลัง การผลิตตาม BOM ต้นทุนงาน POS แอปหน้างาน CRM และเงินเดือน โมดูลบัญชีของ Tonbab เปิดแบบเชิญ (Early access)",
-      en: "Accounting software focuses on sales/purchase documents and tax. Tonbab is an ERP that also covers the work before the books — landed-cost purchasing, BOM manufacturing, job costing, POS, floor kiosks, CRM and payroll. Tonbab's own Accounting module is invitation-only early access.",
+      th: "โปรแกรมบัญชีเน้นเอกสารขาย-ซื้อและภาษี Tonbab เป็น ERP ที่ครอบคลุมงานก่อนถึงบัญชีด้วย เช่น จัดซื้อพร้อมเทียบราคาต้นทุนถึงคลัง การผลิตตาม BOM ต้นทุนงาน POS แอปหน้างาน CRM และเงินเดือน และมีโมดูลบัญชีไทยของ Tonbab เองในทุกแพ็กเกจ",
+      en: "Accounting software focuses on sales/purchase documents and tax. Tonbab is an ERP that also covers the work before the books — landed-cost purchasing, BOM manufacturing, job costing, POS, floor kiosks, CRM and payroll. Tonbab's own Thai Accounting module is included in every plan.",
     },
   },
   {

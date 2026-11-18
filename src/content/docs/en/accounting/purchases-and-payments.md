@@ -1,14 +1,14 @@
 ---
-title: "Expenses, Vendor Bills and Payments (Early Access)"
+title: "Expenses, Vendor Bills and Payments"
 description: "Record vendor bills, pay many vendors at once with withholding tax, and manage supplier advances and vendor credit notes in Tonbab."
 section: accounting
 order: 3
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 The **Purchases** group in Accounting records vendor bills and expenses, then pays them one at a time or many at once. Tonbab withholds tax and issues the 50 tawi certificate when you pay.
 
-> **Early access:** Accounting is available to invited companies only. See [Accounting overview](/en/docs/accounting/accounting-overview).
+> **Plans:** Accounting is included in every plan, Free included. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ## Record a bill or expense
 

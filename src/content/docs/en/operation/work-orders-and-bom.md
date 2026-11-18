@@ -3,10 +3,10 @@ title: "Work Orders and Bills of Materials (BOM) in Tonbab"
 description: "Create bills of materials, run work orders, issue materials, record output and scrap, hold for QC and use the shop-floor tablet app."
 section: operation
 order: 6
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
-Manufacturing in Tonbab uses bills of materials (BOMs), which say what materials one unit needs, and work orders (WOs), which issue those materials and receive finished goods into stock. Manufacturing is in the Business plan and up.
+Manufacturing in Tonbab uses bills of materials (BOMs), which say what materials one unit needs, and work orders (WOs), which issue those materials and receive finished goods into stock. Manufacturing is in every plan, Free included.
 
 ## Create a bill of materials
 

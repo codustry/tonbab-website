@@ -1,14 +1,14 @@
 ---
-title: "Withholding Tax, 50 Tawi, PND3 and PND53 (Early Access)"
+title: "Withholding Tax, 50 Tawi, PND3 and PND53"
 description: "Withhold tax when paying vendors; Tonbab numbers and prints the 50 tawi certificate and builds the monthly PND3, PND53 and PND54 attachments for filing."
 section: accounting
 order: 4
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 In Tonbab you withhold tax when you record a payment to a vendor. Tonbab issues the withholding tax certificate (50 tawi) with its number and gathers the items into each month's PND3, PND53 or PND54 attachment.
 
-> **Early access:** Accounting is available to invited companies only. See [Accounting overview](/en/docs/accounting/accounting-overview). Employee 50 tawi certificates from payroll are covered in [Payroll](/en/docs/people/payroll).
+> **Plans:** Accounting is included in every plan, Free included. See [Accounting overview](/en/docs/accounting/accounting-overview). Employee 50 tawi certificates from payroll are covered in [Payroll](/en/docs/people/payroll).
 
 ## Withhold tax when paying
 

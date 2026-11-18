@@ -38,12 +38,6 @@ export interface FaqEntry {
 
 export interface ModuleContent {
 	key: string;
-	/**
-	 * Invitation-only early access (Accounting, 2026-11). The page and every
-	 * card that lists the module must say so — never present it as generally
-	 * available.
-	 */
-	earlyAccess?: boolean;
 	name: Bi;
 	tagline: Bi;
 	intro: Bi;
@@ -136,8 +130,8 @@ export const modulesContent: ModuleContent[] = [
 			{
 				title: { en: "Job costing closes the loop", th: "ปิดวงจรด้วยต้นทุนงาน" },
 				body: {
-					en: "POs, work orders, deliveries, services and expenses roll into one job view with a live budget bar. Close the job and hand clean numbers to your accountant's software — or, for companies in the Accounting early access, post them straight to Tonbab's own ledger.",
-					th: "PO ใบสั่งผลิต การส่งของ งานบริการ และค่าใช้จ่าย รวมเป็นมุมมองงานเดียวพร้อมแถบงบประมาณสด ปิดงานแล้วส่งตัวเลขสะอาด ๆ ให้โปรแกรมบัญชีที่ใช้อยู่ — หรือถ้าอยู่ในกลุ่มทดลองใช้โมดูลบัญชี ก็ลงบัญชีใน Tonbab ได้เลย"
+					en: "POs, work orders, deliveries, services and expenses roll into one job view with a live budget bar. Close the job and hand clean numbers to your accountant's software — or post them straight to Tonbab's own Accounting ledger, on every plan.",
+					th: "PO ใบสั่งผลิต การส่งของ งานบริการ และค่าใช้จ่าย รวมเป็นมุมมองงานเดียวพร้อมแถบงบประมาณสด ปิดงานแล้วส่งตัวเลขสะอาด ๆ ให้โปรแกรมบัญชีที่ใช้อยู่ — หรือลงบัญชีในโมดูลบัญชีของ Tonbab ได้เลย มีในทุกแพ็กเกจ"
 				}
 			}
 		],
@@ -192,7 +186,7 @@ export const modulesContent: ModuleContent[] = [
 				features: [
 					{ title: { en: "Live budget bar", th: "แถบงบประมาณสด" }, body: { en: "One job view rolls up PO commitments, material issues, services and expenses against budget, live.", th: "มุมมองงานเดียวรวมภาระผูกพันจาก PO การเบิกวัตถุดิบ งานบริการ และค่าใช้จ่าย เทียบงบประมาณแบบสด" } },
 					{ title: { en: "Delivery notes that cost", th: "ใบส่งของที่คิดต้นทุน" }, body: { en: "Shipping issues stock at its true average cost and books it to the job — no end-of-month surprises.", th: "การส่งของตัดสต็อกด้วยต้นทุนเฉลี่ยจริงและบันทึกเข้างาน — ไม่มีเซอร์ไพรส์ตอนสิ้นเดือน" } },
-					{ title: { en: "Hand-off to accounting", th: "ส่งต่อให้ฝ่ายบัญชี" }, body: { en: "Close the job with clean, exportable numbers for your accounting software — or post to Tonbab Accounting (invitation-only early access).", th: "ปิดงานด้วยตัวเลขสะอาดพร้อมส่งออกให้โปรแกรมบัญชีของคุณ — หรือลงโมดูลบัญชีของ Tonbab (เปิดให้ทดลองใช้แบบเชิญ)" } }
+					{ title: { en: "Hand-off to accounting", th: "ส่งต่อให้ฝ่ายบัญชี" }, body: { en: "Close the job with clean, exportable numbers for your accounting software — or post to Tonbab Accounting (every plan).", th: "ปิดงานด้วยตัวเลขสะอาดพร้อมส่งออกให้โปรแกรมบัญชีของคุณ — หรือลงโมดูลบัญชีของ Tonbab (ทุกแพ็กเกจ)" } }
 				]
 			},
 			{
@@ -214,7 +208,7 @@ export const modulesContent: ModuleContent[] = [
 		faq: [
 			{
 				q: { en: "Does Tonbab include accounting?", th: "Tonbab มีระบบบัญชีไหม" },
-				a: { en: "Tonbab's own Accounting module is in invitation-only early access. Operation works perfectly well without it: it handles the operational documents and costing, then exports clean numbers for your accountant or accounting software — most Thai SMEs already have an accountant they trust.", th: "โมดูลบัญชีของ Tonbab เปิดให้ทดลองใช้แบบเชิญอยู่ แต่ Operation ใช้งานได้เต็มที่โดยไม่ต้องมีโมดูลบัญชี: ดูแลเอกสารปฏิบัติการและต้นทุน แล้วส่งออกตัวเลขสะอาด ๆ ให้สำนักงานบัญชีหรือโปรแกรมบัญชีของคุณ — SME ไทยส่วนใหญ่มีนักบัญชีที่ไว้ใจอยู่แล้ว" }
+				a: { en: "Yes — Tonbab's own Accounting module is included in every plan, Free included. Operation also works perfectly well without it: it handles the operational documents and costing, then exports clean numbers for your accountant or accounting software — most Thai SMEs already have an accountant they trust.", th: "มี — โมดูลบัญชีของ Tonbab รวมอยู่ในทุกแพ็กเกจ รวมถึง Free และ Operation ก็ใช้งานได้เต็มที่โดยไม่ต้องมีโมดูลบัญชี: ดูแลเอกสารปฏิบัติการและต้นทุน แล้วส่งออกตัวเลขสะอาด ๆ ให้สำนักงานบัญชีหรือโปรแกรมบัญชีของคุณ — SME ไทยส่วนใหญ่มีนักบัญชีที่ไว้ใจอยู่แล้ว" }
 			},
 			{
 				q: { en: "How is inventory valued?", th: "คลังสินค้าคิดมูลค่าอย่างไร" },
@@ -793,7 +787,7 @@ export const modulesContent: ModuleContent[] = [
 		faq: [
 			{
 				q: { en: "Does Service issue tax invoices?", th: "Service ออกใบกำกับภาษีไหม" },
-				a: { en: "Not from Service itself — it produces the hand-over document and a billing summary with withholding tax worked out. The tax invoice comes from your accounting software (or Tonbab Accounting, for companies in its invitation-only early access).", th: "Service ไม่ได้ออกเอง — Service ออกใบส่งมอบงานซ่อมและสรุปค่าบริการพร้อมคำนวณหัก ณ ที่จ่าย ส่วนใบกำกับภาษีออกจากโปรแกรมบัญชีของคุณ (หรือโมดูลบัญชีของ Tonbab สำหรับบริษัทที่อยู่ในกลุ่มทดลองใช้แบบเชิญ)" }
+				a: { en: "Not from Service itself — it produces the hand-over document and a billing summary with withholding tax worked out. The tax invoice comes from your accounting software (or Tonbab Accounting, included in every plan).", th: "Service ไม่ได้ออกเอง — Service ออกใบส่งมอบงานซ่อมและสรุปค่าบริการพร้อมคำนวณหัก ณ ที่จ่าย ส่วนใบกำกับภาษีออกจากโปรแกรมบัญชีของคุณ (หรือโมดูลบัญชีของ Tonbab ซึ่งรวมอยู่ในทุกแพ็กเกจ)" }
 			},
 			{
 				q: { en: "Is the customer's machine counted in our stock?", th: "เครื่องของลูกค้านับเป็นสต็อกของเราไหม" },
@@ -914,7 +908,7 @@ export const modulesContent: ModuleContent[] = [
 			},
 			{
 				q: { en: "What are the limits on Free?", th: "แพ็กเกจฟรีใช้ได้แค่ไหน" },
-				a: { en: "Free includes up to 200 pages. Business and Enterprise have unlimited pages, plus public share links and databases.", th: "แพ็กเกจฟรีสร้างได้ถึง 200 หน้า ส่วน Business และ Enterprise ไม่จำกัดจำนวนหน้า พร้อมลิงก์แชร์สาธารณะและฐานข้อมูล" }
+				a: { en: "Free includes up to 200 pages, Starter 500 and Standard 2,000; Business and Enterprise have unlimited pages. Public share links and databases are on every plan, Free included.", th: "แพ็กเกจฟรีสร้างได้ถึง 200 หน้า Starter 500 หน้า Standard 2,000 หน้า ส่วน Business และ Enterprise ไม่จำกัดจำนวนหน้า ลิงก์แชร์สาธารณะและฐานข้อมูลใช้ได้ทุกแพ็กเกจ รวมถึง Free" }
 			},
 			{
 				q: { en: "Can AI assistants read our docs?", th: "ให้ผู้ช่วย AI อ่านเอกสารของเราได้ไหม" },
@@ -925,15 +919,14 @@ export const modulesContent: ModuleContent[] = [
 	},
 	{
 		key: "accounting",
-		earlyAccess: true,
 		name: { en: "Accounting — Thai books, built in", th: "บัญชี — ระบบบัญชีไทยในตัว" },
 		tagline: {
 			en: "Sales documents, VAT and withholding tax, the general ledger and financial statements — in the same system as your stock and purchases.",
 			th: "เอกสารขาย ภาษีมูลค่าเพิ่มและภาษีหัก ณ ที่จ่าย บัญชีแยกประเภท และงบการเงิน — อยู่ในระบบเดียวกับสต็อกและการจัดซื้อ"
 		},
 		intro: {
-			en: "Issue quotations, tax invoices and receipts, record bills and expenses, and let stock movements from Operation post to the ledger automatically. VAT and WHT reports come out in the forms Thai accountants already use. Accounting is in invitation-only early access while we build it with the first companies.",
-			th: "ออกใบเสนอราคา ใบกำกับภาษี และใบเสร็จ บันทึกค่าใช้จ่ายและบิลซื้อ แล้วให้การเคลื่อนไหวสต็อกจาก Operation ลงบัญชีให้อัตโนมัติ รายงานภาษีซื้อ-ขายและภาษีหัก ณ ที่จ่าย ออกมาในรูปแบบที่นักบัญชีไทยคุ้นเคย ตอนนี้โมดูลบัญชีเปิดให้ทดลองใช้แบบเชิญเท่านั้น ระหว่างที่เราพัฒนาไปพร้อมกับบริษัทกลุ่มแรก"
+			en: "Issue quotations, tax invoices and receipts, record bills and expenses, and let stock movements from Operation post to the ledger automatically. VAT and WHT reports come out in the forms Thai accountants already use. Accounting is included in every plan, Free included.",
+			th: "ออกใบเสนอราคา ใบกำกับภาษี และใบเสร็จ บันทึกค่าใช้จ่ายและบิลซื้อ แล้วให้การเคลื่อนไหวสต็อกจาก Operation ลงบัญชีให้อัตโนมัติ รายงานภาษีซื้อ-ขายและภาษีหัก ณ ที่จ่าย ออกมาในรูปแบบที่นักบัญชีไทยคุ้นเคย โมดูลบัญชีรวมอยู่ในทุกแพ็กเกจ รวมถึง Free"
 		},
 		screenshotCaption: {
 			en: "A tax invoice in Accounting — Thai layout, Sarabun typeface",
@@ -1028,13 +1021,12 @@ export const modulesContent: ModuleContent[] = [
 		whoFor: [
 			{ en: "Companies already running Operation that want stock and the books in one place.", th: "บริษัทที่ใช้ Operation อยู่แล้ว และอยากให้สต็อกกับบัญชีอยู่ที่เดียวกัน" },
 			{ en: "In-house accountants who re-key delivery notes and bills into another program.", th: "นักบัญชีในบริษัทที่ต้องคีย์ใบส่งของและบิลซ้ำลงอีกโปรแกรม" },
-			{ en: "Owners who want VAT and WHT numbers without waiting for month-end.", th: "เจ้าของกิจการที่อยากเห็นตัวเลข VAT และภาษีหัก ณ ที่จ่ายโดยไม่ต้องรอสิ้นเดือน" },
-			{ en: "Teams willing to give feedback while the module is in early access.", th: "ทีมที่พร้อมให้ความเห็น ระหว่างที่โมดูลยังอยู่ในช่วงทดลองใช้" }
+			{ en: "Owners who want VAT and WHT numbers without waiting for month-end.", th: "เจ้าของกิจการที่อยากเห็นตัวเลข VAT และภาษีหัก ณ ที่จ่ายโดยไม่ต้องรอสิ้นเดือน" }
 		],
 		faq: [
 			{
-				q: { en: "Can we use Accounting now?", th: "ใช้โมดูลบัญชีได้เลยไหม" },
-				a: { en: "Accounting is in invitation-only early access. Email sales@codustry.com if you would like to be considered — until it opens to everyone, Tonbab exports clean documents for your current accounting software.", th: "ตอนนี้โมดูลบัญชีเปิดให้ทดลองใช้แบบเชิญเท่านั้น หากสนใจ อีเมลมาที่ sales@codustry.com — ระหว่างนี้ Tonbab ส่งออกเอกสารให้โปรแกรมบัญชีที่คุณใช้อยู่ได้ตามปกติ" }
+				q: { en: "Which plans include Accounting?", th: "แพ็กเกจไหนมีโมดูลบัญชี" },
+				a: { en: "Every plan — Free, Starter, Standard, Business and Enterprise. Plans differ by size (users, storage, documents), not by features, and Accounting is ticked for you when you sign up.", th: "ทุกแพ็กเกจ — Free, Starter, Standard, Business และ Enterprise แพ็กเกจต่างกันที่ขนาด (ผู้ใช้ พื้นที่ จำนวนเอกสาร) ไม่ใช่ฟีเจอร์ และตอนสมัครระบบเลือกโมดูลบัญชีไว้ให้แล้ว" }
 			},
 			{
 				q: { en: "Do we have to leave PEAK, FlowAccount or Express?", th: "ต้องเลิกใช้ PEAK, FlowAccount หรือ Express ไหม" },

@@ -3,7 +3,7 @@ title: "Move Your Data into Tonbab from Other Software via Excel"
 description: "Move from FlowAccount, PEAK, Express, Xero, QuickBooks and other software via Excel: products, partners, opening stock and balances."
 section: migration
 order: 1
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 You can move your data from FlowAccount, PEAK, Express, Xero, QuickBooks and other accounting software into Tonbab via Excel: export from your current software, arrange it in Tonbab's templates, and import. If you'd rather not do it yourself, our team can do it for you.
@@ -12,7 +12,7 @@ You can move your data from FlowAccount, PEAK, Express, Xero, QuickBooks and oth
 
 1. Master data: products, companies/partners, warehouses and BOMs
 2. Opening stock
-3. Chart of accounts and opening balances (if you use Accounting, which is in early access)
+3. Chart of accounts and opening balances (if you use Accounting, included in every plan)
 4. Employees and payroll
 
 ## 1. Master data from Excel
@@ -37,9 +37,9 @@ Rows whose code matches existing data are updated; new rows are added. Imports c
 
 On the same page, under **Import**, choose **Opening Balance**. Tonbab creates a draft stock adjustment for you to check before posting. Fill in unit costs so stock value and job costs are right from day one.
 
-## 3. Chart of accounts and opening balances (early access)
+## 3. Chart of accounts and opening balances
 
-For companies invited to Accounting, go to **Accounting** › **Accounting setup** › **Import**.
+If you use Accounting, go to **Accounting** › **Accounting setup** › **Import**.
 
 1. **Chart of accounts**: an .xlsx or .csv file with account codes and names (type and parent are optional). Click **Check file**, then add to the current chart or replace it (replacing is only possible before any vouchers exist).
 2. **Opening balances**: a trial balance as of the day before you start Tonbab, with account codes and debit/credit amounts. Tonbab creates a draft voucher for you to check.

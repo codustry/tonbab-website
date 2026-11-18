@@ -28,7 +28,7 @@ export const SITE_ORIGIN = "https://www.tonbab.com";
  * sitemap uses it as <lastmod> (Google ignores lastmod values that change
  * on every crawl, so this must be a real date, bumped with real edits).
  */
-export const SITE_UPDATED = "2026-11-17";
+export const SITE_UPDATED = "2026-11-18";
 
 export const ENTITY = {
   name: "Tonbab",
@@ -71,18 +71,18 @@ export const PLAN_FACTS: {
 }[] = [
   { code: "free", name: "Free", yearly: 0, monthly: 0, seats: 1 },
   { code: "starter", name: "Starter", yearly: 2990, monthly: 299, seats: 5 },
-  { code: "standard", name: "Standard", yearly: 6000, monthly: 600, seats: 10 },
+  { code: "standard", name: "Standard", yearly: 9900, monthly: 990, seats: 10 },
   {
     code: "business",
     name: "Business",
-    yearly: 14400,
-    monthly: 1440,
+    yearly: 39900,
+    monthly: 3990,
     seats: 25,
   },
   {
     code: "enterprise",
     name: "Enterprise",
-    yearly: 42000,
+    yearly: 120000,
     monthly: null,
     seats: 100,
     from: true,
@@ -147,7 +147,7 @@ export function softwareJsonLd(locale: Locale): Record<string, unknown> {
     offers: PLAN_FACTS.map((p) => ({
       "@type": "Offer",
       name: p.name,
-      description: `${p.seats}${p.from ? "+" : ""} ${p.seats === 1 ? "user" : "users"}, every module, billed yearly (monthly = yearly ÷ 10)`,
+      description: `${p.seats}${p.from ? "+" : ""} ${p.seats === 1 ? "user" : "users"}, every module and feature, billed yearly (monthly = yearly ÷ 10)`,
       price: p.yearly,
       priceCurrency: "THB",
       url: `${SITE_ORIGIN}/${locale}/pricing`,

@@ -1,14 +1,14 @@
 ---
-title: "VAT and PP30: Output and Input Tax Reports (Early Access)"
+title: "VAT and PP30: Output and Input Tax Reports"
 description: "Prepare your PP30 VAT return in Tonbab with output and input VAT reports, CSV downloads, mark-as-filed and PP36 for foreign services."
 section: accounting
 order: 5
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 The **Tax filings** page gathers the figures for your PP30 VAT return from the month's sales documents and purchase bills, with output and input VAT reports. The VAT tabs only appear for VAT-registered companies.
 
-> **Early access:** Accounting is available to invited companies only. See [Accounting overview](/en/docs/accounting/accounting-overview).
+> **Plans:** Accounting is included in every plan, Free included. See [Accounting overview](/en/docs/accounting/accounting-overview).
 
 ## Open the PP30 page
 

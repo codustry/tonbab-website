@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { localePath, toLocale } from '$lib/i18n';
-	import { ArrowLeft, ArrowRight, Info } from 'lucide-svelte';
+	import { ArrowLeft, ArrowRight } from 'lucide-svelte';
 
 	let { data } = $props();
 	const locale = $derived(toLocale(data.locale));
@@ -14,9 +14,6 @@
 			<a href={localePath(locale, '/docs')} class="hover:text-tnb-blue hover:underline">{th ? 'คู่มือ' : 'Docs'}</a> / <span>{data.doc.section}</span>
 		</nav>
 		<h1 class="mt-3 text-3xl leading-tight font-bold tracking-tight text-balance text-tnb-ink sm:text-4xl">{data.doc.title}</h1>
-		{#if data.doc.earlyAccess}
-			<p class="mt-4 flex gap-2 rounded-lg bg-tnb-mist p-3 text-sm text-tnb-ink"><Info class="mt-0.5 h-4 w-4 shrink-0 text-tnb-blue" aria-hidden="true" />{th ? 'โมดูลบัญชีเปิดใช้แบบเชิญ (Early access) — ติดต่อ sales@codustry.com' : 'Accounting is invitation-only early access — contact sales@codustry.com'}</p>
-		{/if}
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -- our own reviewed Markdown -->
 		<div class="doc-prose mt-6">{@html data.html}</div>
 		{#if data.doc.updated}<p class="mt-10 text-xs text-tnb-ink-soft">{th ? 'อัปเดตล่าสุด' : 'Last updated'} <time datetime={data.doc.updated}>{data.doc.updated}</time></p>{/if}

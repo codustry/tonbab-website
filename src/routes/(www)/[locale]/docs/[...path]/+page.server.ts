@@ -24,7 +24,6 @@ export const load: PageServerLoad = async (event) => {
       updated: doc.updated,
       path: doc.path,
       section: section?.label[locale] ?? doc.section,
-      earlyAccess: !!section?.earlyAccess,
     },
     html,
     headings,

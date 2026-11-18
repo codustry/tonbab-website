@@ -3,10 +3,10 @@ title: "Sales Plan and Field Sales Visits"
 description: "Plan calls and visits, build a daily route, check in with GPS, record outcomes with photos and send a day report to your manager."
 section: crm
 order: 2
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
-The CRM **Sales Plan** helps reps plan who to call or visit and when, and shows managers how much field work actually happens. Field sales visits are in the Business plan and up.
+The CRM **Sales Plan** helps reps plan who to call or visit and when, and shows managers how much field work actually happens. Field sales visits are in every plan, Free included.
 
 ## Sales Plan tabs
 

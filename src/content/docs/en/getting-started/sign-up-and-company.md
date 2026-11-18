@@ -3,7 +3,7 @@ title: "Sign Up for Tonbab and Set Up Your Company"
 description: "Sign up free at app.tonbab.com/signup in about 3 minutes and get a 30-day Business trial with no card. How to fill in your company details correctly."
 section: getting-started
 order: 1
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 You can sign up for Tonbab free at [app.tonbab.com/signup](https://app.tonbab.com/signup). It takes about 3 minutes. Every new company gets a **30-day Business trial · no card needed**. When the trial ends, the company moves to the Free plan automatically, and your data stays.
@@ -32,7 +32,7 @@ These details are printed on your quotations, purchase orders and tax invoices, 
 
 - Address, province, postal code, company phone and the company email shown on documents.
 - **SKU prefix**: 2–5 capital letters. For example, HOS gives product codes like HOS-0001.
-- Pick at least one module: Operations, Sales & POS, CRM, People, Service and Docs.
+- Pick at least one module: Operations, Accounting, Sales & POS, CRM, People, Service and Docs. Accounting is already ticked for you; every module, Accounting included, is in every plan.
 - Accept the Terms and Privacy Policy, then click **Create company**.
 
 ### 4. Confirm your email

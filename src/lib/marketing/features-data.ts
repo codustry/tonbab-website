@@ -5,8 +5,9 @@
  * HONESTY RULES (CLAUDE.md): every claim here was checked against the app
  * repo (codustry/workflow) on 2026-11-17 — routes, server modules and
  * plans.ts gates. Things that are not live say so with a `status` of
- * "dev" (in development) or "soon" (coming soon); Accounting features
- * carry the early-access label. Never upgrade a status without the code.
+ * "dev" (in development) or "soon" (coming soon). Every feature is on every
+ * plan, Free included — plans differ by size only (owner, 2026-11-18). Never
+ * upgrade a status without the code.
  *
  * Each page leads with `answer` — a short, factual "what is it" paragraph
  * that search snippets and AI answer engines can quote verbatim.
@@ -51,6 +52,11 @@ export interface FeatureContent {
   }[];
   /** Plan / availability note, from plans.ts. */
   plan: Bi;
+  /**
+   * Legacy invitation-only label. No feature sets it since Accounting opened
+   * to every plan (2026-11-18); kept optional only because the home page
+   * still reads it.
+   */
   earlyAccess?: boolean;
   faq: { q: Bi; a: Bi }[];
   related: string[];
@@ -153,8 +159,8 @@ export const features: FeatureContent[] = [
       {
         q: { th: "POS ฟรีจริงไหม?", en: "Is the POS really free?" },
         a: {
-          th: "แพ็กเกจ Free ใช้ POS ได้ 1 ร้าน 1 เครื่อง ไม่มีค่าใช้จ่าย ต้องการเพิ่มร้านหรือเครื่องค่อยอัปเกรด",
-          en: "The Free plan includes one shop and one device at no cost. Upgrade when you need more shops or devices.",
+          th: "แพ็กเกจ Free ใช้ POS ได้ 1 ร้าน 1 เครื่อง ไม่มีค่าใช้จ่าย ต้องการเพิ่มร้านหรือเครื่องค่อยขยับไปแพ็กเกจที่ใหญ่ขึ้น",
+          en: "The Free plan includes one shop and one device at no cost. Move to a bigger plan when you need more shops or devices.",
         },
       },
     ],
@@ -241,8 +247,8 @@ export const features: FeatureContent[] = [
       },
     ],
     plan: {
-      th: "สถานีแพ็กและ POS ใช้ได้ทุกแพ็กเกจ สถานีผลิตใช้กับโมดูลการผลิต (Business ขึ้นไป)",
-      en: "Pack and POS stations are in every plan; the production station needs manufacturing (Business and up).",
+      th: "สถานีแพ็ก POS และสถานีผลิตใช้ได้ทุกแพ็กเกจ รวมถึง Free",
+      en: "Pack, POS and production stations are in every plan, Free included.",
     },
     faq: [
       {
@@ -343,8 +349,8 @@ export const features: FeatureContent[] = [
       },
     ],
     plan: {
-      th: "ทุกแพ็กเกจ — Free 2 คลัง 100 สินค้า; ล็อตและซีเรียลเริ่มที่ Standard",
-      en: "Every plan — Free has 2 warehouses and 100 products; lots and serials start on Standard.",
+      th: "ทุกแพ็กเกจ รวมถึงล็อตและซีเรียล ต่างกันที่จำนวน — Free 2 คลัง 100 สินค้า",
+      en: "Every plan, lots and serials included; plans differ by size — Free has 2 warehouses and 100 products.",
     },
     faq: [
       {
@@ -454,8 +460,8 @@ export const features: FeatureContent[] = [
       },
     ],
     plan: {
-      th: "ใบขอซื้อและใบสั่งซื้อใช้ได้ทุกแพ็กเกจ การเปรียบเทียบราคา RFQ เริ่มที่ Standard",
-      en: "Requests and POs are in every plan; RFQ price comparison starts on Standard.",
+      th: "ใบขอซื้อ ใบสั่งซื้อ และการเปรียบเทียบราคา RFQ ใช้ได้ทุกแพ็กเกจ ต่างกันที่จำนวนใบสั่งซื้อต่อเดือน (Free 30)",
+      en: "Requests, POs and RFQ price comparison are in every plan; plans differ by POs per month (Free: 30).",
     },
     faq: [
       {
@@ -559,8 +565,8 @@ export const features: FeatureContent[] = [
       },
     ],
     plan: {
-      th: "การผลิตอยู่ในแพ็กเกจ Business ขึ้นไป",
-      en: "Manufacturing is in Business and Enterprise.",
+      th: "การผลิต (BOM ใบสั่งผลิต และขั้นตอนการผลิต) ใช้ได้ทุกแพ็กเกจ รวมถึง Free",
+      en: "Manufacturing (BOMs, work orders and routing) is in every plan, Free included.",
     },
     faq: [
       {
@@ -587,7 +593,6 @@ export const features: FeatureContent[] = [
   {
     key: "thai-tax",
     module: "accounting",
-    earlyAccess: true,
     keyword: {
       th: "หนังสือรับรองหัก ณ ที่จ่าย 50 ทวิ",
       en: "Thai withholding tax certificate (50 Tawi)",
@@ -601,8 +606,8 @@ export const features: FeatureContent[] = [
       en: "Issue Thai withholding tax certificates (50 Tawi) straight from payments with the payee's tax ID and address, plus VAT reports, PP30 and PND 3/53 exports for filing.",
     },
     eyebrow: {
-      th: "บัญชี · ภาษีไทย · Early access",
-      en: "Accounting · Thai tax · Early access",
+      th: "บัญชี · ภาษีไทย",
+      en: "Accounting · Thai tax",
     },
     h1: {
       th: "ภาษีไทยครบ ตั้งแต่ 50 ทวิ ถึง ภ.พ.30",
@@ -665,8 +670,8 @@ export const features: FeatureContent[] = [
       },
     ],
     plan: {
-      th: "โมดูลบัญชีเปิดแบบเชิญ (Early access) ใช้งานจริงแล้วกับบริษัทกลุ่มแรก ภาษีเงินเดือนอยู่ใน People (Standard ขึ้นไป)",
-      en: "Accounting is invitation-only early access, already in daily use at the first companies. Payroll tax lives in People (Standard and up).",
+      th: "โมดูลบัญชีและเงินเดือน (ภาษีเงินเดือนอยู่ใน People) ใช้ได้ทุกแพ็กเกจ รวมถึง Free",
+      en: "Accounting and payroll (payroll tax lives in People) are in every plan, Free included.",
     },
     faq: [
       {
@@ -681,12 +686,12 @@ export const features: FeatureContent[] = [
       },
       {
         q: {
-          th: "โมดูลบัญชีเปิดให้ทุกคนหรือยัง?",
-          en: "Is Accounting open to everyone?",
+          th: "แพ็กเกจไหนมีโมดูลบัญชี?",
+          en: "Which plans include Accounting?",
         },
         a: {
-          th: "ยังเปิดแบบเชิญ ติดต่อ sales@codustry.com หากต้องการเข้าร่วม ระหว่างนี้ Tonbab ส่งออกเอกสารให้โปรแกรมบัญชีที่คุณใช้อยู่ได้",
-          en: "Not yet — it is invitation-only. Email sales@codustry.com to join. Meanwhile Tonbab exports documents for your current accounting software.",
+          th: "ทุกแพ็กเกจ รวมถึง Free แพ็กเกจต่างกันที่ขนาด เช่น จำนวนผู้ใช้ ไม่ใช่ฟีเจอร์ ถ้ายังใช้โปรแกรมบัญชีเดิมอยู่ Tonbab ก็ส่งออกเอกสารให้ได้",
+          en: "Every plan, Free included — plans differ by size, such as the number of users, not by features. If you keep your current accounting software, Tonbab still exports documents for it.",
         },
       },
     ],
@@ -767,8 +772,8 @@ export const features: FeatureContent[] = [
       },
     ],
     plan: {
-      th: "เงินเดือนเริ่มที่แพ็กเกจ Standard",
-      en: "Payroll starts on the Standard plan.",
+      th: "เงินเดือนใช้ได้ทุกแพ็กเกจ รวมถึง Free ต่างกันที่จำนวนพนักงาน (Free 10 คน)",
+      en: "Payroll is in every plan, Free included; plans differ by number of employees (Free: 10).",
     },
     faq: [
       {
@@ -1024,8 +1029,8 @@ export const features: FeatureContent[] = [
       },
     ],
     plan: {
-      th: "งานประมูล e-GP อยู่ในแพ็กเกจ Business ขึ้นไป",
-      en: "e-GP tender leads are in Business and Enterprise.",
+      th: "งานประมูล e-GP ใช้ได้ทุกแพ็กเกจ รวมถึง Free",
+      en: "e-GP tender leads are in every plan, Free included.",
     },
     faq: [
       {
@@ -1145,8 +1150,8 @@ export const features: FeatureContent[] = [
       {
         title: { th: "บทบาทและสิทธิ์", en: "Roles and permissions" },
         body: {
-          th: "กำหนดว่าใครเห็นหรือแก้อะไรได้ตามบทบาท (Standard ขึ้นไป)",
-          en: "Decide who can see or change what, by role (Standard and up).",
+          th: "กำหนดว่าใครเห็นหรือแก้อะไรได้ตามบทบาท (ทุกแพ็กเกจ)",
+          en: "Decide who can see or change what, by role (every plan).",
         },
       },
       {
@@ -1159,8 +1164,8 @@ export const features: FeatureContent[] = [
       {
         title: { th: "SSO บัญชีองค์กร", en: "Organisation SSO" },
         body: {
-          th: "เข้าระบบด้วยบัญชี Microsoft ขององค์กร (Business ขึ้นไป)",
-          en: "Sign in with your organisation's Microsoft account (Business and up).",
+          th: "เข้าระบบด้วยบัญชี Microsoft ขององค์กร (ทุกแพ็กเกจ)",
+          en: "Sign in with your organisation's Microsoft account (every plan).",
         },
       },
       {

@@ -78,14 +78,14 @@
 	);
 	// One list feeds the desktop dropdown, the mobile panel and the footer,
 	// so a new module can't be added to one and forgotten in the others.
-	const navModules: { key: string; label: () => string; early?: boolean }[] = [
+	const navModules: { key: string; label: () => string }[] = [
 		{ key: 'operation', label: m.mkt_mod_operation_short },
 		{ key: 'people', label: m.mkt_mod_people_short },
 		{ key: 'commerce', label: m.mkt_mod_commerce_short },
 		{ key: 'crm', label: m.mkt_mod_crm_short },
 		{ key: 'service', label: m.mkt_mod_service_short },
 		{ key: 'docs', label: m.mkt_mod_docs_short },
-		{ key: 'accounting', label: m.mkt_mod_accounting_short, early: true }
+		{ key: 'accounting', label: m.mkt_mod_accounting_short }
 	];
 	const loc = $derived(toLocale(data.locale));
 
@@ -144,7 +144,7 @@
 					{#if openMenu === 'modules'}
 						<div class="absolute left-0 top-full z-50 mt-2 w-64 rounded-xl border border-tnb-line bg-tnb-paper p-2 shadow-[0_10px_30px_rgba(23,22,28,0.12)]">
 							{#each navModules as nm (nm.key)}
-								<a href={localePath(loc, `/modules/${nm.key}`)} onclick={() => (openMenu = null)} class="flex items-center justify-between gap-2 rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{nm.label()}{#if nm.early}<span class="rounded-full bg-tnb-mist px-2 py-0.5 text-[11px] font-medium text-tnb-ink-soft">{m.mkt_early_access()}</span>{/if}</a>
+								<a href={localePath(loc, `/modules/${nm.key}`)} onclick={() => (openMenu = null)} class="flex items-center justify-between gap-2 rounded-lg px-3 py-2 font-medium text-tnb-ink hover:bg-tnb-mist">{nm.label()}</a>
 							{/each}
 							<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (openMenu = null)} class="mt-1 block rounded-lg border-t border-tnb-line px-3 py-2 pt-2.5 font-semibold text-tnb-blue hover:bg-tnb-mist">{m.mkt_nav_all_modules()} →</a>
 						</div>
@@ -216,7 +216,7 @@
 				<p class="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-tnb-ink-soft">{m.mkt_footer_modules()}</p>
 				<div class="flex flex-col gap-1 text-base">
 					{#each navModules as nm (nm.key)}
-						<a href={localePath(loc, `/modules/${nm.key}`)} onclick={() => (mobileOpen = false)} class="flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{nm.label()}{#if nm.early}<span class="rounded-full bg-tnb-mist px-2 py-0.5 text-xs font-medium text-tnb-ink-soft">{m.mkt_early_access()}</span>{/if}</a>
+						<a href={localePath(loc, `/modules/${nm.key}`)} onclick={() => (mobileOpen = false)} class="flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{nm.label()}</a>
 					{/each}
 					<a href={localePath(toLocale(data.locale), '/modules')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-semibold text-tnb-blue hover:bg-tnb-mist">{m.mkt_nav_all_modules()} →</a>
 				</div>
@@ -274,7 +274,7 @@
 				<p class="text-sm font-medium text-tnb-ink-soft">{m.mkt_footer_modules()}</p>
 				<ul class="mt-2 space-y-0.5">
 					{#each navModules as nm (nm.key)}
-						<li><a href={localePath(loc, `/modules/${nm.key}`)} class="inline-block py-1 text-tnb-ink hover:underline">{nm.label()}</a>{#if nm.early}<span class="ml-1.5 text-xs text-tnb-ink-soft">· {m.mkt_early_access()}</span>{/if}</li>
+						<li><a href={localePath(loc, `/modules/${nm.key}`)} class="inline-block py-1 text-tnb-ink hover:underline">{nm.label()}</a></li>
 					{/each}
 					<li><a href={localePath(toLocale(data.locale), '/modules')} class="inline-block py-1 font-medium text-tnb-blue hover:underline">{m.mkt_nav_all_modules()}</a></li>
 				</ul>
