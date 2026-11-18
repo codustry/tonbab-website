@@ -37,11 +37,7 @@
 					<h1 class="mt-4 text-4xl leading-tight font-bold tracking-tight text-balance text-tnb-ink sm:text-5xl">{t(f.h1)}</h1>
 					<p class="mt-5 text-lg leading-relaxed text-tnb-ink-soft">{t(f.lede)}</p>
 					<div class="mt-7 flex flex-wrap gap-3">
-						{#if f.earlyAccess}
-							<a href="mailto:sales@codustry.com?subject={encodeURIComponent(th ? 'ขอเข้าร่วมโมดูลบัญชี Tonbab' : 'Tonbab Accounting early access')}" class="btn-primary px-5 py-2.5">{th ? 'ขอเข้าร่วม Early access' : 'Request early access'}</a>
-						{:else}
-							<a href="https://app.tonbab.com/signup" class="btn-primary px-5 py-2.5">{th ? 'เริ่มใช้ฟรี' : 'Start free'}</a>
-						{/if}
+						<a href="https://app.tonbab.com/signup" class="btn-primary px-5 py-2.5">{th ? 'เริ่มใช้ฟรี' : 'Start free'}</a>
 						<a href={localePath(locale, '/pricing')} class="btn-soft px-5 py-2.5">{th ? 'ดูราคา' : 'See pricing'}</a>
 					</div>
 				</div>

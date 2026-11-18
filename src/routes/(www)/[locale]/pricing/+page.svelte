@@ -14,7 +14,7 @@
 	 */
 	import * as m from '$lib/paraglide/messages';
 	import { localePath, toLocale } from '$lib/i18n';
-	import { Check, Minus, Plus, Building2, Sparkles, Mail, ArrowRight, LayoutGrid, Boxes, ShoppingBag, Handshake, Users, Wrench, FileText, Plug, ShieldCheck } from 'lucide-svelte';
+	import { Check, Minus, Plus, Building2, Sparkles, Mail, ArrowRight, LayoutGrid, Boxes, ShoppingBag, Handshake, Users, Wrench, FileText, Calculator, Plug, ShieldCheck } from 'lucide-svelte';
 
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
@@ -24,7 +24,7 @@
 	type Cell = boolean | string;
 	/** One value per plan, cheapest first: Free, Starter, Standard, Business, Enterprise. */
 	type Row = { label: () => string; v: [Cell, Cell, Cell, Cell, Cell] };
-	type Tone = 'slate' | 'blue' | 'orange' | 'fuchsia' | 'violet' | 'teal' | 'sky' | 'cyan' | 'emerald';
+	type Tone = 'slate' | 'blue' | 'orange' | 'fuchsia' | 'violet' | 'teal' | 'sky' | 'indigo' | 'cyan' | 'emerald';
 	type Group = { key: string; title: () => string; tone: Tone; icon: typeof Check; rows: Row[]; note?: () => string; link?: { href: string; label: () => string } };
 
 	const thb = (n: number) => '฿' + n.toLocaleString('en-US');
@@ -42,6 +42,7 @@
 		violet: { band: 'bg-violet-100 text-violet-800', chip: 'bg-violet-50 text-violet-700 hover:bg-violet-100', bar: 'border-l-violet-500', tick: 'text-violet-600', dot: 'bg-violet-500' },
 		teal: { band: 'bg-teal-100 text-teal-800', chip: 'bg-teal-50 text-teal-700 hover:bg-teal-100', bar: 'border-l-teal-500', tick: 'text-teal-600', dot: 'bg-teal-500' },
 		sky: { band: 'bg-sky-100 text-sky-800', chip: 'bg-sky-50 text-sky-700 hover:bg-sky-100', bar: 'border-l-sky-500', tick: 'text-sky-600', dot: 'bg-sky-500' },
+		indigo: { band: 'bg-indigo-100 text-indigo-800', chip: 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100', bar: 'border-l-indigo-500', tick: 'text-indigo-600', dot: 'bg-indigo-500' },
 		cyan: { band: 'bg-cyan-100 text-cyan-800', chip: 'bg-cyan-50 text-cyan-700 hover:bg-cyan-100', bar: 'border-l-cyan-500', tick: 'text-cyan-600', dot: 'bg-cyan-500' },
 		emerald: { band: 'bg-emerald-100 text-emerald-800', chip: 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100', bar: 'border-l-emerald-500', tick: 'text-emerald-600', dot: 'bg-emerald-500' }
 	};
@@ -116,6 +117,18 @@
 			]
 		},
 		{
+			// plans.ts F('accounting', 'starter') — owner, 2026-11-18: in every paid plan, not Free.
+			key: 'accounting', title: m.pr_g_accounting, tone: 'indigo', icon: Calculator,
+			rows: [
+				{ label: m.pr_r_acc_sales, v: from(1) },
+				{ label: m.pr_r_acc_bills, v: from(1) },
+				{ label: m.pr_r_acc_tax, v: from(1) },
+				{ label: m.pr_r_acc_books, v: from(1) }
+			],
+			note: m.pr_accounting_body,
+			link: { href: '/modules/accounting', label: m.pr_accounting_cta }
+		},
+		{
 			// Mirrors plans.ts API_LIMITS. Free is a read-only taste; drafts need a paid plan.
 			key: 'api', title: m.pr_g_api, tone: 'cyan', icon: Plug,
 			rows: [
@@ -170,7 +183,7 @@
 	type Plan = { key: string; name: () => string; yearly: number; monthly: number | null; desc: () => string; lead: () => string; bullets: (() => string)[]; best?: boolean; quoted?: boolean };
 	const plans: Plan[] = [
 		{ key: 'free', name: m.pr_plan_free, yearly: 0, monthly: null, desc: m.pr_free_desc, lead: m.pr_includes, bullets: [m.pr_b_free_1, m.pr_b_free_2, m.pr_b_free_3, m.pr_b_free_4, m.pr_b_free_5, m.pr_b_free_6, m.pr_b_free_7, m.pr_b_free_8] },
-		{ key: 'starter', name: m.pr_plan_starter, yearly: 2990, monthly: 299, desc: m.pr_starter_desc, lead: m.pr_everything_free, bullets: [m.pr_b_sta_1, m.pr_b_sta_2, m.pr_b_sta_3, m.pr_b_sta_4, m.pr_b_sta_5] },
+		{ key: 'starter', name: m.pr_plan_starter, yearly: 2990, monthly: 299, desc: m.pr_starter_desc, lead: m.pr_everything_free, bullets: [m.pr_b_sta_1, m.pr_b_sta_6, m.pr_b_sta_2, m.pr_b_sta_3, m.pr_b_sta_4, m.pr_b_sta_5] },
 		{ key: 'standard', name: m.pr_plan_standard, yearly: 6000, monthly: 600, desc: m.pr_standard_desc, lead: m.pr_everything_starter, bullets: [m.pr_b_std_1, m.pr_b_std_2, m.pr_b_std_3, m.pr_b_std_4, m.pr_b_std_5, m.pr_b_std_6] },
 		{ key: 'business', name: m.pr_plan_business, yearly: 14400, monthly: 1440, desc: m.pr_business_desc, lead: m.pr_everything_standard, bullets: [m.pr_b_bus_1, m.pr_b_bus_2, m.pr_b_bus_3, m.pr_b_bus_4, m.pr_b_bus_5, m.pr_b_bus_6, m.pr_b_bus_7, m.pr_b_bus_8, m.pr_b_bus_9], best: true },
 		{ key: 'enterprise', name: m.pr_plan_enterprise, yearly: 42000, monthly: null, desc: m.pr_enterprise_desc, lead: m.pr_everything_business, bullets: [m.pr_b_ent_1, m.pr_b_ent_2, m.pr_b_ent_3, m.pr_b_ent_4, m.pr_b_ent_5, m.pr_b_ent_7, m.pr_b_ent_6], quoted: true }
@@ -303,15 +316,6 @@
 		</table>
 	</div>
 	<p class="mt-4 text-sm text-tnb-ink-soft">{m.pr_vat_note()}</p>
-
-	<!-- Accounting is invitation-only early access: no price, no limits table. -->
-	<div class="mt-10 flex flex-col gap-4 rounded-2xl bg-tnb-mist p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-		<div class="max-w-2xl">
-			<p class="font-semibold text-tnb-ink">{m.pr_accounting_title()}</p>
-			<p class="mt-1.5 text-[15px] leading-relaxed text-tnb-ink-soft">{m.pr_accounting_body()}</p>
-		</div>
-		<a href={localePath(locale, '/modules/accounting')} class="btn-soft shrink-0">{m.pr_accounting_cta()}</a>
-	</div>
 </section>
 
 <!-- Add-ons -->

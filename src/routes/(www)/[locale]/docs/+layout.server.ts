@@ -8,7 +8,6 @@ export const load: LayoutServerLoad = async (event) => {
   const nav = DOC_SECTIONS.map((s) => ({
     key: s.key,
     label: s.label[locale],
-    earlyAccess: !!s.earlyAccess,
     pages: docs
       .filter((d) => d.section === s.key)
       .map((d) => ({

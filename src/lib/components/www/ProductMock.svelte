@@ -368,7 +368,7 @@
 						<p class="text-[11px] font-medium text-tnb-ink-soft">INV-2026-0187</p>
 						<p class="truncate text-sm font-semibold text-tnb-ink">{t({ en: 'Tax invoice / Receipt', th: 'ใบกำกับภาษี / ใบเสร็จรับเงิน' })}</p>
 					</div>
-					<span class="shrink-0 rounded-full {theme.chip} px-2 py-0.5 text-[10.5px] font-semibold">{t({ en: 'Early access', th: 'ทดลองใช้' })}</span>
+					<span class="shrink-0 rounded-full {theme.chip} px-2 py-0.5 text-[10.5px] font-semibold">{t({ en: 'Paid', th: 'ชำระแล้ว' })}</span>
 				</div>
 				<p class="mt-2 truncate text-[11px] text-tnb-ink-soft">{t({ en: 'Customer: Chonburi Steel Co., Ltd. (Head office)', th: 'ลูกค้า: บริษัท ชลบุรีสตีล จำกัด (สำนักงานใหญ่)' })}</p>
 				<div class="mt-3 overflow-hidden rounded-xl border border-tnb-line text-[11px]">

@@ -3,7 +3,7 @@ title: "CRM Accounts, Contacts and Deals"
 description: "Manage B2B accounts and contacts, run deals through pipelines, add quotation lines, approve discounts and issue numbered quotations."
 section: crm
 order: 1
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 Tonbab CRM is built for B2B selling. Business accounts use the same company records you deliver to and invoice, so deals, contacts and delivery history sit on one page.
@@ -51,7 +51,7 @@ An admin sets the threshold in **Sales Org & Goals** › **Approvals** (**Requir
 
 ## Numbered quotations
 
-Official quotations are issued only by Accounting, so there is one quotation numbering series. On the deal, click **Create numbered quotation**. Tonbab opens an accounting quotation linked to the deal, and its status (awaiting customer, accepted, declined) shows back on the deal. See [Sales documents](/en/docs/accounting/sales-documents) (Accounting is in early access).
+Official quotations are issued only by Accounting, so there is one quotation numbering series. On the deal, click **Create numbered quotation**. Tonbab opens an accounting quotation linked to the deal, and its status (awaiting customer, accepted, declined) shows back on the deal. See [Sales documents](/en/docs/accounting/sales-documents) (Accounting is included from the Starter plan up).
 
 ## From deal to job
 
