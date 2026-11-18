@@ -58,7 +58,8 @@ accent only, never the button colour. Demo-booking runs on Khao Pad Forms.
   them. Still tiered: several companies + consolidated reports, SCIM, IP
   allow-list, enforced 2FA, 3-year audit history → Enterprise; 1-year audit
   history + priority LINE support → Business; Enterprise support pack.
-  Per-use add-ons: slip checks (from Starter; 1,000 for ฿400), all sales
+  We sell no slip checks (shops connect their own EasySlip/Thunder/SlipOK key)
+  and no priority-SLA add-on (removed 2026-11-18). Add-ons: all sales
   channels and HikCentral (฿2,400/yr each for Business; included in
   Enterprise). API: Free read-only, drafts from Starter. **No extra-user
   add-on** — more users means the next plan. The single

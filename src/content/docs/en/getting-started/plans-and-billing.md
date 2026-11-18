@@ -39,7 +39,6 @@ Every plan, Free included, has every module and feature. Plans differ by size: u
 
 | Item | Plan |
 |---|---|
-| Automatic slip checks | Starter and up |
 | 1-year audit history, priority support on LINE | Business and Enterprise |
 | Several companies with consolidated reports, SCIM, IP allow-list, enforced two-factor sign-in, 3-year audit history | Enterprise |
 | All sales channels, HikCentral attendance devices | Enterprise (add-on for Business) |
@@ -68,13 +67,11 @@ Need more users? Move to the next plan; there's no extra-user add-on. API quotas
 - One extra shop for Business: ฿1,800/year
 - One extra POS device for Business: ฿900/year
 - All sales channels (Shopee, Lazada and more) for Business: ฿2,400/year
-- 1,000 slip checks for Business: ฿400 one-time
 - HikCentral connector for Business: ฿2,400/year
-- Priority SLA for Business: ฿6,000/year
 - Onboarding (setup and data migration): ฿9,900 one-time
 - Enterprise support pack (99.9% SLA, named success manager, onboarding): ฿24,000/year
 
-Enterprise already includes all sales channels, HikCentral and 5,000 slip checks a month.
+Enterprise already includes all sales channels and HikCentral.
 
 ## See usage and pay
 

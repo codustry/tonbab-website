@@ -29,7 +29,7 @@ Pairing devices and creating PINs are covered in [Install the app and kiosk mode
 Go to **Commerce Settings** › **Payments** and choose your **Accepted payment methods**:
 
 - **PromptPay (shop QR)**, with no fee. Enter a **PromptPay number** (mobile, 13-digit ID or e-wallet) or **Upload QR image**. You can **Require a slip photo** and set **Who can confirm without a slip**.
-- **Check slips automatically** (Starter and up). A slip is refused if it's less than the total, paid a different PromptPay, is older than 24 hours, or was used before.
+- **Check slips automatically** (every plan, using your own EasySlip, Thunder or SlipOK account). A slip is refused if it's less than the total, paid a different PromptPay, is older than 24 hours, or was used before.
 - **Beam Checkout** for credit/debit cards and PromptPay through Beam. Enter the Merchant ID, Secret API key and Webhook signing secret, then add the webhook URL Tonbab shows to your Beam account.
 - **Cash** and **Manual payment** for cash or a separate card terminal.
 

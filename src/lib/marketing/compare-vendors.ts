@@ -108,8 +108,8 @@ const TONBAB_STOCK = bi(
   "Multi-warehouse on every plan · lots and serials · landed cost for imports",
 );
 const TONBAB_POS = bi(
-  "มีในทุกแพ็กเกจ — บัตรและพร้อมเพย์ผ่าน Beam, QR พร้อมเพย์ของร้าน, ตรวจสลิป (Starter+), ใบสั่งครัว",
-  "On every plan — cards and PromptPay via Beam, your own PromptPay QR, slip checking (Starter+), kitchen tickets",
+  "มีในทุกแพ็กเกจ — บัตรและพร้อมเพย์ผ่าน Beam, QR พร้อมเพย์ของร้านพร้อมรูปสลิป, ใบสั่งครัว",
+  "On every plan — cards and PromptPay via Beam, your own PromptPay QR with slip photo, kitchen tickets",
 );
 const TONBAB_HR = bi(
   "การลา เวลาทำงาน และเงินเดือน ทุกแพ็กเกจ (พนักงาน Free/Starter 10 · Standard 50 · Business 200 คน)",
@@ -658,7 +658,7 @@ export const vendorCompares: VendorCompare[] = [
     rows: [
       row("ประเภท", "What it is", bi("แอป POS ร้านค้าและร้านอาหาร", "POS app for shops and restaurants"), TONBAB_TYPE),
       row("ราคา", "Price", bi("POS ฟรี · สต็อกขั้นสูง US$25/ร้าน/เดือน · จัดการพนักงาน US$5/คน/เดือน", "POS free · advanced inventory US$25/store/mo · employee management US$5/person/mo"), TONBAB_PRICE),
-      row("พร้อมเพย์และสลิป", "PromptPay and slips", bi("ไม่พบในหน้าราคา", "Not on the pricing page"), bi("QR พร้อมเพย์ของร้าน พร้อมรูปสลิป · ตรวจสลิปอัตโนมัติ (Starter+)", "Your own PromptPay QR with slip photo · automatic slip checking (Starter+)")),
+      row("พร้อมเพย์และสลิป", "PromptPay and slips", bi("ไม่พบในหน้าราคา", "Not on the pricing page"), bi("QR พร้อมเพย์ของร้าน พร้อมรูปสลิป · เชื่อมบัญชีตรวจสลิปของร้านเอง (EasySlip, Thunder, SlipOK)", "Your own PromptPay QR with slip photo · connect your own slip-check account (EasySlip, Thunder, SlipOK)")),
       row("สต็อกและจัดซื้อ", "Stock and purchasing", bi("สต็อกพื้นฐานฟรี · ขั้นสูงเป็นบริการเสริม", "Basic stock free · advanced is an add-on"), bi("สต็อกหลายคลัง จัดซื้อ PR/PO รับสินค้า ในระบบเดียว", "Multi-warehouse stock, PR/PO purchasing, goods receipt in one system")),
       row("บัญชีและภาษีไทย", "Accounting & Thai tax", bi("ไม่มี", "No"), TONBAB_ACC),
     ],
@@ -674,7 +674,7 @@ export const vendorCompares: VendorCompare[] = [
     ],
     chooseThem: [bi("ร้านเดียว ต้องการ POS ฟรีที่ใช้ง่ายที่สุด", "You run one shop and want the simplest free POS.")],
     chooseTonbab: [
-      bi("ต้องการรับพร้อมเพย์และตรวจสลิปแบบไทย", "You want Thai PromptPay with slip checking."),
+      bi("ต้องการรับพร้อมเพย์ด้วย QR ของร้านพร้อมรูปสลิป", "You want Thai PromptPay on your own QR, with slip photos."),
       bi("ผลิตหรือแพ็กสินค้าเอง และต้องการบัญชีในระบบเดียวกับหน้าร้าน", "You produce or pack your own products and want accounting in the same system as the counter."),
     ],
     faq: [faqMigrate("Loyverse"), faqTry],

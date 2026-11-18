@@ -77,7 +77,6 @@
 				{ label: m.pr_r_orders, v: ['300', '1,000', '3,000', U(), U()] },
 				{ label: m.pr_r_beam, v: from(0) },
 				{ label: m.pr_r_promptpay, v: from(0) },
-				{ label: m.pr_r_slip_verify, v: from(1) },
 				{ label: m.pr_r_kitchen, v: from(0) },
 				{ label: m.pr_r_channels, v: [false, false, false, m.pr_addon(), m.pr_included()] },
 				{ label: m.pr_r_domain, v: from(0) }
@@ -161,9 +160,7 @@
 		{ name: m.pr_ao_shop, price: 1800, business: true },
 		{ name: m.pr_ao_pos, price: 900, business: true },
 		{ name: m.pr_ao_channels, detail: m.pr_ao_channels_d, price: 2400, business: true, inEnterprise: true },
-		{ name: m.pr_ao_slips, price: 400, once: true, business: true, inEnterprise: true },
 		{ name: m.pr_ao_hik, price: 2400, business: true, inEnterprise: true },
-		{ name: m.pr_ao_sla, price: 6000, business: true },
 		{ name: m.pr_ao_onboarding, detail: m.pr_ao_onboarding_d, price: 9900, once: true },
 		{ name: m.pr_ao_support, detail: m.pr_ao_support_d, price: 24000, enterprise: true }
 	];
@@ -182,7 +179,7 @@
 	type Plan = { key: string; name: () => string; yearly: number; monthly: number | null; desc: () => string; lead: () => string; bullets: (() => string)[]; best?: boolean; quoted?: boolean };
 	const plans: Plan[] = [
 		{ key: 'free', name: m.pr_plan_free, yearly: 0, monthly: null, desc: m.pr_free_desc, lead: m.pr_includes, bullets: [m.pr_b_free_1, m.pr_b_free_2, m.pr_b_free_3, m.pr_b_free_4, m.pr_b_free_5, m.pr_b_free_6, m.pr_b_free_7, m.pr_b_free_8] },
-		{ key: 'starter', name: m.pr_plan_starter, yearly: 2990, monthly: 299, desc: m.pr_starter_desc, lead: m.pr_everything_free, bullets: [m.pr_b_sta_1, m.pr_b_sta_2, m.pr_b_sta_3, m.pr_b_sta_4, m.pr_b_sta_5] },
+		{ key: 'starter', name: m.pr_plan_starter, yearly: 2990, monthly: 299, desc: m.pr_starter_desc, lead: m.pr_everything_free, bullets: [m.pr_b_sta_1, m.pr_b_sta_2, m.pr_b_sta_3, m.pr_b_sta_5] },
 		{ key: 'standard', name: m.pr_plan_standard, yearly: 9900, monthly: 990, desc: m.pr_standard_desc, lead: m.pr_everything_starter, bullets: [m.pr_b_std_1, m.pr_b_std_2, m.pr_b_std_3, m.pr_b_std_5] },
 		{ key: 'business', name: m.pr_plan_business, yearly: 39900, monthly: 3990, desc: m.pr_business_desc, lead: m.pr_everything_standard, bullets: [m.pr_b_bus_1, m.pr_b_bus_2, m.pr_b_bus_3, m.pr_b_bus_5, m.pr_b_bus_6, m.pr_b_bus_7, m.pr_b_bus_9], best: true },
 		{ key: 'enterprise', name: m.pr_plan_enterprise, yearly: 120000, monthly: null, desc: m.pr_enterprise_desc, lead: m.pr_everything_business, bullets: [m.pr_b_ent_1, m.pr_b_ent_2, m.pr_b_ent_3, m.pr_b_ent_4, m.pr_b_ent_5, m.pr_b_ent_7, m.pr_b_ent_6], quoted: true }
