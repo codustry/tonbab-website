@@ -15,8 +15,8 @@ export const load: PageServerLoad = async (event) => {
       ? "AI ในโปรแกรม ERP: สแกนใบเสร็จ นับของจากรูป เชื่อม Claude ChatGPT | Tonbab"
       : "AI in Tonbab ERP: Receipt Scan, Photo Counting, Claude & ChatGPT | Tonbab",
     description: th
-      ? "AI ในตัว Tonbab ทำงานบน Cloudflare Workers AI สแกนใบเสร็จเข้าเบิกค่าใช้จ่ายและบิลซื้อ นับของจากรูปถ่าย รวมในทุกแพ็กเกจผ่านเครดิต AI รายเดือน ปิดการเก็บ log และเชื่อม Claude, ChatGPT หรือ Gemini CLI ของคุณผ่าน MCP ได้"
-      : "Tonbab's built-in AI runs on Cloudflare Workers AI: scan receipts into expenses and bills, count stock from a photo — included in every plan through monthly AI credits, logging off. Optionally connect your own Claude, ChatGPT or Gemini CLI over MCP.",
+      ? "Tonbab AI ในตัวระบบ สแกนใบเสร็จเข้าเบิกค่าใช้จ่ายและบิลซื้อ นับของจากรูปถ่าย รวมในทุกแพ็กเกจผ่านเครดิต AI รายเดือน ปิดการเก็บ log และเชื่อม Claude, ChatGPT หรือ Gemini CLI ของคุณผ่าน MCP ได้"
+      : "Tonbab AI is built in: scan receipts into expenses and bills, count stock from a photo — included in every plan through monthly AI credits, logging off. Optionally connect your own Claude, ChatGPT or Gemini CLI over MCP.",
     breadcrumbs: [
       { name: th ? HOME_CRUMB.th : HOME_CRUMB.en, path: "" },
       { name: "AI", path: "/ai" },

@@ -1,8 +1,9 @@
 <script lang="ts">
 	/**
-	 * /ai — Tonbab AI. Built-in AI on Cloudflare Workers AI is the main story
-	 * (owner, 2026-11-19); connecting your own assistant over MCP is the
-	 * optional second half. All copy lives in $lib/marketing/ai-data.ts, which
+	 * /ai — Tonbab AI. Built-in AI ("Tonbab AI" — never name the AI vendor in
+	 * customer copy, owner 2026-11-19) is the main story; connecting your own
+	 * assistant over MCP is the optional second half. Third-party assistant
+	 * marks go through AssistantMark (brand rules documented there). All copy lives in $lib/marketing/ai-data.ts, which
 	 * also documents where each claim was verified.
 	 */
 	import * as m from '$lib/paraglide/messages';
@@ -11,6 +12,7 @@
 	import { ENTITY, PLAN_FACTS } from '$lib/seo/site';
 	import FeatureVisual from '$lib/components/www/FeatureVisual.svelte';
 	import CtaBand from '$lib/components/www/CtaBand.svelte';
+	import AssistantMark from '$lib/components/www/AssistantMark.svelte';
 	import {
 		MCP_URL, aiFaq, aiSafety, assistants, builtInLive, builtInSoon, examplePrompts
 	} from '$lib/marketing/ai-data';
@@ -24,7 +26,7 @@
 	const t = $derived.by(() => (b: Bi) => (locale === 'th' ? b.th : b.en));
 
 	const SAFETY_ICON: Record<string, typeof Cloud> = {
-		cloudflare: Cloud, logging: EyeOff, tenant: Building2, permissions: UserCheck, drafts: FilePen, refund: RotateCcw
+		infrastructure: Cloud, logging: EyeOff, tenant: Building2, permissions: UserCheck, drafts: FilePen, refund: RotateCcw
 	};
 
 	let guide = $state(0);
@@ -42,8 +44,8 @@
 			</h1>
 			<p class="mt-5 max-w-2xl text-lg leading-relaxed text-tnb-ink-soft">
 				{t({
-					en: 'Scan receipts into expense claims and bills, count stock from a photo — with AI that runs on Cloudflare Workers AI and comes with your plan as monthly AI credits. Prefer your own assistant? Connect Claude, ChatGPT or Gemini CLI too.',
-					th: 'สแกนใบเสร็จเข้าเบิกค่าใช้จ่ายและบิลซื้อ นับของจากรูปถ่าย ด้วย AI ที่ทำงานบน Cloudflare Workers AI และมาพร้อมแพ็กเกจเป็นเครดิต AI รายเดือน อยากใช้ผู้ช่วยของคุณเองก็เชื่อม Claude, ChatGPT หรือ Gemini CLI ได้ด้วย'
+					en: 'Scan receipts into expense claims and bills, count stock from a photo — with Tonbab AI, built in and included in your plan as monthly AI credits. Prefer your own assistant? Connect Claude, ChatGPT or Gemini CLI too.',
+					th: 'สแกนใบเสร็จเข้าเบิกค่าใช้จ่ายและบิลซื้อ นับของจากรูปถ่าย ด้วย Tonbab AI ที่อยู่ในระบบและมาพร้อมแพ็กเกจเป็นเครดิต AI รายเดือน อยากใช้ผู้ช่วยของคุณเองก็เชื่อม Claude, ChatGPT หรือ Gemini CLI ได้ด้วย'
 				})}
 			</p>
 			<div class="mt-8 flex flex-wrap gap-3">
@@ -52,7 +54,7 @@
 			</div>
 			<ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-tnb-ink-soft">
 				{#each [
-					{ en: 'Runs on Cloudflare Workers AI', th: 'ทำงานบน Cloudflare Workers AI' },
+					{ en: 'Tonbab AI, built in', th: 'Tonbab AI อยู่ในระบบ' },
 					{ en: 'Included in every plan', th: 'รวมในทุกแพ็กเกจ' },
 					{ en: 'Always a draft you check', th: 'เป็นฉบับร่างให้คุณตรวจเสมอ' }
 				] as c (c.en)}
@@ -77,7 +79,10 @@
 				<li class="flex items-start justify-between gap-3 py-3">
 					<div class="min-w-0">
 						<p class="font-semibold leading-snug text-tnb-ink">{t({ en: 'Your own AI assistant (MCP)', th: 'ผู้ช่วย AI ของคุณเอง (MCP)' })}</p>
-						<p class="mt-0.5 text-[13px] text-tnb-ink-soft">Claude · ChatGPT · Gemini CLI</p>
+						<p class="mt-1.5 text-[12px] text-tnb-ink-soft">{t({ en: 'Works with', th: 'ใช้ได้กับ' })}</p>
+							<ul class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] font-medium text-tnb-ink">
+								{#each assistants as a (a.key)}<li><AssistantMark key={a.key} size="sm" /></li>{/each}
+							</ul>
 					</div>
 					<span class="shrink-0 rounded-full bg-tnb-mist px-2 py-0.5 text-[11px] font-semibold text-tnb-ink-soft">{t({ en: 'no AI credits', th: 'ไม่ใช้เครดิต AI' })}</span>
 				</li>
@@ -121,7 +126,7 @@
 	<div class="container mx-auto max-w-6xl px-4 py-20">
 		<p class="flex items-center gap-2 text-sm font-semibold tracking-wider text-tnb-ink-soft uppercase"><Clock class="h-4 w-4" aria-hidden="true" />{t({ en: 'Coming soon', th: 'เร็ว ๆ นี้' })}</p>
 		<h2 class="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-balance text-tnb-ink sm:text-4xl">{t({ en: 'Next on the same AI backbone', th: 'ต่อไปบน AI ชุดเดียวกัน' })}</h2>
-		<p class="mt-4 max-w-2xl leading-relaxed text-tnb-ink-soft">{t({ en: 'In development, with the same rules: on Cloudflare, within your permissions, drafts only. No dates until they ship.', th: 'กำลังพัฒนา ด้วยกติกาเดียวกัน: ทำงานบน Cloudflare ไม่เกินสิทธิ์ของคุณ และเป็นฉบับร่างเท่านั้น จะบอกวันเปิดเมื่อพร้อมใช้จริง' })}</p>
+		<p class="mt-4 max-w-2xl leading-relaxed text-tnb-ink-soft">{t({ en: 'In development, with the same rules: Tonbab AI, within your permissions, drafts only. No dates until they ship.', th: 'กำลังพัฒนา ด้วยกติกาเดียวกัน: ใช้ Tonbab AI ไม่เกินสิทธิ์ของคุณ และเป็นฉบับร่างเท่านั้น จะบอกวันเปิดเมื่อพร้อมใช้จริง' })}</p>
 		<ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 			{#each builtInSoon as s (s.key)}
 				<li class="flex min-w-0 flex-col rounded-2xl bg-white p-6 ring-1 ring-tnb-hair">
@@ -152,10 +157,6 @@
 				</div>
 			{/each}
 		</div>
-		<p class="mt-6 text-sm text-white/60">
-			{t({ en: 'Cloudflare’s data terms:', th: 'เงื่อนไขข้อมูลของ Cloudflare:' })}
-			<a href="https://developers.cloudflare.com/workers-ai/platform/data-usage/" class="text-white underline-offset-2 hover:underline" rel="noopener">developers.cloudflare.com/workers-ai/platform/data-usage</a>
-		</p>
 	</div>
 </section>
 
@@ -198,7 +199,7 @@
 		<p class="mt-5 flex flex-wrap items-center gap-2 text-sm">
 			<span class="text-tnb-ink-soft">{t({ en: 'Works with', th: 'ใช้ได้กับ' })}</span>
 			{#each assistants as a (a.key)}
-				<span class="rounded-full bg-white px-3 py-1 font-medium text-tnb-ink ring-1 ring-tnb-hair">{a.name}</span>
+				<span class="inline-flex h-8 items-center rounded-full bg-white px-3 font-medium text-tnb-ink ring-1 ring-tnb-hair"><AssistantMark key={a.key} /></span>
 			{/each}
 		</p>
 
@@ -228,13 +229,16 @@
 						role="tab"
 						aria-selected={guide === i}
 						onclick={() => (guide = i)}
-						class="rounded-full px-4 py-1.5 text-sm font-semibold transition {guide === i ? 'bg-tnb-ink text-white' : 'bg-tnb-mist text-tnb-ink-soft hover:text-tnb-ink'}"
-					>{a.name}</button>
+						class="inline-flex h-9 items-center rounded-full px-4 text-sm font-semibold transition {guide === i ? 'bg-tnb-ink text-white' : 'bg-tnb-mist text-tnb-ink-soft hover:text-tnb-ink'}"
+					><AssistantMark key={a.key} tone={guide === i ? 'dark' : 'light'} /></button>
 				{/each}
 			</div>
 			<div role="tabpanel" class="mt-6 grid gap-6 lg:grid-cols-[1fr_22rem]">
 				<div class="min-w-0">
-					<p class="text-sm text-tnb-ink-soft">{t(activeGuide.where)}</p>
+					<p class="flex flex-wrap items-center gap-x-3 gap-y-1">
+						<span class="text-base font-semibold text-tnb-ink"><AssistantMark key={activeGuide.key} /></span>
+						<span class="text-sm text-tnb-ink-soft">{t(activeGuide.where)}</span>
+					</p>
 					<ol class="mt-3 space-y-3">
 						{#each activeGuide.steps as s, i (i)}
 							<li class="flex gap-3">
@@ -282,6 +286,13 @@
 				</details>
 			{/each}
 		</div>
+		<!-- Trademark notice for the third-party assistant names and marks above. -->
+		<p class="mt-10 text-center text-xs leading-relaxed text-tnb-ink-soft">
+			{t({
+				en: 'Claude, Claude Code, ChatGPT, OpenAI, Gemini and Gemini CLI are trademarks of their respective owners. Tonbab is not affiliated with or endorsed by these companies; the names and logos only show which assistants can connect to Tonbab.',
+				th: 'Claude, Claude Code, ChatGPT, OpenAI, Gemini และ Gemini CLI เป็นเครื่องหมายการค้าของเจ้าของแต่ละราย Tonbab ไม่ได้มีความเกี่ยวข้องหรือได้รับการรับรองจากบริษัทเหล่านี้ ชื่อและโลโก้ใช้เพื่อบอกว่าผู้ช่วย AI ตัวไหนเชื่อมต่อกับ Tonbab ได้เท่านั้น'
+			})}
+		</p>
 	</div>
 </section>
 

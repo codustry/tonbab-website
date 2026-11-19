@@ -304,8 +304,8 @@ export const features: FeatureContent[] = [
       en: "AI Count: Count Stock from One Photo | Tonbab",
     },
     metaDescription: {
-      th: "นับด้วย AI (AI Count) ในสถานีแพ็กของ Tonbab: ถ่ายรูปกองของ AI จุดบนทุกชิ้นที่เห็น พนักงานแตะแก้ แล้วเก็บผลพร้อมรูปหลักฐาน 1–2 เครดิต AI ต่อรูป ประมวลผลบน Cloudflare ทุกแพ็กเกจ",
-      en: "AI Count in Tonbab's pack station: photograph a pile, AI puts a dot on every item it sees, staff tap to correct, and the count is saved with a proof photo. 1–2 AI credits per photo, processed on Cloudflare. Every plan.",
+      th: "นับด้วย AI (AI Count) ในสถานีแพ็กของ Tonbab: ถ่ายรูปกองของ AI จุดบนทุกชิ้นที่เห็น พนักงานแตะแก้ แล้วเก็บผลพร้อมรูปหลักฐาน 1–2 เครดิต AI ต่อรูป ประมวลผลด้วย Tonbab AI ทุกแพ็กเกจ",
+      en: "AI Count in Tonbab's pack station: photograph a pile, AI puts a dot on every item it sees, staff tap to correct, and the count is saved with a proof photo. 1–2 AI credits per photo, processed by Tonbab AI. Every plan.",
     },
     eyebrow: { th: "Operation · นับด้วย AI", en: "Operation · AI Count" },
     h1: {
@@ -358,10 +358,10 @@ export const features: FeatureContent[] = [
         },
       },
       {
-        title: { th: "1–2 เครดิตต่อรูป ประมวลผลบน Cloudflare", en: "1–2 credits per photo, runs on Cloudflare" },
+        title: { th: "1–2 เครดิตต่อรูป ด้วย Tonbab AI", en: "1–2 credits per photo, with Tonbab AI" },
         body: {
-          th: "ใช้เครดิต AI รายเดือนของแพ็กเกจ 1–2 เครดิตต่อรูป ไม่ว่าจะนับได้กี่ชิ้น นับไม่สำเร็จคืนเครดิตให้ รูปประมวลผลด้วย AI บน Cloudflare",
-          en: "Each photo takes 1–2 credits from your plan's monthly AI credits however many items it counts, and a failed count gives them back. Photos are processed by AI running on Cloudflare.",
+          th: "ใช้เครดิต AI รายเดือนของแพ็กเกจ 1–2 เครดิตต่อรูป ไม่ว่าจะนับได้กี่ชิ้น นับไม่สำเร็จคืนเครดิตให้ รูปประมวลผลด้วย Tonbab AI",
+          en: "Each photo takes 1–2 credits from your plan's monthly AI credits however many items it counts, and a failed count gives them back. Photos are processed by Tonbab AI.",
         },
       },
     ],
@@ -461,8 +461,8 @@ export const features: FeatureContent[] = [
       {
         title: { th: "ฉบับร่างเสมอ · 1 เครดิตต่อใบ", en: "Always a draft · 1 credit per document" },
         body: {
-          th: "ไม่มีอะไรถูกส่งหรือลงบัญชีเอง คนยังเป็นผู้กดส่งและอนุมัติ ใช้เครดิต AI รายเดือน 1 เครดิตต่อใบ อ่านไม่ออกคืนเครดิตให้ ประมวลผลบน Cloudflare Workers AI",
-          en: "Nothing is submitted or posted on its own — a person still submits and approves. Uses 1 monthly AI credit per document, refunded if it can't be read. Processed on Cloudflare Workers AI.",
+          th: "ไม่มีอะไรถูกส่งหรือลงบัญชีเอง คนยังเป็นผู้กดส่งและอนุมัติ ใช้เครดิต AI รายเดือน 1 เครดิตต่อใบ อ่านไม่ออกคืนเครดิตให้ ประมวลผลด้วย Tonbab AI",
+          en: "Nothing is submitted or posted on its own — a person still submits and approves. Uses 1 monthly AI credit per document, refunded if it can't be read. Processed by Tonbab AI.",
         },
       },
     ],

@@ -19,7 +19,8 @@
 	import { features } from '$lib/marketing/features-data';
 	import LogoWall from '$lib/components/www/LogoWall.svelte';
 	import FeatureVisual from '$lib/components/www/FeatureVisual.svelte';
-	import { builtInLive } from '$lib/marketing/ai-data';
+	import { assistants, builtInLive } from '$lib/marketing/ai-data';
+	import AssistantMark from '$lib/components/www/AssistantMark.svelte';
 
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
@@ -193,14 +194,16 @@
 </section>
 
 <!-- ───────────────────── Tonbab × AI ─────────────────────
-     Built-in AI (Cloudflare Workers AI, monthly credits) is the main story;
-     your own assistant over MCP is the optional side card. Copy + sources:
+     Built-in "Tonbab AI" (monthly credits; never name the AI vendor) is the
+     main story; your own assistant over MCP is the optional side card, with
+     third-party marks via AssistantMark ("works with" only — not in the
+     heading, which would read as a partnership). Copy + sources:
      $lib/marketing/ai-data.ts. Fully rendered at rest — no scroll reveal. -->
 <section class="relative overflow-hidden bg-tnb-ink" aria-labelledby="ai-title">
 	<div aria-hidden="true" class="blueprint-dark pointer-events-none absolute inset-0"></div>
 	<div class="relative container mx-auto max-w-6xl px-4 py-20">
 		<div class="max-w-3xl">
-			<p class="inline-flex items-center gap-1.5 rounded-full border border-violet-300/40 bg-violet-400/10 px-3 py-1 text-sm font-semibold text-violet-200">✦ {t({ en: 'Built-in AI · runs on Cloudflare Workers AI', th: 'AI ในตัว · ทำงานบน Cloudflare Workers AI' })}</p>
+			<p class="inline-flex items-center gap-1.5 rounded-full border border-violet-300/40 bg-violet-400/10 px-3 py-1 text-sm font-semibold text-violet-200">✦ {t({ en: 'Tonbab AI · built in, every plan', th: 'Tonbab AI · อยู่ในระบบ ทุกแพ็กเกจ' })}</p>
 			<h2 id="ai-title" class="mt-4 text-3xl font-bold tracking-tight text-balance text-white sm:text-5xl">Tonbab × AI <span class="inline-block">— {t({ en: 'working today', th: 'ใช้งานได้แล้ววันนี้' })}</span></h2>
 			<p class="mt-4 text-lg leading-relaxed text-white/70">
 				{t({
@@ -222,7 +225,11 @@
 			<!-- Optional: your own assistant over MCP -->
 			<div class="flex min-w-0 flex-col rounded-2xl bg-white/[0.06] p-5 ring-1 ring-white/10">
 				<p class="text-xs font-semibold tracking-wider text-tnb-amber uppercase">{t({ en: 'Optional · your own assistant', th: 'ทางเลือกเสริม · ผู้ช่วยของคุณเอง' })}</p>
-				<h3 class="mt-2 font-semibold text-white">{t({ en: 'Ask Tonbab from Claude, ChatGPT or Gemini CLI', th: 'ถาม Tonbab จาก Claude, ChatGPT หรือ Gemini CLI' })}</h3>
+				<h3 class="mt-2 font-semibold text-white">{t({ en: 'Ask Tonbab from the AI you already use', th: 'ถาม Tonbab จาก AI ที่คุณใช้อยู่' })}</h3>
+				<p class="mt-3 text-[11.5px] text-white/60">{t({ en: 'Works with', th: 'ใช้ได้กับ' })}</p>
+				<ul class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px] font-medium text-white">
+					{#each assistants as a (a.key)}<li><AssistantMark key={a.key} tone="dark" size="sm" /></li>{/each}
+				</ul>
 				<div class="mt-4 space-y-2 text-[13.5px]" aria-hidden="true">
 					<p class="ml-auto w-fit max-w-[90%] rounded-2xl rounded-br-sm bg-tnb-blue px-3 py-1.5 text-white">{t({ en: 'Which POs are still waiting for delivery?', th: 'PO ไหนค้างรับของบ้าง' })}</p>
 					<div class="w-fit max-w-[95%] rounded-2xl rounded-bl-sm bg-white/10 px-3 py-2 text-white/85">
@@ -233,6 +240,7 @@
 				</div>
 				<p class="mt-2 text-[11.5px] text-white/50">{t({ en: 'Example data', th: 'ข้อมูลตัวอย่าง' })}</p>
 				<p class="mt-auto pt-4 text-[13.5px] leading-snug text-white/70">{t({ en: 'Connect via MCP with your own assistant account. Uses no Tonbab AI credits — it shares your plan’s API quota.', th: 'เชื่อมผ่าน MCP ด้วยบัญชีผู้ช่วยของคุณเอง ไม่ใช้เครดิต AI ของ Tonbab ใช้โควตา API ของแพ็กเกจ' })}</p>
+				<p class="mt-2 text-[11px] leading-snug text-white/45">{t({ en: 'Trademarks of their respective owners. Not affiliated with or endorsed by them.', th: 'เครื่องหมายการค้าเป็นของเจ้าของแต่ละราย Tonbab ไม่ได้เกี่ยวข้องหรือได้รับการรับรองจากบริษัทเหล่านี้' })}</p>
 			</div>
 		</div>
 

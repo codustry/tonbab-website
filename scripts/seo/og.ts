@@ -118,7 +118,7 @@ const cards: Card[] = [
   },
   {
     slug: "ai",
-    eyebrow: { th: "Tonbab AI · ทำงานบน Cloudflare", en: "Tonbab AI · runs on Cloudflare" },
+    eyebrow: { th: "Tonbab AI · มาพร้อมทุกแพ็กเกจ", en: "Tonbab AI · included in every plan" },
     title: {
       th: "AI ในงานทุกวัน ไม่ต้องสมัครเพิ่ม",
       en: "AI in your daily work, no extra subscription",

@@ -158,8 +158,8 @@ export function aiMd(l: Locale): string {
     `# ${th ? "AI ใน Tonbab" : "AI in Tonbab"}`,
     url(l, "/ai"),
     th
-      ? "AI ในตัว Tonbab ทำงานบน Cloudflare Workers AI รวมอยู่ในทุกแพ็กเกจผ่านเครดิต AI รายเดือน ไม่ต้องสมัคร AI เพิ่ม และเป็นฉบับร่างให้คนตรวจเสมอ นอกจากนี้ยังเชื่อมผู้ช่วย AI ของคุณเอง (Claude, ChatGPT, Gemini CLI) ผ่าน MCP ได้ โดยไม่ใช้เครดิต AI"
-      : "Tonbab's built-in AI runs on Cloudflare Workers AI and is included in every plan through monthly AI credits — no extra AI subscription, and always a draft a person checks. You can also connect your own assistant (Claude, ChatGPT, Gemini CLI) over MCP, which doesn't use AI credits.",
+      ? "Tonbab AI (AI ในตัวของ Tonbab) รวมอยู่ในทุกแพ็กเกจผ่านเครดิต AI รายเดือน ไม่ต้องสมัคร AI เพิ่ม และเป็นฉบับร่างให้คนตรวจเสมอ นอกจากนี้ยังเชื่อมผู้ช่วย AI ของคุณเอง (Claude, ChatGPT, Gemini CLI) ผ่าน MCP ได้ โดยไม่ใช้เครดิต AI"
+      : "Tonbab AI, the AI built into Tonbab, is included in every plan through monthly AI credits — no extra AI subscription, and always a draft a person checks. You can also connect your own assistant (Claude, ChatGPT, Gemini CLI) over MCP, which doesn't use AI credits.",
     `## ${th ? "AI ในตัว ใช้ได้แล้ววันนี้" : "Built-in AI, live now"}`,
     builtInLive
       .map(
@@ -230,7 +230,7 @@ ${modulesContent.map((m) => link("en", `/modules/${m.key}`, m.name.en, m.tagline
 
 ## Features
 ${features.map((f) => link("en", `/features/${f.key}`, f.keyword.en, f.lede.en)).join("\n")}
-${link("en", "/ai", "AI in Tonbab", "built-in AI on Cloudflare Workers AI (receipt scan, AI Count) included through monthly AI credits; connect Claude, ChatGPT or Gemini CLI over MCP")}
+${link("en", "/ai", "AI in Tonbab", "Tonbab AI built in (receipt scan, AI Count), included through monthly AI credits; connect Claude, ChatGPT or Gemini CLI over MCP")}
 ${link("en", "/developers", "API and MCP", "REST API, signed webhooks and an MCP server for Claude, ChatGPT and other MCP clients")}
 ${link("en", "/migration", "Data migration", "from FlowAccount, PEAK, Express, Xero, QuickBooks and others via Excel")}
 
