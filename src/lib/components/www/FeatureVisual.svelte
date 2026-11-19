@@ -26,8 +26,20 @@
 		egp: { en: 'Daily e-GP announcements with keyword matches (example data)', th: 'ประกาศ e-GP รายวันพร้อมคำค้นที่ตรง (ข้อมูลตัวอย่าง)' },
 		mobile: { en: 'Approvals on a phone (example data)', th: 'อนุมัติบนมือถือ (ข้อมูลตัวอย่าง)' },
 		security: { en: 'Who can see what — enforced in the database', th: 'ใครเห็นอะไร — บังคับที่ฐานข้อมูล' },
-		aicount: { en: 'AI Count: one dot per item, checked by a person (example photo)', th: 'นับด้วย AI: หนึ่งจุดต่อหนึ่งชิ้น คนตรวจก่อนเก็บ (รูปตัวอย่าง)' }
+		aicount: { en: 'AI Count: one dot per item, checked by a person (example photo)', th: 'นับด้วย AI: หนึ่งจุดต่อหนึ่งชิ้น คนตรวจก่อนเก็บ (รูปตัวอย่าง)' },
+		receipt: { en: 'Receipt scan: fields filled, checked and highlighted, saved as a draft (example data)', th: 'สแกนใบเสร็จ: กรอกให้ ตรวจให้ ไฮไลต์ช่องที่ต้องดู แล้วเก็บเป็นฉบับร่าง (ข้อมูลตัวอย่าง)' }
 	};
+
+	// Receipt scan drawing: what the form looks like after a capture. `unsure`
+	// is the highlighted "check this" state the app gives a low-confidence field.
+	const receiptFields: { label: Bi; value: Bi; ok?: Bi; unsure?: boolean }[] = [
+		{ label: { en: 'Vendor', th: 'ผู้ขาย' }, value: { en: 'Somsak Hardware Co., Ltd.', th: 'บจ. สมศักดิ์ฮาร์ดแวร์' }, ok: { en: 'on file', th: 'มีในระบบ' } },
+		{ label: { en: 'Tax ID', th: 'เลขผู้เสียภาษี' }, value: { en: '0105561234560', th: '0105561234560' }, ok: { en: 'check digit OK', th: 'เลขตรวจสอบถูก' } },
+		{ label: { en: 'Date', th: 'วันที่' }, value: { en: '18 Nov 2026', th: '18 พ.ย. 2569' } },
+		{ label: { en: 'Document no.', th: 'เลขที่เอกสาร' }, value: { en: 'IV6911-0042', th: 'IV6911-0042' }, unsure: true },
+		{ label: { en: 'Subtotal · VAT 7%', th: 'ก่อน VAT · VAT 7%' }, value: { en: '฿1,200.00 · ฿84.00', th: '฿1,200.00 · ฿84.00' } },
+		{ label: { en: 'Total', th: 'ยอดรวม' }, value: { en: '฿1,284.00', th: '฿1,284.00' }, ok: { en: 'adds up', th: 'ยอดตรงกัน' } }
+	];
 
 	// AI Count drawing: a pile of pipe ends, 6 × 4, rows offset like a real stack.
 	// One end has no dot yet — the "tap to add" a person does before saving.
@@ -146,6 +158,36 @@
 				{#each [{ l: { en: 'Company A', th: 'บริษัท A' }, s: { en: 'row-level security', th: 'Row-Level Security' } }, { l: { en: 'Role: Purchasing', th: 'บทบาท: จัดซื้อ' }, s: { en: 'sees PR / PO / stock', th: 'เห็น PR / PO / สต็อก' } }, { l: { en: 'Tier: Salary', th: 'ชั้นสิทธิ์: เงินเดือน' }, s: { en: 'HR & Admin only', th: 'เฉพาะ HR และ Admin' } }] as r, i (r.l.en)}
 					<div class="flex items-center justify-between rounded-lg px-3 py-2.5 ring-1 ring-tnb-line" style="margin-left:{i * 1.25}rem"><span class="font-semibold text-tnb-ink">{t(r.l)}</span><span class="text-tnb-ink-soft">{t(r.s)}</span></div>
 				{/each}
+			</div>
+		{:else if visual === 'receipt'}
+			<div class="overflow-hidden rounded-xl border border-tnb-line bg-white shadow-[0_10px_30px_-12px_rgba(23,22,28,0.2)]">
+				<div class="flex items-center justify-between gap-2 border-b border-tnb-line bg-tnb-mist px-4 py-2.5 text-xs">
+					<span class="font-semibold text-tnb-ink">{t({ en: 'New expense line', th: 'รายการเบิกใหม่' })}</span>
+					<span class="inline-flex shrink-0 items-center gap-1 rounded-full border border-violet-300 bg-violet-50 px-2 py-0.5 text-[11px] font-semibold text-violet-700">✦ AI<span class="font-normal opacity-80">· {t({ en: '1 credit', th: '1 เครดิต' })}</span></span>
+				</div>
+				<div class="grid gap-3 p-3 sm:grid-cols-[7.5rem_1fr]">
+					<!-- The paper: a Thai full tax invoice, photographed. -->
+					<div class="mx-auto w-28 -rotate-2 rounded-sm bg-amber-50/60 p-2.5 text-[8px] leading-tight text-tnb-ink-soft shadow-md ring-1 ring-tnb-line sm:w-full">
+						<p class="text-center font-bold text-tnb-ink">{t({ en: 'TAX INVOICE', th: 'ใบกำกับภาษี' })}</p>
+						<p class="mt-1 text-center">{t({ en: 'Somsak Hardware', th: 'สมศักดิ์ฮาร์ดแวร์' })}</p>
+						<div class="mt-2 space-y-1">
+							{#each [70, 90, 55, 80] as w (w)}<span class="block h-1 rounded bg-tnb-line" style="width:{w}%"></span>{/each}
+						</div>
+						<p class="mt-2 flex justify-between border-t border-dashed border-tnb-line pt-1 font-semibold text-tnb-ink"><span>{t({ en: 'Total', th: 'รวม' })}</span><span>1,284.00</span></p>
+					</div>
+					<ul class="min-w-0 space-y-1.5 text-[12px]">
+						{#each receiptFields as f (f.label.en)}
+							<li class="flex min-w-0 items-center justify-between gap-2 rounded-md px-2 py-1 {f.unsure ? 'bg-amber-50 ring-1 ring-amber-300' : 'bg-tnb-mist'}">
+								<span class="shrink-0 text-tnb-ink-soft">{t(f.label)}</span>
+								<span class="min-w-0 truncate text-right font-medium text-tnb-ink">{t(f.value)}{#if f.ok}<span class="ml-1 font-normal text-emerald-700">✓ {t(f.ok)}</span>{/if}{#if f.unsure}<span class="ml-1 font-normal text-amber-800">· {t({ en: 'check', th: 'ตรวจ' })}</span>{/if}</span>
+							</li>
+						{/each}
+					</ul>
+				</div>
+				<div class="flex flex-wrap items-center justify-between gap-2 border-t border-tnb-line px-4 py-2.5 text-[12px]">
+					<span class="text-tnb-ink-soft">{t({ en: 'Full tax invoice · input VAT claimable', th: 'ใบกำกับภาษีเต็มรูป · ขอคืนภาษีซื้อได้' })}</span>
+					<span class="rounded-lg bg-tnb-ink px-2.5 py-1 font-semibold text-white">{t({ en: 'Review and submit', th: 'ตรวจแล้วส่ง' })}</span>
+				</div>
 			</div>
 		{:else if visual === 'aicount'}
 			<div class="overflow-hidden rounded-xl border border-tnb-line bg-white shadow-[0_10px_30px_-12px_rgba(23,22,28,0.2)]">

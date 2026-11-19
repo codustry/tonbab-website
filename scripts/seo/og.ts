@@ -117,6 +117,15 @@ const cards: Card[] = [
     },
   },
   {
+    slug: "ai",
+    eyebrow: { th: "Tonbab AI · ทำงานบน Cloudflare", en: "Tonbab AI · runs on Cloudflare" },
+    title: {
+      th: "AI ในงานทุกวัน ไม่ต้องสมัครเพิ่ม",
+      en: "AI in your daily work, no extra subscription",
+    },
+    color: "#7c3aed",
+  },
+  {
     slug: "developers",
     eyebrow: { th: "API และ MCP", en: "API & MCP" },
     title: {

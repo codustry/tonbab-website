@@ -102,8 +102,9 @@
 					<div class="mt-4 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
 						{#each group.features as f (f.title.en)}
 							<div class="rounded-xl border border-tnb-line p-6 shadow-[0_1px_3px_rgba(23,22,28,0.05)]">
-								<h4 class="font-semibold text-tnb-ink">{t(f.title)}</h4>
+								<h4 class="font-semibold text-tnb-ink">{t(f.title)}{#if f.ai}<span class="ml-1.5 inline-flex items-center gap-0.5 rounded-full border border-violet-300 bg-violet-50 px-1.5 py-px align-middle text-[10.5px] font-semibold text-violet-700" title="AI">✦ AI</span>{/if}</h4>
 								<p class="mt-2 text-[15px] leading-relaxed text-tnb-ink-soft">{t(f.body)}</p>
+								{#if f.href}<a href={localePath(locale, f.href)} class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-tnb-blue hover:underline">{locale === 'th' ? 'ดูรายละเอียด' : 'Learn more'} →</a>{/if}
 							</div>
 						{/each}
 					</div>

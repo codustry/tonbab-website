@@ -3,7 +3,7 @@ title: "Tonbab API and MCP AI Connector Quickstart"
 description: "Connect Tonbab to Claude or ChatGPT via MCP, or your systems via REST API: create keys, set permissions, add webhooks and see limits."
 section: api
 order: 1
-updated: 2026-11-17
+updated: 2026-11-19
 ---
 
 Tonbab connects in two ways. The **AI connector (MCP)** lets assistants like Claude or ChatGPT read your company's data and create draft documents. The **REST API** is for your own systems and scripts. Every plan can use them; the Free plan is read-only.
@@ -25,6 +25,22 @@ The connector URL is `https://api.tonbab.com/mcp`.
 3. Sign in to Tonbab, pick the company and allow access.
 
 Each connection acts as the person who connected it, within their role's permissions. See and disconnect connections on the **Connected apps** tab.
+
+Connecting an assistant doesn't use your AI credits: the assistant runs on your own Claude, ChatGPT or Gemini account, and each data call counts toward the API limits below.
+
+### Notes per assistant
+
+- **Claude** (claude.ai, desktop and mobile): on Claude Team or Enterprise, an organization owner adds the custom connector first, then members click **Connect**. Claude's free plan allows one custom connector.
+- **ChatGPT**: custom MCP connectors need developer mode, which a workspace admin turns on. OpenAI currently offers this on Business, Enterprise and Edu workspaces. ChatGPT signs in with OAuth only; API keys don't work there.
+- **Gemini CLI**: add Tonbab to `~/.gemini/settings.json`, then run `/mcp auth tonbab` inside `gemini` to sign in:
+
+  ```json
+  { "mcpServers": { "tonbab": { "httpUrl": "https://api.tonbab.com/mcp" } } }
+  ```
+
+- **Claude Code**: run `claude mcp add --transport http tonbab https://api.tonbab.com/mcp`, then `/mcp` to sign in.
+
+Other apps that let you add a remote MCP server by URL with OAuth sign-in connect the same way. For an unattended script, send a company API key as an `Authorization: Bearer` header instead.
 
 ## Create a REST API key
 
