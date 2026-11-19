@@ -54,7 +54,7 @@ Free 0 บาท, Starter 2,990 บาท/ปี, Standard 9,900 บาท/ป�
 
 ### เชื่อมกับระบบอื่นหรือ AI ได้ไหม
 
-ได้ ผ่าน REST API และตัวเชื่อมต่อ AI (MCP) สำหรับ Claude และ ChatGPT การเขียนผ่าน API ได้แค่ฉบับร่าง ดู [API และ MCP](/th/docs/api/api-and-mcp-quickstart)
+ได้ ผ่าน REST API และตัวเชื่อมต่อ AI (MCP) สำหรับ Claude, ChatGPT และ Gemini CLI การเขียนผ่าน API ได้แค่ฉบับร่าง ดู [API และ MCP](/th/docs/api/api-and-mcp-quickstart)
 
 ### Tonbab มีฟีเจอร์ AI ไหม เครดิต AI คืออะไร
 

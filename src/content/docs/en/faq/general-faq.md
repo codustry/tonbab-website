@@ -54,7 +54,7 @@ Yes. A user can belong to several companies and switch from the sidebar. Running
 
 ### Can it connect to other systems or AI?
 
-Yes, through the REST API and the AI connector (MCP) for Claude and ChatGPT. Writes through the API are drafts only. See [API and MCP](/en/docs/api/api-and-mcp-quickstart).
+Yes, through the REST API and the AI connector (MCP) for Claude, ChatGPT and Gemini CLI. Writes through the API are drafts only. See [API and MCP](/en/docs/api/api-and-mcp-quickstart).
 
 ### Does Tonbab have AI features? What are AI credits?
 
