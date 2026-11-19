@@ -33,7 +33,7 @@
 				<li>
 					<a href={localePath(locale, `/features/${f.key}`)} class="group flex h-full flex-col rounded-xl border border-tnb-line bg-white p-6 transition hover:-translate-y-0.5 hover:border-tnb-blue hover:shadow-md">
 						<p class="flex items-center gap-2 text-xs font-semibold tracking-wider uppercase {theme.text}"><span class="h-2 w-2 rounded-full {theme.solid}" aria-hidden="true"></span>{t(f.eyebrow)}</p>
-						<h2 class="mt-2 text-lg font-bold text-tnb-ink group-hover:text-tnb-blue">{t(f.keyword)}</h2>
+						<h2 class="mt-2 text-lg font-bold text-tnb-ink group-hover:text-tnb-blue">{t(f.keyword)}{#if f.ai}<span class="ml-1.5 inline-flex items-center gap-0.5 rounded-full border border-violet-300 bg-violet-50 px-1.5 py-px align-middle text-[10.5px] font-semibold text-violet-700" title="AI">✦ AI</span>{/if}</h2>
 						<p class="mt-2 flex-1 text-[15px] leading-relaxed text-tnb-ink-soft">{t(f.lede)}</p>
 						<span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-tnb-blue">{th ? 'ดูรายละเอียด' : 'Details'}<ArrowRight class="h-4 w-4" aria-hidden="true" /></span>
 					</a>

@@ -28,7 +28,7 @@ export const SITE_ORIGIN = "https://www.tonbab.com";
  * sitemap uses it as <lastmod> (Google ignores lastmod values that change
  * on every crawl, so this must be a real date, bumped with real edits).
  */
-export const SITE_UPDATED = "2026-11-18";
+export const SITE_UPDATED = "2026-11-19";
 
 export const ENTITY = {
   name: "Tonbab",
@@ -66,18 +66,40 @@ export const PLAN_FACTS: {
   monthly: number | null;
   /** Included user seats (owner, 2026-11-17: Free is 1 seat). */
   seats: number;
+  /**
+   * Monthly AI credits (plans.ts `ai_credits`, AI-1, 2026-11-19). Weighted
+   * (owner, 2026-11-19): most AI actions use 1 credit, heavier ones more — an
+   * AI Count photo is 1, or 2 when a dense pile is tiled. Resets
+   * each calendar month, Bangkok time.
+   */
+  aiCredits: number;
   /** Enterprise is "from" — priced per customer above the included scale. */
   from?: boolean;
 }[] = [
-  { code: "free", name: "Free", yearly: 0, monthly: 0, seats: 1 },
-  { code: "starter", name: "Starter", yearly: 2990, monthly: 299, seats: 5 },
-  { code: "standard", name: "Standard", yearly: 9900, monthly: 990, seats: 10 },
+  { code: "free", name: "Free", yearly: 0, monthly: 0, seats: 1, aiCredits: 30 },
+  {
+    code: "starter",
+    name: "Starter",
+    yearly: 2990,
+    monthly: 299,
+    seats: 5,
+    aiCredits: 300,
+  },
+  {
+    code: "standard",
+    name: "Standard",
+    yearly: 9900,
+    monthly: 990,
+    seats: 10,
+    aiCredits: 1000,
+  },
   {
     code: "business",
     name: "Business",
     yearly: 39900,
     monthly: 3990,
     seats: 25,
+    aiCredits: 3000,
   },
   {
     code: "enterprise",
@@ -85,6 +107,7 @@ export const PLAN_FACTS: {
     yearly: 120000,
     monthly: null,
     seats: 100,
+    aiCredits: 10000,
     from: true,
   },
 ];
@@ -147,7 +170,7 @@ export function softwareJsonLd(locale: Locale): Record<string, unknown> {
     offers: PLAN_FACTS.map((p) => ({
       "@type": "Offer",
       name: p.name,
-      description: `${p.seats}${p.from ? "+" : ""} ${p.seats === 1 ? "user" : "users"}, every module and feature, billed yearly (monthly = yearly ÷ 10)`,
+      description: `${p.seats}${p.from ? "+" : ""} ${p.seats === 1 ? "user" : "users"}, every module and feature, ${p.aiCredits.toLocaleString("en-US")} AI credits a month, billed yearly (monthly = yearly ÷ 10)`,
       price: p.yearly,
       priceCurrency: "THB",
       url: `${SITE_ORIGIN}/${locale}/pricing`,

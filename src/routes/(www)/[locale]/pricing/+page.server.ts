@@ -8,7 +8,7 @@ import {
 } from "$lib/seo/site";
 import * as m from "$lib/paraglide/messages";
 
-// Same eight Q&As the page renders (pricing/+page.svelte `faqs`).
+// Same nine Q&As the page renders (pricing/+page.svelte `faqs`).
 const FAQ = [
   [m.pr_q1, m.pr_a1],
   [m.pr_q2, m.pr_a2],
@@ -18,6 +18,7 @@ const FAQ = [
   [m.pr_q6, m.pr_a6],
   [m.pr_q7, m.pr_a7],
   [m.pr_q8, m.pr_a8],
+  [m.pr_q9, m.pr_a9],
 ] as const;
 
 export const load: PageServerLoad = async (event) => {

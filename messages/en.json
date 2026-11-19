@@ -1158,5 +1158,11 @@
 	"mkt_nav_migration": "Data migration",
 	"mkt_nav_what_is": "What is Tonbab?",
 	"mkt_footer_contact": "Contact sales",
-	"mkt_footer_product_of": "A product of Codustry"
+	"mkt_footer_product_of": "A product of Codustry",
+	"pr_r_ai_credits": "AI credits / month",
+	"pr_b_ai": "{n} AI credits a month",
+	"pr_ai_note": "Most AI actions use 1 credit; heavier ones use more. AI Count uses 1–2 credits per photo however many items it counts (2 when a dense pile has to be counted in sections), and a failed call gives the credits back. Credits reset every month on Bangkok time; usage shows in Billing. The API and AI connector (MCP) use their own API limits, not AI credits.",
+	"pr_ai_link": "See AI Count",
+	"pr_q9": "What are AI credits, and what happens when they run out?",
+	"pr_a9": "AI features in Tonbab — such as AI Count, which counts items from a photo — spend your company's monthly AI credits. Most AI actions use 1 credit and heavier ones use more; AI Count uses 1–2 credits per photo. Every plan includes credits, from 30 a month on Free to 10,000 on Enterprise, and they reset every month on Bangkok time. If they run out, AI features pause until the next month while everything else keeps working, and an admin can upgrade the plan in Billing. Every AI feature carries an AI mark."
 }

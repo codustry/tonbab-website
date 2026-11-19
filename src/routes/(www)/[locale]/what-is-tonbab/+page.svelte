@@ -76,15 +76,15 @@
 			<h2 class="text-2xl font-bold tracking-tight text-tnb-ink">{th ? 'ราคา (ต่อบริษัท ก่อน VAT 7%)' : 'Pricing (per company, before 7% VAT)'}</h2>
 			<div class="mt-6 overflow-x-auto rounded-xl bg-white ring-1 ring-tnb-line">
 				<table class="w-full text-left text-[15px]">
-					<thead class="bg-tnb-paper text-sm text-tnb-ink-soft"><tr><th scope="col" class="px-4 py-3 font-medium">{th ? 'แพ็กเกจ' : 'Plan'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'ผู้ใช้' : 'Users'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'รายปี' : 'Yearly'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'รายเดือน' : 'Monthly'}</th></tr></thead>
+					<thead class="bg-tnb-paper text-sm text-tnb-ink-soft"><tr><th scope="col" class="px-4 py-3 font-medium">{th ? 'แพ็กเกจ' : 'Plan'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'ผู้ใช้' : 'Users'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'รายปี' : 'Yearly'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'รายเดือน' : 'Monthly'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'เครดิต AI/เดือน' : 'AI credits/mo'}</th></tr></thead>
 					<tbody>
 						{#each PLAN_FACTS as p (p.code)}
-							<tr class="border-t border-tnb-line"><th scope="row" class="px-4 py-3 font-medium text-tnb-ink">{p.name}</th><td class="px-4 py-3 text-right tabular-nums">{p.seats}{p.from ? '+' : ''}</td><td class="px-4 py-3 text-right tabular-nums">{p.from ? (th ? 'เริ่มต้น ' : 'from ') : ''}{baht(p.yearly)}</td><td class="px-4 py-3 text-right tabular-nums text-tnb-ink-soft">{p.monthly === null ? (th ? 'รายปีเท่านั้น' : 'yearly only') : baht(p.monthly)}</td></tr>
+							<tr class="border-t border-tnb-line"><th scope="row" class="px-4 py-3 font-medium text-tnb-ink">{p.name}</th><td class="px-4 py-3 text-right tabular-nums">{p.seats}{p.from ? '+' : ''}</td><td class="px-4 py-3 text-right tabular-nums">{p.from ? (th ? 'เริ่มต้น ' : 'from ') : ''}{baht(p.yearly)}</td><td class="px-4 py-3 text-right tabular-nums text-tnb-ink-soft">{p.monthly === null ? (th ? 'รายปีเท่านั้น' : 'yearly only') : baht(p.monthly)}</td><td class="px-4 py-3 text-right tabular-nums text-tnb-ink-soft">{p.aiCredits.toLocaleString('en-US')}</td></tr>
 						{/each}
 					</tbody>
 				</table>
 			</div>
-			<p class="mt-3 text-sm text-tnb-ink-soft">{th ? `ทุกแพ็กเกจได้ทุกโมดูลและทุกฟีเจอร์ รวมถึงบัญชี ต่างกันที่ขนาด เช่น จำนวนผู้ใช้และพื้นที่ แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี` : `Every plan includes every module and feature, Accounting included; plans differ by size, such as users and storage. Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr.`} <a href={localePath(locale, '/pricing')} class="font-medium text-tnb-blue hover:underline">{th ? 'ดูรายละเอียดราคา' : 'Full pricing'}</a></p>
+			<p class="mt-3 text-sm text-tnb-ink-soft">{th ? `ทุกแพ็กเกจได้ทุกโมดูลและทุกฟีเจอร์ รวมถึงบัญชี ต่างกันที่ขนาด เช่น จำนวนผู้ใช้ พื้นที่ และเครดิต AI (งาน AI ส่วนใหญ่ใช้ 1 เครดิต งานที่หนักกว่าใช้มากกว่านั้น) แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี` : `Every plan includes every module and feature, Accounting included; plans differ by size, such as users, storage and AI credits (most AI actions use 1 credit; heavier ones use more). Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr.`} <a href={localePath(locale, '/pricing')} class="font-medium text-tnb-blue hover:underline">{th ? 'ดูรายละเอียดราคา' : 'Full pricing'}</a></p>
 		</div>
 	</section>
 

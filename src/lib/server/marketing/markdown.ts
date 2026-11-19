@@ -42,16 +42,16 @@ export function pricingMd(l: Locale): string {
   const th = l === "th";
   const rows = PLAN_FACTS.map(
     (p) =>
-      `| ${p.name} | ${p.seats}${p.from ? "+" : ""} | ${p.from ? (th ? "เริ่มต้น " : "from ") : ""}${baht(p.yearly)} | ${p.monthly === null ? (th ? "รายปีเท่านั้น" : "yearly only") : baht(p.monthly)} |`,
+      `| ${p.name} | ${p.seats}${p.from ? "+" : ""} | ${p.from ? (th ? "เริ่มต้น " : "from ") : ""}${baht(p.yearly)} | ${p.monthly === null ? (th ? "รายปีเท่านั้น" : "yearly only") : baht(p.monthly)} | ${p.aiCredits.toLocaleString("en-US")} |`,
   ).join("\n");
-  return `${th ? "| แพ็กเกจ | ผู้ใช้ | รายปี | รายเดือน |" : "| Plan | Users | Yearly | Monthly |"}
-|---|---|---|---|
+  return `${th ? "| แพ็กเกจ | ผู้ใช้ | รายปี | รายเดือน | เครดิต AI ต่อเดือน |" : "| Plan | Users | Yearly | Monthly | AI credits / month |"}
+|---|---|---|---|---|
 ${rows}
 
 ${
   th
-    ? `ราคาต่อบริษัท ก่อน VAT 7% · ทุกแพ็กเกจได้ทุกโมดูลและทุกฟีเจอร์ รวมถึงบัญชี ต่างกันที่ขนาด (หลายบริษัทและการควบคุมความปลอดภัยระดับองค์กรอยู่ใน Enterprise) · ทดลองแพ็กเกจ Business ฟรี ${TRIAL_DAYS} วัน แล้วใช้ต่อแบบ Free · แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี · Onboarding ${baht(9900)} ครั้งเดียว · แพ็กเสริมช่องทางขาย (Shopee/Lazada) ${baht(2400)}/ปี`
-    : `Per company, before 7% VAT · every plan includes every module and feature, Accounting included; plans differ by size (several companies and enterprise IT controls are Enterprise) · ${TRIAL_DAYS}-day Business trial, then Free · Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr · Onboarding ${baht(9900)} once · Sales-channels add-on (Shopee/Lazada) ${baht(2400)}/yr`
+    ? `ราคาต่อบริษัท ก่อน VAT 7% · ทุกแพ็กเกจได้ทุกโมดูลและทุกฟีเจอร์ รวมถึงบัญชี ต่างกันที่ขนาด (หลายบริษัทและการควบคุมความปลอดภัยระดับองค์กรอยู่ใน Enterprise) · เครดิต AI: งาน AI ส่วนใหญ่ใช้ 1 เครดิต งานที่หนักกว่าใช้มากกว่านั้น (นับของจากรูปด้วย AI Count ใช้ 1–2 เครดิตต่อรูป ไม่ว่าจะนับได้กี่ชิ้น) เริ่มนับใหม่ทุกเดือนตามเวลาประเทศไทย · ทดลองแพ็กเกจ Business ฟรี ${TRIAL_DAYS} วัน แล้วใช้ต่อแบบ Free · แพ็กซัพพอร์ต Enterprise ${baht(SUPPORT_PACK_YEARLY)}/ปี · Onboarding ${baht(9900)} ครั้งเดียว · แพ็กเสริมช่องทางขาย (Shopee/Lazada) ${baht(2400)}/ปี`
+    : `Per company, before 7% VAT · every plan includes every module and feature, Accounting included; plans differ by size (several companies and enterprise IT controls are Enterprise) · AI credits: most AI actions use 1 credit, heavier ones more (AI Count: 1–2 credits per photo, however many items), reset every month on Bangkok time · ${TRIAL_DAYS}-day Business trial, then Free · Enterprise support pack ${baht(SUPPORT_PACK_YEARLY)}/yr · Onboarding ${baht(9900)} once · Sales-channels add-on (Shopee/Lazada) ${baht(2400)}/yr`
 }`;
 }
 
@@ -170,7 +170,7 @@ Facts are current as of ${SITE_UPDATED}. Full content in one file: ${SITE_ORIGIN
 ## Overview
 ${link("en", "/what-is-tonbab", "What is Tonbab?", "definition, key facts, pricing table, FAQ")}
 ${link("th", "/what-is-tonbab", "Tonbab คืออะไร (ภาษาไทย)")}
-${link("en", "/pricing", "Pricing", "Free ฿0 (1 user), Starter ฿2,990 (5 users), Standard ฿9,900 (10), Business ฿39,900 (25), Enterprise from ฿120,000 per year (100+)")}
+${link("en", "/pricing", "Pricing", `Free ฿0 (1 user), Starter ฿2,990 (5 users), Standard ฿9,900 (10), Business ฿39,900 (25), Enterprise from ฿120,000 per year (100+); monthly AI credits ${PLAN_FACTS.map((p) => p.aiCredits.toLocaleString("en-US")).join(" / ")}`)}
 ${link("en", "/customers", "Customers")}
 
 ## Modules

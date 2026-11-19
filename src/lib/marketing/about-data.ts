@@ -18,8 +18,8 @@ export const whatFaq: { q: Bi; a: Bi }[] = [
   {
     q: { th: "Tonbab ราคาเท่าไร?", en: "How much does Tonbab cost?" },
     a: {
-      th: "มีแพ็กเกจ Free ฿0 (ผู้ใช้ 1 คน), Starter ฿2,990/ปี (5 คน), Standard ฿9,900/ปี (10 คน), Business ฿39,900/ปี (25 คน) และ Enterprise เริ่มต้น ฿120,000/ปี (100 คนขึ้นไป) ราคาก่อน VAT 7% จ่ายรายเดือนได้ที่หนึ่งในสิบของราคารายปี ทุกแพ็กเกจได้ทุกโมดูลและทุกฟีเจอร์ รวมถึงบัญชี ต่างกันที่ขนาด เช่น จำนวนผู้ใช้และพื้นที่",
-      en: "Free ฿0 (1 user), Starter ฿2,990/yr (5 users), Standard ฿9,900/yr (10), Business ฿39,900/yr (25) and Enterprise from ฿120,000/yr (100+), before 7% VAT. Monthly billing is one tenth of the yearly price. Every plan includes every module and feature, Accounting included; plans differ by size, such as users and storage.",
+      th: "มีแพ็กเกจ Free ฿0 (ผู้ใช้ 1 คน), Starter ฿2,990/ปี (5 คน), Standard ฿9,900/ปี (10 คน), Business ฿39,900/ปี (25 คน) และ Enterprise เริ่มต้น ฿120,000/ปี (100 คนขึ้นไป) ราคาก่อน VAT 7% จ่ายรายเดือนได้ที่หนึ่งในสิบของราคารายปี ทุกแพ็กเกจได้ทุกโมดูลและทุกฟีเจอร์ รวมถึงบัญชี ต่างกันที่ขนาด เช่น จำนวนผู้ใช้ พื้นที่ และเครดิต AI ต่อเดือน (Free 30, Starter 300, Standard 1,000, Business 3,000, Enterprise 10,000)",
+      en: "Free ฿0 (1 user), Starter ฿2,990/yr (5 users), Standard ฿9,900/yr (10), Business ฿39,900/yr (25) and Enterprise from ฿120,000/yr (100+), before 7% VAT. Monthly billing is one tenth of the yearly price. Every plan includes every module and feature, Accounting included; plans differ by size, such as users, storage and monthly AI credits (Free 30, Starter 300, Standard 1,000, Business 3,000, Enterprise 10,000).",
     },
   },
   {

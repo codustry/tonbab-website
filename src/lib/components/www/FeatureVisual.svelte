@@ -25,8 +25,17 @@
 		payroll: { en: 'Team calendar and leave in People (example data)', th: 'ปฏิทินทีมและวันลาใน People (ข้อมูลตัวอย่าง)' },
 		egp: { en: 'Daily e-GP announcements with keyword matches (example data)', th: 'ประกาศ e-GP รายวันพร้อมคำค้นที่ตรง (ข้อมูลตัวอย่าง)' },
 		mobile: { en: 'Approvals on a phone (example data)', th: 'อนุมัติบนมือถือ (ข้อมูลตัวอย่าง)' },
-		security: { en: 'Who can see what — enforced in the database', th: 'ใครเห็นอะไร — บังคับที่ฐานข้อมูล' }
+		security: { en: 'Who can see what — enforced in the database', th: 'ใครเห็นอะไร — บังคับที่ฐานข้อมูล' },
+		aicount: { en: 'AI Count: one dot per item, checked by a person (example photo)', th: 'นับด้วย AI: หนึ่งจุดต่อหนึ่งชิ้น คนตรวจก่อนเก็บ (รูปตัวอย่าง)' }
 	};
+
+	// AI Count drawing: a pile of pipe ends, 6 × 4, rows offset like a real stack.
+	// One end has no dot yet — the "tap to add" a person does before saving.
+	const pipes = Array.from({ length: 24 }, (_, i) => {
+		const row = Math.floor(i / 6);
+		const col = i % 6;
+		return { x: 34 + col * 46 + (row % 2) * 23, y: 34 + row * 40, dot: i !== 15 };
+	});
 
 	const quotes = [
 		{ v: { en: 'Shenzhen Parts (CNY)', th: 'Shenzhen Parts (CNY)' }, unit: 412, landed: 498, best: true },
@@ -137,6 +146,25 @@
 				{#each [{ l: { en: 'Company A', th: 'บริษัท A' }, s: { en: 'row-level security', th: 'Row-Level Security' } }, { l: { en: 'Role: Purchasing', th: 'บทบาท: จัดซื้อ' }, s: { en: 'sees PR / PO / stock', th: 'เห็น PR / PO / สต็อก' } }, { l: { en: 'Tier: Salary', th: 'ชั้นสิทธิ์: เงินเดือน' }, s: { en: 'HR & Admin only', th: 'เฉพาะ HR และ Admin' } }] as r, i (r.l.en)}
 					<div class="flex items-center justify-between rounded-lg px-3 py-2.5 ring-1 ring-tnb-line" style="margin-left:{i * 1.25}rem"><span class="font-semibold text-tnb-ink">{t(r.l)}</span><span class="text-tnb-ink-soft">{t(r.s)}</span></div>
 				{/each}
+			</div>
+		{:else if visual === 'aicount'}
+			<div class="overflow-hidden rounded-xl border border-tnb-line bg-white shadow-[0_10px_30px_-12px_rgba(23,22,28,0.2)]">
+				<div class="flex items-center justify-between gap-2 border-b border-tnb-line bg-tnb-mist px-4 py-2.5 text-xs">
+					<span class="font-semibold text-tnb-ink">{t({ en: 'AI Count · Pipes', th: 'นับด้วย AI · ท่อ' })}</span>
+					<span class="inline-flex shrink-0 items-center gap-1 rounded-full border border-violet-300 bg-violet-50 px-2 py-0.5 text-[11px] font-semibold text-violet-700">✦ AI<span class="font-normal opacity-80">· {t({ en: '1–2 credits', th: '1–2 เครดิต' })}</span></span>
+				</div>
+				<svg viewBox="0 0 320 180" class="block w-full bg-slate-700">
+					{#each pipes as p, i (i)}
+						<circle cx={p.x} cy={p.y} r="17" class="fill-slate-300 stroke-slate-400" stroke-width="2" />
+						<circle cx={p.x} cy={p.y} r="10" class="fill-slate-600" />
+						{#if p.dot}<circle cx={p.x} cy={p.y} r="5" class="fill-violet-500 stroke-white" stroke-width="1.5" />{/if}
+					{/each}
+					<circle cx={pipes[15].x} cy={pipes[15].y} r="21" fill="none" class="stroke-amber-400" stroke-width="2" stroke-dasharray="4 3" />
+				</svg>
+				<div class="flex flex-wrap items-center justify-between gap-2 border-t border-tnb-line px-4 py-2.5 text-[12px]">
+					<span class="text-tnb-ink-soft">{t({ en: 'AI counted 23 · tap to add the one it missed', th: 'AI นับได้ 23 · แตะเพิ่มชิ้นที่พลาด' })}</span>
+					<span class="rounded-lg bg-tnb-ink px-2.5 py-1 font-semibold text-white">{t({ en: 'Save to history', th: 'เก็บในประวัติ' })}</span>
+				</div>
 			</div>
 		{:else if visual === 'pos'}
 			<div class="grid gap-3 rounded-xl border border-tnb-line bg-white p-3 shadow-[0_10px_30px_-12px_rgba(23,22,28,0.2)] sm:grid-cols-[1fr_12rem]">

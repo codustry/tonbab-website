@@ -9,6 +9,12 @@
  * plan, Free included — plans differ by size only (owner, 2026-11-18). Never
  * upgrade a status without the code.
  *
+ * "ai-count" was checked against the app on 2026-11-19 (PRs #1497,
+ * #1499–#1501, #1506: kiosk/warehouse/count, ai-credits.ts, plans.ts
+ * ai_credits). Credits are weighted (owner, 2026-11-19): 1 per photo, 2
+ * when a dense pile is tiled. It is the only shipped AI feature; AI receipt capture is not
+ * shipped — don't add it until it is.
+ *
  * Each page leads with `answer` — a short, factual "what is it" paragraph
  * that search snippets and AI answer engines can quote verbatim.
  */
@@ -26,7 +32,8 @@ export type FeatureVisual =
   | "payroll"
   | "egp"
   | "mobile"
-  | "security";
+  | "security"
+  | "aicount";
 export type ChannelState = "live" | "dev" | "soon" | "off";
 
 export interface FeatureContent {
@@ -58,6 +65,11 @@ export interface FeatureContent {
    * still reads it.
    */
   earlyAccess?: boolean;
+  /**
+   * The feature calls AI and spends the company's monthly AI credits — the
+   * site shows the same "AI" mark the app puts on every AI feature (AI-2).
+   */
+  ai?: boolean;
   faq: { q: Bi; a: Bi }[];
   related: string[];
   modules: string[];
@@ -208,6 +220,13 @@ export const features: FeatureContent[] = [
         },
       },
       {
+        title: { th: "นับด้วย AI ในสถานีแพ็ก", en: "AI Count in the pack station" },
+        body: {
+          th: "ถ่ายรูปกองของ AI จุดบนทุกชิ้นที่เห็น พนักงานตรวจและแก้ แล้วเก็บผลพร้อมรูปหลักฐาน ใช้ 1–2 เครดิต AI ต่อรูป",
+          en: "Photograph a pile and AI dots every item it sees; staff check, correct and save it with a proof photo. 1–2 AI credits per photo.",
+        },
+      },
+      {
         title: { th: "สถานีผลิต", en: "Production station" },
         body: {
           th: "พนักงานไลน์ผลิตเบิกวัตถุดิบตามใบสั่งผลิต บันทึกผลผลิตและของเสีย โดยไม่ต้องเข้าระบบหลังบ้าน",
@@ -221,13 +240,7 @@ export const features: FeatureContent[] = [
           en: "A full-screen register that stays open on the counter tablet; cashiers switch with a PIN.",
         },
       },
-      {
-        title: { th: "ผูกเครื่องเป็นสถานี", en: "Pair a device to a station" },
-        body: {
-          th: "ผู้ดูแลจับคู่เครื่องกับสถานีครั้งเดียว เครื่องเปิดแอปที่ถูกต้องเองทุกครั้ง",
-          en: "An admin pairs the device once; from then on it opens the right station by itself.",
-        },
-      },
+
       {
         title: { th: "รู้ว่าใครทำ", en: "Every action has a name" },
         body: {
@@ -237,12 +250,12 @@ export const features: FeatureContent[] = [
       },
       {
         title: {
-          th: "โหมดคีออสก์ในแอปมือถือ",
-          en: "Kiosk mode in the native app",
+          th: "ผูกเครื่องเป็นสถานี หรือใช้แอปมือถือ",
+          en: "Pair a device, or use the native app",
         },
         body: {
-          th: "แอป Tonbab บน iOS และ Android สลับเป็นโหมดคีออสก์ได้ ไม่ต้องติดตั้งแอปแยก",
-          en: "The Tonbab app for iOS and Android switches into kiosk mode — no separate app to install.",
+          th: "ผู้ดูแลจับคู่เครื่องกับสถานีครั้งเดียว เครื่องเปิดแอปที่ถูกต้องเองทุกครั้ง แอป Tonbab บน iOS และ Android ก็สลับเป็นโหมดคีออสก์ได้ ไม่ต้องติดตั้งแอปแยก",
+          en: "An admin pairs the device once and it opens the right station by itself. The Tonbab app for iOS and Android also switches into kiosk mode — no separate app to install.",
         },
       },
     ],
@@ -272,8 +285,109 @@ export const features: FeatureContent[] = [
         },
       },
     ],
-    related: ["pos", "manufacturing", "mobile"],
+    related: ["ai-count", "pos", "manufacturing"],
     modules: ["operation", "commerce"],
+  },
+  {
+    key: "ai-count",
+    module: "operation",
+    ai: true,
+    keyword: { th: "นับของด้วย AI จากรูปถ่าย", en: "AI photo counting" },
+    seoTitle: {
+      th: "นับของด้วย AI จากรูปถ่ายเดียว ในแอปคลังสินค้า | Tonbab",
+      en: "AI Count: Count Stock from One Photo | Tonbab",
+    },
+    metaDescription: {
+      th: "นับด้วย AI (AI Count) ในสถานีแพ็กของ Tonbab: ถ่ายรูปกองของ AI จุดบนทุกชิ้นที่เห็น พนักงานแตะแก้ แล้วเก็บผลพร้อมรูปหลักฐาน 1–2 เครดิต AI ต่อรูป ประมวลผลบน Cloudflare ทุกแพ็กเกจ",
+      en: "AI Count in Tonbab's pack station: photograph a pile, AI puts a dot on every item it sees, staff tap to correct, and the count is saved with a proof photo. 1–2 AI credits per photo, processed on Cloudflare. Every plan.",
+    },
+    eyebrow: { th: "Operation · นับด้วย AI", en: "Operation · AI Count" },
+    h1: {
+      th: "ถ่ายรูปเดียว นับของได้ทั้งกอง",
+      en: "Count a whole pile from one photo",
+    },
+    lede: {
+      th: "ท่อ เหล็กเส้น กล่อง ขวด หรือน็อตที่กองรวมกัน — AI ช่วยนับจากรูป แล้วพนักงานตรวจและแก้ก่อนเก็บผล",
+      en: "Pipes, steel bars, boxes, bottles or screws in a pile — AI counts them from a photo, and staff check and correct before saving.",
+    },
+    answer: {
+      th: "นับด้วย AI (AI Count) คือตัวช่วยนับในสถานีแพ็กของ Tonbab ถ่ายรูปของที่ต้องการนับ แล้ว AI จะจุดบนแต่ละชิ้นที่เห็น จะให้ AI ดูเองว่าควรนับอะไร หรือเลือกและพิมพ์ชนิดของเองก็ได้ พนักงานแตะเพื่อลบหรือเพิ่มจุด แล้วเก็บจำนวนพร้อมรูปหลักฐานไว้ในประวัติ แต่ละรูปใช้ 1–2 เครดิต AI ไม่ว่าจะนับได้กี่ชิ้น",
+      en: "AI Count is a counting helper in Tonbab's pack station. Take a photo of what you need to count and AI puts a dot on each item it sees — let it decide what to count, or pick or type the item yourself. Staff tap to remove or add dots, then save the count with a proof photo to the history. Each photo uses 1–2 AI credits however many items it finds.",
+    },
+    visual: "aicount",
+    highlights: [
+      {
+        title: { th: "AI ดูเองว่าจะนับอะไร", en: "Auto: AI decides what to count" },
+        body: {
+          th: "โหมดอัตโนมัติให้ AI ดูรูปและระบุของที่ซ้ำกันก่อนนับ หรือเลือก ท่อ กล่อง ขวด กระป๋อง หรือพิมพ์ชนิดของเอง ถ้า AI บอกไม่ได้ว่าจะนับอะไร ระบบคืนเครดิตและให้เลือกเอง",
+          en: "In Auto mode AI names the repeated item, then counts it. Or pick pipes, boxes, bottles, cans — or type the item. If AI can't tell what to count, the credit is refunded and it asks you to pick.",
+        },
+      },
+      {
+        title: { th: "กองแน่น แบ่งนับเป็นส่วน", en: "Dense piles counted in sections" },
+        body: {
+          th: "รูปที่ของแน่นมากถูกแบ่งเป็น 9 ส่วนที่ซ้อนทับกันเพื่อนับ รูปแบบนี้ใช้ 2 เครดิต รูปทั่วไปใช้ 1 เครดิต",
+          en: "A very dense photo is split into 9 overlapping sections for counting; that photo uses 2 credits, a normal photo uses 1.",
+        },
+      },
+      {
+        title: { th: "แตะแก้ ซูม ย้อนกลับ", en: "Tap to correct, zoom, undo" },
+        body: {
+          th: "แตะจุดเพื่อลบ แตะที่ว่างเพื่อเพิ่ม ซูมดูใกล้ ๆ และย้อนกลับได้ จำนวนที่เก็บคือจำนวนที่คนตรวจแล้ว",
+          en: "Tap a dot to remove it, tap empty space to add one, zoom in and undo. What's saved is the count a person checked.",
+        },
+      },
+      {
+        title: { th: "รูปหลักฐานพร้อมจุด", en: "Proof photo with the dots" },
+        body: {
+          th: "ทุกการนับที่เก็บไว้มีรูปพร้อมจุดที่แก้แล้ว เปิดดูย้อนหลังได้จากประวัติ หรือแชร์รูปหลักฐานต่อ",
+          en: "Every saved count keeps its photo with the corrected dots — open it later from the history, or share the proof photo.",
+        },
+      },
+      {
+        title: { th: "ไม่ปรับสต็อกเอง", en: "Never changes stock by itself" },
+        body: {
+          th: "เป็นตัวช่วยนับเท่านั้น จำนวนที่เก็บอยู่ในประวัติของการนับ ยอดสต็อกยังเปลี่ยนผ่านเอกสารสต็อกตามปกติ",
+          en: "It's a counting helper: saved counts go to its own history, and stock still changes only through stock documents.",
+        },
+      },
+      {
+        title: { th: "1–2 เครดิตต่อรูป ประมวลผลบน Cloudflare", en: "1–2 credits per photo, runs on Cloudflare" },
+        body: {
+          th: "ใช้เครดิต AI รายเดือนของแพ็กเกจ 1–2 เครดิตต่อรูป ไม่ว่าจะนับได้กี่ชิ้น นับไม่สำเร็จคืนเครดิตให้ รูปประมวลผลด้วย AI บน Cloudflare",
+          en: "Each photo takes 1–2 credits from your plan's monthly AI credits however many items it counts, and a failed count gives them back. Photos are processed by AI running on Cloudflare.",
+        },
+      },
+    ],
+    plan: {
+      th: "ทุกแพ็กเกจ รวมถึง Free ใช้เครดิต AI รายเดือน: Free 30, Starter 300, Standard 1,000, Business 3,000 และ Enterprise 10,000 เครดิต",
+      en: "Every plan, Free included, using the monthly AI credits: Free 30, Starter 300, Standard 1,000, Business 3,000 and Enterprise 10,000.",
+    },
+    faq: [
+      {
+        q: { th: "นับแม่นแค่ไหน?", en: "How accurate is it?" },
+        a: {
+          th: "ขึ้นกับรูป ของที่เห็นชัด ไม่ซ้อนกัน แสงสม่ำเสมอ และถ่ายจากด้านบนตรง ๆ จะนับได้ดีที่สุด เราไม่อ้างตัวเลขความแม่นยำ เพราะ AI Count ออกแบบให้คนตรวจทุกครั้ง เห็นทุกจุดบนรูปและแก้ได้ก่อนเก็บ กองที่แน่นมากให้ซูมตรวจ หรือแบ่งถ่ายหลายรูป",
+          en: "It depends on the photo: items that are clearly visible, not overlapping, in even light and shot from straight above count best. We don't quote an accuracy figure — AI Count is built for a person to check every count, with every dot visible and editable before saving. For very dense piles, zoom in and check, or split the pile into several photos.",
+        },
+      },
+      {
+        q: { th: "นับหนึ่งรูปใช้กี่เครดิต?", en: "How many credits does a photo use?" },
+        a: {
+          th: "รูปทั่วไปใช้ 1 เครดิต กองที่แน่นจนต้องแบ่งนับเป็นส่วนใช้ 2 เครดิต ไม่ว่าจะนับได้กี่ชิ้น งาน AI ส่วนใหญ่ใช้ 1 เครดิต งานที่หนักกว่าใช้มากกว่านั้น ถ่ายรูปใหม่นับเป็นการนับใหม่ ถ้านับไม่สำเร็จระบบคืนเครดิตให้ เครดิตเริ่มนับใหม่ทุกเดือนตามเวลาประเทศไทย ดูยอดที่ใช้ได้ในหน้าค่าบริการ",
+          en: "A normal photo uses 1 credit; a dense pile that has to be counted in sections uses 2 — however many items it finds. Most AI actions use 1 credit and heavier ones use more. A new photo is a new count. If a count fails, the credits are given back. Credits reset every month on Bangkok time, and usage shows on the Billing page.",
+        },
+      },
+      {
+        q: { th: "ใช้บนเครื่องอะไร?", en: "Which device do I need?" },
+        a: {
+          th: "แท็บเล็ตหรือมือถือที่มีกล้องและเปิดสถานีแพ็กของ Tonbab อยู่ AI Count เป็นแท็บหนึ่งในแอปนั้น พนักงานเข้าด้วย PIN",
+          en: "A tablet or phone with a camera running Tonbab's pack station. AI Count is a tab in that app, and staff sign in with their PIN.",
+        },
+      },
+    ],
+    related: ["kiosk", "inventory", "mobile"],
+    modules: ["operation"],
   },
   {
     key: "inventory",

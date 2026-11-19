@@ -308,7 +308,7 @@ export const realStats: { value: string; label: Bi }[] = [
 ];
 
 export const kiosks: { icon: string; name: Bi; body: Bi }[] = [
-	{ icon: "Package", name: { en: "Pack station", th: "สถานีแพ็กของ" }, body: { en: "Pick, pack and ship delivery notes from a tablet at the packing bench.", th: "หยิบ แพ็ก และส่งของตามใบส่งของจากแท็บเล็ตที่โต๊ะแพ็ก" } },
+	{ icon: "Package", name: { en: "Pack station", th: "สถานีแพ็กของ" }, body: { en: "Pick, pack and ship delivery notes from a tablet at the packing bench — and count a pile from one photo with AI Count.", th: "หยิบ แพ็ก และส่งของตามใบส่งของจากแท็บเล็ตที่โต๊ะแพ็ก และนับของทั้งกองจากรูปเดียวด้วย AI (AI Count)" } },
 	{ icon: "Factory", name: { en: "Manufacture station", th: "สถานีผลิต" }, body: { en: "Operators start, record output and scrap on work orders at the line.", th: "พนักงานเริ่มงาน บันทึกผลผลิตและของเสียของใบสั่งผลิตที่ไลน์ผลิต" } },
 	{ icon: "Store", name: { en: "POS counter", th: "เคาน์เตอร์ POS" }, body: { en: "A full-screen register that stays open on the counter tablet.", th: "หน้าจอขายเต็มจอ เปิดค้างไว้บนแท็บเล็ตหน้าร้าน" } }
 ];
