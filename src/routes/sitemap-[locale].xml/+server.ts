@@ -63,6 +63,7 @@ export const GET: RequestHandler = async ({
     ...vendorCompares.map((v) => `/compare/${v.slug}`),
     "/migration",
     "/customers",
+    "/ai",
     "/developers",
     "/story",
     "/blog",

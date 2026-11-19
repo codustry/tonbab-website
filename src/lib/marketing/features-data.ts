@@ -12,8 +12,13 @@
  * "ai-count" was checked against the app on 2026-11-19 (PRs #1497,
  * #1499–#1501, #1506: kiosk/warehouse/count, ai-credits.ts, plans.ts
  * ai_credits). Credits are weighted (owner, 2026-11-19): 1 per photo, 2
- * when a dense pile is tiled. It is the only shipped AI feature; AI receipt capture is not
- * shipped — don't add it until it is.
+ * when a dense pile is tiled.
+ *
+ * "ai-receipt-scan" was checked on 2026-11-19 against PR #1517 (live that
+ * day): /api/receipt-capture, ReceiptCapture.svelte, receipt-capture.ts —
+ * 1 credit, photo or PDF, Buddhist-era dates, tax-ID check digit, totals
+ * check, input VAT only from a full tax invoice, vendor match, highlighted
+ * unsure fields, always a draft. Used in My expenses and the new vendor bill.
  *
  * Each page leads with `answer` — a short, factual "what is it" paragraph
  * that search snippets and AI answer engines can quote verbatim.
@@ -33,7 +38,8 @@ export type FeatureVisual =
   | "egp"
   | "mobile"
   | "security"
-  | "aicount";
+  | "aicount"
+  | "receipt";
 export type ChannelState = "live" | "dev" | "soon" | "off";
 
 export interface FeatureContent {
@@ -388,6 +394,107 @@ export const features: FeatureContent[] = [
     ],
     related: ["kiosk", "inventory", "mobile"],
     modules: ["operation"],
+  },
+  {
+    key: "ai-receipt-scan",
+    module: "accounting",
+    ai: true,
+    keyword: { th: "สแกนใบเสร็จด้วย AI", en: "AI receipt scanning" },
+    seoTitle: {
+      th: "สแกนใบเสร็จ ใบกำกับภาษีด้วย AI เข้าเบิกค่าใช้จ่ายและบิลซื้อ | Tonbab",
+      en: "AI Receipt & Tax-Invoice Scan for Expenses and Bills | Tonbab",
+    },
+    metaDescription: {
+      th: "ถ่ายรูปใบเสร็จหรือใบกำกับภาษี AI กรอกผู้ขาย เลขผู้เสียภาษี วันที่ VAT และยอดรวม ตรวจเลขผู้เสียภาษีและยอดให้ ไฮไลต์ช่องที่ไม่แน่ใจ แล้วเก็บเป็นฉบับร่าง 1 เครดิต AI ต่อใบ ทุกแพ็กเกจ",
+      en: "Photograph a receipt or tax invoice: AI fills in the vendor, tax ID, date, VAT and total, checks the tax ID and totals, highlights what it isn't sure of and saves a draft. 1 AI credit per document, every plan.",
+    },
+    eyebrow: { th: "บัญชี · People · สแกนใบเสร็จด้วย AI", en: "Accounting · People · AI receipt scan" },
+    h1: {
+      th: "ถ่ายรูปใบเสร็จ ได้ฉบับร่างพร้อมตรวจ",
+      en: "Photograph a receipt, get a draft ready to check",
+    },
+    lede: {
+      th: "เลิกพิมพ์ใบเสร็จทีละช่อง — AI กรอกให้ Tonbab ตรวจเลขภาษีและยอดรวม แล้วคุณแค่ดูช่องที่ไฮไลต์ก่อนส่ง",
+      en: "Stop retyping receipts field by field: AI fills them in, Tonbab checks the tax ID and totals, and you only look at the highlighted fields before submitting.",
+    },
+    answer: {
+      th: "สแกนใบเสร็จด้วย AI ของ Tonbab อ่านรูปถ่ายหรือ PDF ของใบเสร็จ บิลเงินสด หรือใบกำกับภาษี แล้วกรอกผู้ขาย เลขผู้เสียภาษี สาขา เลขที่เอกสาร วันที่ ยอดก่อน VAT, VAT และยอดรวมลงในรายการเบิกค่าใช้จ่ายหรือบิลซื้อ ระบบตรวจเลขผู้เสียภาษีและยอดรวมเอง ไฮไลต์ช่องที่ไม่แน่ใจ และเก็บเป็นฉบับร่างให้คนตรวจก่อนส่งเสมอ ใช้ 1 เครดิต AI ต่อใบ",
+      en: "Tonbab's AI receipt scan reads a photo or PDF of a receipt, cash bill or tax invoice and fills the vendor, tax ID, branch, document number, date, subtotal, VAT and total into an expense line or a vendor bill. It checks the tax ID and totals itself, highlights fields it isn't sure of, and always leaves a draft for a person to check and submit. Each document uses 1 AI credit.",
+    },
+    visual: "receipt",
+    highlights: [
+      {
+        title: { th: "รูปถ่ายหรือ PDF", en: "Photo or PDF" },
+        body: {
+          th: "ถ่ายจากมือถือหรืออัปโหลดไฟล์ รูปถูกแนบไว้กับรายการเบิกหรือบิลซื้อให้อัตโนมัติ เปิดดูต้นฉบับได้ภายหลัง",
+          en: "Snap it on a phone or upload the file. The image is attached to the expense line or bill automatically, so the original is always one tap away.",
+        },
+      },
+      {
+        title: { th: "เข้าใจเอกสารไทย", en: "Reads Thai documents" },
+        body: {
+          th: "อ่านวันที่แบบ พ.ศ. และชื่อเดือนภาษาไทย ตรวจเลขผู้เสียภาษี 13 หลักด้วยหลักตรวจสอบ และเช็กว่ายอดก่อน VAT บวก VAT เท่ากับยอดรวม",
+          en: "Understands Buddhist-era dates and Thai month names, validates the 13-digit tax ID's check digit, and checks that subtotal plus VAT equals the total.",
+        },
+      },
+      {
+        title: { th: "ภาษีซื้อจากใบกำกับเต็มรูปเท่านั้น", en: "Input VAT only from a full tax invoice" },
+        body: {
+          th: "ขอคืนภาษีซื้อได้เฉพาะใบกำกับภาษีเต็มรูปที่เลขผู้เสียภาษีถูกต้อง บิลเงินสด ใบเสร็จทั่วไป และใบกำกับภาษีอย่างย่อจะไม่ถูกนับเป็นภาษีซื้อ",
+          en: "Input VAT is only claimable from a full tax invoice with a valid seller tax ID — never from a cash bill, a plain receipt or an abbreviated tax invoice.",
+        },
+      },
+      {
+        title: { th: "จับคู่ผู้ขายที่มีอยู่", en: "Matches vendors you already have" },
+        body: {
+          th: "หาผู้ขายในระบบจากเลขผู้เสียภาษีก่อน แล้วจึงจากชื่อ จะได้ไม่มีผู้ขายรายเดียวกันซ้ำสองรายการ",
+          en: "Finds the vendor on file by tax ID first, then by name, so the same supplier isn't entered twice.",
+        },
+      },
+      {
+        title: { th: "ไฮไลต์ช่องที่ต้องตรวจ", en: "Highlights what to check" },
+        body: {
+          th: "ช่องที่ AI ไม่มั่นใจ หรือไม่ผ่านการตรวจ จะไฮไลต์ไว้ ช่องอื่นกรอกเงียบ ๆ คุณจึงดูเฉพาะจุดที่ควรดู",
+          en: "Fields the AI isn't confident about, or that fail a check, are highlighted; the rest fill in quietly, so you only look where it matters.",
+        },
+      },
+      {
+        title: { th: "ฉบับร่างเสมอ · 1 เครดิตต่อใบ", en: "Always a draft · 1 credit per document" },
+        body: {
+          th: "ไม่มีอะไรถูกส่งหรือลงบัญชีเอง คนยังเป็นผู้กดส่งและอนุมัติ ใช้เครดิต AI รายเดือน 1 เครดิตต่อใบ อ่านไม่ออกคืนเครดิตให้ ประมวลผลบน Cloudflare Workers AI",
+          en: "Nothing is submitted or posted on its own — a person still submits and approves. Uses 1 monthly AI credit per document, refunded if it can't be read. Processed on Cloudflare Workers AI.",
+        },
+      },
+    ],
+    plan: {
+      th: "ทุกแพ็กเกจ รวมถึง Free ใช้เครดิต AI รายเดือน (Free 30, Starter 300, Standard 1,000, Business 3,000, Enterprise 10,000) ใช้ได้ในหน้าเบิกค่าใช้จ่ายของฉัน (คนที่มีสิทธิ์เบิก) และหน้าบันทึกบิลซื้อ (คนที่มีสิทธิ์ลงบัญชี)",
+      en: "Every plan, Free included, using the monthly AI credits (Free 30, Starter 300, Standard 1,000, Business 3,000, Enterprise 10,000). Available in My expenses for anyone allowed to claim, and on the new vendor bill for people allowed to post.",
+    },
+    faq: [
+      {
+        q: { th: "อ่านเอกสารแบบไหนได้บ้าง?", en: "Which documents can it read?" },
+        a: {
+          th: "ใบกำกับภาษีเต็มรูป ใบกำกับภาษีอย่างย่อ บิลเงินสด ใบเสร็จ และใบแจ้งหนี้ เป็นรูป JPEG, PNG, WebP หรือ PDF ขนาดไม่เกิน 8 MB",
+          en: "Full and abbreviated tax invoices, cash bills, receipts and invoices — as a JPEG, PNG or WebP photo or a PDF, up to 8 MB.",
+        },
+      },
+      {
+        q: { th: "อ่านแม่นแค่ไหน?", en: "How accurate is it?" },
+        a: {
+          th: "เราไม่อ้างตัวเลขความแม่นยำ รูปที่ชัด แสงพอ และเห็นทั้งใบจะอ่านได้ดีที่สุด ระบบตรวจเลขผู้เสียภาษีและยอดรวมให้ และไฮไลต์ช่องที่ไม่แน่ใจ ทุกครั้งยังเป็นฉบับร่างที่คนตรวจก่อนส่ง",
+          en: "We don't quote an accuracy figure. Sharp, well-lit photos of the whole document read best. Tonbab checks the tax ID and totals and highlights what it isn't sure of, and every capture stays a draft a person checks before submitting.",
+        },
+      },
+      {
+        q: { th: "ใครใช้ได้บ้าง?", en: "Who can use it?" },
+        a: {
+          th: "พนักงานที่มีสิทธิ์เบิกค่าใช้จ่ายใช้ได้ในหน้าเบิกค่าใช้จ่ายของฉัน และฝ่ายบัญชีที่มีสิทธิ์ลงบัญชีใช้ได้ตอนบันทึกบิลซื้อ ปุ่มสแกนแสดงเฉพาะคนที่มีสิทธิ์นั้น",
+          en: "Employees allowed to claim expenses use it in My expenses, and accounting staff allowed to post use it when recording a vendor bill. The scan button only shows for people with that permission.",
+        },
+      },
+    ],
+    related: ["ai-count", "thai-tax", "payroll"],
+    modules: ["accounting", "people"],
   },
   {
     key: "inventory",

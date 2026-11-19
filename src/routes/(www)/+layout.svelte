@@ -151,6 +151,7 @@
 					{/if}
 				</div>
 				<a href={localePath(loc, '/features')} class="rounded-md px-3 py-1.5 text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_features()}</a>
+				<a href={localePath(loc, '/ai')} class="inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-tnb-ink hover:bg-tnb-mist"><span class="text-violet-600" aria-hidden="true">✦</span>{m.mkt_nav_ai()}</a>
 				<a href={localePath(toLocale(data.locale), '/compare')} class="rounded-md px-3 py-1.5 text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_compare()}</a>
 				<a href={localePath(toLocale(data.locale), '/pricing')} class="rounded-md px-3 py-1.5 text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_pricing()}</a>
 				<div class="relative">
@@ -222,6 +223,7 @@
 				</div>
 				<div class="mt-2 flex flex-col gap-1 border-t border-tnb-line pt-2 text-base">
 					<a href={localePath(loc, '/features')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_features()}</a>
+					<a href={localePath(loc, '/ai')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist"><span class="text-violet-600" aria-hidden="true">✦ </span>{m.mkt_nav_ai()}</a>
 					<a href={localePath(toLocale(data.locale), '/compare')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_compare()}</a>
 					<a href={localePath(toLocale(data.locale), '/pricing')} onclick={() => (mobileOpen = false)} class="rounded-lg px-3 py-2.5 font-medium text-tnb-ink hover:bg-tnb-mist">{m.mkt_nav_pricing()}</a>
 				</div>
@@ -295,6 +297,7 @@
 				<ul class="mt-2 space-y-0.5">
 					<li><a href={localePath(loc, '/what-is-tonbab')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_what_is()}</a></li>
 					<li><a href={localePath(loc, '/features')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_features()}</a></li>
+					<li><a href={localePath(loc, '/ai')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_ai()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/compare')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_compare()}</a></li>
 					<li><a href={localePath(toLocale(data.locale), '/pricing')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_pricing()}</a></li>
 					<li><a href={localePath(loc, '/customers')} class="inline-block py-1 text-tnb-ink hover:underline">{m.mkt_nav_customers()}</a></li>

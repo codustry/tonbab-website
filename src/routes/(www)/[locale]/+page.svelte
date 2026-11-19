@@ -18,6 +18,8 @@
 	import type { Bi } from '$lib/marketing/compare-data';
 	import { features } from '$lib/marketing/features-data';
 	import LogoWall from '$lib/components/www/LogoWall.svelte';
+	import FeatureVisual from '$lib/components/www/FeatureVisual.svelte';
+	import { builtInLive } from '$lib/marketing/ai-data';
 
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
@@ -186,6 +188,57 @@
 				</div>
 			</div>
 			<p class="mt-3 text-xs text-tnb-ink-soft/80">{t({ en: 'Illustrated screens with example data.', th: 'ภาพหน้าจอจำลองพร้อมข้อมูลตัวอย่าง' })}</p>
+		</div>
+	</div>
+</section>
+
+<!-- ───────────────────── Tonbab × AI ─────────────────────
+     Built-in AI (Cloudflare Workers AI, monthly credits) is the main story;
+     your own assistant over MCP is the optional side card. Copy + sources:
+     $lib/marketing/ai-data.ts. Fully rendered at rest — no scroll reveal. -->
+<section class="relative overflow-hidden bg-tnb-ink" aria-labelledby="ai-title">
+	<div aria-hidden="true" class="blueprint-dark pointer-events-none absolute inset-0"></div>
+	<div class="relative container mx-auto max-w-6xl px-4 py-20">
+		<div class="max-w-3xl">
+			<p class="inline-flex items-center gap-1.5 rounded-full border border-violet-300/40 bg-violet-400/10 px-3 py-1 text-sm font-semibold text-violet-200">✦ {t({ en: 'Built-in AI · runs on Cloudflare Workers AI', th: 'AI ในตัว · ทำงานบน Cloudflare Workers AI' })}</p>
+			<h2 id="ai-title" class="mt-4 text-3xl font-bold tracking-tight text-balance text-white sm:text-5xl">Tonbab × AI <span class="inline-block">— {t({ en: 'working today', th: 'ใช้งานได้แล้ววันนี้' })}</span></h2>
+			<p class="mt-4 text-lg leading-relaxed text-white/70">
+				{t({
+					en: 'Scan a receipt into an expense claim or a bill, count a pile of stock from one photo. Included in every plan as monthly AI credits — no extra AI subscription, logging off, and always a draft a person checks.',
+					th: 'สแกนใบเสร็จเข้าเบิกค่าใช้จ่ายหรือบิลซื้อ นับของทั้งกองจากรูปเดียว รวมอยู่ในทุกแพ็กเกจเป็นเครดิต AI รายเดือน ไม่ต้องสมัคร AI เพิ่ม ปิดการเก็บ log และเป็นฉบับร่างให้คนตรวจเสมอ'
+				})}
+			</p>
+		</div>
+
+		<div class="mt-10 grid gap-5 lg:grid-cols-[1fr_1fr_20rem]">
+			{#each builtInLive as f (f.key)}
+				<a href={localePath(locale, f.href ?? '/ai')} class="group flex min-w-0 flex-col rounded-2xl bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-[0_14px_34px_-14px_rgba(0,0,0,0.5)]">
+					<FeatureVisual visual={f.key === 'receipt' ? 'receipt' : 'aicount'} {locale} />
+					<h3 class="mt-4 font-semibold text-tnb-ink group-hover:text-tnb-blue">{t(f.title)}<span class="ml-1.5 inline-flex items-center rounded-full border border-violet-300 bg-violet-50 px-1.5 py-px align-middle text-[10.5px] font-semibold text-violet-700">✦ AI · {t(f.credits)}</span></h3>
+					<p class="mt-1 text-[14px] leading-snug text-tnb-ink-soft">{t(f.where)}</p>
+				</a>
+			{/each}
+
+			<!-- Optional: your own assistant over MCP -->
+			<div class="flex min-w-0 flex-col rounded-2xl bg-white/[0.06] p-5 ring-1 ring-white/10">
+				<p class="text-xs font-semibold tracking-wider text-tnb-amber uppercase">{t({ en: 'Optional · your own assistant', th: 'ทางเลือกเสริม · ผู้ช่วยของคุณเอง' })}</p>
+				<h3 class="mt-2 font-semibold text-white">{t({ en: 'Ask Tonbab from Claude, ChatGPT or Gemini CLI', th: 'ถาม Tonbab จาก Claude, ChatGPT หรือ Gemini CLI' })}</h3>
+				<div class="mt-4 space-y-2 text-[13.5px]" aria-hidden="true">
+					<p class="ml-auto w-fit max-w-[90%] rounded-2xl rounded-br-sm bg-tnb-blue px-3 py-1.5 text-white">{t({ en: 'Which POs are still waiting for delivery?', th: 'PO ไหนค้างรับของบ้าง' })}</p>
+					<div class="w-fit max-w-[95%] rounded-2xl rounded-bl-sm bg-white/10 px-3 py-2 text-white/85">
+						<p>{t({ en: '2 POs are still open:', th: 'ยังค้างรับ 2 ใบ:' })}</p>
+						<p class="mt-1 font-mono text-[12px] text-white/70">PO-0154 · 40/100 · {t({ en: 'due Fri', th: 'ครบกำหนดศุกร์' })}</p>
+						<p class="font-mono text-[12px] text-white/70">PO-0161 · 0/12</p>
+					</div>
+				</div>
+				<p class="mt-2 text-[11.5px] text-white/50">{t({ en: 'Example data', th: 'ข้อมูลตัวอย่าง' })}</p>
+				<p class="mt-auto pt-4 text-[13.5px] leading-snug text-white/70">{t({ en: 'Connect via MCP with your own assistant account. Uses no Tonbab AI credits — it shares your plan’s API quota.', th: 'เชื่อมผ่าน MCP ด้วยบัญชีผู้ช่วยของคุณเอง ไม่ใช้เครดิต AI ของ Tonbab ใช้โควตา API ของแพ็กเกจ' })}</p>
+			</div>
+		</div>
+
+		<div class="mt-10 flex flex-wrap items-center gap-3">
+			<a href={localePath(locale, '/ai')} class="btn-primary px-6 py-3 text-base">{t({ en: 'Explore Tonbab AI', th: 'ดู AI ของ Tonbab ทั้งหมด' })}<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+			<a href={localePath(locale, '/ai') + '#credits'} class="inline-flex items-center rounded-lg px-5 py-3 text-base font-semibold text-white ring-1 ring-white/25 transition hover:bg-white/10">{t({ en: 'AI credits per plan', th: 'เครดิต AI ตามแพ็กเกจ' })}</a>
 		</div>
 	</div>
 </section>

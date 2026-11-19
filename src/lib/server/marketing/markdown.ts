@@ -18,6 +18,15 @@ import { getDoc, listDocs } from "$lib/server/docs";
 import { migrationFaq } from "$lib/marketing/migration-data";
 import { whatFaq } from "$lib/marketing/about-data";
 import {
+  aiFaq,
+  aiSafety,
+  assistants,
+  builtInLive,
+  builtInSoon,
+  examplePrompts,
+  MCP_URL,
+} from "$lib/marketing/ai-data";
+import {
   ENTITY,
   PLAN_FACTS,
   SITE_ORIGIN,
@@ -98,7 +107,7 @@ export function moduleMd(m: ModuleContent, l: Locale): string {
     ...m.featureGroups.flatMap((g) => [
       `## ${tr(g.title, l)}`,
       g.features
-        .map((f) => `- **${tr(f.title, l)}** — ${tr(f.body, l)}`)
+        .map((f) => `- **${tr(f.title, l)}**${f.ai ? " (✦ AI)" : ""} — ${tr(f.body, l)}`)
         .join("\n"),
     ]),
     `## ${th ? "เหมาะกับ" : "Who it's for"}`,
@@ -142,6 +151,49 @@ export function compareMd(v: VendorCompare, l: Locale): string {
   return parts.join("\n\n");
 }
 
+/** /ai — built-in AI first, your own assistant (MCP) second. */
+export function aiMd(l: Locale): string {
+  const th = l === "th";
+  return [
+    `# ${th ? "AI ใน Tonbab" : "AI in Tonbab"}`,
+    url(l, "/ai"),
+    th
+      ? "AI ในตัว Tonbab ทำงานบน Cloudflare Workers AI รวมอยู่ในทุกแพ็กเกจผ่านเครดิต AI รายเดือน ไม่ต้องสมัคร AI เพิ่ม และเป็นฉบับร่างให้คนตรวจเสมอ นอกจากนี้ยังเชื่อมผู้ช่วย AI ของคุณเอง (Claude, ChatGPT, Gemini CLI) ผ่าน MCP ได้ โดยไม่ใช้เครดิต AI"
+      : "Tonbab's built-in AI runs on Cloudflare Workers AI and is included in every plan through monthly AI credits — no extra AI subscription, and always a draft a person checks. You can also connect your own assistant (Claude, ChatGPT, Gemini CLI) over MCP, which doesn't use AI credits.",
+    `## ${th ? "AI ในตัว ใช้ได้แล้ววันนี้" : "Built-in AI, live now"}`,
+    builtInLive
+      .map(
+        (f) =>
+          `- **${tr(f.title, l)}** (✦ AI · ${tr(f.credits, l)}) — ${tr(f.body, l)} ${th ? "อยู่ที่" : "Where"}: ${tr(f.where, l)}.${f.href ? ` ${url(l, f.href)}` : ""}`,
+      )
+      .join("\n"),
+    `## ${th ? "เร็ว ๆ นี้" : "Coming soon"}`,
+    builtInSoon.map((s) => `- **${tr(s.title, l)}** (${tr(s.module, l)}) — ${tr(s.body, l)}`).join("\n"),
+    `## ${th ? "ความเป็นส่วนตัวและความปลอดภัย" : "Privacy and safety"}`,
+    aiSafety.map((p) => `- **${tr(p.title, l)}** — ${tr(p.body, l)}`).join("\n"),
+    `## ${th ? "เครดิต AI ต่อเดือน" : "AI credits per month"}`,
+    PLAN_FACTS.map((p) => `- ${p.name}: ${p.aiCredits.toLocaleString("en-US")}`).join("\n") +
+      `\n\n${th ? "งาน AI ส่วนใหญ่ใช้ 1 เครดิต งานที่หนักกว่าใช้มากกว่านั้น สแกนใบเสร็จ 1 เครดิต AI Count 1–2 เครดิตต่อรูป" : "Most AI actions use 1 credit, heavier ones more: receipt scan 1, AI Count 1–2 per photo."} ${url(l, "/pricing")}`,
+    `## ${th ? "ใช้ Tonbab ผ่าน AI ที่คุณใช้อยู่ (ทางเลือกเสริม)" : "Use Tonbab from the AI you already use (optional)"}`,
+    th
+      ? `MCP server ของ Tonbab: ${MCP_URL} เข้าสู่ระบบด้วย OAuth เลือกบริษัทและสิทธิ์เอง ไม่ใช้เครดิต AI ของ Tonbab การดึงข้อมูลนับตามโควตา API ของแพ็กเกจ แพ็กเกจฟรีอ่านได้อย่างเดียว`
+      : `Tonbab's MCP server: ${MCP_URL}. Sign in with OAuth and choose the company and permissions. It doesn't use Tonbab AI credits; data calls count toward the plan's API quota. Free is read-only.`,
+    `### ${th ? "ตัวอย่างคำถาม" : "Example prompts"}`,
+    examplePrompts
+      .map((p) => `- “${tr(p.prompt, l)}” → ${p.tools.map((x) => `\`${x}\``).join(", ")}${p.draft ? (th ? " (ฉบับร่าง)" : " (draft)") : ""}`)
+      .join("\n"),
+    ...assistants.flatMap((a) => [
+      `### ${a.name} — ${tr(a.where, l)}`,
+      a.steps.map((s, i) => `${i + 1}. ${tr(s, l)}`).join("\n") +
+        (a.code ? `\n\n\`\`\`\n${a.code}\n\`\`\`` : "") +
+        `\n\n${tr(a.note, l)} (${a.doc})`,
+    ]),
+    `${th ? "รายละเอียดเพิ่มเติม" : "More"}: ${url(l, "/developers")} · ${url(l, "/docs/api/api-and-mcp-quickstart")}`,
+    `## ${th ? "คำถามที่พบบ่อย" : "FAQ"}`,
+    aiFaq.map((q) => `**${tr(q.q, l)}**\n${tr(q.a, l)}`).join("\n\n"),
+  ].join("\n\n");
+}
+
 function factsMd(l: Locale): string {
   const th = l === "th";
   return [
@@ -178,6 +230,7 @@ ${modulesContent.map((m) => link("en", `/modules/${m.key}`, m.name.en, m.tagline
 
 ## Features
 ${features.map((f) => link("en", `/features/${f.key}`, f.keyword.en, f.lede.en)).join("\n")}
+${link("en", "/ai", "AI in Tonbab", "built-in AI on Cloudflare Workers AI (receipt scan, AI Count) included through monthly AI credits; connect Claude, ChatGPT or Gemini CLI over MCP")}
 ${link("en", "/developers", "API and MCP", "REST API, signed webhooks and an MCP server for Claude, ChatGPT and other MCP clients")}
 ${link("en", "/migration", "Data migration", "from FlowAccount, PEAK, Express, Xero, QuickBooks and others via Excel")}
 
@@ -215,6 +268,7 @@ export function llmsFullTxt(): string {
       ...features.map((f) =>
         featureMd(f, l).replace(/^# /, "## ").replace(/\n## /g, "\n### "),
       ),
+      aiMd(l).replace(/^# /, "## ").replace(/\n### /g, "\n#### ").replace(/\n## /g, "\n### "),
       `## ${th ? "บริการย้ายข้อมูล" : "Data migration"}\n\n` +
         migrationFaq
           .map((q) => `**${tr(q.q, l)}**\n${tr(q.a, l)}`)
@@ -243,6 +297,7 @@ export function pageMarkdown(l: Locale, path: string): string | null {
       whatFaq.map((q) => `**${tr(q.q, l)}**\n${tr(q.a, l)}`).join("\n\n"),
     ].join("\n\n");
   }
+  if (p === "ai") return aiMd(l);
   if (p === "pricing")
     return `# ${l === "th" ? "ราคา Tonbab" : "Tonbab pricing"}\n\n${pricingMd(l)}`;
   if (p === "migration")

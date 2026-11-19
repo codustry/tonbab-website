@@ -14,6 +14,10 @@ import type { Bi } from "./compare-data";
 export interface ModuleFeature {
 	title: Bi;
 	body: Bi;
+	/** Calls AI and spends monthly AI credits — shows the same "✦ AI" mark the app does. */
+	ai?: boolean;
+	/** Optional deep link (locale-less path), e.g. a /features page. */
+	href?: string;
 }
 
 export interface ModuleFeatureGroup {
@@ -170,7 +174,7 @@ export const modulesContent: ModuleContent[] = [
 					{ title: { en: "Internal & external warehouses", th: "คลังภายในและภายนอก" }, body: { en: "Own warehouses plus subcontractor and customer locations — transfers move stock between all of them.", th: "คลังของบริษัทเอง บวกคลังที่ผู้รับจ้างช่วงและที่ลูกค้า — โอนย้ายสต็อกระหว่างกันได้ทั้งหมด" } },
 					{ title: { en: "Lot & serial traceability", th: "ติดตามล็อตและซีเรียล" }, body: { en: "FEFO picking, QC hold and quarantine, forward and backward genealogy — find every affected item in seconds.", th: "หยิบแบบ FEFO, กัก QC และ quarantine, สืบย้อนไปข้างหน้า-ถอยหลัง — หาสินค้าที่กระทบได้ในไม่กี่วินาที" } },
 					{ title: { en: "Full movement history", th: "ประวัติการเคลื่อนไหวครบ" }, body: { en: "Every receipt, issue, transfer and adjustment is a ledger entry with who, when, and which document.", th: "ทุกการรับ จ่าย โอน และปรับปรุง เป็นรายการบัญชีสต็อกที่บอกว่าใครทำ เมื่อไหร่ อ้างเอกสารใบไหน" } },
-					{ title: { en: "AI Count from one photo", th: "นับของจากรูปเดียวด้วย AI" }, body: { en: "In the pack station, photograph a pile of pipes, boxes or bottles: AI dots every item, staff correct the dots and save the count with a proof photo. 1–2 AI credits per photo however many items, processed on Cloudflare; it never changes stock by itself.", th: "ในสถานีแพ็ก ถ่ายรูปกองท่อ กล่อง หรือขวด AI จุดบนทุกชิ้น พนักงานแก้จุดแล้วเก็บจำนวนพร้อมรูปหลักฐาน ใช้ 1–2 เครดิต AI ต่อรูป ไม่ว่าจะนับได้กี่ชิ้น ประมวลผลบน Cloudflare และไม่ปรับสต็อกเอง" } }
+					{ ai: true, href: "/features/ai-count", title: { en: "AI Count from one photo", th: "นับของจากรูปเดียวด้วย AI" }, body: { en: "In the pack station, photograph a pile of pipes, boxes or bottles: AI dots every item, staff correct the dots and save the count with a proof photo. 1–2 AI credits per photo however many items, processed on Cloudflare; it never changes stock by itself.", th: "ในสถานีแพ็ก ถ่ายรูปกองท่อ กล่อง หรือขวด AI จุดบนทุกชิ้น พนักงานแก้จุดแล้วเก็บจำนวนพร้อมรูปหลักฐาน ใช้ 1–2 เครดิต AI ต่อรูป ไม่ว่าจะนับได้กี่ชิ้น ประมวลผลบน Cloudflare และไม่ปรับสต็อกเอง" } }
 				]
 			},
 			{
@@ -330,6 +334,7 @@ export const modulesContent: ModuleContent[] = [
 				title: { en: "Expenses & payroll hand-off", th: "เบิกจ่ายและส่งต่อเงินเดือน" },
 				features: [
 					{ title: { en: "Expense claims", th: "เบิกค่าใช้จ่าย" }, body: { en: "Employees file claims with receipts; approvals happen in the same app.", th: "พนักงานยื่นเบิกพร้อมใบเสร็จ อนุมัติในแอปเดียวกัน" } },
+					{ ai: true, href: "/features/ai-receipt-scan", title: { en: "Scan the receipt with AI", th: "สแกนใบเสร็จด้วย AI" }, body: { en: "Photograph a receipt or tax invoice and AI fills the claim line — vendor, tax ID, date, VAT and total — checks the totals and highlights what to check. It stays a draft until you submit. 1 AI credit per document.", th: "ถ่ายรูปใบเสร็จหรือใบกำกับภาษี AI กรอกรายการเบิกให้ ทั้งผู้ขาย เลขผู้เสียภาษี วันที่ VAT และยอดรวม ตรวจยอดและไฮไลต์ช่องที่ต้องดู เป็นฉบับร่างจนกว่าคุณจะกดส่ง ใช้ 1 เครดิต AI ต่อใบ" } },
 					{ title: { en: "Cash advances", th: "เงินทดรองจ่าย" }, body: { en: "Request an advance for a trip or a job, then clear it against actual expenses.", th: "ขอเงินทดรองสำหรับทริปหรืองาน แล้วเคลียร์กับค่าใช้จ่ายจริงภายหลัง" } },
 					{ title: { en: "Payroll-ready exports", th: "ไฟล์พร้อมทำเงินเดือน" }, body: { en: "Monthly time + leave PDF/Excel summaries for your payroll provider — Tonbab does not replace them, it feeds them clean data.", th: "สรุปเวลา + วันลารายเดือนเป็น PDF/Excel ให้ผู้ทำเงินเดือนของคุณ — Tonbab ไม่ได้มาแทน แต่ส่งข้อมูลสะอาดให้" } }
 				]
@@ -991,6 +996,7 @@ export const modulesContent: ModuleContent[] = [
 				features: [
 					{ title: { en: "Sales documents", th: "เอกสารฝั่งขาย" }, body: { en: "Quotations, invoices / tax invoices, billing notes, receipts, credit and debit notes.", th: "ใบเสนอราคา ใบแจ้งหนี้/ใบกำกับภาษี ใบวางบิล ใบเสร็จรับเงิน ใบลดหนี้ และใบเพิ่มหนี้" } },
 					{ title: { en: "Bills & expenses", th: "บิลซื้อและค่าใช้จ่าย" }, body: { en: "Supplier bills and expenses with input VAT and withholding tax.", th: "บิลจากผู้ขายและค่าใช้จ่าย พร้อมภาษีซื้อและภาษีหัก ณ ที่จ่าย" } },
+					{ ai: true, href: "/features/ai-receipt-scan", title: { en: "AI bill scan", th: "สแกนบิลซื้อด้วย AI" }, body: { en: "Photograph or upload a supplier's tax invoice: AI fills the bill, checks the tax ID and totals, matches the vendor on file and allows input VAT only from a full tax invoice. A draft you review. 1 AI credit per document.", th: "ถ่ายรูปหรืออัปโหลดใบกำกับภาษีจากผู้ขาย AI กรอกบิลให้ ตรวจเลขผู้เสียภาษีและยอดรวม จับคู่ผู้ขายที่มีอยู่ และนับภาษีซื้อเฉพาะใบกำกับภาษีเต็มรูป เป็นฉบับร่างให้คุณตรวจ ใช้ 1 เครดิต AI ต่อใบ" } },
 					{ title: { en: "Thai print templates", th: "แบบฟอร์มพิมพ์แบบไทย" }, body: { en: "Clean, familiar document layouts in the Sarabun typeface — the look Thai accountants and customers expect.", th: "หน้าเอกสารเรียบร้อยแบบที่คุ้นตา ใช้ฟอนต์สารบรรณ — หน้าตาที่นักบัญชีและลูกค้าไทยคาดหวัง" } }
 				]
 			},
