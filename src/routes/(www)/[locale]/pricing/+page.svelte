@@ -8,6 +8,10 @@
 	 * table grouped by module, each module in its own colour (the same colours
 	 * the app uses), add-ons, FAQ.
 	 *
+	 * AI credits (plans.ts `ai_credits`, 2026-11-19): a monthly allowance per plan,
+	 * shown as a core row, a bullet on each plan card and FAQ 9. Size, not a
+	 * feature gate — every AI feature is on every plan.
+	 *
 	 * Every plan button goes to self-serve signup (app.tonbab.com/signup — a new
 	 * company starts on the 30-day Business trial, then picks a plan or stays on
 	 * Free); Enterprise emails us.
@@ -54,8 +58,11 @@
 				{ label: m.pr_r_members, v: ['1', '5', '10', '25', '100+'] },
 				{ label: m.pr_r_storage, v: ['5 GB', '15 GB', '50 GB', '100 GB', '1 TB'] },
 				{ label: m.pr_r_file, v: ['50 MB', '200 MB', '1 GB', '5 GB', '20 GB'] },
+				{ label: m.pr_r_ai_credits, v: ['30', '300', '1,000', '3,000', '10,000'] },
 				{ label: m.pr_r_multi_company, v: from(4) }
-			]
+			],
+			note: m.pr_ai_note,
+			link: { href: '/features/ai-count', label: m.pr_ai_link }
 		},
 		{
 			key: 'operation', title: m.pr_g_operation, tone: 'blue', icon: Boxes,
@@ -173,16 +180,19 @@
 		[m.pr_q5, m.pr_a5],
 		[m.pr_q6, m.pr_a6],
 		[m.pr_q7, m.pr_a7],
-		[m.pr_q8, m.pr_a8]
+		[m.pr_q8, m.pr_a8],
+		[m.pr_q9, m.pr_a9]
 	];
 
+	/** Plan-card bullet for the monthly AI credits (plans.ts `ai_credits`). */
+	const ai = (n: string) => () => m.pr_b_ai({ n });
 	type Plan = { key: string; name: () => string; yearly: number; monthly: number | null; desc: () => string; lead: () => string; bullets: (() => string)[]; best?: boolean; quoted?: boolean };
 	const plans: Plan[] = [
-		{ key: 'free', name: m.pr_plan_free, yearly: 0, monthly: null, desc: m.pr_free_desc, lead: m.pr_includes, bullets: [m.pr_b_free_1, m.pr_b_free_2, m.pr_b_free_3, m.pr_b_free_4, m.pr_b_free_5, m.pr_b_free_6, m.pr_b_free_7, m.pr_b_free_8] },
-		{ key: 'starter', name: m.pr_plan_starter, yearly: 2990, monthly: 299, desc: m.pr_starter_desc, lead: m.pr_everything_free, bullets: [m.pr_b_sta_1, m.pr_b_sta_2, m.pr_b_sta_3, m.pr_b_sta_5] },
-		{ key: 'standard', name: m.pr_plan_standard, yearly: 9900, monthly: 990, desc: m.pr_standard_desc, lead: m.pr_everything_starter, bullets: [m.pr_b_std_1, m.pr_b_std_2, m.pr_b_std_3, m.pr_b_std_5] },
-		{ key: 'business', name: m.pr_plan_business, yearly: 39900, monthly: 3990, desc: m.pr_business_desc, lead: m.pr_everything_standard, bullets: [m.pr_b_bus_1, m.pr_b_bus_2, m.pr_b_bus_3, m.pr_b_bus_5, m.pr_b_bus_6, m.pr_b_bus_7, m.pr_b_bus_9], best: true },
-		{ key: 'enterprise', name: m.pr_plan_enterprise, yearly: 120000, monthly: null, desc: m.pr_enterprise_desc, lead: m.pr_everything_business, bullets: [m.pr_b_ent_1, m.pr_b_ent_2, m.pr_b_ent_3, m.pr_b_ent_4, m.pr_b_ent_5, m.pr_b_ent_7, m.pr_b_ent_6], quoted: true }
+		{ key: 'free', name: m.pr_plan_free, yearly: 0, monthly: null, desc: m.pr_free_desc, lead: m.pr_includes, bullets: [m.pr_b_free_1, m.pr_b_free_2, ai('30'), m.pr_b_free_3, m.pr_b_free_4, m.pr_b_free_5, m.pr_b_free_6, m.pr_b_free_7, m.pr_b_free_8] },
+		{ key: 'starter', name: m.pr_plan_starter, yearly: 2990, monthly: 299, desc: m.pr_starter_desc, lead: m.pr_everything_free, bullets: [m.pr_b_sta_1, ai('300'), m.pr_b_sta_2, m.pr_b_sta_3, m.pr_b_sta_5] },
+		{ key: 'standard', name: m.pr_plan_standard, yearly: 9900, monthly: 990, desc: m.pr_standard_desc, lead: m.pr_everything_starter, bullets: [m.pr_b_std_1, ai('1,000'), m.pr_b_std_2, m.pr_b_std_3, m.pr_b_std_5] },
+		{ key: 'business', name: m.pr_plan_business, yearly: 39900, monthly: 3990, desc: m.pr_business_desc, lead: m.pr_everything_standard, bullets: [m.pr_b_bus_1, m.pr_b_bus_2, ai('3,000'), m.pr_b_bus_3, m.pr_b_bus_5, m.pr_b_bus_6, m.pr_b_bus_7, m.pr_b_bus_9], best: true },
+		{ key: 'enterprise', name: m.pr_plan_enterprise, yearly: 120000, monthly: null, desc: m.pr_enterprise_desc, lead: m.pr_everything_business, bullets: [m.pr_b_ent_1, m.pr_b_ent_2, ai('10,000'), m.pr_b_ent_3, m.pr_b_ent_4, m.pr_b_ent_5, m.pr_b_ent_7, m.pr_b_ent_6], quoted: true }
 	];
 </script>
 

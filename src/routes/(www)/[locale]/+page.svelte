@@ -380,7 +380,7 @@
 				<li>
 					<a href={localePath(locale, `/features/${f.key}`)} class="group flex h-full flex-col rounded-xl border border-tnb-line/60 bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md">
 						<span class="flex items-center gap-2 text-[11px] font-semibold tracking-wider uppercase {th.text}"><span class="h-2 w-2 rounded-full {th.solid}"></span>{t(MODULE_LABEL[f.module])}</span>
-						<span class="mt-2 font-semibold text-tnb-ink group-hover:text-tnb-blue">{t(f.keyword)}</span>
+						<span class="mt-2 font-semibold text-tnb-ink group-hover:text-tnb-blue">{t(f.keyword)}{#if f.ai}<span class="ml-1.5 inline-flex items-center gap-0.5 rounded-full border border-violet-300 bg-violet-50 px-1.5 py-px align-middle text-[10.5px] font-semibold text-violet-700" title="AI">✦ AI</span>{/if}</span>
 						<span class="mt-1.5 text-[14px] leading-snug text-tnb-ink-soft">{t(f.lede)}</span>
 					</a>
 				</li>

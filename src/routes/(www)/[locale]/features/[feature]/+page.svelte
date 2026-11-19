@@ -33,7 +33,7 @@
 			<Breadcrumbs {locale} items={[{ name: th ? 'ฟีเจอร์' : 'Features', path: '/features' }, { name: t(f.keyword) }]} />
 			<div class="mt-8 grid items-center gap-10 lg:grid-cols-[1.05fr_1fr]">
 				<div>
-					<p class="inline-flex items-center gap-2 rounded-full bg-tnb-mist px-3 py-1 text-sm font-semibold {theme.text}"><span class="h-2 w-2 rounded-full {theme.solid}" aria-hidden="true"></span>{t(f.eyebrow)}</p>
+					<p class="inline-flex items-center gap-2 rounded-full bg-tnb-mist px-3 py-1 text-sm font-semibold {theme.text}"><span class="h-2 w-2 rounded-full {theme.solid}" aria-hidden="true"></span>{t(f.eyebrow)}{#if f.ai}<span class="ml-1.5 inline-flex items-center gap-0.5 rounded-full border border-violet-300 bg-violet-50 px-1.5 py-px align-middle text-[10.5px] font-semibold text-violet-700" title="AI">✦ AI</span>{/if}</p>
 					<h1 class="mt-4 text-4xl leading-tight font-bold tracking-tight text-balance text-tnb-ink sm:text-5xl">{t(f.h1)}</h1>
 					<p class="mt-5 text-lg leading-relaxed text-tnb-ink-soft">{t(f.lede)}</p>
 					<div class="mt-7 flex flex-wrap gap-3">

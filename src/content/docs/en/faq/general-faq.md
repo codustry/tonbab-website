@@ -3,7 +3,7 @@ title: "Tonbab Frequently Asked Questions"
 description: "Short answers about Tonbab pricing, the free trial, users per plan, accounting, data migration, Shopee and Lazada, mobile and security."
 section: faq
 order: 1
-updated: 2026-11-18
+updated: 2026-11-19
 ---
 
 Common questions customers ask about Tonbab, with links to the related guides. If your question isn't here, contact sales@codustry.com or 02-873-4448.
@@ -55,6 +55,10 @@ Yes. A user can belong to several companies and switch from the sidebar. Running
 ### Can it connect to other systems or AI?
 
 Yes, through the REST API and the AI connector (MCP) for Claude and ChatGPT. Writes through the API are drafts only. See [API and MCP](/en/docs/api/api-and-mcp-quickstart).
+
+### Does Tonbab have AI features? What are AI credits?
+
+Yes. **AI Count** in the pack station counts items from a photo: AI puts a dot on each item, and staff check and correct the dots before saving. AI features use your company's monthly AI credits. Most AI actions use 1 credit and heavier ones use more; AI Count uses 1–2 credits per photo however many items it finds. Allowances are Free 30, Starter 300, Standard 1,000, Business 3,000 and Enterprise 10,000 a month. See [AI credits](/en/docs/getting-started/plans-and-billing#ai-credits).
 
 ### Who can see employee salaries?
 

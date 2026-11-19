@@ -3,7 +3,7 @@ title: "Pack Station: Scan-to-Pack Delivery Notes"
 description: "Use the Tonbab Pack app to scan items against a delivery note, set lots, record boxes and weight, print pack slips and check stock."
 section: commerce
 order: 2
-updated: 2026-11-17
+updated: 2026-11-19
 ---
 
 The pack station (the **Pack** app) is used in the warehouse to pack goods against a [delivery note](/en/docs/operation/delivery-notes). Staff scan each item, Tonbab checks it's complete and correct, and the office then issues the delivery note to take the stock out.
@@ -37,6 +37,17 @@ The delivery note becomes **Packed**. The office then clicks **Issue & Ship** on
 ## Stock tab
 
 The **Stock** tab lets you **Look up stock** in the warehouse, showing on hand, reserved and available quantities, and print a stock slip.
+
+## AI Count tab
+
+The **AI Count** tab counts items from a photo. It's a counting helper: saved counts go to its own history, not to stock.
+
+1. Under **What are you counting?**, keep **Auto (AI decides)**, pick an item such as **Pipes**, **Boxes** or **Bottles**, or type what to count.
+2. Tap **Take photo**. Shoot from straight above, or straight at the ends of pipes and bars, in even light.
+3. AI puts a dot on each item it sees. Tap a dot to remove it, or tap empty space to add one. **Zoom** and **Undo** help on dense piles.
+4. Tap **Save to history**. The count is kept with its photo and dots; tap a count under **Recent counts** to open it, or tap **Share** to send the proof photo.
+
+Each photo uses 1–2 AI credits from your company's monthly allowance, however many items it finds: 1 for a normal photo, 2 for a dense pile that has to be counted in sections. If the count fails, the credits are given back. See [AI credits](/en/docs/getting-started/plans-and-billing#ai-credits).
 
 ## Printing
 

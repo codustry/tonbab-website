@@ -1,28 +1,28 @@
 ---
 title: "Tonbab Plans and Billing"
-description: "Compare Tonbab's 5 plans, Free, Starter, Standard, Business and Enterprise: every feature on every plan, yearly prices before VAT, users, storage, limits and add-ons."
+description: "Compare Tonbab's 5 plans, Free, Starter, Standard, Business and Enterprise: every feature on every plan, yearly prices before VAT, users, storage, AI credits, limits and add-ons."
 section: getting-started
 order: 5
-updated: 2026-11-18
+updated: 2026-11-19
 ---
 
 Tonbab has 5 plans. Free costs nothing and has no time limit. New companies get a 30-day Business trial, then move to Free automatically. All prices below are before 7% VAT.
 
 ## Prices and what you get
 
-| Plan | Per year | Per month | Users | Storage / per file |
-|---|---|---|---|---|
-| Free | ฿0 | ฿0 | 1 | 5 GB / 50 MB |
-| Starter | ฿2,990 | ฿299 | 5 | 15 GB / 200 MB |
-| Standard | ฿9,900 | ฿990 | 10 | 50 GB / 1 GB |
-| Business | ฿39,900 | ฿3,990 | 25 | 100 GB / 5 GB |
-| Enterprise | from ฿120,000 | yearly only | 100+ | 1 TB / 20 GB |
+| Plan | Per year | Per month | Users | Storage / per file | AI credits / month |
+|---|---|---|---|---|---|
+| Free | ฿0 | ฿0 | 1 | 5 GB / 50 MB | 30 |
+| Starter | ฿2,990 | ฿299 | 5 | 15 GB / 200 MB | 300 |
+| Standard | ฿9,900 | ฿990 | 10 | 50 GB / 1 GB | 1,000 |
+| Business | ฿39,900 | ฿3,990 | 25 | 100 GB / 5 GB | 3,000 |
+| Enterprise | from ฿120,000 | yearly only | 100+ | 1 TB / 20 GB | 10,000 |
 
 The monthly price is a tenth of the yearly price, so paying yearly gives you two months free. Each plan includes everything in the cheaper plans.
 
 ## Every feature on every plan
 
-Every plan, Free included, has every module and feature. Plans differ by size: users, storage and the limits below. This includes:
+Every plan, Free included, has every module and feature. Plans differ by size: users, storage, AI credits and the limits below. This includes:
 
 - Accounting (tax invoices, VAT and withholding tax, ledger) and the connector for FlowAccount, PEAK or Express
 - Payroll and recruitment
@@ -61,6 +61,16 @@ Every plan, Free included, has every module and feature. Plans differ by size: u
 
 Need more users? Move to the next plan; there's no extra-user add-on. API quotas per plan are in [API and MCP quickstart](/en/docs/api/api-and-mcp-quickstart).
 
+## AI credits
+
+Every plan includes a monthly allowance of AI credits for the AI features inside Tonbab. Each of these features carries an **AI** mark.
+
+- Most AI actions use 1 credit; heavier ones use more.
+- **AI Count** (counting items from a photo in the [pack station](/en/docs/commerce/pack-station#ai-count-tab)) uses 1–2 credits per photo, however many items it finds: 1 for a normal photo, 2 for a dense pile that has to be counted in sections. If a count fails, the credits are given back.
+- Credits reset at the start of every month, Bangkok time.
+- When the month's credits run out, AI features stop until the next month; everything else keeps working. An admin can upgrade the plan on the **Billing** page.
+- The API and AI connector (MCP) use the API quotas, not AI credits.
+
 ## Add-ons
 
 - Extra 100 GB storage: ฿900/year
@@ -75,7 +85,7 @@ Enterprise already includes all sales channels and HikCentral.
 
 ## See usage and pay
 
-Go to **Billing** in the settings menu. It shows your current plan, usage against each limit, the **Upcoming Invoice** and your **Payment History**.
+Go to **Billing** in the settings menu. It shows your current plan, usage against each limit (including this month's AI credits), the **Upcoming Invoice** and your **Payment History**.
 
 - **Upgrade:** contact us or pay the invoice on this page. Your data stays exactly as it is.
 - **Redeem a code:** if you received a code, click **Redeem a code** and enter it.
