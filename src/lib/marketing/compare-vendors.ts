@@ -367,7 +367,7 @@ export const vendorCompares: VendorCompare[] = [
       row("ราคาที่เปิดเผย (ต่อปี)", "Published price (per year)", bi("Starter ฿6,300 · Professional ฿15,000 · Business ฿24,000 (หรือรายไตรมาส)", "Starter ฿6,300 · Professional ฿15,000 · Business ฿24,000 (or quarterly)"), TONBAB_PRICE),
       row("ผู้ใช้", "Users", bi("1–3 คน · เพิ่มผู้ใช้ ฿3,900/คน/ปี", "1–3 users · extra user ฿3,900/yr each"), TONBAB_USERS),
       row("ออเดอร์ต่อเดือน", "Orders per month", bi("1,000–2,000 · เพิ่ม 1,000 ออเดอร์ ฿3,500/ปี", "1,000–2,000 · +1,000 orders ฿3,500/yr"), bi("Free 300 · Starter 1,000 · Standard 3,000 · Business ไม่จำกัด", "Free 300 · Starter 1,000 · Standard 3,000 · Business unlimited")),
-      row("ช่องทางขายออนไลน์", "Marketplace channels", bi("จุดแข็งหลัก — 1–3 ช่องทางตามแพ็กเกจ เพิ่ม ฿5,200/ช่องทาง/ปี", "Core strength — 1–3 channels by plan, +฿5,200/channel/yr"), bi(`LINE Shopee Lazada Meta Shopify TikTok — บริการเสริม ${B.channels}/ปี (Business)`, `LINE, Shopee, Lazada, Meta, Shopify, TikTok — ${B.channels}/yr add-on (Business)`)),
+      row("ช่องทางขายออนไลน์", "Marketplace channels", bi("จุดแข็งหลัก — 1–3 ช่องทางตามแพ็กเกจ เพิ่ม ฿5,200/ช่องทาง/ปี", "Core strength — 1–3 channels by plan, +฿5,200/channel/yr"), bi(`LINE Shopee Lazada Meta Shopify — บริการเสริม ${B.channels}/ปี (Business) · TikTok Shop เร็วๆ นี้`, `LINE, Shopee, Lazada, Meta, Shopify — ${B.channels}/yr add-on (Business) · TikTok Shop coming soon`)),
       row("การผลิต", "Manufacturing", bi("ทำได้แค่จัดชุดสินค้า (kitting)", "Kitting only"), TONBAB_MFG),
       row("บัญชี", "Accounting", bi("เชื่อมกับ PEAK และโปรแกรมบัญชีอื่น", "Connects to PEAK and other accounting apps"), TONBAB_ACC),
       row("HR / เงินเดือน", "HR / payroll", bi("ไม่มี", "No"), TONBAB_HR),
