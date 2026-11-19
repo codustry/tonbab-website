@@ -14,7 +14,7 @@
 	import CtaBand from '$lib/components/www/CtaBand.svelte';
 	import AssistantMark from '$lib/components/www/AssistantMark.svelte';
 	import {
-		MCP_URL, aiFaq, aiSafety, assistants, builtInLive, builtInSoon, examplePrompts
+		MCP_URL, MCP_TOOL_TOTAL, MCP_DRAFT_TOTAL, aiFaq, aiSafety, assistants, builtInLive, builtInSoon, examplePrompts, mcpCoverage
 	} from '$lib/marketing/ai-data';
 	import {
 		ArrowRight, Check, Cloud, EyeOff, Building2, UserCheck, FilePen, RotateCcw, Sparkles, MessageSquare, Wrench,
@@ -192,8 +192,8 @@
 		<h2 class="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-balance text-tnb-ink sm:text-4xl">{t({ en: 'Use Tonbab from the AI you already use', th: 'ใช้ Tonbab ผ่าน AI ที่คุณใช้อยู่' })}</h2>
 		<p class="mt-4 max-w-2xl leading-relaxed text-tnb-ink-soft">
 			{t({
-				en: 'Tonbab has an MCP server, the open standard AI assistants use to reach other apps. Connect it to your own assistant account and ask about stock, purchasing, sales, CRM and docs in plain Thai or English. It doesn’t use Tonbab AI credits; data calls count toward your plan’s API quota.',
-				th: 'Tonbab มี MCP server ซึ่งเป็นมาตรฐานเปิดที่ผู้ช่วย AI ใช้เชื่อมกับแอปอื่น เชื่อมกับบัญชีผู้ช่วย AI ของคุณเอง แล้วถามเรื่องสต็อก จัดซื้อ งานขาย CRM และเอกสารด้วยภาษาไทยหรืออังกฤษ ไม่ใช้เครดิต AI ของ Tonbab การดึงข้อมูลนับตามโควตา API ของแพ็กเกจ'
+				en: 'Tonbab has an MCP server, the open standard AI assistants use to reach other apps. Connect it to your own assistant account and ask about sales, receivables, profit, stock, purchasing, CRM, leave, service jobs and docs in plain Thai or English — across every company you tick when you connect. It sees only what your role allows, and anything it creates is a draft. It doesn’t use Tonbab AI credits; data calls count toward your plan’s API quota.',
+				th: 'Tonbab มี MCP server ซึ่งเป็นมาตรฐานเปิดที่ผู้ช่วย AI ใช้เชื่อมกับแอปอื่น เชื่อมกับบัญชีผู้ช่วย AI ของคุณเอง แล้วถามเรื่องยอดขาย ลูกหนี้ กำไรขาดทุน สต็อก จัดซื้อ CRM วันลา งานบริการ และเอกสารด้วยภาษาไทยหรืออังกฤษ ได้ทุกบริษัทที่คุณติ๊กตอนเชื่อมต่อ ผู้ช่วยเห็นเท่าที่บทบาทของคุณเห็น และสิ่งที่สร้างเป็นฉบับร่างเสมอ ไม่ใช้เครดิต AI ของ Tonbab การดึงข้อมูลนับตามโควตา API ของแพ็กเกจ'
 			})}
 		</p>
 		<p class="mt-5 flex flex-wrap items-center gap-2 text-sm">
@@ -202,6 +202,27 @@
 				<span class="inline-flex h-8 items-center rounded-full bg-white px-3 font-medium text-tnb-ink ring-1 ring-tnb-hair"><AssistantMark key={a.key} /></span>
 			{/each}
 		</p>
+
+		<!-- Tool coverage by area — counts come from the app's operation registry -->
+		<h3 class="mt-12 text-lg font-semibold text-tnb-ink">{t({ en: 'What it can reach', th: 'เข้าถึงอะไรได้บ้าง' })}</h3>
+		<p class="mt-1 text-sm text-tnb-ink-soft">
+			{t({
+				en: `${MCP_TOOL_TOTAL} tools: ${MCP_TOOL_TOTAL - MCP_DRAFT_TOTAL} that read and ${MCP_DRAFT_TOTAL} that create drafts. Each area appears only if the module is on and your role can open it.`,
+				th: `${MCP_TOOL_TOTAL} เครื่องมือ: อ่านข้อมูล ${MCP_TOOL_TOTAL - MCP_DRAFT_TOTAL} ตัว และสร้างฉบับร่าง ${MCP_DRAFT_TOTAL} ตัว แต่ละหมวดจะใช้ได้เมื่อเปิดโมดูลนั้นและบทบาทของคุณเปิดดูได้`
+			})}
+		</p>
+		<ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+			{#each mcpCoverage as c (c.key)}
+				<li class="min-w-0 rounded-2xl bg-white p-5 ring-1 ring-tnb-hair">
+					<p class="flex items-baseline justify-between gap-3">
+						<span class="font-semibold text-tnb-ink">{t(c.area)}</span>
+						<span class="shrink-0 text-xs text-tnb-ink-soft tabular-nums">{c.tools} {t({ en: c.tools === 1 ? 'tool' : 'tools', th: 'เครื่องมือ' })}</span>
+					</p>
+					<p class="mt-1.5 text-[14px] leading-relaxed text-tnb-ink-soft">{t(c.reads)}</p>
+					{#if c.drafts}<p class="mt-2 text-[13px] text-tnb-ink-soft"><span class="font-medium text-tnb-ink">{t({ en: 'Drafts:', th: 'ฉบับร่าง:' })}</span> {t(c.drafts)}</p>{/if}
+				</li>
+			{/each}
+		</ul>
 
 		<!-- Example prompts, with the Tonbab tools behind each answer -->
 		<h3 class="mt-12 text-lg font-semibold text-tnb-ink">{t({ en: 'Things you can ask', th: 'ตัวอย่างคำถาม' })}</h3>
@@ -214,6 +235,7 @@
 						<span class="sr-only">{t({ en: 'Tonbab tools used:', th: 'เครื่องมือ Tonbab ที่ใช้:' })}</span>
 						{#each p.tools as tool (tool)}<code class="rounded bg-tnb-mist px-1.5 py-0.5 font-mono text-[11.5px] text-tnb-ink-soft">{tool}</code>{/each}
 					</div>
+					{#if p.multiCompany}<p class="mt-2 text-[13px] text-tnb-ink-soft">{t({ en: 'company: "all" — one answer per company you ticked, never added together', th: 'company: "all" — ตอบแยกทีละบริษัทที่คุณติ๊กไว้ ไม่รวมยอดข้ามบริษัท' })}</p>{/if}
 					{#if p.draft}<p class="mt-2 text-[13px] text-tnb-ink-soft">{t({ en: 'Creates a draft for you to submit · Starter and up', th: 'สร้างเป็นฉบับร่างให้คุณกดส่ง · ตั้งแต่ Starter' })}</p>{/if}
 				</li>
 			{/each}

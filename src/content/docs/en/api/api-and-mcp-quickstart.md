@@ -1,6 +1,6 @@
 ---
 title: "Tonbab API and MCP AI Connector Quickstart"
-description: "Connect Tonbab to Claude or ChatGPT via MCP, or your systems via REST API: create keys, set permissions, add webhooks and see limits."
+description: "Connect Tonbab to Claude, ChatGPT or Gemini CLI via MCP (59 tools, several companies in one connection), or your systems via REST API: keys, permissions, webhooks and limits."
 section: api
 order: 1
 updated: 2026-11-19
@@ -20,11 +20,38 @@ Under **Company switches** are **Allow API access** and **Allow AI connectors (M
 
 The connector URL is `https://api.tonbab.com/mcp`.
 
-1. In Claude, go to Settings › Connectors › Add custom connector. In ChatGPT, go to Settings › Connectors.
+1. In Claude, go to Settings › Connectors › Add custom connector. In ChatGPT, turn on developer mode (Settings › Apps & Connectors › Advanced), then create a connector with OAuth.
 2. Paste the URL and connect.
-3. Sign in to Tonbab, pick the company and allow access.
+3. Sign in to Tonbab and pick the **Company** (your default). Under **Also allow these companies**, tick any other companies it may use, or leave them all unticked for one company. Choose permissions and allow access.
 
 Each connection acts as the person who connected it, within their role's permissions. See and disconnect connections on the **Connected apps** tab.
+
+### What the assistant can reach
+
+59 tools: 54 that read and 5 that create drafts. An area only shows up if the module is on and your role can open it.
+
+- **Accounting**: sales summary, receivables and payables aging, profit and loss, trial balance, invoices, bills, quotations, receipts and payments, chart of accounts, bank accounts (last 4 digits only), fixed assets
+- **Products and stock**: products, stock levels, warehouses, movements, lots, serials, stock valuation (only if you can see costs)
+- **Purchasing**: purchase requests, purchase orders, goods receipts
+- **Sales**: sales orders, delivery notes
+- **Customers, vendors and CRM**: companies, contacts, deals and activities (deals follow your reporting line, as in the app)
+- **People**: employee directory (contact details only), my leave balance, leave requests, expense claims
+- **Manufacturing and service**: work orders, job controls, BOMs, service jobs, the service schedule
+- **Docs**: search pages, read a page, database rows
+- **Drafts**: purchase request, stock count, customer/vendor, CRM deal, CRM activity
+
+Salary, payroll, ID numbers and commission are never available.
+
+### Several companies
+
+If you belong to more than one company, one connection can cover the companies you tick at sign-in, and no others.
+
+- In each company, the assistant sees only what **your role in that company** allows. Being an admin in one company gives nothing in another.
+- Every call is checked again in that company.
+- Ask "which companies can you see?" and the assistant calls `list_my_companies`.
+- Summaries (sales, receivables, payables, profit and loss, stock value) can cover all your companies at once. The answer comes back one company at a time and is never added together.
+
+API keys always belong to one company.
 
 Connecting an assistant doesn't use your AI credits: the assistant runs on your own Claude, ChatGPT or Gemini account, and each data call counts toward the API limits below.
 
@@ -49,7 +76,7 @@ Other apps that let you add a remote MCP server by URL with OAuth sign-in connec
 3. Choose the **Mode**:
    - **Live**
    - **Test**: reads real data, but writes are only checked, never saved. Safe for building an integration.
-4. Choose **Read** and/or **Create drafts**. You can only give a key permissions you have yourself.
+4. Choose **Read** and/or **Create drafts**. You can only give a key permissions you have yourself. The key acts as you: if your permissions change later, the key's do too, and it stops working if you leave the company.
 5. Set **Expires** and optional **Allowed IPs** (up to 20).
 6. Click **Create key** and copy it right away. It won't be shown again.
 

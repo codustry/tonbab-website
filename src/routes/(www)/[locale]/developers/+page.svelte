@@ -10,7 +10,7 @@
 	import type { Bi } from '$lib/marketing/compare-data';
 	import {
 		ArrowRight, Bot, KeyRound, FlaskConical, Webhook, ListTree, FileCode2, ShieldCheck, FilePen, UserCheck,
-		Unplug, Check, Eye
+		Unplug, Check, Eye, Building2
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -24,32 +24,35 @@
 		{
 			title: { en: 'Add Tonbab by URL', th: 'เพิ่ม Tonbab ด้วย URL' },
 			body: {
-				en: 'In Claude or ChatGPT, add a custom connector and paste this address:',
-				th: 'ใน Claude หรือ ChatGPT เพิ่มตัวเชื่อมแบบกำหนดเอง (custom connector) แล้ววางที่อยู่นี้:'
+				en: 'In Claude, ChatGPT or Gemini CLI, add a custom connector and paste this address:',
+				th: 'ใน Claude, ChatGPT หรือ Gemini CLI เพิ่มตัวเชื่อมแบบกำหนดเอง (custom connector) แล้ววางที่อยู่นี้:'
 			},
 			code: MCP_URL
 		},
 		{
 			title: { en: 'Sign in and choose', th: 'เข้าสู่ระบบและเลือกสิทธิ์' },
 			body: {
-				en: 'Sign in with your Tonbab account, pick the company, and choose what the assistant may see and do.',
-				th: 'เข้าสู่ระบบด้วยบัญชี Tonbab เลือกบริษัท แล้วเลือกว่าจะให้ผู้ช่วยเห็นและทำอะไรได้บ้าง'
+				en: 'Sign in with your Tonbab account, pick your default company, tick any other companies it may use, and choose what the assistant may see and do.',
+				th: 'เข้าสู่ระบบด้วยบัญชี Tonbab เลือกบริษัทหลัก ติ๊กบริษัทอื่นที่ให้ใช้ได้ (ถ้ามี) แล้วเลือกว่าจะให้ผู้ช่วยเห็นและทำอะไรได้บ้าง'
 			}
 		},
 		{
 			title: { en: 'Ask in your own words', th: 'ถามด้วยภาษาของคุณเอง' },
 			body: {
-				en: '“Which purchase orders are still waiting for delivery?” · “Draft a purchase request for 200 cartons from our usual supplier.”',
-				th: '“ใบสั่งซื้อใบไหนยังไม่ได้รับของบ้าง” · “ร่างใบขอซื้อกล่อง 200 ใบจากผู้ขายเจ้าประจำให้หน่อย”'
+				en: '“Which customers are more than 30 days overdue?” · “Profit and loss this month?” · “Draft a purchase request for 200 cartons from our usual supplier.”',
+				th: '“ลูกค้าคนไหนค้างจ่ายเกิน 30 วัน” · “กำไรขาดทุนเดือนนี้” · “ร่างใบขอซื้อกล่อง 200 ใบจากผู้ขายเจ้าประจำให้หน่อย”'
 			}
 		}
 	];
 
 	const canRead: Bi[] = [
-		{ en: 'Products and stock levels', th: 'สินค้าและยอดสต็อก' },
+		{ en: 'Accounting — sales summary, receivables and payables aging, profit and loss, trial balance, invoices, bills, payments', th: 'บัญชี — สรุปยอดขาย ลูกหนี้/เจ้าหนี้ตามอายุ กำไรขาดทุน งบทดลอง ใบแจ้งหนี้ บิลซื้อ รับ-จ่ายเงิน' },
+		{ en: 'Products and stock — levels, movements, lots, serials, valuation (cost-gated)', th: 'สินค้าและสต็อก — ยอดคงเหลือ ความเคลื่อนไหว ล็อต ซีเรียล มูลค่า (เฉพาะคนที่เห็นต้นทุน)' },
 		{ en: 'Purchasing — PRs, POs, goods receipts', th: 'จัดซื้อ — PR, PO, ใบรับสินค้า' },
 		{ en: 'Sales — orders and delivery notes', th: 'งานขาย — ออเดอร์และใบส่งของ' },
 		{ en: 'CRM — customers, contacts, deals, activities', th: 'CRM — ลูกค้า ผู้ติดต่อ ดีล กิจกรรม' },
+		{ en: 'People — my leave balance, leave requests, expense claims', th: 'บุคลากร — วันลาคงเหลือของฉัน ใบลา ใบเบิกค่าใช้จ่าย' },
+		{ en: 'Manufacturing and service — work orders, BOMs, service jobs and schedule', th: 'การผลิตและงานบริการ — ใบสั่งผลิต BOM งานซ่อมบริการและตารางงาน' },
 		{ en: 'Docs — search pages, read database rows', th: 'Docs — ค้นหน้าเอกสาร อ่านแถวในฐานข้อมูล' }
 	];
 	const canDraft: Bi[] = [
@@ -76,6 +79,14 @@
 			}
 		},
 		{
+			icon: Building2,
+			title: { en: 'Only the companies you tick', th: 'เฉพาะบริษัทที่คุณติ๊ก' },
+			body: {
+				en: 'Belong to several companies? Tick the ones a connection may use. Each call is re-checked against your role in that company, and summaries across companies come back one company at a time.',
+				th: 'ถ้าคุณอยู่หลายบริษัท ติ๊กเฉพาะบริษัทที่ให้การเชื่อมต่อใช้ได้ ทุกการเรียกตรวจสิทธิ์ใหม่ตามบทบาทของคุณในบริษัทนั้น และการสรุปหลายบริษัทจะตอบแยกทีละบริษัท'
+			}
+		},
+		{
 			icon: Unplug,
 			title: { en: 'Disconnect any time', th: 'ยกเลิกการเชื่อมต่อได้ทุกเมื่อ' },
 			body: {
@@ -90,8 +101,8 @@
 			icon: KeyRound,
 			title: { en: 'API keys with scopes', th: 'API key กำหนดขอบเขตได้' },
 			body: {
-				en: 'Admins create company keys limited to the scopes an integration needs — never more than the creator’s own permissions.',
-				th: 'ผู้ดูแลระบบสร้าง key ของบริษัทที่จำกัดเฉพาะขอบเขตที่การเชื่อมต่อนั้นต้องใช้ — ไม่เกินสิทธิ์ของคนที่สร้าง'
+				en: 'Admins create company keys limited to the scopes an integration needs. A key acts as its creator: if their permissions shrink, so does the key, and it stops when they leave the company.',
+				th: 'ผู้ดูแลระบบสร้าง key ของบริษัทที่จำกัดเฉพาะขอบเขตที่การเชื่อมต่อนั้นต้องใช้ key ทำงานในนามคนที่สร้าง ถ้าสิทธิ์ของคนนั้นลดลง key ก็ลดตาม และหยุดทำงานเมื่อเขาออกจากบริษัท'
 			}
 		},
 		{
@@ -162,7 +173,7 @@
 		},
 		{
 			title: { en: '3 · Connect an AI assistant (MCP)', th: '3 · เชื่อมผู้ช่วย AI (MCP)' },
-			body: { en: 'MCP clients such as Claude or ChatGPT connect to the MCP endpoint and sign in with OAuth — the user picks the company and consents to scopes; access never exceeds their role.', th: 'ไคลเอนต์ MCP เช่น Claude หรือ ChatGPT เชื่อมที่ MCP endpoint แล้วเข้าสู่ระบบด้วย OAuth — ผู้ใช้เลือกบริษัทและยินยอมขอบเขต สิทธิ์ไม่เกินบทบาทของผู้ใช้' },
+			body: { en: 'MCP clients such as Claude, ChatGPT or Gemini CLI connect to the MCP endpoint and sign in with OAuth — the user ticks the companies and consents to scopes; every tool takes a company argument and access never exceeds their role there.', th: 'ไคลเอนต์ MCP เช่น Claude, ChatGPT หรือ Gemini CLI เชื่อมที่ MCP endpoint แล้วเข้าสู่ระบบด้วย OAuth — ผู้ใช้ติ๊กบริษัทและยินยอมขอบเขต ทุกเครื่องมือรับอาร์กิวเมนต์ company และสิทธิ์ไม่เกินบทบาทของผู้ใช้ในบริษัทนั้น' },
 			code: 'https://api.tonbab.com/mcp'
 		}
 	];
@@ -177,8 +188,8 @@
 	</h1>
 	<p class="mt-5 max-w-2xl text-lg leading-relaxed text-tnb-ink-soft">
 		{t({
-			en: 'A REST API with scoped keys and signed webhooks, and an AI connector that brings your company data into Claude or ChatGPT — always within each person’s own permissions.',
-			th: 'REST API ที่กำหนดขอบเขตของ key ได้ พร้อม webhook ที่ลงลายเซ็น และตัวเชื่อม AI ที่พาข้อมูลบริษัทเข้าไปใช้ใน Claude หรือ ChatGPT — ภายใต้สิทธิ์ของแต่ละคนเสมอ'
+			en: 'A REST API with scoped keys and signed webhooks, and an AI connector with 59 tools that brings your company data into Claude, ChatGPT or Gemini CLI — always within each person’s own permissions.',
+			th: 'REST API ที่กำหนดขอบเขตของ key ได้ พร้อม webhook ที่ลงลายเซ็น และตัวเชื่อม AI 59 เครื่องมือที่พาข้อมูลบริษัทเข้าไปใช้ใน Claude, ChatGPT หรือ Gemini CLI — ภายใต้สิทธิ์ของแต่ละคนเสมอ'
 		})}
 	</p>
 	<div class="mt-8 flex flex-wrap gap-3">
@@ -192,11 +203,11 @@
 <section class="bg-tnb-mist">
 	<div class="container mx-auto max-w-6xl px-4 py-20">
 		<p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-tnb-ink-soft"><Bot class="h-4 w-4" aria-hidden="true" />{t({ en: 'AI connector (MCP)', th: 'ตัวเชื่อม AI (MCP)' })}</p>
-		<h2 class="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-tnb-ink text-balance sm:text-4xl">{t({ en: 'Tonbab inside Claude and ChatGPT', th: 'ใช้ Tonbab ได้ใน Claude และ ChatGPT' })}</h2>
+		<h2 class="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-tnb-ink text-balance sm:text-4xl">{t({ en: 'Tonbab inside Claude, ChatGPT and Gemini CLI', th: 'ใช้ Tonbab ได้ใน Claude, ChatGPT และ Gemini CLI' })}</h2>
 		<p class="mt-4 max-w-2xl leading-relaxed text-tnb-ink-soft">
 			{t({
-				en: 'Ask about stock, purchasing, sales and customers in plain Thai or English, and let the assistant prepare drafts for you to check.',
-				th: 'ถามเรื่องสต็อก การจัดซื้อ งานขาย และลูกค้าด้วยภาษาไทยหรืออังกฤษธรรมดา ๆ แล้วให้ผู้ช่วยเตรียมฉบับร่างไว้ให้คุณตรวจ'
+				en: 'Ask about sales, receivables, profit, stock, purchasing, customers and leave in plain Thai or English — in every company you tick — and let the assistant prepare drafts for you to check. It uses your plan’s API quota, not AI credits.',
+				th: 'ถามเรื่องยอดขาย ลูกหนี้ กำไรขาดทุน สต็อก การจัดซื้อ ลูกค้า และวันลา ด้วยภาษาไทยหรืออังกฤษธรรมดา ๆ ได้ทุกบริษัทที่คุณติ๊ก แล้วให้ผู้ช่วยเตรียมฉบับร่างไว้ให้คุณตรวจ ใช้โควตา API ของแพ็กเกจ ไม่ใช้เครดิต AI'
 			})}
 		</p>
 
@@ -233,7 +244,7 @@
 			</div>
 		</div>
 
-		<div class="mt-6 grid gap-4 md:grid-cols-3">
+		<div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 			{#each guards as g (g.title.en)}
 				{@const Icon = g.icon}
 				<div class="rounded-2xl border border-tnb-hair bg-tnb-paper p-6">

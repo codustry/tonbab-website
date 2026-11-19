@@ -33,8 +33,18 @@
  *   - MCP: src/routes/mcp, $lib/server/api/mcp.ts (Streamable HTTP), OAuth 2.1
  *     with Client ID Metadata Documents + Dynamic Client Registration, PKCE
  *     ($lib/server/api/oauth.ts), or a company API key as a Bearer header.
- *   - Tools = the operation registry (ops-read.ts / ops-write.ts); writes only
- *     create drafts; scopes re-checked against the person's role every call.
+ *   - Tools = the operation registry (ops-read.ts / ops-read-more.ts /
+ *     ops-write.ts): 59 tools = 54 reads + 5 draft writes (checked 2026-11-19
+ *     after codustry/workflow#1530). Writes only create drafts; scopes
+ *     re-checked against the person's role every call. API keys act as their
+ *     creator with live permissions (#1524); CRM rows follow the reporting tree;
+ *     tenant-guard.ts refuses any query not filtered to the caller's company.
+ *   - Multi-company (#1530): the consent screen has a default company plus
+ *     "Also allow these companies" (each ticked). Every tool takes `company`;
+ *     each call re-checks membership + role in THAT company. Summary tools
+ *     (sales_summary, ar_aging, ap_aging, profit_and_loss, stock_valuation)
+ *     accept company "all" and answer per-company sections, never summed.
+ *     API keys stay single-company. Payroll/salary/commission never exposed.
  *   - MCP never spends AI credits (mcp.ts has no credit call); it shares the
  *     plan's API quota (plans.ts API_LIMITS). Free is read-only.
  *   - Clients: Claude (support.claude.com custom connectors), Claude Code
@@ -190,35 +200,135 @@ export const aiSafety: { key: string; title: Bi; body: Bi }[] = [
   },
 ];
 
+/** Real counts from the registry (see header): 54 reads + 5 draft writes = 59. */
+export const MCP_TOOL_TOTAL = 59;
+export const MCP_DRAFT_TOTAL = 5;
+
+/** What a connected assistant can reach, by area. `tools` = registry ops in that area. */
+export const mcpCoverage: { key: string; area: Bi; reads: Bi; tools: number; drafts?: Bi }[] = [
+  {
+    key: "accounting",
+    area: { th: "บัญชี", en: "Accounting" },
+    reads: {
+      th: "สรุปยอดขาย ลูกหนี้และเจ้าหนี้ค้างชำระตามอายุ กำไรขาดทุน งบทดลอง ใบแจ้งหนี้ บิลซื้อ ใบเสนอราคา รับ-จ่ายเงิน ผังบัญชี บัญชีธนาคาร (แสดงเลข 4 ตัวท้าย) สินทรัพย์ถาวร",
+      en: "Sales summary, receivables and payables aging, profit and loss, trial balance, invoices, bills, quotations, receipts and payments, chart of accounts, bank accounts (last 4 digits only), fixed assets",
+    },
+    tools: 13,
+  },
+  {
+    key: "stock",
+    area: { th: "สินค้าและสต็อก", en: "Products and stock" },
+    reads: {
+      th: "สินค้า ยอดคงเหลือ คลัง ความเคลื่อนไหว ล็อต ซีเรียล มูลค่าสต็อก (เฉพาะคนที่เห็นต้นทุน)",
+      en: "Products, stock levels, warehouses, movements, lots, serials, stock valuation (only for people who can see costs)",
+    },
+    drafts: { th: "ใบตรวจนับสต็อก", en: "Stock count" },
+    tools: 9,
+  },
+  {
+    key: "procurement",
+    area: { th: "จัดซื้อ", en: "Purchasing" },
+    reads: { th: "ใบขอซื้อ ใบสั่งซื้อ ใบรับสินค้า", en: "Purchase requests, purchase orders, goods receipts" },
+    drafts: { th: "ใบขอซื้อ", en: "Purchase request" },
+    tools: 7,
+  },
+  {
+    key: "sales",
+    area: { th: "งานขาย", en: "Sales" },
+    reads: { th: "ออเดอร์และใบส่งของ", en: "Sales orders and delivery notes" },
+    tools: 4,
+  },
+  {
+    key: "crm",
+    area: { th: "ลูกค้า ผู้ขาย และ CRM", en: "Customers, vendors and CRM" },
+    reads: {
+      th: "บริษัทคู่ค้า ผู้ติดต่อ ดีล กิจกรรม (ดีลเห็นตามสายงานเหมือนในแอป)",
+      en: "Companies, contacts, deals, activities (deals follow your reporting line, like the app)",
+    },
+    drafts: { th: "ลูกค้า/ผู้ขาย ดีล กิจกรรม", en: "Customer/vendor, deal, activity" },
+    tools: 9,
+  },
+  {
+    key: "people",
+    area: { th: "บุคลากร", en: "People" },
+    reads: {
+      th: "รายชื่อพนักงาน (ข้อมูลติดต่อเท่านั้น) วันลาคงเหลือของฉัน ใบลา ใบเบิกค่าใช้จ่าย ไม่มีเงินเดือนหรือเลขบัตรประชาชน",
+      en: "Employee directory (contact details only), my leave balance, leave requests, expense claims. Never salary or ID numbers",
+    },
+    tools: 5,
+  },
+  {
+    key: "make-service",
+    area: { th: "การผลิตและงานบริการ", en: "Manufacturing and service" },
+    reads: {
+      th: "ใบสั่งผลิต Job Control สูตรการผลิต (BOM) งานซ่อมบริการ และตารางงานช่าง",
+      en: "Work orders, job controls, bills of materials, service jobs and the technician schedule",
+    },
+    tools: 6,
+  },
+  {
+    key: "docs",
+    area: { th: "Docs", en: "Docs" },
+    reads: { th: "ค้นหน้าเอกสาร อ่านหน้า และแถวในฐานข้อมูล", en: "Search pages, read a page, database rows" },
+    tools: 3,
+  },
+  {
+    key: "account",
+    area: { th: "บัญชีผู้ใช้และบริษัท", en: "You and your companies" },
+    reads: {
+      th: "ฉันเป็นใคร บริษัทที่เชื่อมไว้และบทบาทในแต่ละบริษัท เหตุการณ์ล่าสุด",
+      en: "Who am I, the companies connected and your role in each, recent events",
+    },
+    tools: 3,
+  },
+];
+
 export interface ExamplePrompt {
   prompt: Bi;
   /** MCP tools (operation registry) the assistant calls. */
   tools: string[];
   draft?: boolean;
+  /** Uses company: "all" — one answer section per company, never summed. */
+  multiCompany?: boolean;
 }
 
-/** Each prompt is answerable with operations in ops-read.ts / ops-write.ts. */
+/** Each prompt is answerable with operations in ops-read.ts / ops-read-more.ts / ops-write.ts. */
 export const examplePrompts: ExamplePrompt[] = [
+  {
+    prompt: { th: "สรุปยอดขายเดือนนี้ตามลูกค้า", en: "Summarize this month's sales by customer" },
+    tools: ["sales_summary"],
+  },
+  {
+    prompt: { th: "ลูกค้าคนไหนค้างจ่ายเกิน 30 วัน", en: "Which customers are more than 30 days overdue?" },
+    tools: ["ar_aging"],
+  },
+  {
+    prompt: { th: "กำไรขาดทุนเดือนนี้", en: "What's our profit and loss this month?" },
+    tools: ["profit_and_loss"],
+  },
+  {
+    prompt: { th: "ใบลาของฉันเหลือกี่วัน", en: "How many leave days do I have left?" },
+    tools: ["my_leave_balance"],
+  },
+  {
+    prompt: {
+      th: "ยอดขายเดือนนี้ของทุกบริษัทที่ฉันดูแล แยกให้ดูทีละบริษัท",
+      en: "This month's sales for each of my companies, one by one",
+    },
+    tools: ["list_my_companies", "sales_summary"],
+    multiCompany: true,
+  },
   {
     prompt: { th: "PO ไหนค้างรับของบ้าง", en: "Which POs are still waiting for delivery?" },
     tools: ["list_purchase_orders", "get_purchase_order"],
-  },
-  {
-    prompt: { th: "สร้างใบขอซื้อสกรู M6 500 ตัว", en: "Create a purchase request for 500 M6 screws" },
-    tools: ["list_products", "create_purchase_request_draft"],
-    draft: true,
   },
   {
     prompt: { th: "สกรู M6 เหลือคลังไหนเท่าไหร่", en: "How many M6 screws are left in each warehouse?" },
     tools: ["get_stock_levels"],
   },
   {
-    prompt: { th: "ดีลไหนของบริษัททองดียังเปิดอยู่", en: "Which deals with Thongdee are still open?" },
-    tools: ["list_companies", "list_deals"],
-  },
-  {
-    prompt: { th: "บันทึกว่าวันนี้โทรหาคุณสมชายแล้ว นัดเยี่ยมสัปดาห์หน้า", en: "Log that I called Khun Somchai today and plan a visit next week" },
-    tools: ["log_crm_activity"],
+    prompt: { th: "สร้างใบขอซื้อสกรู M6 500 ตัว", en: "Create a purchase request for 500 M6 screws" },
+    tools: ["list_products", "create_purchase_request_draft"],
     draft: true,
   },
   {
@@ -250,8 +360,8 @@ export const assistants: AssistantGuide[] = [
       },
       { th: "ตั้งชื่อ Tonbab แล้ววาง URL ด้านล่าง", en: "Name it Tonbab and paste the URL below." },
       {
-        th: "กด Connect เข้าสู่ระบบ Tonbab เลือกบริษัทและสิทธิ์ แล้วกดอนุญาต",
-        en: "Click Connect, sign in to Tonbab, pick the company and permissions, then allow.",
+        th: "กด Connect เข้าสู่ระบบ Tonbab เลือกบริษัทหลัก ติ๊กบริษัทอื่นที่ให้ใช้ได้ (ถ้ามี) เลือกสิทธิ์ แล้วกดอนุญาต",
+        en: "Click Connect, sign in to Tonbab, pick your default company, tick any other companies it may use, choose permissions, then allow.",
       },
     ],
     code: MCP_URL,
@@ -275,8 +385,8 @@ export const assistants: AssistantGuide[] = [
         en: "In ChatGPT go to Settings › Apps (Connectors) › Create, paste the URL below and choose OAuth sign-in.",
       },
       {
-        th: "เข้าสู่ระบบ Tonbab เลือกบริษัทและสิทธิ์ แล้วกดอนุญาต",
-        en: "Sign in to Tonbab, pick the company and permissions, then allow.",
+        th: "เข้าสู่ระบบ Tonbab เลือกบริษัทหลัก ติ๊กบริษัทอื่นที่ให้ใช้ได้ (ถ้ามี) เลือกสิทธิ์ แล้วกดอนุญาต",
+        en: "Sign in to Tonbab, pick your default company, tick any other companies it may use, choose permissions, then allow.",
       },
     ],
     code: MCP_URL,
@@ -296,7 +406,7 @@ export const assistants: AssistantGuide[] = [
         th: "เปิด gemini แล้วพิมพ์ /mcp auth tonbab เพื่อเข้าสู่ระบบ Tonbab ในเบราว์เซอร์",
         en: "Start gemini and run /mcp auth tonbab to sign in to Tonbab in your browser.",
       },
-      { th: "เลือกบริษัทและสิทธิ์ แล้วกดอนุญาต", en: "Pick the company and permissions, then allow." },
+      { th: "เลือกบริษัทหลัก ติ๊กบริษัทอื่นที่ให้ใช้ได้ (ถ้ามี) เลือกสิทธิ์ แล้วกดอนุญาต", en: "Pick your default company, tick any other companies it may use, choose permissions, then allow." },
     ],
     code: `{\n  "mcpServers": {\n    "tonbab": { "httpUrl": "${MCP_URL}" }\n  }\n}`,
     note: {
@@ -312,7 +422,7 @@ export const assistants: AssistantGuide[] = [
     steps: [
       { th: "รันคำสั่งด้านล่างครั้งเดียว", en: "Run the command below once." },
       { th: "ใน Claude Code พิมพ์ /mcp แล้วเลือก tonbab เพื่อเข้าสู่ระบบ", en: "In Claude Code, run /mcp and pick tonbab to sign in." },
-      { th: "เลือกบริษัทและสิทธิ์ แล้วกดอนุญาต", en: "Pick the company and permissions, then allow." },
+      { th: "เลือกบริษัทหลัก ติ๊กบริษัทอื่นที่ให้ใช้ได้ (ถ้ามี) เลือกสิทธิ์ แล้วกดอนุญาต", en: "Pick your default company, tick any other companies it may use, choose permissions, then allow." },
     ],
     code: `claude mcp add --transport http tonbab ${MCP_URL}`,
     note: {
@@ -343,6 +453,13 @@ export const aiFaq: { q: Bi; a: Bi }[] = [
     a: {
       th: "ไม่ใช้ ผู้ช่วยคิดและตอบด้วยบัญชี AI ของคุณเอง ฝั่ง Tonbab นับแค่จำนวนครั้งที่เรียกข้อมูลตามโควตา API ของแพ็กเกจ (Free อ่านได้ 300 ครั้งต่อวัน Starter 3,000 ครั้ง) แพ็กเกจฟรีอ่านได้อย่างเดียว ส่วนการสร้างฉบับร่างเริ่มที่ Starter",
       en: "No. The assistant thinks and answers on your own AI account. Tonbab only counts the data calls against your plan's API quota (Free reads 300 calls a day, Starter 3,000). Free is read-only; creating drafts starts at Starter.",
+    },
+  },
+  {
+    q: { th: "Claude เห็นบริษัทไหนบ้าง?", en: "Which companies can Claude see?" },
+    a: {
+      th: "เฉพาะบริษัทที่คุณติ๊กตอนเชื่อมต่อ ทั้งบริษัทหลักและบริษัทอื่นที่เลือกเพิ่ม และในแต่ละบริษัทจะเห็นได้แค่ที่บทบาทของคุณในบริษัทนั้นเห็น เป็นแอดมินในบริษัทหนึ่งไม่ได้แปลว่าเป็นแอดมินในอีกบริษัท ทุกครั้งที่ถาม ระบบตรวจสิทธิ์ใหม่ในบริษัทนั้น ถ้าถามรวมทุกบริษัท คำตอบจะแยกเป็นทีละบริษัท ไม่รวมยอดข้ามบริษัท การสร้างข้อมูลยังเป็นฉบับร่างเท่านั้น ใช้ได้เหมือนกันกับ ChatGPT และ Gemini CLI",
+      en: "Only the companies you tick when you connect: your default company plus any others you choose. In each one it sees only what your role in that company can see — being an admin in one company gives nothing in another — and every call is re-checked there. Ask across all your companies and the answer comes back one company at a time, never added together. Anything it creates is still a draft. The same applies to ChatGPT and Gemini CLI.",
     },
   },
   {
