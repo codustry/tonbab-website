@@ -6,8 +6,10 @@
  * HONESTY RULES (CLAUDE.md). Every claim was checked on 2026-11-19 against the
  * app repo (codustry/workflow, origin/main) or the assistant's own docs:
  *
- *  Built-in AI (the main story — owner, 2026-11-19: Cloudflare AI is the backbone)
- *   - runs on Cloudflare Workers AI: $lib/server/ai/run.ts is the only code that
+ *  Built-in AI = "Tonbab AI" (the main story). Owner, 2026-11-19: customer-facing
+ *  copy never names the AI vendor — call it Tonbab AI. Never claim Tonbab built
+ *  or trained its own model. Internally it
+ *   - runs on Cloudflare Workers AI (same platform that hosts the app): $lib/server/ai/run.ts is the only code that
  *     calls the AI binding (unit test enforces it); models in
  *     $lib/shared/ai/models.ts. Optional AI Gateway with cache + logging OFF
  *     (skipCache, collectLog: false). Cloudflare: Workers AI keeps no customer
@@ -136,22 +138,22 @@ export const builtInSoon: { key: string; title: Bi; body: Bi; module: Bi }[] = [
   },
 ];
 
-/** Privacy & safety — each line maps to code or Cloudflare's own docs (see header). */
+/** Privacy & safety — each line maps to code or the AI platform's own data-usage docs (see header). */
 export const aiSafety: { key: string; title: Bi; body: Bi }[] = [
   {
-    key: "cloudflare",
-    title: { th: "ประมวลผลบน Cloudflare", en: "Processed on Cloudflare" },
+    key: "infrastructure",
+    title: { th: "ประมวลผลบนโครงสร้างพื้นฐานของเรา", en: "Processed on our infrastructure" },
     body: {
-      th: "AI ในตัวทำงานบน Cloudflare Workers AI ไม่ส่งข้อมูลไปผู้ให้บริการ AI รายอื่น และไม่ต้องใช้บัญชี ChatGPT, Claude หรือ Gemini",
-      en: "Built-in AI runs on Cloudflare Workers AI. Your data isn't sent to another AI provider, and no ChatGPT, Claude or Gemini account is involved.",
+      th: "Tonbab AI ประมวลผลบนแพลตฟอร์มคลาวด์เดียวกับที่ระบบ Tonbab ทำงานอยู่ ไม่ส่งเอกสารของคุณไป ChatGPT, Claude, Gemini หรือแอป AI อื่น และไม่ต้องมีบัญชีกับบริการเหล่านั้น",
+      en: "Tonbab AI runs on the same cloud platform that runs Tonbab. Your documents aren't sent to ChatGPT, Claude, Gemini or any other AI app, and no account with them is needed.",
     },
   },
   {
     key: "logging",
     title: { th: "ปิดการเก็บ log", en: "Logging off" },
     body: {
-      th: "เราตั้งค่าไม่ให้เก็บ log และไม่แคชคำขอ AI ส่วน Cloudflare ระบุว่า Workers AI ไม่เก็บเนื้อหาของลูกค้าและไม่นำไปฝึกโมเดล ประวัติการใช้งานเก็บแค่ผลที่ได้ ไม่เก็บข้อความในเอกสาร",
-      en: "Prompt logging and caching are off, and Cloudflare states that Workers AI doesn't keep customer content or train on it. The usage log records the outcome, not the document text.",
+      th: "Tonbab AI ไม่เก็บ log และไม่แคชคำขอ เงื่อนไขของแพลตฟอร์มที่ใช้ประมวลผลระบุว่าไม่เก็บข้อมูลของลูกค้าหลังตอบคำขอ และไม่นำไปเทรนโมเดล ประวัติการใช้งานเก็บแค่ผลที่ได้ ไม่เก็บข้อความในเอกสาร",
+      en: "Tonbab AI keeps no prompt logs and no cache, and the platform it runs on doesn't keep customer content after answering or use it to train models. The usage log records the outcome, not the document text.",
     },
   },
   {
@@ -226,7 +228,7 @@ export const examplePrompts: ExamplePrompt[] = [
 ];
 
 export interface AssistantGuide {
-  key: string;
+  key: "claude" | "chatgpt" | "gemini" | "claude-code";
   name: string;
   where: Bi;
   steps: Bi[];
@@ -325,8 +327,8 @@ export const aiFaq: { q: Bi; a: Bi }[] = [
   {
     q: { th: "ต้องสมัคร ChatGPT, Claude หรือ Gemini เพิ่มไหม?", en: "Do I need a ChatGPT, Claude or Gemini subscription?" },
     a: {
-      th: "ไม่ต้อง AI ในตัว Tonbab อย่างสแกนใบเสร็จและ AI Count ทำงานบน Cloudflare Workers AI และรวมอยู่ในแพ็กเกจผ่านเครดิต AI รายเดือน การเชื่อมผู้ช่วย AI ของคุณเองเป็นทางเลือกเสริมเท่านั้น",
-      en: "No. Tonbab's built-in AI, such as receipt scan and AI Count, runs on Cloudflare Workers AI and is included in your plan through monthly AI credits. Connecting your own assistant is optional.",
+      th: "ไม่ต้อง Tonbab AI อย่างสแกนใบเสร็จและ AI Count อยู่ในระบบแล้ว และรวมอยู่ในแพ็กเกจผ่านเครดิต AI รายเดือน การเชื่อมผู้ช่วย AI ของคุณเองเป็นทางเลือกเสริมเท่านั้น",
+      en: "No. Tonbab AI, such as receipt scan and AI Count, is built in and included in your plan through monthly AI credits. Connecting your own assistant is optional.",
     },
   },
   {
@@ -360,8 +362,8 @@ export const aiFaq: { q: Bi; a: Bi }[] = [
   {
     q: { th: "ข้อมูลของเราถูกนำไปฝึก AI ไหม?", en: "Is our data used to train AI?" },
     a: {
-      th: "สำหรับ AI ในตัว Cloudflare ระบุว่า Workers AI ไม่เก็บเนื้อหาของลูกค้าและไม่นำไปฝึกโมเดล และเราปิดการเก็บ log ไว้ ถ้าเชื่อมผู้ช่วยของคุณเอง ข้อมูลที่ผู้ช่วยดึงไปจะอยู่ภายใต้เงื่อนไขของผู้ให้บริการนั้น ควรตรวจการตั้งค่าข้อมูลในแพ็กเกจที่คุณใช้",
-      en: "For built-in AI, Cloudflare states that Workers AI doesn't keep customer content or train on it, and our logging is off. If you connect your own assistant, what it reads falls under that provider's terms — check the data settings of your plan with them.",
+      th: "Tonbab AI ไม่นำข้อมูลไปเทรนโมเดล แพลตฟอร์มที่ใช้ประมวลผลไม่เก็บข้อมูลของลูกค้าหลังตอบคำขอ และเราปิดการเก็บ log ไว้ ถ้าเชื่อมผู้ช่วยของคุณเอง ข้อมูลที่ผู้ช่วยดึงไปจะอยู่ภายใต้เงื่อนไขของผู้ให้บริการนั้น ควรตรวจการตั้งค่าข้อมูลในแพ็กเกจที่คุณใช้",
+      en: "Not with Tonbab AI: your data isn't used to train models, the platform it runs on doesn't keep customer content after answering, and our logging is off. If you connect your own assistant, what it reads falls under that provider's terms — check the data settings of your plan with them.",
     },
   },
   {
