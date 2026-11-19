@@ -4,7 +4,7 @@
 	import { thaiVendors, globalVendors, sourceNote, type Verdict } from '$lib/marketing/compare-data';
 	import { Check, X, Minus, ArrowRight } from 'lucide-svelte';
 	import { vendorCompares, CATEGORY_LABEL, type VendorCategory } from '$lib/marketing/compare-vendors';
-	const CATS: VendorCategory[] = ['accounting', 'erp', 'inventory', 'pos', 'hr'];
+	const CATS: VendorCategory[] = ['accounting', 'erp', 'inventory', 'pos', 'hr', 'crm'];
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
 	const t = $derived.by(() => (b: { en: string; th: string }) => (locale === 'th' ? b.th : b.en));

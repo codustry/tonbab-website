@@ -12,13 +12,14 @@
  *    every plan, and since 2026-11-18 EVERY feature is on every plan (plans
  *    differ by size); e-Tax Invoice is not supported yet.
  *
- * Re-verified 2026-11-18 (competitor pricing pages + docs). Prices before VAT.
+ * Re-verified 2026-11-18 (competitor pricing pages + docs); prices re-checked and
+ * 11 vendors added 2026-11-19. Prices before VAT.
  * Tonbab prices come from TONBAB_YEARLY below — when plans change, update it
  * and re-read every `scenario` (the verdict can flip).
  */
 import type { Bi } from "./compare-data";
 
-export type VendorCategory = "accounting" | "erp" | "inventory" | "pos" | "hr";
+export type VendorCategory = "accounting" | "erp" | "inventory" | "pos" | "hr" | "crm";
 
 export interface VendorSource {
   label: string;
@@ -68,6 +69,7 @@ export const CATEGORY_LABEL: Record<VendorCategory, Bi> = {
   inventory: bi("สต็อกและออเดอร์ออนไลน์", "Inventory & online orders"),
   pos: bi("ระบบ POS หน้าร้าน", "POS systems"),
   hr: bi("HR และเงินเดือน", "HR & payroll"),
+  crm: bi("CRM และงานขาย", "CRM & sales"),
 };
 
 // ── Tonbab facts (mirror the product's plans.ts; per company per year, before VAT) ──
@@ -155,7 +157,7 @@ export const vendorCompares: VendorCompare[] = [
     name: "FlowAccount",
     category: "accounting",
     keyword: bi("ทางเลือก FlowAccount", "FlowAccount alternative"),
-    verified: bi("ข้อมูล FlowAccount ตรวจจากหน้าราคาและศูนย์ช่วยเหลือของ FlowAccount เมื่อ 18 พ.ย. 2569", "FlowAccount facts checked on FlowAccount's pricing page and help centre, 18 Nov 2026"),
+    verified: bi("ข้อมูล FlowAccount ตรวจจากหน้าราคาและศูนย์ช่วยเหลือของ FlowAccount เมื่อ 18 พ.ย. 2569 ราคาตรวจซ้ำ 19 พ.ย. 2569", "FlowAccount facts checked on FlowAccount's pricing page and help centre, 18 Nov 2026; prices re-checked 19 Nov 2026"),
     sources: [{ label: "flowaccount.com/pricing", url: "https://flowaccount.com/pricing" }],
     summary: bi(
       "FlowAccount เป็นโปรแกรมบัญชีออนไลน์ยอดนิยมของไทย เด่นเรื่องออกเอกสารขาย ภาษี และ e-Tax ราคาเริ่มต้นเข้าถึงง่าย ส่วน Tonbab เป็น ERP ที่มีบัญชีรวมอยู่ในทุกแพ็กเกจ พร้อมจัดซื้อ สต็อกหลายคลัง การผลิต POS CRM และเงินเดือนในฐานข้อมูลเดียว เหมาะกับธุรกิจที่งานก่อนถึงบัญชีซับซ้อน เช่น โรงงาน ผู้นำเข้า และร้านที่มีหลายสาขา",
@@ -291,7 +293,7 @@ export const vendorCompares: VendorCompare[] = [
     name: "MineERP",
     category: "erp",
     keyword: bi("ทางเลือก MineERP", "MineERP alternative"),
-    verified: bi("ข้อมูล MineERP ตรวจจาก mineerp.com/pricing และเว็บไซต์ MineERP เมื่อ 18 พ.ย. 2569", "MineERP facts checked on mineerp.com/pricing and the MineERP website, 18 Nov 2026"),
+    verified: bi("ข้อมูล MineERP ตรวจจาก mineerp.com/pricing และเว็บไซต์ MineERP เมื่อ 19 พ.ย. 2569", "MineERP facts checked on mineerp.com/pricing and the MineERP website, 19 Nov 2026"),
     sources: [{ label: "mineerp.com/pricing", url: "https://mineerp.com/pricing" }],
     summary: bi(
       "MineERP เป็น ERP บนคลาวด์ของไทยสำหรับโรงงานและธุรกิจซื้อมาขายไป มีงานผลิต BOM วางแผนการผลิต และสต็อกครบ ขายเป็นแพ็กเกจตามจำนวนผู้ใช้พร้อมค่าวางระบบ Tonbab เป็น ERP สำหรับ SME เช่นกัน แต่มีบัญชี POS CRM และ HR ในตัว ราคาต่อบริษัท และสมัครใช้ได้เองทันที",
@@ -341,7 +343,7 @@ export const vendorCompares: VendorCompare[] = [
       bi("อยากเริ่มเองได้ทันทีด้วยงบที่ต่ำกว่า", "You want to start yourself today, on a smaller budget."),
     ],
     faq: [
-      { q: bi("MineERP ราคาเท่าไร?", "How much does MineERP cost?"), a: bi("ตามหน้า mineerp.com/pricing (18 พ.ย. 2569) แพ็กเกจ Trader เริ่ม ฿46,800/ปี (5 ผู้ใช้) และ Manufacturer เริ่ม ฿70,800/ปี (5 ผู้ใช้) บวกค่าวางระบบ ฿50,000–140,000 ครั้งเดียว ราคาก่อน VAT", "Per mineerp.com/pricing (18 Nov 2026): Trader from ฿46,800/yr (5 users) and Manufacturer from ฿70,800/yr (5 users), plus a one-time onboarding fee of ฿50,000–140,000, before VAT.") },
+      { q: bi("MineERP ราคาเท่าไร?", "How much does MineERP cost?"), a: bi("ตามหน้า mineerp.com/pricing (19 พ.ย. 2569) แพ็กเกจ Trader เริ่ม ฿46,800/ปี (5 ผู้ใช้) และ Manufacturer เริ่ม ฿70,800/ปี (5 ผู้ใช้) บวกค่าวางระบบ ฿50,000–140,000 ครั้งเดียว ราคาก่อน VAT", "Per mineerp.com/pricing (19 Nov 2026): Trader from ฿46,800/yr (5 users) and Manufacturer from ฿70,800/yr (5 users), plus a one-time onboarding fee of ฿50,000–140,000, before VAT.") },
       { q: bi("MineERP มีระบบบัญชีไหม?", "Does MineERP include accounting?"), a: bi("ไม่มีในตัว เว็บไซต์ระบุว่าส่งออกเป็น Excel หรือเชื่อม FlowAccount ผ่าน API ส่วน Tonbab มีบัญชีรวมในทุกแพ็กเกจ", "Not built in — its site says it exports to Excel or connects to FlowAccount by API. Tonbab includes accounting in every plan.") },
       faqMigrate("MineERP"),
       faqTry,
@@ -354,7 +356,7 @@ export const vendorCompares: VendorCompare[] = [
     name: "ZORT",
     category: "inventory",
     keyword: bi("ทางเลือก ZORT", "ZORT alternative"),
-    verified: bi("ข้อมูล ZORT ตรวจจาก zortout.com/package เมื่อ 18 พ.ย. 2569", "ZORT facts checked on zortout.com/package, 18 Nov 2026"),
+    verified: bi("ข้อมูล ZORT ตรวจจาก zortout.com/package เมื่อ 19 พ.ย. 2569", "ZORT facts checked on zortout.com/package, 19 Nov 2026"),
     sources: [{ label: "zortout.com/package", url: "https://zortout.com/package" }],
     summary: bi(
       "ZORT เป็นระบบจัดการสต็อกและออเดอร์ออนไลน์ที่ร้านค้าบนมาร์เก็ตเพลสในไทยนิยม เด่นเรื่องดึงออเดอร์และตัดสต็อกข้าม Shopee Lazada TikTok Tonbab เป็น ERP ที่มีสต็อก จัดซื้อ การผลิต POS บัญชี และ HR ในระบบเดียว คิดราคาต่อบริษัทแทนต่อผู้ใช้",
@@ -400,7 +402,7 @@ export const vendorCompares: VendorCompare[] = [
       bi("ทีมโตเกิน 3 คน และอยากได้บัญชีกับเงินเดือนในระบบเดียว", "Your team is past 3 people and you want accounting and payroll in the same system."),
     ],
     faq: [
-      { q: bi("ZORT ราคาเท่าไร?", "How much does ZORT cost?"), a: bi("ตาม zortout.com/package (18 พ.ย. 2569) Starter ฿6,300/ปี Professional ฿15,000/ปี Business ฿24,000/ปี หรือจ่ายรายไตรมาส ผู้ใช้เพิ่ม ฿3,900/คน/ปี", "Per zortout.com/package (18 Nov 2026): Starter ฿6,300/yr, Professional ฿15,000/yr, Business ฿24,000/yr, or quarterly; extra users ฿3,900/yr each.") },
+      { q: bi("ZORT ราคาเท่าไร?", "How much does ZORT cost?"), a: bi("ตาม zortout.com/package (19 พ.ย. 2569) Starter ฿6,300/ปี Professional ฿15,000/ปี Business ฿24,000/ปี หรือจ่ายรายไตรมาส ผู้ใช้เพิ่ม ฿3,900/คน/ปี", "Per zortout.com/package (19 Nov 2026): Starter ฿6,300/yr, Professional ฿15,000/yr, Business ฿24,000/yr, or quarterly; extra users ฿3,900/yr each.") },
       faqMigrate("ZORT"),
       faqTry,
     ],
@@ -446,7 +448,7 @@ export const vendorCompares: VendorCompare[] = [
     name: "Prosoft WINSpeed",
     category: "erp",
     keyword: bi("ทางเลือก Prosoft WINSpeed และ myAccount Cloud", "Prosoft WINSpeed and myAccount Cloud alternative"),
-    verified: bi("ข้อมูล Prosoft ตรวจจาก prosoftwinspeed.com และหน้าราคา myAccount Cloud เมื่อ 18 พ.ย. 2569", "Prosoft facts checked on prosoftwinspeed.com and the myAccount Cloud price page, 18 Nov 2026"),
+    verified: bi("ข้อมูล Prosoft ตรวจจาก prosoftwinspeed.com และหน้าราคา myAccount Cloud เมื่อ 19 พ.ย. 2569", "Prosoft facts checked on prosoftwinspeed.com and the myAccount Cloud price page, 19 Nov 2026"),
     sources: [
       { label: "prosoftwinspeed.com", url: "https://www.prosoftwinspeed.com/" },
       { label: "myAccount Cloud price", url: "https://www.myaccount-cloud.com/Article/Detail/58639" },
@@ -483,7 +485,7 @@ export const vendorCompares: VendorCompare[] = [
       bi("อยากเริ่มใช้ภายในวันนี้ ด้วยงบหลักพันถึงหลักหมื่นต่อปี", "You want to start today, on a budget of thousands rather than hundreds of thousands per year."),
     ],
     faq: [
-      { q: bi("Prosoft WINSpeed ราคาเท่าไร?", "How much does Prosoft WINSpeed cost?"), a: bi("Prosoft ไม่เปิดเผยราคาตั้ง เว็บไซต์ WINSpeed ระบุว่าไลเซนส์และการวางระบบอยู่ราว ฿250,000–2,000,000 ขึ้นกับจำนวนผู้ใช้และการปรับแต่ง และค่าดูแลรายปี 10% ของมูลค่าซอฟต์แวร์ (ตรวจ 18 พ.ย. 2569)", "Prosoft publishes no list price. The WINSpeed site gives roughly ฿250,000–2,000,000 for licence and implementation depending on users and customisation, with yearly maintenance at 10% of software value (checked 18 Nov 2026).") },
+      { q: bi("Prosoft WINSpeed ราคาเท่าไร?", "How much does Prosoft WINSpeed cost?"), a: bi("Prosoft ไม่เปิดเผยราคาตั้ง เว็บไซต์ WINSpeed ระบุว่าไลเซนส์และการวางระบบอยู่ราว ฿250,000–2,000,000 ขึ้นกับจำนวนผู้ใช้และการปรับแต่ง และค่าดูแลรายปี 10% ของมูลค่าซอฟต์แวร์ (ตรวจ 19 พ.ย. 2569)", "Prosoft publishes no list price. The WINSpeed site gives roughly ฿250,000–2,000,000 for licence and implementation depending on users and customisation, with yearly maintenance at 10% of software value (checked 19 Nov 2026).") },
       faqMigrate("Prosoft"),
       faqTry,
     ],
@@ -495,7 +497,7 @@ export const vendorCompares: VendorCompare[] = [
     name: "Odoo",
     category: "erp",
     keyword: bi("ทางเลือก Odoo", "Odoo alternative"),
-    verified: bi("ราคา Odoo ตรวจจาก odoo.com/th_TH/pricing เมื่อ 18 พ.ย. 2569 ข้อมูลภาษาไทยและภาษีไทยจากเอกสารของ Odoo ตรวจเมื่อ ส.ค. 2569", "Odoo prices checked on odoo.com/th_TH/pricing, 18 Nov 2026; Thai-language and Thai-tax facts from Odoo's documentation, Aug 2026"),
+    verified: bi("ราคา Odoo ตรวจจาก odoo.com/th_TH/pricing เมื่อ 19 พ.ย. 2569 ข้อมูลภาษาไทยและภาษีไทยจากเอกสารของ Odoo ตรวจเมื่อ ส.ค. 2569", "Odoo prices checked on odoo.com/th_TH/pricing, 19 Nov 2026; Thai-language and Thai-tax facts from Odoo's documentation, Aug 2026"),
     sources: [{ label: "odoo.com/th_TH/pricing", url: "https://www.odoo.com/th_TH/pricing" }],
     summary: bi(
       "Odoo เป็น ERP ระดับโลกที่มีแอปมากมายและปรับแต่งได้สูง คิดราคาต่อผู้ใช้เป็นดอลลาร์ และมักต้องใช้พาร์ทเนอร์วางระบบ Tonbab เป็น ERP ที่สร้างเพื่อธุรกิจไทยตั้งแต่ต้น ภาษาไทยครบทุกหน้า คิดราคาต่อบริษัทเป็นเงินบาท และสมัครใช้เองได้",
@@ -503,7 +505,7 @@ export const vendorCompares: VendorCompare[] = [
     ),
     rows: [
       row("ประเภท", "What it is", bi("ERP ระดับโลก แอปจำนวนมาก", "Global ERP with many apps"), TONBAB_TYPE),
-      row("ราคาที่เปิดเผย", "Published price", bi("Standard US$16.90/ผู้ใช้/เดือน (รายปี) · Custom US$32.00 · ไม่มีราคาเงินบาท", "Standard US$16.90/user/mo (yearly) · Custom US$32.00 · no THB price"), TONBAB_PRICE),
+      row("ราคาที่เปิดเผย", "Published price", bi("Standard US$16.90/ผู้ใช้/เดือน (รายปี; ลูกค้าใหม่ 12 เดือนแรก US$13.50) · Custom US$32.00 (US$25.50) · ไม่มีราคาเงินบาท", "Standard US$16.90/user/mo (yearly; US$13.50 for new customers' first 12 months) · Custom US$32.00 (US$25.50) · no THB price"), TONBAB_PRICE),
       row("ภาษาไทยในหน้าจอ", "Thai interface", bi("แปลไทยราว 69% บน v19 (ข้อมูลของ Odoo, ส.ค. 2569)", "About 69% translated to Thai on v19 (Odoo's own data, Aug 2026)"), TONBAB_LANG),
       row("ภาษีไทย", "Thai tax", bi("รายงานภาษีไทยอยู่ใน Enterprise · เอกสารระบุว่าออก 50 ทวิ ไม่ได้", "Thai tax reports are Enterprise-only · docs say it can't produce the 50 Tawi certificate"), TONBAB_TAX),
       row("การผลิต", "Manufacturing", bi("มี — MRP เต็มรูปแบบ", "Yes — full MRP"), TONBAB_MFG),
@@ -511,17 +513,18 @@ export const vendorCompares: VendorCompare[] = [
     ],
     plans: [
       { name: same("One App Free"), price: same("US$0"), note: bi("แอปเดียว ผู้ใช้ไม่จำกัด", "One app, unlimited users") },
-      { name: same("Standard"), price: bi("US$16.90/ผู้ใช้/เดือน (รายปี) · US$21.10 รายเดือน", "US$16.90/user/mo yearly · US$21.10 monthly"), note: bi("ทุกแอปบน Odoo Online · ปีแรกมีส่วนลด", "All apps on Odoo Online · first-year discount") },
-      { name: same("Custom"), price: bi("US$32.00/ผู้ใช้/เดือน (รายปี) · US$40.00 รายเดือน", "US$32.00/user/mo yearly · US$40.00 monthly"), note: bi("Studio หลายบริษัท API ภายนอก Odoo.sh หรือติดตั้งเอง", "Studio, multi-company, external API, Odoo.sh or on-premise") },
+      { name: same("Standard"), price: bi("US$16.90/ผู้ใช้/เดือน (รายปี) · US$21.10 รายเดือน", "US$16.90/user/mo yearly · US$21.10 monthly"), note: bi("ทุกแอปบน Odoo Online · ลูกค้าใหม่ลดเหลือ US$13.50 ใน 12 เดือนแรก", "All apps on Odoo Online · US$13.50 for new customers' first 12 months") },
+      { name: same("Custom"), price: bi("US$32.00/ผู้ใช้/เดือน (รายปี) · US$40.00 รายเดือน", "US$32.00/user/mo yearly · US$40.00 monthly"), note: bi("Studio หลายบริษัท API ภายนอก Odoo.sh หรือติดตั้งเอง · ลูกค้าใหม่ลดเหลือ US$25.50 ใน 12 เดือนแรก", "Studio, multi-company, external API, Odoo.sh or on-premise · US$25.50 for new customers' first 12 months") },
+      { name: same("Light User"), price: bi("US$5.90/ผู้ใช้/เดือน", "US$5.90/user/mo"), note: bi("ผู้ใช้สิทธิ์จำกัด", "Limited-access users") },
     ],
-    plansNote: bi("หน้าราคาภาษาไทยของ Odoo แสดงเป็นดอลลาร์สหรัฐ ค่าวางระบบของพาร์ทเนอร์ไม่รวม", "Odoo's Thai pricing page shows US dollars. Partner implementation fees are extra."),
+    plansNote: bi("หน้าราคาภาษาไทยของ Odoo แสดงเป็นดอลลาร์สหรัฐ ส่วนลดลูกค้าใหม่มีอายุ 12 เดือน ค่าวางระบบของพาร์ทเนอร์ไม่รวม", "Odoo's Thai pricing page shows US dollars; the new-customer discount lasts 12 months. Partner implementation fees are extra."),
     scenario: {
       title: bi("บริษัท 20 ผู้ใช้ ต้องการสต็อก ผลิต บัญชี และ CRM", "A 20-user company that needs stock, manufacturing, accounting and CRM"),
       them: bi("Odoo Standard 20 ผู้ใช้ × US$16.90 × 12 เดือน + ค่าวางระบบของพาร์ทเนอร์", "Odoo Standard 20 users × US$16.90 × 12 months + partner implementation"),
       themTotal: bi("≈ US$4,056 ต่อปี (≈ ฿130,000 ที่ราว 33 บาท/ดอลลาร์) + ค่าวางระบบ", "≈ US$4,056 per year (≈ ฿130,000 at about 33 THB/USD) + implementation"),
       tonbab: bi(`Business ${B.business} — 25 ผู้ใช้ ทุกโมดูล`, `Business ${B.business} — 25 users, every module`),
       tonbabTotal: bi(`${B.business} ต่อปี`, `${B.business} per year`),
-      note: bi("อัตราแลกเปลี่ยนเป็นตัวเลขประมาณของเรา ไม่ใช่ของ Odoo ถ้าต้องการปรับแต่งระบบมาก หรือใช้แอปที่ Tonbab ไม่มี Odoo ยืดหยุ่นกว่า", "The exchange rate is our approximation, not Odoo's. If you need heavy customisation or apps Tonbab doesn't have, Odoo is more flexible."),
+      note: bi("อัตราแลกเปลี่ยนเป็นตัวเลขประมาณของเรา ไม่ใช่ของ Odoo ปีแรกลูกค้าใหม่จ่าย US$13.50 (≈ US$3,240 ต่อปีสำหรับ 20 ผู้ใช้) ถ้าต้องการปรับแต่งระบบมาก หรือใช้แอปที่ Tonbab ไม่มี Odoo ยืดหยุ่นกว่า", "The exchange rate is our approximation, not Odoo's. In the first year a new customer pays US$13.50 (≈ US$3,240 a year for 20 users). If you need heavy customisation or apps Tonbab doesn't have, Odoo is more flexible."),
     },
     sections: [
       { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
@@ -538,7 +541,7 @@ export const vendorCompares: VendorCompare[] = [
       bi("ต้องการราคาเป็นเงินบาทต่อบริษัท ไม่ใช่ดอลลาร์ต่อผู้ใช้", "You want per-company pricing in baht, not dollars per user."),
     ],
     faq: [
-      { q: bi("Odoo ราคาเท่าไรในไทย?", "How much is Odoo in Thailand?"), a: bi("หน้าราคาภาษาไทยของ Odoo (18 พ.ย. 2569) แสดง Standard US$16.90 และ Custom US$32.00 ต่อผู้ใช้ต่อเดือนเมื่อจ่ายรายปี ไม่รวมค่าวางระบบของพาร์ทเนอร์", "Odoo's Thai pricing page (18 Nov 2026) shows Standard at US$16.90 and Custom at US$32.00 per user per month billed yearly, excluding partner implementation.") },
+      { q: bi("Odoo ราคาเท่าไรในไทย?", "How much is Odoo in Thailand?"), a: bi("หน้าราคาภาษาไทยของ Odoo (19 พ.ย. 2569) แสดง Standard US$16.90 และ Custom US$32.00 ต่อผู้ใช้ต่อเดือนเมื่อจ่ายรายปี ลูกค้าใหม่ได้ส่วนลดเหลือ US$13.50 และ US$25.50 ใน 12 เดือนแรก ไม่รวมค่าวางระบบของพาร์ทเนอร์", "Odoo's Thai pricing page (19 Nov 2026) shows Standard at US$16.90 and Custom at US$32.00 per user per month billed yearly, discounted to US$13.50 and US$25.50 for a new customer's first 12 months, excluding partner implementation.") },
       faqMigrate("Odoo"),
       faqTry,
     ],
@@ -649,7 +652,7 @@ export const vendorCompares: VendorCompare[] = [
     name: "Loyverse",
     category: "pos",
     keyword: bi("ทางเลือก Loyverse POS", "Loyverse POS alternative"),
-    verified: bi("ข้อมูล Loyverse ตรวจจาก loyverse.com/pricing เมื่อ 18 พ.ย. 2569", "Loyverse facts checked on loyverse.com/pricing, 18 Nov 2026"),
+    verified: bi("ข้อมูล Loyverse ตรวจจาก loyverse.com/pricing เมื่อ 19 พ.ย. 2569", "Loyverse facts checked on loyverse.com/pricing, 19 Nov 2026"),
     sources: [{ label: "loyverse.com/pricing", url: "https://loyverse.com/pricing" }],
     summary: bi(
       "Loyverse เป็นแอป POS ฟรีที่ร้านเล็กทั่วโลกและในไทยนิยม ใช้ง่าย มีบริการเสริมรายเดือนเป็นดอลลาร์ Tonbab มี POS ทุกแพ็กเกจรวมแพ็กเกจ Free และต่อกับสต็อก จัดซื้อ การผลิต และบัญชีในระบบเดียว รับพร้อมเพย์และตรวจสลิปแบบไทย",
@@ -664,8 +667,9 @@ export const vendorCompares: VendorCompare[] = [
     ],
     plans: [
       { name: same("POS"), price: bi("ฟรี", "Free"), note: bi("ขาย สะสมแต้ม จอครัว หลายสาขา สต็อกพื้นฐาน", "Sales, loyalty, kitchen display, multi-store, basic stock") },
-      { name: bi("สต็อกขั้นสูง", "Advanced inventory"), price: bi("US$25/ร้าน/เดือน", "US$25/store/mo"), note: bi("ใบสั่งซื้อ โอนสต็อก นับสต็อก", "Purchase orders, transfers, counts") },
-      { name: bi("จัดการพนักงาน", "Employee management"), price: bi("US$5/คน/เดือน", "US$5/person/mo"), note: bi("สิทธิ์ เวลาเข้างาน", "Permissions, time clock") },
+      { name: bi("สต็อกขั้นสูง", "Advanced inventory"), price: bi("US$25/ร้าน/เดือน หรือ US$250/ปี", "US$25/store/mo or US$250/yr"), note: bi("ใบสั่งซื้อ โอนสต็อก นับสต็อก", "Purchase orders, transfers, counts") },
+      { name: bi("จัดการพนักงาน", "Employee management"), price: bi("US$5/คน/เดือน หรือ US$50/ปี", "US$5/person/mo or US$50/yr"), note: bi("สิทธิ์ เวลาเข้างาน", "Permissions, time clock") },
+      { name: bi("ประวัติการขายไม่จำกัด", "Unlimited sales history"), price: bi("US$5/ร้าน/เดือน หรือ US$50/ปี", "US$5/store/mo or US$50/yr"), note: bi("แพ็กเกจฟรีดูรายงานย้อนหลัง 31 วัน", "The free plan shows the last 31 days of analytics") },
     ],
     sections: [
       { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
@@ -686,7 +690,7 @@ export const vendorCompares: VendorCompare[] = [
     name: "Wongnai POS",
     category: "pos",
     keyword: bi("ทางเลือก Wongnai POS", "Wongnai POS alternative"),
-    verified: bi("ข้อมูล Wongnai POS ตรวจจาก wongnai.com/pos เมื่อ 18 พ.ย. 2569", "Wongnai POS facts checked on wongnai.com/pos, 18 Nov 2026"),
+    verified: bi("ข้อมูล Wongnai POS ตรวจจาก wongnai.com/pos เมื่อ 19 พ.ย. 2569", "Wongnai POS facts checked on wongnai.com/pos, 19 Nov 2026"),
     sources: [{ label: "wongnai.com/pos", url: "https://www.wongnai.com/pos" }],
     summary: bi(
       "Wongnai POS เป็นระบบ POS สำหรับร้านอาหารที่เชื่อมกับ LINE MAN และเครือข่าย Wongnai ได้ดี เหมาะกับร้านอาหารที่รับออเดอร์เดลิเวอรี Tonbab มี POS พร้อมใบสั่งครัว และต่อกับสต็อกวัตถุดิบ จัดซื้อ บัญชี และ HR ในระบบเดียว",
@@ -715,6 +719,607 @@ export const vendorCompares: VendorCompare[] = [
       bi("ต้องการบัญชีและเงินเดือนพนักงานในระบบเดียวกับหน้าร้าน", "You want accounting and staff payroll in the same system as the counter."),
     ],
     faq: [faqMigrate("Wongnai POS"), faqTry],
+  },
+
+  // ───────────────────────────────────────────────────────── Bplus ERP
+  {
+    slug: "bplus",
+    name: "Bplus ERP",
+    category: "erp",
+    keyword: bi("ทางเลือก Bplus ERP (Business Plus)", "Bplus ERP (Business Plus) alternative"),
+    verified: bi("ข้อมูล Bplus ตรวจจากหน้าผลิตภัณฑ์และคู่มือติดตั้งบน businessplus.co.th เมื่อ 19 พ.ย. 2569 — Bplus ไม่เปิดเผยราคา", "Bplus facts checked on businessplus.co.th product pages and installation manual, 19 Nov 2026 — Bplus publishes no prices"),
+    sources: [
+      { label: "businessplus.co.th — Business Plus ERP", url: "https://www.businessplus.co.th/Product/business-plus-erp-c009" },
+      { label: "businessplus.co.th — products", url: "https://www.businessplus.co.th/" },
+      { label: "Bplus ERP v3.0 installation manual (PDF)", url: "https://www.businessplus.co.th/images/content2022/MNSP01-57%20%E0%B8%84%E0%B8%B9%E0%B9%88%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%81%E0%B8%81%E0%B8%A3%E0%B8%A1%20ERP%20v3.0(Standalone).pdf" },
+    ],
+    summary: bi(
+      "Bplus (Business Plus) เป็นโปรแกรมบัญชีบริหารและ ERP ของบริษัทไทยที่โรงงานและบริษัทจัดจำหน่ายใช้กันมานาน มีบัญชี จัดซื้อ ขาย คลังพร้อมล็อต/ซีเรียล/FIFO และ MRP จาก BOM ส่วน POS เงินเดือน (HRM) และขายหน้ารถ (Van Sales) เป็นผลิตภัณฑ์แยก ติดตั้งบนเครื่อง Windows Tonbab เป็นระบบคลาวด์ที่รวมทุกฝ่ายในฐานข้อมูลเดียว ราคาเปิดเผยต่อบริษัท",
+      "Bplus (Business Plus) is a long-established Thai management-accounting and ERP package used by factories and distributors — accounting, purchasing, sales, warehouse with lot/serial/FIFO, and MRP from BOMs. POS, payroll (HRM) and van sales are separate products, installed on Windows PCs. Tonbab is cloud-based with every department in one database and published per-company prices.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("ERP/โปรแกรมบัญชีบริหาร ติดตั้งบนเครื่อง Windows (ตามคู่มือติดตั้ง)", "ERP / management accounting installed on Windows (per the installation manual)"), TONBAB_TYPE),
+      row("ราคา", "Price", bi("ราคาไม่เปิดเผย / quote only — ติดต่อฝ่ายขาย", "ราคาไม่เปิดเผย / quote only — contact sales"), TONBAB_PRICE),
+      row("การผลิต", "Manufacturing", bi("MRP II จาก BOM เทียบต้นทุนมาตรฐานกับจริง · หน้าผลิตภัณฑ์ระบุว่าไม่รวมการควบคุมการผลิตระดับเครื่องจักร", "MRP II from BOMs with standard-vs-actual cost · the product page says machine-level shop-floor control is not included"), TONBAB_MFG),
+      row("สต็อก", "Inventory", bi("คลังสินค้า Lot/Serial/FIFO คำนวณ EOQ", "Warehouse with lot/serial/FIFO and EOQ"), TONBAB_STOCK),
+      row("บัญชีและภาษีไทย", "Accounting & Thai tax", bi("มี — บัญชีและการเงินเป็นแกนหลัก", "Yes — accounting and finance are the core"), TONBAB_ACC),
+      row("POS / เงินเดือน", "POS / payroll", bi("ผลิตภัณฑ์แยก: Bplus POS และ Bplus HRM (Payroll)", "Separate products: Bplus POS and Bplus HRM (Payroll)"), bi("อยู่ในระบบเดียว ฐานข้อมูลเดียว", "In one system, one database")),
+      row("ใช้นอกออฟฟิศ / มือถือ", "Away from the office / mobile", bi("โปรแกรมติดตั้งบนเครื่อง · Van Sales บนมือถือเป็นผลิตภัณฑ์แยก", "Installed program · mobile Van Sales is a separate product"), TONBAB_APP),
+    ],
+    plans: [],
+    plansNote: bi("Bplus ไม่แสดงราคาซอฟต์แวร์บนเว็บไซต์ ต้องขอใบเสนอราคาจากฝ่ายขาย", "Bplus shows no software prices on its website; ask its sales team for a quote."),
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("Bplus เป็นระบบที่นักบัญชีและฝ่ายคลังในโรงงานไทยคุ้นเคย งาน MRP ล็อตและ FIFO ครบ แต่ทำงานบนเครื่องในออฟฟิศ และแยก POS เงินเดือน และขายหน้ารถเป็นโปรแกรมต่างหาก Tonbab ทำงานบนคลาวด์ ทุกฝ่ายตั้งแต่จัดซื้อ ผลิต หน้าร้าน CRM จนถึงเงินเดือนอยู่ในฐานข้อมูลเดียว เปิดใช้จากมือถือได้", "Bplus is familiar to accountants and warehouse teams in Thai factories, with solid MRP, lots and FIFO — but it runs on office PCs and splits POS, payroll and van sales into separate programs. Tonbab runs in the cloud with purchasing, production, retail, CRM and payroll in one database, usable from a phone."),
+        bi("ถ้าคุณใช้ Bplus อยู่และพอใจกับงานบัญชี ใช้ Tonbab ดูแลงานหน้างาน แล้วส่งข้อมูลให้ฝ่ายบัญชีก็ได้ เมื่อพร้อมจะรวมบัญชีมาไว้ที่เดียว บัญชีของ Tonbab รวมอยู่ในทุกแพ็กเกจแล้ว", "If you run Bplus and are happy with the books, you can run floor work in Tonbab and hand data to accounting. When you want one system, Tonbab's accounting is already in every plan."),
+      ] },
+    ],
+    chooseThem: [
+      bi("ต้องการโปรแกรมติดตั้งบนเครื่องในออฟฟิศ และทีมบัญชีคุ้นเคยกับ Bplus อยู่แล้ว", "You want software installed on office PCs and your accounting team already knows Bplus."),
+      bi("ต้องการ MRP II แบบดั้งเดิมพร้อมทีมบริการของผู้พัฒนามาติดตั้งที่บริษัท", "You want classic MRP II with the vendor's own team installing on site."),
+    ],
+    chooseTonbab: [
+      bi("ต้องการให้ทุกฝ่ายและทุกสาขาเห็นข้อมูลชุดเดียวบนคลาวด์ ใช้จากมือถือได้", "You want every department and branch on the same cloud data, usable from a phone."),
+      bi("ต้องการ POS CRM และเงินเดือนในระบบเดียวกับบัญชีและการผลิต ไม่ต้องซื้อหลายโปรแกรม", "You want POS, CRM and payroll in the same system as accounting and production, not several programs."),
+      bi("ต้องการรู้ราคาก่อนคุยกับฝ่ายขาย และเริ่มเองได้ทันที", "You want to see the price before talking to sales, and start yourself today."),
+    ],
+    faq: [
+      { q: bi("Bplus ERP ราคาเท่าไร?", "How much does Bplus ERP cost?"), a: bi("Bplus ไม่เปิดเผยราคาบนเว็บไซต์ (ตรวจ 19 พ.ย. 2569) ต้องติดต่อฝ่ายขายเพื่อขอใบเสนอราคา ส่วน Tonbab เปิดเผยราคาต่อบริษัท เริ่ม Free และ Starter ฿2,990/ปี ก่อน VAT", "Bplus doesn't publish prices on its website (checked 19 Nov 2026) — ask its sales team for a quote. Tonbab publishes per-company prices, from Free and Starter at ฿2,990/yr before VAT.") },
+      { q: bi("Bplus มีระบบผลิตไหม?", "Does Bplus have manufacturing?"), a: bi("มี หน้าผลิตภัณฑ์ของ Bplus ระบุว่ามีการวางแผนการผลิตและ MRP II จาก BOM เทียบต้นทุนมาตรฐานกับต้นทุนจริง แต่ไม่รวมการควบคุมการผลิตระดับเครื่องจักร", "Yes. Bplus's product page lists production planning and MRP II from BOMs with standard-vs-actual cost, but not machine-level shop-floor control.") },
+      faqMigrate("Bplus"),
+      faqTry,
+    ],
+  },
+
+  // ─────────────────────────────────── Microsoft Dynamics 365 Business Central
+  {
+    slug: "business-central",
+    name: "Microsoft Dynamics 365 Business Central",
+    category: "erp",
+    keyword: bi("ทางเลือก Microsoft Dynamics 365 Business Central", "Microsoft Dynamics 365 Business Central alternative"),
+    verified: bi("ราคา Business Central ตรวจจากหน้าราคาของ Microsoft และสถานะประเทศไทยจากเอกสาร Microsoft Learn เมื่อ 19 พ.ย. 2569", "Business Central prices checked on Microsoft's pricing page, and Thailand status on Microsoft Learn, 19 Nov 2026"),
+    sources: [
+      { label: "microsoft.com — Business Central pricing", url: "https://www.microsoft.com/en-us/dynamics-365/products/business-central/pricing" },
+      { label: "Microsoft Learn — country/regional availability", url: "https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/compliance/apptest-countries-and-translations" },
+    ],
+    summary: bi(
+      "Business Central เป็น ERP สำหรับธุรกิจขนาดกลางของ Microsoft ครบทั้งการเงิน ซัพพลายเชน คลัง และ (ในแพ็กเกจ Premium) การผลิตและงานบริการ ต่อกับ Microsoft 365 ได้ดี คิดราคาต่อผู้ใช้เป็นดอลลาร์ และในประเทศไทยภาษีไทยกับภาษาไทยมาจากแอปของพาร์ทเนอร์ Tonbab เป็น ERP ไทยที่มีภาษีไทยในตัว ราคาต่อบริษัทเป็นเงินบาท",
+      "Business Central is Microsoft's ERP for mid-sized companies — finance, supply chain, warehousing and, on Premium, manufacturing and service — and it fits tightly with Microsoft 365. It is priced per user in dollars, and in Thailand the Thai localization and Thai translation come from partner apps. Tonbab is a Thai ERP with Thai tax built in, priced per company in baht.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("ERP บนคลาวด์ของ Microsoft สำหรับธุรกิจขนาดกลาง", "Microsoft's cloud ERP for mid-sized companies"), TONBAB_TYPE),
+      row("ราคาที่เปิดเผย", "Published price", bi("Essentials US$80 · Premium US$110 · Team Members US$8 ต่อผู้ใช้ต่อเดือน จ่ายรายปี", "Essentials US$80 · Premium US$110 · Team Members US$8 per user per month, paid yearly"), TONBAB_PRICE),
+      row("ภาษีไทยและภาษาไทย", "Thai tax and Thai language", bi("Microsoft ระบุว่าประเทศไทย localize โดยพาร์ทเนอร์ (บนฐาน W1) และคำแปลภาษาไทยของแอปมาจากพาร์ทเนอร์", "Microsoft lists Thailand as partner-localized (on the W1 base), with the Thai application translation provided by partners"), TONBAB_TAX),
+      row("การผลิตและงานบริการ", "Manufacturing and service", bi("อยู่ใน Premium", "On Premium"), bi("ทุกแพ็กเกจ — BOM ใบสั่งผลิต งานซ่อมและบริการ", "Every plan — BOM, work orders, repair and service jobs")),
+      row("การวางระบบ", "Implementation", bi("Microsoft แนะนำให้ซื้อและวางระบบผ่านพาร์ทเนอร์", "Microsoft directs purchases and implementation to partners"), bi(`สมัครเองได้ทันที หรือบริการตั้งค่า ${B.setup}`, `Self-serve today, or a ${B.setup} setup service`)),
+      row("POS / HR / เงินเดือน", "POS / HR / payroll", bi("ไม่อยู่ในแพ็กเกจหลัก — ใช้แอปเสริมจากพาร์ทเนอร์", "Not in the core plans — partner add-on apps"), bi("มีในทุกแพ็กเกจ", "On every plan")),
+    ],
+    plans: [
+      { name: same("Essentials"), price: bi("US$80/ผู้ใช้/เดือน (จ่ายรายปี)", "US$80/user/mo (paid yearly)"), note: bi("การเงิน ซัพพลายเชน คลัง โปรเจกต์ รวม Copilot", "Finance, supply chain, warehousing, projects, includes Copilot") },
+      { name: same("Premium"), price: bi("US$110/ผู้ใช้/เดือน (จ่ายรายปี)", "US$110/user/mo (paid yearly)"), note: bi("ทุกอย่างใน Essentials + การผลิต + งานบริการ", "Everything in Essentials + manufacturing + service management") },
+      { name: same("Team Members"), price: bi("US$8/ผู้ใช้/เดือน (จ่ายรายปี)", "US$8/user/mo (paid yearly)"), note: bi("ดูข้อมูล อนุมัติ และแก้ไขบางรายการ", "Read, approve and update selected records") },
+    ],
+    plansNote: bi("Microsoft ระบุว่าราคาเป็นข้อมูลประกอบ อาจต่างกันตามสกุลเงินและประเทศ ค่าแอปภาษีไทยและค่าวางระบบของพาร์ทเนอร์ไม่รวม", "Microsoft says prices are for information and may vary by currency and country. Partner Thai-localization apps and implementation are extra."),
+    scenario: {
+      title: bi("โรงงาน 10 ผู้ใช้ ต้องการการผลิต สต็อก และบัญชีพร้อมภาษีไทย", "A 10-user factory that needs manufacturing, stock and accounting with Thai tax"),
+      them: bi("Premium 10 ผู้ใช้ × US$110 × 12 เดือน + แอปภาษีไทยของพาร์ทเนอร์ + ค่าวางระบบ", "Premium 10 users × US$110 × 12 months + partner Thai-localization app + implementation"),
+      themTotal: bi("≈ US$13,200 ต่อปี (≈ ฿435,600 ที่ราว 33 บาท/ดอลลาร์) + พาร์ทเนอร์", "≈ US$13,200 per year (≈ ฿435,600 at about 33 THB/USD) + partner fees"),
+      tonbab: bi(`Standard ${B.standard} — 10 ผู้ใช้ การผลิต บัญชี ภาษีไทย เงินเดือน POS CRM`, `Standard ${B.standard} — 10 users, manufacturing, accounting, Thai tax, payroll, POS, CRM`),
+      tonbabTotal: bi(`${B.standard} ต่อปี`, `${B.standard} per year`),
+      note: bi("อัตราแลกเปลี่ยนเป็นตัวเลขประมาณของเรา Business Central ลึกกว่ามากด้านการเงินหลายบริษัท ซัพพลายเชน และการปรับแต่ง และเข้ากับ Microsoft 365 ถ้าบริษัทแม่ใช้ Microsoft หรือคุณต้องการระบบระดับนั้น ค่าใช้จ่ายที่สูงกว่าอาจคุ้ม", "The exchange rate is our approximation. Business Central goes much deeper on multi-company finance, supply chain and customisation, and fits Microsoft 365. If your group runs Microsoft or you need that depth, the higher cost can be worth it."),
+    },
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("Business Central เป็น ERP มาตรฐานสากลที่ต้องวางระบบผ่านพาร์ทเนอร์ และในไทยต้องใช้แอปภาษีไทยของพาร์ทเนอร์ Tonbab สร้างจากเอกสารและภาษีไทยตั้งแต่ต้น ใช้ภาษาไทยครบทุกหน้า และเริ่มใช้เองได้ในวันเดียว", "Business Central is an international-standard ERP implemented through partners, and in Thailand it needs a partner's Thai-localization app. Tonbab was built on Thai documents and tax from the start, is fully Thai, and you can start yourself in a day."),
+        bi("Business Central คิดต่อผู้ใช้ ทุกคนที่ทำงานในระบบเต็มรูปแบบต้องมีไลเซนส์ Essentials หรือ Premium Tonbab คิดต่อบริษัท Standard ได้ 10 ผู้ใช้ และ Business ได้ 25 ผู้ใช้ในราคาเดียว", "Business Central charges per user — everyone working fully in the system needs an Essentials or Premium licence. Tonbab charges per company: Standard covers 10 users and Business 25 at one price."),
+      ] },
+    ],
+    chooseThem: [
+      bi("บริษัทแม่หรือกลุ่มบริษัทใช้ Microsoft Dynamics และต้องการระบบเดียวกัน", "Your parent company or group runs Microsoft Dynamics and you need to match it."),
+      bi("ต้องการการเงินหลายบริษัท ซัพพลายเชน และการปรับแต่งระดับลึกผ่านพาร์ทเนอร์", "You need deep multi-company finance, supply chain and partner customisation."),
+    ],
+    chooseTonbab: [
+      bi("ต้องการภาษีไทยและภาษาไทยในตัว ไม่ต้องพึ่งแอปของพาร์ทเนอร์", "You want Thai tax and Thai language built in, not from a partner app."),
+      bi("ต้องการราคาเป็นเงินบาทต่อบริษัท และ POS HR เงินเดือนในระบบเดียว", "You want per-company pricing in baht, with POS, HR and payroll in the same system."),
+    ],
+    faq: [
+      { q: bi("Business Central ราคาเท่าไรในไทย?", "How much is Business Central in Thailand?"), a: bi("หน้าราคาของ Microsoft (19 พ.ย. 2569) แสดง Essentials US$80 และ Premium US$110 ต่อผู้ใช้ต่อเดือน จ่ายรายปี Team Members US$8 ไม่รวมแอปภาษีไทยและค่าวางระบบของพาร์ทเนอร์ ราคาในไทยอาจต่างตามสกุลเงิน", "Microsoft's pricing page (19 Nov 2026) shows Essentials at US$80 and Premium at US$110 per user per month, paid yearly, and Team Members at US$8 — excluding partner Thai-localization apps and implementation. Thai pricing may differ by currency.") },
+      { q: bi("Business Central รองรับภาษีไทยไหม?", "Does Business Central support Thai tax?"), a: bi("เอกสาร Microsoft Learn ระบุว่าประเทศไทยเป็นประเทศที่พาร์ทเนอร์ทำ localization บนเวอร์ชันสากล (W1) และคำแปลภาษาไทยของแอปมาจากพาร์ทเนอร์ จึงขึ้นกับแอปของพาร์ทเนอร์ที่คุณเลือก", "Microsoft Learn lists Thailand as partner-localized on the international (W1) version, with the Thai application translation from partners — so it depends on the partner app you choose.") },
+      faqMigrate("Business Central"),
+      faqTry,
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────── ERPNext
+  {
+    slug: "erpnext",
+    name: "ERPNext",
+    category: "erp",
+    keyword: bi("ทางเลือก ERPNext", "ERPNext alternative"),
+    verified: bi("ข้อมูล ERPNext และ Frappe Cloud ตรวจจาก frappe.io/erpnext/pricing เมื่อ 19 พ.ย. 2569", "ERPNext and Frappe Cloud facts checked on frappe.io/erpnext/pricing, 19 Nov 2026"),
+    sources: [{ label: "frappe.io/erpnext/pricing", url: "https://frappe.io/erpnext/pricing" }],
+    summary: bi(
+      "ERPNext เป็น ERP โอเพนซอร์ส (GPL-3.0) จาก Frappe ใช้ฟรีถ้าติดตั้งเอง หรือเช่าบน Frappe Cloud ที่คิดตามเว็บไซต์/เซิร์ฟเวอร์ไม่ใช่ต่อผู้ใช้ มีบัญชี จัดซื้อ สต็อก การผลิต POS และ CRM ปรับแต่งได้มาก Tonbab เป็น ERP สำเร็จรูปที่สร้างเพื่อธุรกิจไทย ภาษาไทยและภาษีไทยพร้อมใช้ ไม่ต้องดูแลเซิร์ฟเวอร์",
+      "ERPNext is an open-source (GPL-3.0) ERP from Frappe — free if you host it yourself, or hosted on Frappe Cloud priced per site/server, not per user. It covers accounting, purchasing, stock, manufacturing, POS and CRM, and is highly customisable. Tonbab is a ready-to-use ERP built for Thai businesses, with Thai language and Thai tax out of the box and no servers to run.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("ERP โอเพนซอร์ส ติดตั้งเองหรือเช่าคลาวด์", "Open-source ERP, self-hosted or cloud-hosted"), TONBAB_TYPE),
+      row("ราคา", "Price", bi("ซอฟต์แวร์ฟรี (GPL-3.0) · Frappe Cloud: เว็บไซต์เริ่ม US$5/เดือน เซิร์ฟเวอร์เริ่ม US$20/เดือน · ไม่คิดต่อผู้ใช้", "Software free (GPL-3.0) · Frappe Cloud: sites from US$5/mo, servers from US$20/mo · not per user"), TONBAB_PRICE),
+      row("การผลิต", "Manufacturing", bi("มี — โมดูล Manufacturing", "Yes — Manufacturing module"), TONBAB_MFG),
+      row("ภาษีไทย", "Thai tax", bi("ไม่พบโมดูลภาษีไทยในหน้าของ Frappe — ต้องปรับเองหรือใช้พาร์ทเนอร์", "No Thai tax module found on Frappe's pages — customise yourself or use a partner"), TONBAB_TAX),
+      row("HR / เงินเดือน", "HR / payroll", bi("Frappe HR (แอปแยก ฟรีเช่นกัน)", "Frappe HR (a separate app, also free)"), TONBAB_HR),
+      row("การดูแลระบบ", "Running it", bi("ติดตั้งเองต้องดูแลเซิร์ฟเวอร์ อัปเกรด และสำรองข้อมูลเอง · การวางระบบผ่านพาร์ทเนอร์", "Self-hosting means running servers, upgrades and backups yourself · implementation via partners"), bi(`ไม่ต้องดูแลเซิร์ฟเวอร์ สมัครแล้วใช้ได้ทันที หรือบริการตั้งค่า ${B.setup}`, `No servers to run — sign up and go, or a ${B.setup} setup service`)),
+    ],
+    plans: [
+      { name: bi("ติดตั้งเอง", "Self-hosted"), price: bi("฿0 ค่าซอฟต์แวร์", "฿0 software"), note: bi("GPL-3.0 ไม่มีฟีเจอร์เสียเงิน ค่าเซิร์ฟเวอร์และการดูแลเป็นของคุณ", "GPL-3.0, no paid features; servers and upkeep are yours") },
+      { name: same("Frappe Cloud — Site"), price: bi("เริ่ม US$5/เดือน", "From US$5/mo"), note: bi("เว็บไซต์เดียวบนเซิร์ฟเวอร์ที่ใช้ร่วมกัน", "One site on shared servers") },
+      { name: same("Frappe Cloud — Server"), price: bi("เริ่ม US$20/เดือน · ระดับสูงเริ่ม US$125/เดือน", "From US$20/mo · higher tier from US$125/mo"), note: bi("เซิร์ฟเวอร์เฉพาะ วางได้หลายเว็บไซต์", "A dedicated VM for several sites") },
+    ],
+    plansNote: bi("Enterprise ขอใบเสนอราคา ค่าวางระบบของพาร์ทเนอร์ไม่รวม", "Enterprise is quoted; partner implementation is extra."),
+    scenario: {
+      title: bi("บริษัท 20 ผู้ใช้ ต้องการสต็อก ผลิต บัญชีพร้อมภาษีไทย และเงินเดือน", "A 20-user company that needs stock, manufacturing, accounting with Thai tax, and payroll"),
+      them: bi("ERPNext ฟรี + เซิร์ฟเวอร์ Frappe Cloud เริ่ม US$20/เดือน + การปรับภาษีไทย เอกสารไทย และเงินเดือนไทยโดยทีมของคุณหรือพาร์ทเนอร์", "ERPNext free + Frappe Cloud server from US$20/mo + Thai tax, Thai documents and Thai payroll set up by your team or a partner"),
+      themTotal: bi("ค่าซอฟต์แวร์และโฮสต์เริ่มราว US$240 ต่อปี + ค่าปรับแต่งและดูแล", "Software and hosting from about US$240 per year + customisation and upkeep"),
+      tonbab: bi(`Business ${B.business} — 25 ผู้ใช้ ภาษีไทย เงินเดือน 200 คน ไม่ต้องดูแลเซิร์ฟเวอร์`, `Business ${B.business} — 25 users, Thai tax, payroll for 200, no servers to run`),
+      tonbabTotal: bi(`${B.business} ต่อปี`, `${B.business} per year`),
+      note: bi("ค่าซอฟต์แวร์ของ ERPNext ถูกกว่าชัดเจน ถ้าคุณมีทีมไอทีหรือพาร์ทเนอร์ที่ทำภาษีไทยให้ได้ ERPNext ยืดหยุ่นกว่าและเป็นเจ้าของโค้ดเอง Tonbab คุ้มเมื่อคุณอยากได้ภาษีไทยพร้อมใช้และไม่อยากดูแลระบบเอง", "ERPNext's software cost is clearly lower. If you have an IT team or a partner who can do Thai tax, ERPNext is more flexible and you own the code. Tonbab pays off when you want Thai tax ready to use and no system to maintain."),
+    },
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("ERPNext ให้อิสระเต็มที่ ทั้งโค้ดเปิดและติดตั้งที่ไหนก็ได้ แต่ภาระการตั้งค่าภาษีไทย แบบฟอร์มเอกสารไทย การอัปเกรด และการสำรองข้อมูลเป็นของคุณ Tonbab ทำส่วนนี้ให้แล้ว แลกกับการเป็นบริการคลาวด์ที่ไม่ติดตั้งเองได้", "ERPNext gives you full freedom — open code, host anywhere — but Thai tax setup, Thai document layouts, upgrades and backups are on you. Tonbab has done that work, in exchange for being a cloud service you can't self-host."),
+      ] },
+    ],
+    chooseThem: [
+      bi("มีทีมไอทีหรือพาร์ทเนอร์ ERPNext และต้องการเป็นเจ้าของโค้ดหรือติดตั้งบนเซิร์ฟเวอร์ของตัวเอง", "You have an IT team or an ERPNext partner and want to own the code or host on your own servers."),
+      bi("ต้องการปรับแต่งระบบลึกด้วยตัวเอง", "You want to customise the system deeply yourself."),
+    ],
+    chooseTonbab: [
+      bi("ต้องการภาษีไทย เอกสารไทย และเงินเดือนไทยพร้อมใช้ตั้งแต่วันแรก", "You want Thai tax, Thai documents and Thai payroll ready from day one."),
+      bi("ไม่อยากดูแลเซิร์ฟเวอร์ การอัปเกรด และการสำรองข้อมูลเอง", "You don't want to run servers, upgrades and backups yourself."),
+    ],
+    faq: [
+      { q: bi("ERPNext ฟรีจริงไหม?", "Is ERPNext really free?"), a: bi("ซอฟต์แวร์ฟรีและเป็นโอเพนซอร์ส GPL-3.0 ตามหน้าของ Frappe (19 พ.ย. 2569) ถ้าติดตั้งเองไม่มีค่าไลเซนส์ ถ้าเช่าบน Frappe Cloud เว็บไซต์เริ่ม US$5/เดือน และเซิร์ฟเวอร์เริ่ม US$20/เดือน ค่าวางระบบและการปรับภาษีไทยคิดแยก", "The software is free and open source (GPL-3.0) per Frappe's page (19 Nov 2026). Self-hosting has no licence fee; on Frappe Cloud, sites start at US$5/mo and servers at US$20/mo. Implementation and Thai-tax customisation are extra.") },
+      faqMigrate("ERPNext"),
+      faqTry,
+    ],
+  },
+
+  // ────────────────────────────────────────────────────────── HumanSoft
+  {
+    slug: "humansoft",
+    name: "HumanSoft",
+    category: "hr",
+    keyword: bi("ทางเลือก HumanSoft", "HumanSoft alternative"),
+    verified: bi("ข้อมูล HumanSoft ตรวจจาก humansoft.co.th/price (ราคาอัปเดต 1 มี.ค. 2569) เมื่อ 19 พ.ย. 2569", "HumanSoft facts checked on humansoft.co.th/price (prices updated 1 Mar 2026), 19 Nov 2026"),
+    sources: [
+      { label: "humansoft.co.th/price", url: "https://www.humansoft.co.th/price" },
+      { label: "humansoft.co.th", url: "https://www.humansoft.co.th/" },
+    ],
+    summary: bi(
+      "HumanSoft เป็นระบบ HR และเงินเดือนของไทยสำหรับ SME คิดราคาตามช่วงจำนวนพนักงาน มีเงินเดือน ภาษี ประกันสังคม ลงเวลาหลายวิธี และงานเอกสารผ่านแอปหรือ LINE รวมการตั้งค่าและย้ายข้อมูลในราคา Tonbab มี HR การลา เวลาทำงาน และเงินเดือนอยู่ในระบบเดียวกับบัญชี สต็อก และการขาย",
+      "HumanSoft is a Thai HR and payroll system for SMEs, priced by headcount band — payroll, tax, social security, many clock-in methods, and requests through an app or LINE, with setup and data import included. Tonbab has HR, leave, attendance and payroll in the same system as accounting, stock and sales.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("ระบบ HR และเงินเดือนบนคลาวด์", "Cloud HR and payroll system"), TONBAB_TYPE),
+      row("ราคา (1–10 พนักงาน)", "Price (1–10 staff)", bi("BASIC ฿590 · STANDARD ฿1,190 · ADVANCED ฿1,390 · PROFESSIONAL ฿1,890 ต่อเดือน (รายปีจ่าย 10 เดือน)", "BASIC ฿590 · STANDARD ฿1,190 · ADVANCED ฿1,390 · PROFESSIONAL ฿1,890 per month (yearly = 10 months)"), bi(`Starter ${B.starter}/ปี (พนักงาน 10 คน) หรือ Standard ${B.standard}/ปี (50 คน) รวมทุกโมดูล`, `Starter ${B.starter}/yr (10 staff) or Standard ${B.standard}/yr (50 staff), every module`)),
+      row("เงินเดือนและภาษี", "Payroll and tax", bi("ทุกแพ็กเกจ — ภ.ง.ด.1 สปส.1-10 50 ทวิ กองทุนสำรองเลี้ยงชีพ", "Every plan — PND 1, SSO 1-10, 50 Tawi, provident fund"), bi("ทุกแพ็กเกจ — ภ.ง.ด.1 ประกันสังคม สลิป", "Every plan — PND 1, social security, payslips")),
+      row("ลงเวลา", "Time clock", bi("ลายนิ้วมือ GPS QR · แอปมือถือ สแกนหน้า Wi-Fi Beacon ตั้งแต่ STANDARD · เชื่อมเครื่อง ADMS ฿5,000/เครื่อง", "Fingerprint, GPS, QR · mobile app, face scan, Wi-Fi, Beacon from STANDARD · ADMS device link ฿5,000/device"), bi(`เช็กอินในแอป และเชื่อม HikCentral (บริการเสริม ${B.hikcentral}/ปี)`, `Check-in in the app, and a HikCentral link (${B.hikcentral}/yr add-on)`)),
+      row("ประเมินผล / สรรหา", "Performance / recruiting", bi("PROFESSIONAL — ประเมินผล KPI สรรหาออนไลน์ ทดลองงาน อบรม e-Learning", "PROFESSIONAL — evaluations, KPI, online recruiting, probation, training, e-Learning"), bi("สรรหาและหน้ารับสมัครงานทุกแพ็กเกจ · KPI ทีมขายใน CRM · ยังไม่มีระบบประเมินผล HR เต็มรูปแบบ", "Recruiting and careers page on every plan · sales KPIs in CRM · no full HR performance system yet")),
+      row("บัญชี สต็อก การขาย", "Accounting, stock, sales", bi("ไม่มี (ระบบ HR โดยเฉพาะ)", "No (HR-only)"), bi("มีในระบบเดียวกัน", "In the same system")),
+    ],
+    plans: [
+      { name: bi("1–10 พนักงาน", "1–10 staff"), price: bi("฿590 / ฿1,190 / ฿1,390 / ฿1,890 ต่อเดือน", "฿590 / ฿1,190 / ฿1,390 / ฿1,890 per month"), note: same("BASIC / STANDARD / ADVANCED / PROFESSIONAL") },
+      { name: bi("11–25 พนักงาน", "11–25 staff"), price: bi("฿790 / ฿1,990 / ฿2,890 / ฿3,790 ต่อเดือน", "฿790 / ฿1,990 / ฿2,890 / ฿3,790 per month"), note: same("BASIC / STANDARD / ADVANCED / PROFESSIONAL") },
+      { name: bi("26–50 พนักงาน", "26–50 staff"), price: bi("฿1,290 / ฿2,890 / ฿4,790 / ฿6,390 ต่อเดือน", "฿1,290 / ฿2,890 / ฿4,790 / ฿6,390 per month"), note: same("BASIC / STANDARD / ADVANCED / PROFESSIONAL") },
+    ],
+    plansNote: bi("ราคาไม่รวม VAT 7% จ่ายรายปีเท่ากับ 10 เดือน รวมการตั้งค่า นำเข้าข้อมูลพนักงานและประวัติ อบรมออนไลน์ และซัพพอร์ตทุกวัน เครื่องสแกนนิ้ว/หน้าคิดแยก เกิน 500 คนขอใบเสนอราคา", "Prices exclude 7% VAT; yearly billing is 10 months' price. Setup, employee and history import, online training and daily support are included; fingerprint/face devices are extra. Above 500 staff, quoted."),
+    scenario: {
+      title: bi("บริษัท 20 คน ต้องการเงินเดือน การลา และให้พนักงานลงเวลาและยื่นเอกสารผ่านมือถือ", "A 20-person company that needs payroll, leave, and staff clocking in and filing requests on their phones"),
+      them: bi("HumanSoft STANDARD (11–25 พนักงาน) ฿1,990 × 10", "HumanSoft STANDARD (11–25 staff) ฿1,990 × 10"),
+      themTotal: bi("฿19,900 ต่อปี (HR อย่างเดียว)", "฿19,900 per year (HR only)"),
+      tonbab: bi(`Standard ${B.standard} — เงินเดือน 50 คน การลา เวลาทำงาน พร้อมบัญชี สต็อก POS CRM`, `Standard ${B.standard} — payroll for 50, leave, attendance, plus accounting, stock, POS, CRM`),
+      tonbabTotal: bi(`${B.standard} ต่อปี`, `${B.standard} per year`),
+      note: bi("ถ้าต้องการแค่คำนวณเงินเดือนโดยไม่ใช้แอปมือถือ HumanSoft BASIC (11–25 คน) ราว ฿7,900 ต่อปีถูกกว่า HumanSoft มีวิธีลงเวลาหลากหลายกว่า รองรับเครื่องสแกนนิ้วและหน้า และรวมทีมตั้งค่าและย้ายข้อมูลให้ ถ้า HR คืองานหลักที่ต้องการ HumanSoft ครบกว่า", "If you only need payroll without the mobile app, HumanSoft BASIC (11–25 staff) at about ฿7,900 a year is cheaper. HumanSoft has more clock-in methods, supports fingerprint and face devices, and includes setup and data migration. If HR is your main need, HumanSoft goes further."),
+    },
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("HumanSoft เชี่ยวชาญงาน HR ไทยโดยเฉพาะ ตั้งแต่ลงเวลาหลายรูปแบบจนถึงประเมินผลและอบรม Tonbab ใส่ HR และเงินเดือนไว้ในระบบเดียวกับงานทั้งบริษัท พนักงานคนเดียวกันจึงเป็นทั้งผู้ใช้ ผู้อนุมัติใบขอซื้อ และพนักงานในเงินเดือน และค่าแรงไหลเข้าบัญชีในระบบเดียว", "HumanSoft specialises in Thai HR — from many clock-in methods to evaluations and training. Tonbab puts HR and payroll in the same system as the rest of the company, so one person is a user, a purchase approver and an employee on payroll, and wages flow into the books in the same system."),
+      ] },
+    ],
+    chooseThem: [
+      bi("ต้องการระบบ HR โดยเฉพาะ พร้อมเครื่องสแกนนิ้ว/หน้า และวิธีลงเวลาหลายแบบ", "You want a dedicated HR system with fingerprint/face devices and many clock-in methods."),
+      bi("ต้องการประเมินผล KPI อบรม และ e-Learning ในระบบ HR", "You need evaluations, KPI, training and e-Learning in your HR system."),
+      bi("มีระบบบัญชีและ ERP อยู่แล้ว ต้องการแค่ HR", "You already have accounting and an ERP and only need HR."),
+    ],
+    chooseTonbab: [
+      bi("ต้องการเงินเดือนและ HR ในระบบเดียวกับบัญชี สต็อก และการขาย", "You want payroll and HR in the same system as accounting, stock and sales."),
+      bi("อยากจ่ายราคาเดียวต่อบริษัทที่รวมทุกโมดูล", "You'd rather pay one per-company price that covers every module."),
+    ],
+    faq: [
+      { q: bi("HumanSoft ราคาเท่าไร?", "How much does HumanSoft cost?"), a: bi("ตาม humansoft.co.th/price (ราคาอัปเดต 1 มี.ค. 2569 ตรวจ 19 พ.ย. 2569) สำหรับ 1–10 พนักงาน BASIC ฿590 STANDARD ฿1,190 ADVANCED ฿1,390 PROFESSIONAL ฿1,890 ต่อเดือน จ่ายรายปีเท่ากับ 10 เดือน ราคาไม่รวม VAT", "Per humansoft.co.th/price (prices updated 1 Mar 2026, checked 19 Nov 2026), for 1–10 staff: BASIC ฿590, STANDARD ฿1,190, ADVANCED ฿1,390, PROFESSIONAL ฿1,890 per month; yearly billing is 10 months' price, before VAT.") },
+      faqMigrate("HumanSoft"),
+      faqTry,
+    ],
+  },
+
+  // ──────────────────────────────────────────────── Tigersoft (Humanica)
+  {
+    slug: "tigersoft",
+    name: "Tigersoft (Tiger OpenSpace)",
+    category: "hr",
+    keyword: bi("ทางเลือกโปรแกรมเงินเดือน Tigersoft", "Tigersoft payroll alternative"),
+    verified: bi("ข้อมูล Tigersoft ตรวจจากหน้าโปรแกรม HR ของ Humanica เมื่อ 19 พ.ย. 2569 — ไม่เปิดเผยราคา", "Tigersoft facts checked on Humanica's HR software page, 19 Nov 2026 — no prices published"),
+    sources: [{ label: "humanica.com — Tigersoft", url: "https://www.humanica.com/th/hr-program/tigersoft/" }],
+    summary: bi(
+      "Tigersoft เป็นซอฟต์แวร์ HR ของไทย (ปัจจุบันอยู่ในกลุ่ม Humanica) ที่โรงงานและองค์กรไทยใช้คู่กับเครื่องสแกนลงเวลามานาน มีข้อมูลบุคคล เวลาทำงานกะซับซ้อน โอที เงินเดือน และแอปพนักงาน ติดตั้งในบริษัทหรือใช้บนคลาวด์ (Tiger OpenSpace) ได้ Tonbab มี HR และเงินเดือนในระบบเดียวกับบัญชี สต็อก และการขาย",
+      "Tigersoft is Thai HR software (now part of the Humanica group) long used by Thai factories and organisations alongside time-clock hardware — personnel records, complex shifts, overtime, payroll and an employee app, on-premise or in the cloud (Tiger OpenSpace). Tonbab has HR and payroll in the same system as accounting, stock and sales.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("ซอฟต์แวร์ HR และเงินเดือน ติดตั้งในบริษัทหรือคลาวด์ (Tiger OpenSpace)", "HR and payroll software, on-premise or cloud (Tiger OpenSpace)"), TONBAB_TYPE),
+      row("ราคา", "Price", bi("ราคาไม่เปิดเผย / quote only", "ราคาไม่เปิดเผย / quote only"), TONBAB_PRICE),
+      row("เวลาทำงานและกะ", "Time and shifts", bi("รองรับกะซับซ้อน การลา และคำนวณโอที — จุดแข็ง", "Complex shift patterns, leave and overtime calculation — a strength"), bi(`การลาและเวลาทำงานทุกแพ็กเกจ · เชื่อม HikCentral (บริการเสริม ${B.hikcentral}/ปี)`, `Leave and attendance on every plan · HikCentral link (${B.hikcentral}/yr add-on)`)),
+      row("เงินเดือนและกฎหมายไทย", "Payroll and Thai statutory", bi("ภ.ง.ด.1 ภ.ง.ด.91 สปส.1-10 กองทุนสำรองเลี้ยงชีพ ไฟล์โอนธนาคาร", "PND 1, PND 91, SSO 1-10, provident fund, bank transfer files"), bi("ภ.ง.ด.1 ประกันสังคม สลิป ทุกแพ็กเกจ", "PND 1, social security, payslips on every plan")),
+      row("แอปพนักงาน", "Employee app", bi("ESS บนเว็บ/มือถือ — เช็กอิน GPS สลิปออนไลน์ ยื่นลา", "Web/mobile ESS — GPS check-in, e-payslips, leave requests"), TONBAB_APP),
+      row("บัญชี สต็อก การขาย", "Accounting, stock, sales", bi("ไม่มี (ระบบ HR โดยเฉพาะ)", "No (HR-only)"), bi("มีในระบบเดียวกัน", "In the same system")),
+    ],
+    plans: [],
+    plansNote: bi("หน้าของ Humanica ไม่แสดงราคา Tigersoft ต้องติดต่อฝ่ายขาย", "Humanica's page shows no Tigersoft prices; contact sales."),
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("Tigersoft เหมาะกับโรงงานที่มีกะซับซ้อนและใช้เครื่องสแกนลงเวลาจำนวนมาก และต้องการระบบ HR ที่ติดตั้งในบริษัทได้ Tonbab เหมาะกับ SME ที่อยากได้เงินเดือนในระบบเดียวกับจัดซื้อ การผลิต บัญชี และหน้าร้าน ราคาเปิดเผยและสมัครใช้เองได้", "Tigersoft suits factories with complex shifts and many time clocks that want HR software they can install on-premise. Tonbab suits SMEs that want payroll in the same system as purchasing, production, accounting and retail, with published prices and self-serve signup."),
+      ] },
+    ],
+    chooseThem: [
+      bi("มีกะการทำงานซับซ้อนและเครื่องสแกนลงเวลาหลายเครื่องในโรงงาน", "You run complex shifts with many time clocks on the factory floor."),
+      bi("ต้องการติดตั้งระบบ HR บนเซิร์ฟเวอร์ของบริษัทเอง", "You need the HR system on your own servers."),
+    ],
+    chooseTonbab: [
+      bi("ต้องการเงินเดือนในระบบเดียวกับบัญชี สต็อก และการขาย", "You want payroll in the same system as accounting, stock and sales."),
+      bi("อยากรู้ราคาก่อน และเริ่มเองได้ทันที", "You want to know the price up front and start yourself today."),
+    ],
+    faq: [
+      { q: bi("Tigersoft ราคาเท่าไร?", "How much does Tigersoft cost?"), a: bi("หน้าโปรแกรม HR ของ Humanica (ตรวจ 19 พ.ย. 2569) ไม่แสดงราคา Tigersoft ต้องติดต่อฝ่ายขาย ส่วน Tonbab รวมเงินเดือนในทุกแพ็กเกจ เช่น Standard ฿9,900/ปี สำหรับพนักงาน 50 คน ก่อน VAT", "Humanica's HR software page (checked 19 Nov 2026) shows no Tigersoft prices — contact sales. Tonbab includes payroll on every plan, e.g. Standard at ฿9,900/yr for 50 staff, before VAT.") },
+      faqMigrate("Tigersoft"),
+      faqTry,
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────── Ocha
+  {
+    slug: "ocha",
+    name: "Ocha POS",
+    category: "pos",
+    keyword: bi("ทางเลือก Ocha POS", "Ocha POS alternative"),
+    verified: bi("ข้อมูล Ocha ตรวจจาก ocha.in.th/product และหน้าแรกของ Ocha เมื่อ 19 พ.ย. 2569", "Ocha facts checked on ocha.in.th/product and Ocha's home page, 19 Nov 2026"),
+    sources: [
+      { label: "ocha.in.th/product", url: "https://ocha.in.th/product" },
+      { label: "ocha.in.th", url: "https://ocha.in.th/" },
+    ],
+    summary: bi(
+      "Ocha เป็นแอป POS ร้านอาหารของไทย (ปัจจุบันอยู่ภายใต้ Sea Limited เจ้าของ Shopee) มีจัดการโต๊ะ รวม/แยกบิล ส่งออเดอร์เข้าครัว สต็อกวัตถุดิบ และรับพร้อมเพย์ผ่าน ShopeePay ราคาซอฟต์แวร์ต่อเดือนต่อร้าน Tonbab มี POS ทุกแพ็กเกจ ต่อกับสต็อก จัดซื้อ การผลิต บัญชี และ HR ในระบบเดียว",
+      "Ocha is a Thai restaurant POS (now under Sea Limited, Shopee's parent) with table management, split/merge bills, kitchen order printing, ingredient stock and PromptPay through ShopeePay, priced monthly per shop. Tonbab includes POS on every plan, connected to stock, purchasing, production, accounting and HR in one system.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("แอป POS ร้านอาหารบนแท็บเล็ตหรือเครื่อง Sunmi", "Restaurant POS app on a tablet or Sunmi terminal"), TONBAB_TYPE),
+      row("ราคา (ต่อร้าน)", "Price (per shop)", bi("฿799/เดือนบนแท็บเล็ต · ฿250/เดือนบนเครื่อง Sunmi ที่ซื้อจาก Ocha · ชุดเครื่อง ฿16,990–26,900 (แถมซอฟต์แวร์ 3 เดือน)", "฿799/mo on a tablet · ฿250/mo on a Sunmi bought from Ocha · hardware bundles ฿16,990–26,900 (3 months' software free)"), TONBAB_PRICE),
+      row("หน้าร้านอาหาร", "Restaurant floor", bi("จัดการโต๊ะ รวม/แยกบิล รับออเดอร์บนมือถือพนักงาน ส่งเข้าเครื่องพิมพ์ครัว — จุดแข็ง", "Tables, merge/split bills, staff phone ordering, kitchen printing — a strength"), bi("ใบสั่งครัวและหลายเครื่องพิมพ์ (ทุกแพ็กเกจ)", "Kitchen tickets and multiple printers (every plan)")),
+      row("พร้อมเพย์", "PromptPay", bi("ShopeePay ปิดบิลอัตโนมัติ รองรับพร้อมเพย์", "ShopeePay auto-closes bills, supports PromptPay"), bi("QR พร้อมเพย์ของร้านพร้อมรูปสลิป หรือบัตรและพร้อมเพย์ผ่าน Beam", "Your own PromptPay QR with slip photo, or cards and PromptPay via Beam")),
+      row("สต็อกและจัดซื้อ", "Stock and purchasing", bi("สต็อกวัตถุดิบเรียลไทม์ แจ้งเตือนใกล้หมด", "Real-time ingredient stock, low-stock alerts"), bi("สต็อกหลายคลัง ตัดตามสูตร จัดซื้อ PR/PO รับสินค้า", "Multi-warehouse stock, recipe deduction, PR/PO purchasing, goods receipt")),
+      row("บัญชีและเงินเดือน", "Accounting and payroll", bi("ไม่พบในหน้าของ Ocha", "Not found on Ocha's pages"), bi("มีในระบบเดียวกัน", "In the same system")),
+    ],
+    plans: [
+      { name: bi("ซอฟต์แวร์บนแท็บเล็ต", "Software on a tablet"), price: bi("฿799/เดือน", "฿799/mo"), note: bi("iOS และ Android ต่อร้าน", "iOS and Android, per shop") },
+      { name: bi("ซอฟต์แวร์บนเครื่อง Sunmi", "Software on Sunmi"), price: bi("฿250/เดือน", "฿250/mo"), note: bi("เฉพาะเครื่อง Sunmi ที่ซื้อจาก Ocha", "Only on a Sunmi bought from Ocha") },
+      { name: bi("ชุดเครื่อง Ocha POS", "Ocha POS hardware"), price: bi("฿16,990–26,900", "฿16,990–26,900"), note: bi("ราคาพิเศษ แถมซอฟต์แวร์ 3 เดือน สำหรับ 1 ร้าน", "Special prices, 3 months' software free, for 1 shop") },
+    ],
+    plansNote: bi("ทดลองใช้ฟรี 14 วัน อุปกรณ์เสริม เช่น เครื่องพิมพ์ครัว ฿5,500 ลิ้นชัก ฿2,500 ขายแยก", "14-day free trial. Accessories such as a kitchen printer (฿5,500) or cash drawer (฿2,500) are sold separately."),
+    scenario: {
+      title: bi("ร้านอาหาร 1 สาขา ใช้แท็บเล็ตที่มีอยู่แล้ว 1–2 เครื่อง", "A single-branch restaurant using 1–2 tablets it already owns"),
+      them: bi("Ocha บนแท็บเล็ต ฿799 × 12 เดือน", "Ocha on a tablet ฿799 × 12 months"),
+      themTotal: bi("฿9,588 ต่อปี (POS อย่างเดียว)", "฿9,588 per year (POS only)"),
+      tonbab: bi(`Starter ${B.starter} — 1 ร้าน 2 เครื่อง POS ใบสั่งครัว สต็อก จัดซื้อ บัญชี เงินเดือน 10 คน`, `Starter ${B.starter} — 1 shop, 2 POS devices, kitchen tickets, stock, purchasing, accounting, payroll for 10`),
+      tonbabTotal: bi(`${B.starter} ต่อปี`, `${B.starter} per year`),
+      note: bi("ถ้าซื้อเครื่อง Sunmi จาก Ocha ค่าซอฟต์แวร์เหลือ ฿3,000 ต่อปี ใกล้เคียง Tonbab Starter Ocha สร้างมาเพื่อร้านอาหารโดยเฉพาะ งานโต๊ะ รวม/แยกบิล และรับออเดอร์บนมือถือพนักงานคล่องตัวกว่า ถ้าร้านคุณเป็นร้านนั่งทานเต็มรูปแบบ Ocha อาจเหมาะกว่า", "If you buy a Sunmi from Ocha, the software drops to ฿3,000 a year — about the same as Tonbab Starter. Ocha is built for restaurants: tables, merge/split bills and staff phone ordering are smoother. For a full-service sit-down restaurant, Ocha may be the better fit."),
+    },
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("Ocha เน้นหน้าร้านอาหารให้ลื่นที่สุด Tonbab เหมาะกับร้านหรือแบรนด์ที่มีครัวกลาง ผลิตสินค้าเอง หรือขายส่งด้วย และต้องการให้หน้าร้านต่อกับวัตถุดิบ จัดซื้อ บัญชี และเงินเดือนพนักงานโดยไม่ต้องคีย์ซ้ำ", "Ocha focuses on making the restaurant floor as smooth as possible. Tonbab fits shops and brands with a central kitchen, their own production or wholesale, where the counter must connect to ingredients, purchasing, accounting and staff payroll without re-keying."),
+      ] },
+    ],
+    chooseThem: [
+      bi("ร้านอาหารนั่งทานที่ต้องการจัดการโต๊ะ รวม/แยกบิล และรับออเดอร์บนมือถือพนักงาน", "You run a sit-down restaurant that needs tables, merge/split bills and staff phone ordering."),
+      bi("ต้องการรับพร้อมเพย์ผ่าน ShopeePay และชุดเครื่องพร้อมใช้จากผู้ให้บริการรายเดียว", "You want PromptPay through ShopeePay and ready-made hardware from one provider."),
+    ],
+    chooseTonbab: [
+      bi("มีครัวกลางหรือผลิตสินค้าเอง ต้องการต้นทุนวัตถุดิบและจัดซื้อในระบบเดียว", "You have a central kitchen or make your own products and want ingredient cost and purchasing in one system."),
+      bi("ต้องการบัญชีและเงินเดือนพนักงานในระบบเดียวกับหน้าร้าน", "You want accounting and staff payroll in the same system as the counter."),
+    ],
+    faq: [
+      { q: bi("Ocha POS ราคาเท่าไร?", "How much does Ocha POS cost?"), a: bi("ตาม ocha.in.th/product (19 พ.ย. 2569) ค่าซอฟต์แวร์บนแท็บเล็ต ฿799/เดือน บนเครื่อง Sunmi ที่ซื้อจาก Ocha ฿250/เดือน และชุดเครื่อง Ocha POS ราคาพิเศษ ฿16,990–26,900 แถมซอฟต์แวร์ 3 เดือน", "Per ocha.in.th/product (19 Nov 2026): software on a tablet is ฿799/mo, on a Sunmi bought from Ocha ฿250/mo, and Ocha POS hardware bundles are ฿16,990–26,900 with 3 months' software free.") },
+      faqMigrate("Ocha"),
+      faqTry,
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────── StoreHub
+  {
+    slug: "storehub",
+    name: "StoreHub",
+    category: "pos",
+    keyword: bi("ทางเลือก StoreHub POS", "StoreHub POS alternative"),
+    verified: bi("ข้อมูล StoreHub ตรวจจาก storehub.com/th/pricing เมื่อ 19 พ.ย. 2569", "StoreHub facts checked on storehub.com/th/pricing, 19 Nov 2026"),
+    sources: [{ label: "storehub.com/th/pricing", url: "https://www.storehub.com/th/pricing" }],
+    summary: bi(
+      "StoreHub เป็นระบบ POS บนคลาวด์สำหรับร้านค้าปลีก ร้านอาหาร และธุรกิจบริการ มีสต็อก ฐานข้อมูลลูกค้า สะสมแต้ม หลายสาขา และขายออนไลน์ คิดราคารายเดือนต่อร้าน Tonbab มี POS ทุกแพ็กเกจ ต่อกับสต็อกหลายคลัง จัดซื้อ การผลิต บัญชี และ HR ในระบบเดียว",
+      "StoreHub is a cloud POS for retail, F&B and service businesses — stock, customer database, loyalty, multi-outlet and online selling — priced monthly per outlet. Tonbab includes POS on every plan, connected to multi-warehouse stock, purchasing, production, accounting and HR in one system.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("POS บนคลาวด์ ค้าปลีก ร้านอาหาร บริการ", "Cloud POS for retail, F&B and services"), TONBAB_TYPE),
+      row("ราคา", "Price", bi("เริ่มต้น ฿990 · กลาง ฿1,999 · โปร ฿4,800 ต่อเดือน (รวม 1 จุดคิดเงิน 1 สาขา)", "Starter ฿990 · Mid ฿1,999 · Pro ฿4,800 per month (1 register, 1 outlet included)"), TONBAB_PRICE),
+      row("หลายสาขา", "Multiple outlets", bi("ตั้งแต่แพ็คเกจกลาง · สาขาและจุดคิดเงินเพิ่มเป็น add-on (ไม่แสดงราคา)", "From the Mid plan · extra outlets and registers are add-ons (prices not shown)"), bi("Free/Starter 1 ร้าน · Standard 2 · Business 5 · เครื่อง POS 1/2/5/10", "1 shop on Free/Starter · 2 on Standard · 5 on Business · POS devices 1/2/5/10")),
+      row("ลูกค้าและสะสมแต้ม", "Customers and loyalty", bi("ฐานข้อมูลลูกค้า สะสมแต้ม แคมเปญ SMS — จุดแข็ง", "Customer database, loyalty, SMS campaigns — a strength"), TONBAB_CRM),
+      row("สต็อกและจัดซื้อ", "Stock and purchasing", bi("สต็อกพื้นฐาน + ซัพพลายเออร์ · เชิงลึกและโอนคลังในแพ็คเกจกลาง", "Basic stock + suppliers · advanced stock and transfers on Mid"), TONBAB_STOCK),
+      row("บัญชีและเงินเดือน", "Accounting and payroll", bi("ไม่พบในหน้าราคา", "Not found on the pricing page"), bi("มีในระบบเดียวกัน", "In the same system")),
+      row("API", "API", bi("แพ็คเกจโปร", "Pro plan"), TONBAB_API),
+    ],
+    plans: [
+      { name: bi("เริ่มต้น", "Starter"), price: bi("฿990/เดือน", "฿990/mo"), note: bi("POS สต็อกพื้นฐาน ฐานข้อมูลลูกค้า ซัพพลายเออร์ รายงานพื้นฐาน", "POS, basic stock, customer database, suppliers, basic reports") },
+      { name: bi("กลาง", "Mid"), price: bi("฿1,999/เดือน", "฿1,999/mo"), note: bi("หลายสาขา สต็อกเชิงลึก โอนคลัง แจ้งเตือนสต็อก รายงานเชิงลึก", "Multi-outlet, advanced stock, transfers, stock alerts, advanced reports") },
+      { name: bi("โปร", "Pro"), price: bi("฿4,800/เดือน", "฿4,800/mo"), note: bi("ที่ปรึกษาส่วนตัว API ปรับแต่งพื้นฐาน Workflow Automation", "Account manager, API, basic customisation, workflow automation") },
+    ],
+    plansNote: bi("ทุกแพ็คเกจรวม 1 จุดคิดเงินและ 1 สาขา หน้าราคามีตัวเลือกจ่ายรายปีแต่ไม่แสดงราคารายปีหรือราคา add-on ไม่ระบุเรื่อง VAT", "Every plan includes 1 register and 1 outlet. The page offers yearly billing but shows no yearly or add-on prices, and doesn't state VAT."),
+    scenario: {
+      title: bi("ร้านค้าปลีก 2 สาขา ต้องการ POS สต็อกแยกสาขาและโอนสินค้าระหว่างสาขา", "A 2-outlet retailer that needs POS, per-outlet stock and transfers between outlets"),
+      them: bi("แพ็คเกจกลาง ฿1,999 × 12 เดือน + สาขาที่ 2 (add-on ราคาไม่เปิดเผย)", "Mid plan ฿1,999 × 12 months + a 2nd outlet (add-on, price not published)"),
+      themTotal: bi("≈ ฿23,988 ต่อปี + ค่าสาขาที่ 2", "≈ ฿23,988 per year + the 2nd outlet"),
+      tonbab: bi(`Standard ${B.standard} — 2 ร้าน 5 เครื่อง POS 5 คลัง จัดซื้อ บัญชี เงินเดือน`, `Standard ${B.standard} — 2 shops, 5 POS devices, 5 warehouses, purchasing, accounting, payroll`),
+      tonbabTotal: bi(`${B.standard} ต่อปี`, `${B.standard} per year`),
+      note: bi("StoreHub มีระบบสะสมแต้ม แคมเปญ SMS และซัพพอร์ตทุกวันรวมวันหยุด ถ้าการตลาดกับลูกค้าประจำคือหัวใจของร้าน StoreHub ครบกว่า", "StoreHub has built-in loyalty, SMS campaigns and daily support including holidays. If marketing to repeat customers is the heart of your shop, StoreHub goes further."),
+    },
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("StoreHub เป็น POS ที่เน้นหน้าร้านและการดึงลูกค้ากลับมาซื้อซ้ำ Tonbab เหมาะเมื่อหน้าร้านเป็นส่วนหนึ่งของธุรกิจที่ใหญ่กว่า เช่น มีโกดัง ขายส่ง นำเข้า หรือผลิตเอง และต้องการบัญชีกับเงินเดือนในระบบเดียว", "StoreHub is a POS centred on the counter and repeat customers. Tonbab fits when retail is one part of a bigger business — a warehouse, wholesale, imports or your own production — and you want accounting and payroll in the same system."),
+      ] },
+    ],
+    chooseThem: [
+      bi("ร้านค้าปลีกหรือร้านอาหารที่ต้องการระบบสะสมแต้มและแคมเปญ SMS ในตัว", "You run retail or F&B and want built-in loyalty and SMS campaigns."),
+      bi("ต้องการซัพพอร์ตทุกวันรวมวันหยุดและที่ปรึกษาส่วนตัว (แพ็คเกจโปร)", "You want daily support including holidays and a dedicated account manager (Pro)."),
+    ],
+    chooseTonbab: [
+      bi("มีโกดัง ขายส่ง หรือผลิตเอง และต้องการสต็อกชุดเดียวทุกช่องทาง", "You have a warehouse, wholesale or your own production and want one stock across channels."),
+      bi("ต้องการบัญชี ภาษีไทย และเงินเดือนในระบบเดียวกับหน้าร้าน", "You want accounting, Thai tax and payroll in the same system as the counter."),
+    ],
+    faq: [
+      { q: bi("StoreHub ราคาเท่าไร?", "How much does StoreHub cost?"), a: bi("ตาม storehub.com/th/pricing (19 พ.ย. 2569) แพ็คเกจเริ่มต้น ฿990 กลาง ฿1,999 และโปร ฿4,800 ต่อเดือน ทุกแพ็คเกจรวม 1 จุดคิดเงินและ 1 สาขา จุดคิดเงินและสาขาเพิ่มเป็น add-on", "Per storehub.com/th/pricing (19 Nov 2026): Starter ฿990, Mid ฿1,999 and Pro ฿4,800 per month, each with 1 register and 1 outlet; extra registers and outlets are add-ons.") },
+      faqMigrate("StoreHub"),
+      faqTry,
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────── Page365
+  {
+    slug: "page365",
+    name: "Page365",
+    category: "inventory",
+    keyword: bi("ทางเลือก Page365", "Page365 alternative"),
+    verified: bi("ข้อมูล Page365 ตรวจจาก page365.net/pricing และหน้าแรกของ Page365 เมื่อ 19 พ.ย. 2569", "Page365 facts checked on page365.net/pricing and Page365's home page, 19 Nov 2026"),
+    sources: [
+      { label: "page365.net/pricing", url: "https://www.page365.net/pricing" },
+      { label: "page365.net", url: "https://www.page365.net/" },
+    ],
+    summary: bi(
+      "Page365 เป็นระบบหลังบ้านสำหรับร้านขายออนไลน์ทางแชท รวมแชท Facebook LINE OA Instagram เปิดบิลออนไลน์ รับชำระ ส่งของ ไลฟ์ขายของ และสต็อกที่ซิงก์กับ Shopee Lazada TikTok Shop ราคาเข้าถึงง่าย Tonbab เป็น ERP ที่มีกล่องแชท LINE OA Messenger Instagram และดึงออเดอร์ Shopee Lazada อยู่ในระบบเดียวกับสต็อก การผลิต บัญชี และ HR",
+      "Page365 is a back office for chat-commerce sellers — Facebook, LINE OA and Instagram chats, online bills, payments, shipping, live selling, and stock synced with Shopee, Lazada and TikTok Shop — at an accessible price. Tonbab is an ERP whose LINE OA, Messenger and Instagram inbox and Shopee/Lazada order pull sit in the same system as stock, production, accounting and HR.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("ระบบขายของออนไลน์ผ่านแชท (chat commerce)", "Chat-commerce back office"), TONBAB_TYPE),
+      row("ราคา (ต่อปี)", "Price (per year)", same("Solo ฿4,990 · Pro ฿8,990 · ProLive ฿18,990 · SME ฿39,900 · Enterprise ฿150,000"), TONBAB_PRICE),
+      row("แอดมิน / บิลต่อเดือน", "Admins / bills per month", bi("2–25 แอดมิน · 800–50,000 บิล ตามแพ็กเกจ", "2–25 admins · 800–50,000 bills by plan"), bi("ผู้ใช้ Starter 5 · Standard 10 · Business 25 · ออเดอร์ 1,000 / 3,000 / ไม่จำกัด", "Users 5 / 10 / 25 · orders 1,000 / 3,000 / unlimited (Starter / Standard / Business)")),
+      row("แชทและไลฟ์", "Chat and live selling", bi("แชท FB LINE OA IG รวมที่เดียว ตอบอัตโนมัติ บรอดแคสต์ ไลฟ์ FB/IG เปิดบิลอัตโนมัติ — จุดแข็งหลัก", "FB, LINE OA, IG chats in one place, auto-replies, broadcasts, FB/IG live selling with auto bills — the core strength"), bi(`กล่องแชท LINE OA Messenger Instagram ตอบสองทาง — อยู่ในบริการเสริมช่องทางขาย ${B.channels}/ปี (Business)`, `Two-way LINE OA, Messenger, Instagram inbox — in the sales-channels add-on, ${B.channels}/yr (Business)`)),
+      row("มาร์เก็ตเพลส", "Marketplaces", bi("ซิงก์สต็อกกับ Shopee Lazada TikTok Shop", "Stock sync with Shopee, Lazada, TikTok Shop"), bi("ดึงออเดอร์ Shopee Lazada อัตโนมัติ · ส่งสต็อกกลับกำลังพัฒนา · TikTok Shop เร็ว ๆ นี้", "Automatic Shopee/Lazada order pull · stock push-back in development · TikTok Shop coming soon")),
+      row("ขนส่งและชำระเงิน", "Shipping and payments", bi("Page365 Express · โอน พร้อมเพย์ บัตร · ตรวจสลิป ฿0.20/ครั้ง", "Page365 Express · transfer, PromptPay, card · slip check ฿0.20 each"), TONBAB_POS),
+      row("การผลิต / บัญชี / เงินเดือน", "Manufacturing / accounting / payroll", bi("ไม่พบ (มีใบเสร็จและใบกำกับภาษี)", "Not found (receipts and tax invoices available)"), bi("มีในระบบเดียวกัน", "In the same system")),
+    ],
+    plans: [
+      { name: same("Solo"), price: bi("฿799/เดือน หรือ ฿4,990/ปี", "฿799/mo or ฿4,990/yr"), note: bi("2 แอดมิน · 800 บิล · 3,000 แชทต่อเดือน", "2 admins · 800 bills · 3,000 chats a month") },
+      { name: same("Pro"), price: bi("฿1,499/เดือน หรือ ฿8,990/ปี", "฿1,499/mo or ฿8,990/yr"), note: bi("4 แอดมิน · 2,000 บิล · 8,000 แชท", "4 admins · 2,000 bills · 8,000 chats") },
+      { name: same("ProLive"), price: bi("฿2,999/เดือน หรือ ฿18,990/ปี", "฿2,999/mo or ฿18,990/yr"), note: bi("8 แอดมิน · 8,000 บิล · 15,000 แชท", "8 admins · 8,000 bills · 15,000 chats") },
+      { name: same("SME"), price: bi("฿5,999/เดือน หรือ ฿39,900/ปี", "฿5,999/mo or ฿39,900/yr"), note: bi("15 แอดมิน · 20,000 บิล · 30,000 แชท", "15 admins · 20,000 bills · 30,000 chats") },
+      { name: same("Enterprise"), price: bi("฿150,000/ปี", "฿150,000/yr"), note: bi("25 แอดมิน · 50,000 บิล · 200,000 แชท · รายปีเท่านั้น", "25 admins · 50,000 bills · 200,000 chats · yearly only") },
+    ],
+    plansNote: bi("ตรวจสลิป ฿0.20/ครั้ง ข้อความ LINE OA และการเชื่อม API (Enterprise) คิดเพิ่ม หน้าราคาไม่ระบุว่ารวม VAT หรือไม่", "Slip checks ฿0.20 each; LINE OA messaging and API integration (Enterprise) cost extra. The pricing page doesn't say whether VAT is included."),
+    scenario: {
+      title: bi("ร้านขายออนไลน์ทางแชท 4 แอดมิน ราว 2,000 บิลต่อเดือน", "A chat-commerce shop with 4 admins and about 2,000 bills a month"),
+      them: bi("Page365 Pro รายปี", "Page365 Pro, yearly"),
+      themTotal: bi("฿8,990 ต่อปี", "฿8,990 per year"),
+      tonbab: bi(`Business ${B.business} + ช่องทางขายและกล่องแชท ${B.channels} — 25 ผู้ใช้ ออเดอร์ไม่จำกัด บัญชี สต็อก เงินเดือน`, `Business ${B.business} + sales channels and inbox ${B.channels} — 25 users, unlimited orders, accounting, stock, payroll`),
+      tonbabTotal: bi(`${baht(TONBAB_YEARLY.business + TONBAB_YEARLY.channels)} ต่อปี`, `${baht(TONBAB_YEARLY.business + TONBAB_YEARLY.channels)} per year`),
+      note: bi(`สำหรับร้านที่ขายผ่านแชทและไลฟ์เป็นหลัก Page365 ถูกกว่ามากและเชี่ยวชาญกว่า ทั้งไลฟ์ขายของ ขนส่ง และซิงก์ TikTok Shop Tonbab คุ้มเมื่อคุณผลิตเอง ขายส่ง มีหน้าร้าน หรือต้องการบัญชีและเงินเดือนในระบบเดียว ถ้าไม่ต้องใช้กล่องแชท Standard ${B.standard} รองรับ 3,000 ออเดอร์ต่อเดือน`, `For shops selling mainly through chat and live streams, Page365 is far cheaper and more specialised — live selling, shipping and TikTok Shop sync. Tonbab pays off when you produce, wholesale, run a counter, or want accounting and payroll in one system. Without the chat inbox, Standard at ${B.standard} covers 3,000 orders a month.`),
+    },
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("Page365 ทำให้การขายผ่านแชทและไลฟ์ครบจบ ตั้งแต่ทักแชทจนถึงส่งของ Tonbab ครอบคลุมทั้งบริษัท ออเดอร์จากแชทและมาร์เก็ตเพลสตัดสต็อกชุดเดียวกับหน้าร้าน โกดัง และการผลิต แล้วลงบัญชีในระบบเดียว", "Page365 makes chat and live selling complete, from the first message to shipping. Tonbab covers the whole company: orders from chat and marketplaces draw on the same stock as the counter, warehouse and production, and post to the books in one system."),
+      ] },
+    ],
+    chooseThem: [
+      bi("ขายผ่านแชท Facebook LINE Instagram และไลฟ์เป็นหลัก", "You sell mainly through Facebook, LINE and Instagram chat and live streams."),
+      bi("ต้องการบริการขนส่งในตัวและซิงก์ TikTok Shop", "You want built-in shipping and TikTok Shop sync."),
+    ],
+    chooseTonbab: [
+      bi("ผลิตหรือแพ็กสินค้าเอง ต้องการ BOM และต้นทุนจริง", "You produce or pack your own products and need BOMs and real cost."),
+      bi("มีหน้าร้าน ขายส่ง และออนไลน์ และต้องการบัญชีกับเงินเดือนในระบบเดียว", "You sell in store, wholesale and online and want accounting and payroll in the same system."),
+    ],
+    faq: [
+      { q: bi("Page365 ราคาเท่าไร?", "How much does Page365 cost?"), a: bi("ตาม page365.net/pricing (19 พ.ย. 2569) Solo ฿4,990/ปี Pro ฿8,990/ปี ProLive ฿18,990/ปี SME ฿39,900/ปี และ Enterprise ฿150,000/ปี หรือจ่ายรายเดือนเริ่ม ฿799 (ยกเว้น Enterprise)", "Per page365.net/pricing (19 Nov 2026): Solo ฿4,990/yr, Pro ฿8,990/yr, ProLive ฿18,990/yr, SME ฿39,900/yr and Enterprise ฿150,000/yr, or monthly from ฿799 (not Enterprise).") },
+      faqMigrate("Page365"),
+      faqTry,
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────── HubSpot
+  {
+    slug: "hubspot",
+    name: "HubSpot CRM",
+    category: "crm",
+    keyword: bi("ทางเลือก HubSpot CRM", "HubSpot CRM alternative"),
+    verified: bi("ราคา HubSpot ตรวจจาก hubspot.com/pricing/crm และ /pricing/sales เมื่อ 19 พ.ย. 2569", "HubSpot prices checked on hubspot.com/pricing/crm and /pricing/sales, 19 Nov 2026"),
+    sources: [
+      { label: "hubspot.com/pricing/crm", url: "https://www.hubspot.com/pricing/crm" },
+      { label: "hubspot.com/pricing/sales", url: "https://www.hubspot.com/pricing/sales" },
+    ],
+    summary: bi(
+      "HubSpot เป็น CRM ระดับโลกที่เด่นเรื่องการตลาด อีเมล และการติดตามลูกค้าอัตโนมัติ มี CRM ฟรีสำหรับ 2 ผู้ใช้ แพ็กเกจเสียเงินคิดต่อที่นั่งเป็นดอลลาร์ Tonbab มี CRM อยู่ในระบบเดียวกับใบเสนอราคา สต็อก การผลิต และบัญชี ราคาต่อบริษัทเป็นเงินบาท",
+      "HubSpot is a global CRM strong in marketing, email and sales automation, with a free CRM for 2 users and paid plans per seat in dollars. Tonbab has CRM in the same system as quotations, stock, manufacturing and accounting, priced per company in baht.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("CRM การตลาดและงานขายระดับโลก", "Global marketing and sales CRM"), TONBAB_TYPE),
+      row("ราคาที่เปิดเผย", "Published price", bi("Free 2 ผู้ใช้ · Sales Hub Starter US$20 · Professional US$90 (รายปี) · Enterprise US$150 ต่อที่นั่งต่อเดือน", "Free for 2 users · Sales Hub Starter US$20 · Professional US$90 (yearly) · Enterprise US$150 per seat per month"), TONBAB_PRICE),
+      row("ค่าเริ่มต้นใช้งาน", "Onboarding fee", bi("Professional US$1,500 · Enterprise US$3,500 ครั้งเดียว", "Professional US$1,500 · Enterprise US$3,500 one-time"), bi(`ไม่มีค่าบังคับ · บริการตั้งค่า ${B.setup} ถ้าต้องการ`, `None required · optional ${B.setup} setup service`)),
+      row("การตลาดอัตโนมัติ", "Marketing automation", bi("จุดแข็งหลัก — อีเมล ลำดับการติดตาม แคมเปญ", "Core strength — email, sequences, campaigns"), bi("ไม่ใช่จุดเน้น — CRM เน้นบัญชีลูกค้า ดีล และเยี่ยมลูกค้า", "Not a focus — CRM centres on accounts, deals and visits")),
+      row("ใบเสนอราคา สต็อก บัญชี", "Quotes, stock, accounting", bi("ไม่มีสต็อกและบัญชีไทยในตัว", "No built-in stock or Thai accounting"), bi("ใบเสนอราคาถึงใบกำกับภาษี สต็อก ผลิต ในระบบเดียว", "Quotation to tax invoice, stock and production in one system")),
+      row("ภาษีไทย", "Thai tax", bi("ไม่ใช่โปรแกรมบัญชี", "Not an accounting product"), TONBAB_TAX),
+    ],
+    plans: [
+      { name: same("Free"), price: same("US$0"), note: bi("สูงสุด 2 ผู้ใช้ 1,000 รายชื่อ", "Up to 2 users, 1,000 contacts") },
+      { name: same("Sales Hub Starter"), price: bi("US$20/ที่นั่ง/เดือน", "US$20/seat/mo"), note: bi("โปรลูกค้าใหม่ US$7 เมื่อจ่ายรายปี หรือ US$10 รายเดือน", "New-customer promo US$7 paid yearly or US$10 monthly") },
+      { name: same("Sales Hub Professional"), price: bi("US$90/ที่นั่ง/เดือน (รายปี) · US$100 รายเดือน", "US$90/seat/mo (yearly) · US$100 monthly"), note: bi("ค่าเริ่มต้นใช้งาน US$1,500", "US$1,500 onboarding") },
+      { name: same("Sales Hub Enterprise"), price: bi("US$150/ที่นั่ง/เดือน", "US$150/seat/mo"), note: bi("ค่าเริ่มต้นใช้งาน US$3,500", "US$3,500 onboarding") },
+    ],
+    plansNote: bi("ราคาเป็นดอลลาร์สหรัฐ ไม่รวมภาษี หน้าราคาแสดง Professional เป็น US$90 หรือ US$100 โดยไม่ระบุชัด เราอ่านว่า US$90 เมื่อผูกรายปี", "Prices are in US dollars, before tax. The page shows Professional as US$90 or US$100 without labelling them; we read US$90 as the yearly-commitment rate."),
+    scenario: {
+      title: bi("ทีมขาย 5 คน ต้องการไปป์ไลน์ ใบเสนอราคา และต่อกับสต็อกและบัญชี", "A 5-person sales team that needs pipelines and quotations connected to stock and accounting"),
+      them: bi("Sales Hub Professional 5 ที่นั่ง × US$90 × 12 + ค่าเริ่มต้น US$1,500 + โปรแกรมบัญชี/สต็อกแยก", "Sales Hub Professional 5 seats × US$90 × 12 + US$1,500 onboarding + separate accounting/stock software"),
+      themTotal: bi("≈ US$6,900 ปีแรก (≈ ฿227,700 ที่ราว 33 บาท/ดอลลาร์)", "≈ US$6,900 first year (≈ ฿227,700 at about 33 THB/USD)"),
+      tonbab: bi(`Standard ${B.standard} — 10 ผู้ใช้ ลูกค้า 5,000 ดีลเปิด 1,000 พร้อมใบเสนอราคา สต็อก บัญชี`, `Standard ${B.standard} — 10 users, 5,000 customers, 1,000 open deals, with quotations, stock and accounting`),
+      tonbabTotal: bi(`${B.standard} ต่อปี`, `${B.standard} per year`),
+      note: bi("อัตราแลกเปลี่ยนเป็นตัวเลขประมาณของเรา ถ้าต้องการแค่จดลูกค้าและดีล HubSpot Free (2 ผู้ใช้) ไม่มีค่าใช้จ่าย หรือ Starter ราคาถูกกว่ามาก ถ้าการตลาดอัตโนมัติ อีเมล และลำดับการติดตามคือหัวใจ HubSpot ครบกว่า Tonbab มาก", "The exchange rate is our approximation. If you only need to log customers and deals, HubSpot Free (2 users) costs nothing, and Starter is far cheaper. If marketing automation, email and sequences are the heart of your sales, HubSpot goes much further than Tonbab."),
+    },
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("HubSpot เริ่มจากการตลาดและการหาลูกค้า Tonbab เริ่มจากงานหลังการขาย ดีลที่ปิดได้กลายเป็นใบเสนอราคา ใบสั่งขาย การจัดส่ง และใบกำกับภาษีในระบบเดียว ฝ่ายขายเห็นสต็อกและสถานะการผลิตจริงก่อนรับปากลูกค้า", "HubSpot starts from marketing and lead generation. Tonbab starts from what happens after the sale: a won deal becomes a quotation, sales order, delivery and tax invoice in one system, and sales sees real stock and production status before promising a date."),
+      ] },
+    ],
+    chooseThem: [
+      bi("ต้องการการตลาดอัตโนมัติ อีเมล และลำดับการติดตามลูกค้าระดับลึก", "You need deep marketing automation, email and sales sequences."),
+      bi("ทีมเล็กมาก และ CRM ฟรีสำหรับ 2 ผู้ใช้เพียงพอ", "Your team is tiny and a free CRM for 2 users is enough."),
+    ],
+    chooseTonbab: [
+      bi("ต้องการให้ดีลต่อกับใบเสนอราคา สต็อก การผลิต และใบกำกับภาษีในระบบเดียว", "You want deals connected to quotations, stock, production and tax invoices in one system."),
+      bi("ต้องการราคาเป็นเงินบาทต่อบริษัท ไม่ใช่ดอลลาร์ต่อที่นั่ง", "You want per-company pricing in baht, not dollars per seat."),
+    ],
+    faq: [
+      { q: bi("HubSpot CRM ราคาเท่าไร?", "How much is HubSpot CRM?"), a: bi("หน้าราคาของ HubSpot (19 พ.ย. 2569) มี CRM ฟรีสำหรับ 2 ผู้ใช้ Sales Hub Starter ปกติ US$20/ที่นั่ง/เดือน (โปรลูกค้าใหม่เริ่ม US$7) Professional US$90 พร้อมค่าเริ่มต้น US$1,500 และ Enterprise US$150 พร้อมค่าเริ่มต้น US$3,500 ไม่รวมภาษี", "HubSpot's pricing pages (19 Nov 2026) list a free CRM for 2 users, Sales Hub Starter at normally US$20/seat/mo (new-customer promo from US$7), Professional at US$90 with US$1,500 onboarding, and Enterprise at US$150 with US$3,500 onboarding, before tax.") },
+      faqMigrate("HubSpot"),
+      faqTry,
+    ],
+  },
+
+  // ───────────────────────────────────────────────────── Bigin by Zoho
+  {
+    slug: "bigin",
+    name: "Bigin by Zoho CRM",
+    category: "crm",
+    keyword: bi("ทางเลือก Bigin by Zoho CRM", "Bigin by Zoho CRM alternative"),
+    verified: bi("ราคา Bigin ตรวจจาก bigin.com/pricing เมื่อ 19 พ.ย. 2569 (แสดงเป็นดอลลาร์)", "Bigin prices checked on bigin.com/pricing, 19 Nov 2026 (shown in US dollars)"),
+    sources: [{ label: "bigin.com/pricing", url: "https://www.bigin.com/pricing.html" }],
+    summary: bi(
+      "Bigin เป็น CRM แบบไปป์ไลน์สำหรับธุรกิจขนาดเล็กจาก Zoho ใช้ง่าย ราคาต่อผู้ใช้ต่ำ มีแพ็กเกจฟรี 1 ผู้ใช้ และต่อกับแอปอื่นของ Zoho ได้ Tonbab มี CRM อยู่ในระบบเดียวกับใบเสนอราคา สต็อก การผลิต บัญชี และ HR ราคาต่อบริษัทเป็นเงินบาท",
+      "Bigin is Zoho's pipeline CRM for small businesses — simple, low per-user pricing, a free plan for 1 user, and it connects to other Zoho apps. Tonbab has CRM in the same system as quotations, stock, manufacturing, accounting and HR, priced per company in baht.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("CRM แบบไปป์ไลน์สำหรับธุรกิจเล็ก", "Pipeline CRM for small businesses"), TONBAB_TYPE),
+      row("ราคาที่เปิดเผย", "Published price", bi("Free 1 ผู้ใช้ · Express US$7 · Premier US$12 · Bigin 360 US$18 ต่อผู้ใช้ต่อเดือน (รายปี)", "Free for 1 user · Express US$7 · Premier US$12 · Bigin 360 US$18 per user per month (yearly)"), TONBAB_PRICE),
+      row("ไปป์ไลน์ / รายการ", "Pipelines / records", bi("1 / 3 / 5 / 15 ไปป์ไลน์ · 500 ถึง 1,000,000 รายการ", "1 / 3 / 5 / 15 pipelines · 500 to 1,000,000 records"), bi("ลูกค้า 200 / 1,000 / 5,000 / ไม่จำกัด · ดีลเปิด 50 / 200 / 1,000 / ไม่จำกัด (Free ถึง Business)", "Customers 200 / 1,000 / 5,000 / unlimited · open deals 50 / 200 / 1,000 / unlimited (Free to Business)")),
+      row("ใบเสนอราคา สต็อก บัญชี", "Quotes, stock, accounting", bi("ไม่อยู่ใน Bigin — ใช้แอปอื่นของ Zoho หรือโปรแกรมแยก", "Not in Bigin — other Zoho apps or separate software"), bi("ใบเสนอราคาถึงใบกำกับภาษี สต็อก ผลิต ในระบบเดียว", "Quotation to tax invoice, stock and production in one system")),
+      row("ภาษีไทย", "Thai tax", bi("ไม่ใช่โปรแกรมบัญชี", "Not an accounting product"), TONBAB_TAX),
+    ],
+    plans: [
+      { name: same("Free"), price: same("US$0"), note: bi("1 ผู้ใช้ · 1 ไปป์ไลน์ · 500 รายการ", "1 user · 1 pipeline · 500 records") },
+      { name: same("Express"), price: bi("US$7/ผู้ใช้/เดือน (รายปี) · US$9 รายเดือน", "US$7/user/mo yearly · US$9 monthly"), note: bi("3 ไปป์ไลน์ · 50,000 รายการ", "3 pipelines · 50,000 records") },
+      { name: same("Premier"), price: bi("US$12/ผู้ใช้/เดือน (รายปี) · US$15 รายเดือน", "US$12/user/mo yearly · US$15 monthly"), note: bi("5 ไปป์ไลน์ · 100,000 รายการ · AI 1,000 เครดิต/เดือน", "5 pipelines · 100,000 records · 1,000 AI credits/mo") },
+      { name: same("Bigin 360"), price: bi("US$18/ผู้ใช้/เดือน (รายปี) · US$21 รายเดือน", "US$18/user/mo yearly · US$21 monthly"), note: bi("15 ไปป์ไลน์ · 1,000,000 รายการ · AI 3,000 เครดิต/เดือน", "15 pipelines · 1,000,000 records · 3,000 AI credits/mo") },
+    ],
+    plansNote: bi("ราคาแสดงเป็นดอลลาร์ (มี INR EUR GBP ให้เลือก) VAT/GST คิดเพิ่ม ราคาในไทยอาจต่างตามสกุลเงินที่ Zoho เรียกเก็บ", "Prices shown in US dollars (INR, EUR and GBP also offered); VAT/GST is added. Thai pricing may differ by the currency Zoho bills in."),
+    scenario: {
+      title: bi("ทีมขาย 5 คน ต้องการไปป์ไลน์หลายแบบ และอยากให้ดีลต่อกับใบเสนอราคาและสต็อก", "A 5-person sales team that needs several pipelines and wants deals tied to quotations and stock"),
+      them: bi("Bigin Premier 5 ผู้ใช้ × US$12 × 12 เดือน + โปรแกรมใบเสนอราคา/สต็อก/บัญชีแยก", "Bigin Premier 5 users × US$12 × 12 months + separate quotation/stock/accounting software"),
+      themTotal: bi("≈ US$720 ต่อปี (≈ ฿23,760 ที่ราว 33 บาท/ดอลลาร์) + ระบบอื่น", "≈ US$720 per year (≈ ฿23,760 at about 33 THB/USD) + other systems"),
+      tonbab: bi(`Starter ${B.starter} — 5 ผู้ใช้ ลูกค้า 1,000 ดีลเปิด 200 พร้อมใบเสนอราคา สต็อก บัญชี · ถ้าลูกค้าเกิน 1,000 ราย Standard ${B.standard}`, `Starter ${B.starter} — 5 users, 1,000 customers, 200 open deals, with quotations, stock and accounting · Standard ${B.standard} above 1,000 customers`),
+      tonbabTotal: bi(`${B.starter}–${B.standard} ต่อปี`, `${B.starter}–${B.standard} per year`),
+      note: bi("อัตราแลกเปลี่ยนเป็นตัวเลขประมาณของเรา Bigin Express (US$7) หรือแพ็กเกจฟรีถูกและง่ายมากสำหรับ CRM อย่างเดียว และต่อกับแอป Zoho อื่นได้ ถ้าคุณใช้ Zoho อยู่แล้วหรือต้องการแค่ไปป์ไลน์ Bigin เหมาะกว่า", "The exchange rate is our approximation. Bigin Express (US$7) or the free plan is very cheap and simple for CRM alone, and connects to other Zoho apps. If you already use Zoho or only need a pipeline, Bigin is the better fit."),
+    },
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("Bigin เป็น CRM ที่เบาและใช้ง่าย เหมาะกับการเริ่มเก็บลูกค้าและดีล Tonbab ใส่ CRM ไว้ในระบบเดียวกับงานหลังการขาย ดีลที่ปิดได้ต่อไปเป็นใบเสนอราคา ใบสั่งขาย การจัดส่ง และใบกำกับภาษี โดยไม่ต้องย้ายข้อมูลข้ามระบบ", "Bigin is a light, easy CRM for starting to track customers and deals. Tonbab puts CRM in the same system as everything after the sale: a won deal flows into a quotation, sales order, delivery and tax invoice without moving data between systems."),
+      ] },
+    ],
+    chooseThem: [
+      bi("ต้องการแค่ไปป์ไลน์การขายที่ง่ายและถูก", "You only need a simple, cheap sales pipeline."),
+      bi("ใช้แอปของ Zoho อยู่แล้วและอยากให้ต่อกัน", "You already use Zoho apps and want them connected."),
+    ],
+    chooseTonbab: [
+      bi("ต้องการให้ดีลต่อกับใบเสนอราคา สต็อก และใบกำกับภาษีในระบบเดียว", "You want deals connected to quotations, stock and tax invoices in one system."),
+      bi("ต้องการบัญชี POS และเงินเดือนในระบบเดียวกับ CRM", "You want accounting, POS and payroll in the same system as your CRM."),
+    ],
+    faq: [
+      { q: bi("Bigin ราคาเท่าไร?", "How much does Bigin cost?"), a: bi("ตาม bigin.com/pricing (19 พ.ย. 2569) Free สำหรับ 1 ผู้ใช้ Express US$7 Premier US$12 และ Bigin 360 US$18 ต่อผู้ใช้ต่อเดือนเมื่อจ่ายรายปี VAT คิดเพิ่ม", "Per bigin.com/pricing (19 Nov 2026): Free for 1 user, Express US$7, Premier US$12 and Bigin 360 US$18 per user per month billed yearly; VAT is added.") },
+      faqMigrate("Bigin"),
+      faqTry,
+    ],
+  },
+
+  // ──────────────────────────────────────────────── Readyplanet R-CRM
+  {
+    slug: "readyplanet-crm",
+    name: "Readyplanet R-CRM",
+    category: "crm",
+    keyword: bi("ทางเลือก Readyplanet R-CRM", "Readyplanet R-CRM alternative"),
+    verified: bi("ข้อมูล R-CRM ตรวจจาก readyplanet.com/crm เมื่อ 19 พ.ย. 2569", "R-CRM facts checked on readyplanet.com/crm, 19 Nov 2026"),
+    sources: [{ label: "readyplanet.com/crm", url: "https://www.readyplanet.com/crm" }],
+    summary: bi(
+      "R-CRM เป็นระบบ CRM บริหารทีมขายของ Readyplanet บริษัทไทย ออกแบบเพื่อธุรกิจไทย มีลีด ไปป์ไลน์ ใบเสนอราคาพร้อมอนุมัติ ออเดอร์ เช็กอินเซลส์ เป้ายอดขาย และรับลีดจาก Facebook ต่อกับ R-ChatCenter ได้ Tonbab มี CRM อยู่ในระบบเดียวกับสต็อก การผลิต บัญชี และ HR ราคาต่อบริษัท",
+      "R-CRM is the sales-team CRM from Thai company Readyplanet, designed for Thai businesses — leads, pipelines, quotations with approval, orders, sales check-in, sales targets and Facebook lead capture, connecting to R-ChatCenter. Tonbab has CRM in the same system as stock, manufacturing, accounting and HR, priced per company.",
+    ),
+    rows: [
+      row("ประเภท", "What it is", bi("CRM บริหารทีมขาย สร้างเพื่อธุรกิจไทย", "Sales-team CRM built for Thai businesses"), TONBAB_TYPE),
+      row("ราคาที่เปิดเผย", "Published price", bi("Platinum ฿31,500/ปี หรือ ฿53,500/2 ปี (3 ผู้ใช้) · ผู้ใช้เพิ่ม ฿10,500/คน/ปี", "Platinum ฿31,500/yr or ฿53,500/2 yrs (3 users) · extra user ฿10,500/yr each"), TONBAB_PRICE),
+      row("ลูกค้าและลีด", "Contacts and leads", bi("500,000 รายชื่อ · ลีดและบัญชีไม่จำกัด · 10 ไปป์ไลน์", "500,000 contacts · unlimited leads and accounts · 10 pipelines"), bi("ลูกค้า 200 / 1,000 / 5,000 / ไม่จำกัด · ดีลเปิด 50 / 200 / 1,000 / ไม่จำกัด (Free ถึง Business)", "Customers 200 / 1,000 / 5,000 / unlimited · open deals 50 / 200 / 1,000 / unlimited (Free to Business)")),
+      row("งานขายภาคสนาม", "Field sales", bi("เช็กอินเซลส์ เป้ายอดขาย อนุมัติใบเสนอราคา", "Sales check-in, targets, quotation approval"), bi("เยี่ยมลูกค้าและเช็กอิน KPI ทีมขาย ทุกแพ็กเกจ", "Field visits with check-in and sales KPIs on every plan")),
+      row("ลีดออนไลน์และแชท", "Online leads and chat", bi("รับลีด Facebook · API นำเข้า/ส่งออกลีด · ต่อ R-ChatCenter", "Facebook leads · lead import/export API · R-ChatCenter link"), bi(`กล่องแชท LINE OA Messenger Instagram (บริการเสริม ${B.channels}/ปี Business) · REST API`, `LINE OA, Messenger, Instagram inbox (${B.channels}/yr add-on, Business) · REST API`)),
+      row("สต็อก บัญชี เงินเดือน", "Stock, accounting, payroll", bi("ไม่มี (มีออเดอร์ ใบเสนอราคา ใบแจ้งหนี้ในระบบ CRM)", "No (orders, quotations and invoices inside the CRM)"), bi("สต็อก ผลิต บัญชีพร้อมภาษีไทย เงินเดือน ในระบบเดียว", "Stock, production, accounting with Thai tax, payroll in one system")),
+    ],
+    plans: [
+      { name: same("Platinum (1 ปี)"), price: same("฿31,500"), note: bi("3 ผู้ใช้ · 500,000 รายชื่อ · ใบเสนอราคา ออเดอร์ ใบแจ้งหนี้ไม่จำกัด", "3 users · 500,000 contacts · unlimited quotations, orders, invoices") },
+      { name: same("Platinum (2 ปี)"), price: bi("฿53,500 (เฉลี่ย ฿26,750/ปี)", "฿53,500 (avg ฿26,750/yr)"), note: bi("เหมือน 1 ปี", "Same as 1 year") },
+      { name: bi("เพิ่มเติม", "Add-ons"), price: bi("ผู้ใช้ ฿10,500/คน/ปี · รายชื่อ ฿5,000/100,000/ปี", "User ฿10,500/yr · contacts ฿5,000 per 100,000/yr"), note: bi("เฉพาะลูกค้า Platinum", "Platinum customers only") },
+    ],
+    plansNote: bi("ราคาไม่รวม VAT 7% และไม่รวมค่าติดตั้งและโดเมนใหม่ (เริ่ม ฿600/ปี) ทดลองใช้ฟรี 14 วัน", "Prices exclude 7% VAT and installation/new domain (from ฿600/yr). 14-day free trial."),
+    scenario: {
+      title: bi("ทีมขาย 5 คน ลูกค้าราว 3,000 ราย ต้องการไปป์ไลน์ ใบเสนอราคา และเช็กอินเยี่ยมลูกค้า", "A 5-person sales team with about 3,000 customers that needs pipelines, quotations and visit check-in"),
+      them: bi("R-CRM Platinum ฿31,500 (3 ผู้ใช้) + ผู้ใช้เพิ่ม 2 คน ฿21,000", "R-CRM Platinum ฿31,500 (3 users) + 2 extra users ฿21,000"),
+      themTotal: bi("฿52,500 ต่อปี (CRM อย่างเดียว)", "฿52,500 per year (CRM only)"),
+      tonbab: bi(`Standard ${B.standard} — 10 ผู้ใช้ ลูกค้า 5,000 ดีลเปิด 1,000 เยี่ยมลูกค้า พร้อมสต็อก บัญชี เงินเดือน`, `Standard ${B.standard} — 10 users, 5,000 customers, 1,000 open deals, field visits, plus stock, accounting, payroll`),
+      tonbabTotal: bi(`${B.standard} ต่อปี`, `${B.standard} per year`),
+      note: bi("R-CRM รองรับรายชื่อได้มากกว่ามาก (500,000) มีระบบอนุมัติใบเสนอราคา รับลีด Facebook และซัพพอร์ตทางโทรศัพท์ 24 ชั่วโมง ถ้าทีมขายใหญ่ที่เน้นลีดออนไลน์คือหัวใจ R-CRM เป็นตัวเลือกที่ดี", "R-CRM holds far more contacts (500,000), has quotation approval, Facebook lead capture and 24-hour phone support. If a large sales team working online leads is the heart of your business, R-CRM is a good choice."),
+    },
+    sections: [
+      { h: bi("ต่างกันตรงไหน", "The real difference"), p: [
+        bi("R-CRM เป็น CRM ไทยที่เน้นบริหารทีมขายและลีดออนไลน์ Tonbab ใส่ CRM ไว้ในระบบเดียวกับงานหลังการขาย ฝ่ายขายเห็นสต็อกและสถานะการผลิตจริง และดีลที่ปิดได้ต่อเป็นใบสั่งขาย การจัดส่ง และใบกำกับภาษีในระบบเดียว", "R-CRM is a Thai CRM focused on managing the sales team and online leads. Tonbab puts CRM in the same system as everything after the sale: sales sees real stock and production status, and a won deal becomes a sales order, delivery and tax invoice in one system."),
+      ] },
+    ],
+    chooseThem: [
+      bi("ทีมขายจัดการลีดออนไลน์จำนวนมาก (Facebook, เว็บไซต์) และต้องการระบบอนุมัติใบเสนอราคา", "Your sales team handles many online leads (Facebook, website) and needs quotation approval."),
+      bi("ใช้บริการอื่นของ Readyplanet อยู่แล้ว เช่น R-ChatCenter หรือเว็บไซต์", "You already use other Readyplanet services such as R-ChatCenter or its websites."),
+    ],
+    chooseTonbab: [
+      bi("ต้องการให้ CRM ต่อกับสต็อก การผลิต และบัญชีในระบบเดียว", "You want CRM connected to stock, production and accounting in one system."),
+      bi("อยากได้ผู้ใช้มากกว่าในราคาต่อบริษัท แทนการจ่ายต่อผู้ใช้", "You want more users at a per-company price instead of paying per user."),
+    ],
+    faq: [
+      { q: bi("Readyplanet R-CRM ราคาเท่าไร?", "How much does Readyplanet R-CRM cost?"), a: bi("ตาม readyplanet.com/crm (19 พ.ย. 2569) แพ็กเกจ Platinum ฿31,500/ปี หรือ ฿53,500/2 ปี สำหรับ 3 ผู้ใช้ ผู้ใช้เพิ่ม ฿10,500/คน/ปี ราคาไม่รวม VAT และค่าติดตั้ง", "Per readyplanet.com/crm (19 Nov 2026): Platinum is ฿31,500/yr or ฿53,500 for 2 years for 3 users; extra users ฿10,500/yr each, before VAT and installation.") },
+      faqMigrate("R-CRM"),
+      faqTry,
+    ],
   },
 ];
 
