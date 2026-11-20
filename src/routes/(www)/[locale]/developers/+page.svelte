@@ -10,8 +10,9 @@
 	import type { Bi } from '$lib/marketing/compare-data';
 	import {
 		ArrowRight, Bot, KeyRound, FlaskConical, Webhook, ListTree, FileCode2, ShieldCheck, FilePen, UserCheck,
-		Unplug, Check, Eye, Building2
+		Unplug, Check, Eye, Building2, RotateCcw
 	} from 'lucide-svelte';
+	import { MCP_TOOL_TOTAL } from '$lib/marketing/ai-data';
 
 	let { data } = $props();
 	const locale = $derived.by(() => toLocale(data.locale));
@@ -46,28 +47,31 @@
 	];
 
 	const canRead: Bi[] = [
+		{ en: 'Your approvals inbox — what is waiting for you to approve, how long it has waited, and a link to decide it in Tonbab', th: 'งานรออนุมัติ — มีอะไรรอคุณอนุมัติ รอมานานเท่าไหร่ พร้อมลิงก์ไปตัดสินใจใน Tonbab' },
 		{ en: 'Accounting — sales summary, receivables and payables aging, profit and loss, trial balance, invoices, bills, payments', th: 'บัญชี — สรุปยอดขาย ลูกหนี้/เจ้าหนี้ตามอายุ กำไรขาดทุน งบทดลอง ใบแจ้งหนี้ บิลซื้อ รับ-จ่ายเงิน' },
 		{ en: 'Products and stock — levels, movements, lots, serials, valuation (cost-gated)', th: 'สินค้าและสต็อก — ยอดคงเหลือ ความเคลื่อนไหว ล็อต ซีเรียล มูลค่า (เฉพาะคนที่เห็นต้นทุน)' },
 		{ en: 'Purchasing — PRs, POs, goods receipts', th: 'จัดซื้อ — PR, PO, ใบรับสินค้า' },
 		{ en: 'Sales — orders and delivery notes', th: 'งานขาย — ออเดอร์และใบส่งของ' },
-		{ en: 'CRM — customers, contacts, deals, activities', th: 'CRM — ลูกค้า ผู้ติดต่อ ดีล กิจกรรม' },
+		{ en: 'CRM — customers, contacts, leads, deals, activities, and the pipeline report (forecast, win rate, lost reasons)', th: 'CRM — ลูกค้า ผู้ติดต่อ ลีด ดีล กิจกรรม และรายงานไปป์ไลน์ (ยอดคาดการณ์ อัตราปิดการขาย เหตุผลที่แพ้ดีล)' },
 		{ en: 'People — my leave balance, leave requests, expense claims', th: 'บุคลากร — วันลาคงเหลือของฉัน ใบลา ใบเบิกค่าใช้จ่าย' },
-		{ en: 'Manufacturing and service — work orders, BOMs, service jobs and schedule', th: 'การผลิตและงานบริการ — ใบสั่งผลิต BOM งานซ่อมบริการและตารางงาน' },
-		{ en: 'Docs — search pages, read database rows', th: 'Docs — ค้นหน้าเอกสาร อ่านแถวในฐานข้อมูล' }
+		{ en: 'Manufacturing and service — work orders, job controls and their cost, BOMs, service jobs and schedule', th: 'การผลิตและงานบริการ — ใบสั่งผลิต Job Control และต้นทุน BOM งานซ่อมบริการและตารางงาน' },
+		{ en: 'Docs — search pages, read database rows', th: 'Docs — ค้นหน้าเอกสาร อ่านแถวในฐานข้อมูล' },
+		{ en: 'Lookups — company members, CRM pipelines and stages, units of measure, VAT and withholding-tax rates', th: 'ข้อมูลอ้างอิง — สมาชิกในบริษัท ไปป์ไลน์และขั้นตอนการขาย หน่วยนับ อัตรา VAT และภาษีหัก ณ ที่จ่าย' }
 	];
 	const canDraft: Bi[] = [
-		{ en: 'A purchase request (as a draft)', th: 'ใบขอซื้อ (เป็นฉบับร่าง)' },
-		{ en: 'A stock count', th: 'ใบตรวจนับสต็อก' },
-		{ en: 'A CRM deal or activity', th: 'ดีลหรือกิจกรรมใน CRM' },
+		{ en: 'A purchase request, a stock count or your own expense claim (as drafts)', th: 'ใบขอซื้อ ใบตรวจนับสต็อก หรือใบเบิกค่าใช้จ่ายของตัวเอง (เป็นฉบับร่าง)' },
+		{ en: 'A leave request for yourself — your approver decides', th: 'ใบลาของตัวเอง — ผู้อนุมัติเป็นคนตัดสิน' },
+		{ en: 'A CRM lead, deal, activity or work update', th: 'ลีด ดีล กิจกรรม หรืออัปเดตงานใน CRM' },
+		{ en: 'Moving a deal you are responsible for to the next stage, or closing it won or lost', th: 'ย้ายขั้นตอนดีลที่คุณดูแล หรือปิดดีลเป็นได้หรือแพ้' },
 		{ en: 'A customer or vendor record', th: 'ข้อมูลลูกค้าหรือผู้ขาย' }
 	];
 	const guards: { icon: typeof Bot; title: Bi; body: Bi }[] = [
 		{
 			icon: FilePen,
-			title: { en: 'Drafts, not decisions', th: 'สร้างได้แค่ฉบับร่าง' },
+			title: { en: 'Drafts and requests, not decisions', th: 'ฉบับร่างและคำขอ ไม่ใช่การตัดสินใจ' },
 			body: {
-				en: 'The assistant can prepare drafts. People still approve, post and pay — nothing is submitted for you.',
-				th: 'ผู้ช่วยเตรียมฉบับร่างให้ได้ แต่การอนุมัติ ลงบัญชี และจ่ายเงิน ยังเป็นหน้าที่ของคน — ไม่มีอะไรถูกส่งแทนคุณ'
+				en: 'The assistant can prepare drafts and requests. People still approve, post and pay — nothing is approved, posted or paid for you.',
+				th: 'ผู้ช่วยเตรียมฉบับร่างและคำขอให้ได้ แต่การอนุมัติ ลงบัญชี และจ่ายเงิน ยังเป็นหน้าที่ของคน — ไม่มีอะไรถูกอนุมัติ ลงบัญชี หรือจ่ายแทนคุณ'
 			}
 		},
 		{
@@ -141,8 +145,16 @@
 			icon: ShieldCheck,
 			title: { en: 'Same rules as the app', th: 'กติกาเดียวกับในแอป' },
 			body: {
-				en: 'Every call is checked against the same permissions as a person using Tonbab, and drafts wait for the usual approvals.',
-				th: 'ทุกการเรียกถูกตรวจสิทธิ์แบบเดียวกับคนที่ใช้งาน Tonbab และฉบับร่างยังต้องผ่านการอนุมัติตามปกติ'
+				en: 'Every call is checked against the same permissions as a person using Tonbab, and drafts and requests wait for the usual approvals.',
+				th: 'ทุกการเรียกถูกตรวจสิทธิ์แบบเดียวกับคนที่ใช้งาน Tonbab และฉบับร่างกับคำขอยังต้องผ่านการอนุมัติตามปกติ'
+			}
+		},
+		{
+			icon: RotateCcw,
+			title: { en: 'Safe to retry', th: 'ส่งซ้ำได้ไม่ซ้ำซ้อน' },
+			body: {
+				en: 'If a connection drops and the assistant sends the same request again, Tonbab saves it once and returns the first result.',
+				th: 'ถ้าการเชื่อมต่อหลุดแล้วผู้ช่วยส่งคำขอเดิมซ้ำ Tonbab บันทึกเพียงครั้งเดียวและคืนผลครั้งแรกให้'
 			}
 		}
 	];
@@ -150,7 +162,7 @@
 	// Mirrors the product's plans.ts API_LIMITS (codustry/workflow, checked 2026-11-17).
 	const PLAN_COLS = [m.pr_plan_free, m.pr_plan_starter, m.pr_plan_standard, m.pr_plan_business, m.pr_plan_enterprise];
 	const RO: Bi = { en: 'Read-only', th: 'อ่านอย่างเดียว' };
-	const RW: Bi = { en: 'Read + drafts', th: 'อ่าน + สร้างฉบับร่าง' };
+	const RW: Bi = { en: 'Read + drafts and requests', th: 'อ่าน + สร้างฉบับร่างและคำขอ' };
 	const UNL: Bi = { en: 'Unlimited', th: 'ไม่จำกัด' };
 	const limits: { label: Bi; v: (Bi | string)[] }[] = [
 		{ label: { en: 'Access', th: 'การใช้งาน' }, v: [RO, RW, RW, RW, RW] },
@@ -168,12 +180,12 @@
 		},
 		{
 			title: { en: '2 · Call the REST API', th: '2 · เรียก REST API' },
-			body: { en: 'Send the key as a Bearer token. Writes create drafts for a person to review; add an Idempotency-Key so retries never duplicate.', th: 'ส่ง key เป็น Bearer token การเขียนข้อมูลสร้างเป็นฉบับร่างให้คนตรวจ ใส่ Idempotency-Key เพื่อให้การส่งซ้ำไม่สร้างรายการซ้ำ' },
+			body: { en: 'Send the key as a Bearer token. Writes create drafts or requests for a person to review; add an Idempotency-Key so retries never duplicate.', th: 'ส่ง key เป็น Bearer token การเขียนข้อมูลสร้างเป็นฉบับร่างหรือคำขอให้คนตรวจ ใส่ Idempotency-Key เพื่อให้การส่งซ้ำไม่สร้างรายการซ้ำ' },
 			code: 'curl https://api.tonbab.com/v1/products \\\n  -H "Authorization: Bearer $TONBAB_API_KEY"'
 		},
 		{
 			title: { en: '3 · Connect an AI assistant (MCP)', th: '3 · เชื่อมผู้ช่วย AI (MCP)' },
-			body: { en: 'MCP clients such as Claude, ChatGPT or Gemini CLI connect to the MCP endpoint and sign in with OAuth — the user ticks the companies and consents to scopes; every tool takes a company argument and access never exceeds their role there.', th: 'ไคลเอนต์ MCP เช่น Claude, ChatGPT หรือ Gemini CLI เชื่อมที่ MCP endpoint แล้วเข้าสู่ระบบด้วย OAuth — ผู้ใช้ติ๊กบริษัทและยินยอมขอบเขต ทุกเครื่องมือรับอาร์กิวเมนต์ company และสิทธิ์ไม่เกินบทบาทของผู้ใช้ในบริษัทนั้น' },
+			body: { en: 'MCP clients such as Claude, ChatGPT or Gemini CLI connect to the MCP endpoint and sign in with OAuth — the user ticks the companies and consents to scopes; every tool takes a company argument and access never exceeds their role there. Writes accept a client_request_id, so a retried call is saved once.', th: 'ไคลเอนต์ MCP เช่น Claude, ChatGPT หรือ Gemini CLI เชื่อมที่ MCP endpoint แล้วเข้าสู่ระบบด้วย OAuth — ผู้ใช้ติ๊กบริษัทและยินยอมขอบเขต ทุกเครื่องมือรับอาร์กิวเมนต์ company และสิทธิ์ไม่เกินบทบาทของผู้ใช้ในบริษัทนั้น การเขียนรับ client_request_id ได้ เรียกซ้ำก็บันทึกเพียงครั้งเดียว' },
 			code: 'https://api.tonbab.com/mcp'
 		}
 	];
@@ -188,8 +200,8 @@
 	</h1>
 	<p class="mt-5 max-w-2xl text-lg leading-relaxed text-tnb-ink-soft">
 		{t({
-			en: 'A REST API with scoped keys and signed webhooks, and an AI connector with 59 tools that brings your company data into Claude, ChatGPT or Gemini CLI — always within each person’s own permissions.',
-			th: 'REST API ที่กำหนดขอบเขตของ key ได้ พร้อม webhook ที่ลงลายเซ็น และตัวเชื่อม AI 59 เครื่องมือที่พาข้อมูลบริษัทเข้าไปใช้ใน Claude, ChatGPT หรือ Gemini CLI — ภายใต้สิทธิ์ของแต่ละคนเสมอ'
+			en: `A REST API with scoped keys and signed webhooks, and an AI connector with ${MCP_TOOL_TOTAL} tools that brings your company data into Claude, ChatGPT or Gemini CLI — always within each person’s own permissions.`,
+			th: `REST API ที่กำหนดขอบเขตของ key ได้ พร้อม webhook ที่ลงลายเซ็น และตัวเชื่อม AI ${MCP_TOOL_TOTAL} เครื่องมือที่พาข้อมูลบริษัทเข้าไปใช้ใน Claude, ChatGPT หรือ Gemini CLI — ภายใต้สิทธิ์ของแต่ละคนเสมอ`
 		})}
 	</p>
 	<div class="mt-8 flex flex-wrap gap-3">
@@ -206,8 +218,8 @@
 		<h2 class="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-tnb-ink text-balance sm:text-4xl">{t({ en: 'Tonbab inside Claude, ChatGPT and Gemini CLI', th: 'ใช้ Tonbab ได้ใน Claude, ChatGPT และ Gemini CLI' })}</h2>
 		<p class="mt-4 max-w-2xl leading-relaxed text-tnb-ink-soft">
 			{t({
-				en: 'Ask about sales, receivables, profit, stock, purchasing, customers and leave in plain Thai or English — in every company you tick — and let the assistant prepare drafts for you to check. It uses your plan’s API quota, not AI credits.',
-				th: 'ถามเรื่องยอดขาย ลูกหนี้ กำไรขาดทุน สต็อก การจัดซื้อ ลูกค้า และวันลา ด้วยภาษาไทยหรืออังกฤษธรรมดา ๆ ได้ทุกบริษัทที่คุณติ๊ก แล้วให้ผู้ช่วยเตรียมฉบับร่างไว้ให้คุณตรวจ ใช้โควตา API ของแพ็กเกจ ไม่ใช้เครดิต AI'
+				en: 'Ask about sales, receivables, profit, stock, purchasing, customers, your sales pipeline and leave in plain Thai or English — in every company you tick. See what is waiting for your approval, log leads and work updates, and let the assistant prepare drafts, leave requests and expense claims for you to check. It uses your plan’s API quota, not AI credits.',
+				th: 'ถามเรื่องยอดขาย ลูกหนี้ กำไรขาดทุน สต็อก การจัดซื้อ ลูกค้า ไปป์ไลน์การขาย และวันลา ด้วยภาษาไทยหรืออังกฤษธรรมดา ๆ ได้ทุกบริษัทที่คุณติ๊ก ดูว่ามีอะไรรอคุณอนุมัติ บันทึกลีดและอัปเดตงาน แล้วให้ผู้ช่วยเตรียมฉบับร่าง ใบลา และใบเบิกค่าใช้จ่ายไว้ให้คุณตรวจ ใช้โควตา API ของแพ็กเกจ ไม่ใช้เครดิต AI'
 			})}
 		</p>
 
@@ -242,13 +254,13 @@
 				</ul>
 			</div>
 			<div class="rounded-2xl bg-tnb-paper p-6">
-				<h3 class="flex items-center gap-2 font-semibold text-tnb-ink"><FilePen class="h-4 w-4 text-tnb-ink-soft" aria-hidden="true" />{t({ en: 'What it can create — drafts only', th: 'สร้างอะไรได้บ้าง — เฉพาะฉบับร่าง' })}</h3>
+				<h3 class="flex items-center gap-2 font-semibold text-tnb-ink"><FilePen class="h-4 w-4 text-tnb-ink-soft" aria-hidden="true" />{t({ en: 'What it can create — drafts and requests', th: 'สร้างอะไรได้บ้าง — ฉบับร่างและคำขอ' })}</h3>
 				<ul class="mt-3 space-y-2">
 					{#each canDraft as r (r.en)}
 						<li class="flex gap-2.5 text-[15px] leading-snug text-tnb-ink"><Check class="mt-0.5 h-4 w-4 shrink-0 text-tnb-ink-soft" aria-hidden="true" />{t(r)}</li>
 					{/each}
 				</ul>
-				<p class="mt-4 text-sm text-tnb-ink-soft">{t({ en: 'Drafting works on every paid plan, from Starter; Free connections are read-only.', th: 'การสร้างฉบับร่างใช้ได้ทุกแพ็กเกจที่ชำระเงิน ตั้งแต่ Starter ส่วนแพ็กเกจฟรีอ่านได้อย่างเดียว' })}</p>
+				<p class="mt-4 text-sm text-tnb-ink-soft">{t({ en: 'Creating works on every paid plan, from Starter; Free connections are read-only.', th: 'การสร้างข้อมูลใช้ได้ทุกแพ็กเกจที่ชำระเงิน ตั้งแต่ Starter ส่วนแพ็กเกจฟรีอ่านได้อย่างเดียว' })}</p>
 			</div>
 		</div>
 

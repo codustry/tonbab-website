@@ -7,8 +7,11 @@
  * Claims follow ai-data.ts (checked against codustry/workflow on 2026-11-20):
  * the MCP server is $lib/server/api/mcp.ts (OAuth 2.1 + PKCE, consent screen
  * with a default company and "Also allow these companies"), tools come from
- * the operation registry (ops-read.ts / ops-read-more.ts / ops-write.ts — the
- * tool names below are real registry names), writes only create drafts, every
+ * the operation registry (ops-read.ts / ops-read-more.ts / ops-write.ts /
+ * ops-phase1.ts — the tool names below are real registry names; 93 tools after
+ * codustry/tonbab#1586), writes create drafts, requests a person approves
+ * (leave) or the person's own CRM records, never approve / post / pay, and
+ * take a client_request_id so retries save once. Every
  * call is re-checked against the person's role in that company, and MCP never
  * spends Tonbab AI credits (it counts toward the plan's API quota). Revoking
  * lives in Settings › API & connectors › Connected apps.
@@ -47,7 +50,8 @@ export { MCP_URL };
 export interface ModuleExamples {
   key: string;
   module: Bi;
-  prompts: { prompt: Bi; tools: string[]; draft?: boolean }[];
+  /** draft = creates a draft; request = sends a request a person approves. */
+  prompts: { prompt: Bi; tools: string[]; draft?: boolean; request?: boolean }[];
 }
 
 /** Example questions per module; every tool is a real registry tool. */
@@ -70,6 +74,34 @@ export const claudeExamples: ModuleExamples[] = [
         },
         tools: ["list_companies", "log_crm_activity"],
         draft: true,
+      },
+      {
+        prompt: {
+          th: "ไปป์ไลน์ของทีมเดือนนี้เป็นยังไง อัตราปิดการขายและเหตุผลที่แพ้ดีลบ่อยที่สุดคืออะไร",
+          en: "How does the team's pipeline look this month — win rate and top lost reasons?",
+        },
+        tools: ["crm_pipeline_report"],
+      },
+      {
+        prompt: {
+          th: "บันทึกอัปเดตงาน: วันนี้เข้าพบคุณสมชายที่ ABC ลูกค้าอยากได้เดโม นัดติดตามวันศุกร์",
+          en: "Log a work update: met Khun Somchai at ABC today, they want a demo, follow up Friday",
+        },
+        tools: ["list_companies", "log_work_update"],
+        draft: true,
+      },
+    ],
+  },
+  {
+    key: "approvals",
+    module: { th: "งานรออนุมัติ", en: "Approvals" },
+    prompts: [
+      {
+        prompt: {
+          th: "มีอะไรรอฉันอนุมัติบ้าง อันไหนรอนานที่สุด",
+          en: "What's waiting for my approval, and what has waited longest?",
+        },
+        tools: ["list_my_approvals"],
       },
     ],
   },
@@ -152,6 +184,22 @@ export const claudeExamples: ModuleExamples[] = [
           en: "Who on my team is on leave this week?",
         },
         tools: ["list_leave_requests"],
+      },
+      {
+        prompt: {
+          th: "ขอลาพักร้อนวันศุกร์หน้าครึ่งวันบ่าย",
+          en: "Request annual leave next Friday afternoon",
+        },
+        tools: ["my_leave_balance", "request_leave"],
+        request: true,
+      },
+      {
+        prompt: {
+          th: "เปิดใบเบิกค่าแท็กซี่ไปหาลูกค้าเมื่อวาน 450 บาท",
+          en: "Start an expense claim for yesterday's 450-baht taxi to a customer",
+        },
+        tools: ["create_expense_claim_draft"],
+        draft: true,
       },
     ],
   },
@@ -237,10 +285,10 @@ export const claudeSecurity: { key: string; title: Bi; body: Bi }[] = [
   },
   {
     key: "drafts",
-    title: { th: "สร้างได้แค่ฉบับร่าง", en: "Writes are drafts only" },
+    title: { th: "ฉบับร่างและคำขอเท่านั้น", en: "Drafts and requests only" },
     body: {
-      th: "เครื่องมือที่เขียนข้อมูลสร้างได้แค่ฉบับร่าง เช่น ใบขอซื้อหรือใบตรวจนับ คนยังเป็นผู้ตรวจ ส่ง อนุมัติ ลงบัญชี และจ่ายเงินใน Tonbab เสมอ",
-      en: "Tools that write only create drafts, such as a purchase request or a stock count. A person still checks, submits, approves, posts and pays in Tonbab.",
+      th: "เครื่องมือที่เขียนข้อมูลสร้างได้แค่ฉบับร่าง (ใบขอซื้อ ใบตรวจนับ ใบเบิกค่าใช้จ่าย) คำขอที่รอคนอนุมัติ (ใบลา) หรืองาน CRM ของคุณเอง (ลีด อัปเดตงาน ขั้นตอนของดีล) คนยังเป็นผู้ตรวจ ส่ง อนุมัติ ลงบัญชี และจ่ายเงินใน Tonbab เสมอ ถ้าการเชื่อมต่อหลุดแล้ว Claude ส่งซ้ำ ระบบบันทึกเพียงครั้งเดียว",
+      en: "Tools that write only create drafts (a purchase request, a stock count, an expense claim), requests a person approves (leave), or your own CRM work (a lead, a work update, a deal's stage). A person still checks, submits, approves, posts and pays in Tonbab. If a connection drops and Claude sends the same request again, it is saved once.",
     },
   },
   {
@@ -260,8 +308,8 @@ export const claudeFaq: { q: Bi; a: Bi }[] = [
       en: "Which Tonbab plans can use it?",
     },
     a: {
-      th: "ทุกแพ็กเกจ รวมถึง Free แพ็กเกจฟรีอ่านข้อมูลได้อย่างเดียว ส่วนการให้ Claude สร้างฉบับร่างเริ่มที่ Starter ฝั่ง Claude ให้ดูเงื่อนไขของแพ็กเกจ Claude ที่คุณใช้",
-      en: "Every plan, Free included. Free is read-only; letting Claude create drafts starts at Starter. On the Claude side, check what your Claude plan allows.",
+      th: "ทุกแพ็กเกจ รวมถึง Free แพ็กเกจฟรีอ่านข้อมูลได้อย่างเดียว ส่วนการให้ Claude สร้างฉบับร่างและคำขอเริ่มที่ Starter ฝั่ง Claude ให้ดูเงื่อนไขของแพ็กเกจ Claude ที่คุณใช้",
+      en: "Every plan, Free included. Free is read-only; letting Claude create drafts and requests starts at Starter. On the Claude side, check what your Claude plan allows.",
     },
   },
   {

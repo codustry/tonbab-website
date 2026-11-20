@@ -34,9 +34,15 @@
  *     with Client ID Metadata Documents + Dynamic Client Registration, PKCE
  *     ($lib/server/api/oauth.ts), or a company API key as a Bearer header.
  *   - Tools = the operation registry (ops-read.ts / ops-read-more.ts /
- *     ops-write.ts): 59 tools = 54 reads + 5 draft writes (checked 2026-11-19
- *     after codustry/workflow#1530). Writes only create drafts; scopes
- *     re-checked against the person's role every call. API keys act as their
+ *     ops-write.ts / ops-phase1.ts / ops-migration.ts): 93 tools = 66 reads +
+ *     11 writes + 16 migration writes (checked 2026-11-20 after
+ *     codustry/tonbab#1586). Writes create drafts (PR, stock count, expense
+ *     claim), requests a person approves (leave), or CRM records / updates
+ *     within the person's CRM scope (company, deal, activity, lead, work
+ *     update, deal stage move, close won/lost). Nothing is approved, posted or
+ *     paid. Every write takes client_request_id (24 h retry key, same store as
+ *     REST Idempotency-Key). Scopes re-checked against the person's role
+ *     every call. API keys act as their
  *     creator with live permissions (#1524); CRM rows follow the reporting tree;
  *     tenant-guard.ts refuses any query not filtered to the caller's company.
  *   - Multi-company (#1530): the consent screen has a default company plus
@@ -200,36 +206,44 @@ export const aiSafety: { key: string; title: Bi; body: Bi }[] = [
   },
 ];
 
-/** Real counts from the registry (see header): 54 reads + 5 draft writes = 59. */
-export const MCP_TOOL_TOTAL = 59;
-export const MCP_DRAFT_TOTAL = 5;
+/** Real counts from the registry (see header): 66 reads + 11 writes + 16 migration writes = 93. */
+export const MCP_TOOL_TOTAL = 93;
+export const MCP_READ_TOTAL = 66;
+/** Everyday writes: drafts, requests a person approves, CRM records and updates. */
+export const MCP_WRITE_TOTAL = 11;
+/** Writes that move history from the previous system, inside a migration job a person opens. */
+export const MCP_MIGRATION_TOTAL = 16;
 
-/** What a connected assistant can reach, by area. `tools` = registry ops in that area. */
-export const mcpCoverage: { key: string; area: Bi; reads: Bi; tools: number; drafts?: Bi }[] = [
+/**
+ * What a connected assistant can reach, by area. `tools` = registry ops in
+ * that area (the areas add up to MCP_TOOL_TOTAL). `writes` = what it can create
+ * or change there.
+ */
+export const mcpCoverage: { key: string; area: Bi; reads: Bi; tools: number; writes?: Bi }[] = [
   {
     key: "accounting",
     area: { th: "บัญชี", en: "Accounting" },
     reads: {
-      th: "สรุปยอดขาย ลูกหนี้และเจ้าหนี้ค้างชำระตามอายุ กำไรขาดทุน งบทดลอง ใบแจ้งหนี้ บิลซื้อ ใบเสนอราคา รับ-จ่ายเงิน ผังบัญชี บัญชีธนาคาร (แสดงเลข 4 ตัวท้าย) สินทรัพย์ถาวร",
-      en: "Sales summary, receivables and payables aging, profit and loss, trial balance, invoices, bills, quotations, receipts and payments, chart of accounts, bank accounts (last 4 digits only), fixed assets",
+      th: "สรุปยอดขาย ลูกหนี้และเจ้าหนี้ค้างชำระตามอายุ กำไรขาดทุน งบทดลอง บัญชีแยกประเภท ใบแจ้งหนี้ บิลซื้อ ใบเสนอราคา รับ-จ่ายเงิน ผังบัญชี บัญชีธนาคาร (แสดงเลข 4 ตัวท้าย) สินทรัพย์ถาวร รหัส VAT และอัตราภาษีหัก ณ ที่จ่ายที่ใช้บ่อย",
+      en: "Sales summary, receivables and payables aging, profit and loss, trial balance, general ledger, invoices, bills, quotations, receipts and payments, chart of accounts, bank accounts (last 4 digits only), fixed assets, VAT codes and the usual withholding-tax rates",
     },
-    tools: 13,
+    tools: 15,
   },
   {
     key: "stock",
     area: { th: "สินค้าและสต็อก", en: "Products and stock" },
     reads: {
-      th: "สินค้า ยอดคงเหลือ คลัง ความเคลื่อนไหว ล็อต ซีเรียล มูลค่าสต็อก (เฉพาะคนที่เห็นต้นทุน)",
-      en: "Products, stock levels, warehouses, movements, lots, serials, stock valuation (only for people who can see costs)",
+      th: "สินค้า หน่วยนับ ยอดคงเหลือ คลัง ความเคลื่อนไหว ล็อต ซีเรียล มูลค่าสต็อก (เฉพาะคนที่เห็นต้นทุน)",
+      en: "Products, units of measure, stock levels, warehouses, movements, lots, serials, stock valuation (only for people who can see costs)",
     },
-    drafts: { th: "ใบตรวจนับสต็อก", en: "Stock count" },
-    tools: 9,
+    writes: { th: "ฉบับร่างใบตรวจนับสต็อก", en: "Draft stock count" },
+    tools: 10,
   },
   {
     key: "procurement",
     area: { th: "จัดซื้อ", en: "Purchasing" },
     reads: { th: "ใบขอซื้อ ใบสั่งซื้อ ใบรับสินค้า", en: "Purchase requests, purchase orders, goods receipts" },
-    drafts: { th: "ใบขอซื้อ", en: "Purchase request" },
+    writes: { th: "ฉบับร่างใบขอซื้อ", en: "Draft purchase request" },
     tools: 7,
   },
   {
@@ -242,11 +256,14 @@ export const mcpCoverage: { key: string; area: Bi; reads: Bi; tools: number; dra
     key: "crm",
     area: { th: "ลูกค้า ผู้ขาย และ CRM", en: "Customers, vendors and CRM" },
     reads: {
-      th: "บริษัทคู่ค้า ผู้ติดต่อ ดีล กิจกรรม (ดีลเห็นตามสายงานเหมือนในแอป)",
-      en: "Companies, contacts, deals, activities (deals follow your reporting line, like the app)",
+      th: "บริษัทคู่ค้า ผู้ติดต่อ ลีด ดีล ไปป์ไลน์และขั้นตอนการขาย กิจกรรม และรายงานไปป์ไลน์ ทั้งมูลค่าดีลที่เปิดอยู่ ยอดคาดการณ์ อัตราปิดการขาย และเหตุผลที่แพ้ดีล (ดีลและลีดเห็นตามสายงานเหมือนในแอป)",
+      en: "Companies, contacts, leads, deals, pipelines and stages, activities, and the pipeline report: open value, forecast, win rate and lost reasons (deals and leads follow your reporting line, like the app)",
     },
-    drafts: { th: "ลูกค้า/ผู้ขาย ดีล กิจกรรม", en: "Customer/vendor, deal, activity" },
-    tools: 9,
+    writes: {
+      th: "ลูกค้า/ผู้ขาย ลีด ดีล กิจกรรม อัปเดตงาน ย้ายขั้นตอนหรือปิดดีลที่คุณดูแลเป็นได้หรือแพ้",
+      en: "Customer/vendor, lead, deal, activity, work update; move a deal you're responsible for to another stage, or close it won or lost",
+    },
+    tools: 16,
   },
   {
     key: "people",
@@ -255,16 +272,20 @@ export const mcpCoverage: { key: string; area: Bi; reads: Bi; tools: number; dra
       th: "รายชื่อพนักงาน (ข้อมูลติดต่อเท่านั้น) วันลาคงเหลือของฉัน ใบลา ใบเบิกค่าใช้จ่าย ไม่มีเงินเดือนหรือเลขบัตรประชาชน",
       en: "Employee directory (contact details only), my leave balance, leave requests, expense claims. Never salary or ID numbers",
     },
-    tools: 5,
+    writes: {
+      th: "ใบลาของตัวเอง (ผู้อนุมัติเป็นคนตัดสิน) และฉบับร่างใบเบิกค่าใช้จ่ายของตัวเอง",
+      en: "Your own leave request (your approver decides) and your own expense claim draft",
+    },
+    tools: 7,
   },
   {
     key: "make-service",
     area: { th: "การผลิตและงานบริการ", en: "Manufacturing and service" },
     reads: {
-      th: "ใบสั่งผลิต Job Control สูตรการผลิต (BOM) งานซ่อมบริการ และตารางงานช่าง",
-      en: "Work orders, job controls, bills of materials, service jobs and the technician schedule",
+      th: "ใบสั่งผลิต Job Control พร้อมงบและต้นทุน (ต้นทุนเฉพาะคนที่เห็นต้นทุน) สูตรการผลิต (BOM) งานซ่อมบริการ และตารางงานช่าง",
+      en: "Work orders, job controls with budget and cost (cost only for people who can see costs), bills of materials, service jobs and the technician schedule",
     },
-    tools: 6,
+    tools: 7,
   },
   {
     key: "docs",
@@ -274,12 +295,21 @@ export const mcpCoverage: { key: string; area: Bi; reads: Bi; tools: number; dra
   },
   {
     key: "account",
-    area: { th: "บัญชีผู้ใช้และบริษัท", en: "You and your companies" },
+    area: { th: "งานรออนุมัติ คุณ และบริษัท", en: "Approvals, you and your companies" },
     reads: {
-      th: "ฉันเป็นใคร บริษัทที่เชื่อมไว้และบทบาทในแต่ละบริษัท เหตุการณ์ล่าสุด",
-      en: "Who am I, the companies connected and your role in each, recent events",
+      th: "งานที่รอคุณอนุมัติ (ใบขอซื้อ ใบเบิกค่าใช้จ่าย ใบลา โอที และอื่น ๆ) รอนานสุดกี่วันพร้อมลิงก์ไปตัดสินใจใน Tonbab ฉันเป็นใคร บริษัทที่เชื่อมไว้และบทบาทในแต่ละบริษัท สมาชิกในบริษัท (ให้ผู้ช่วยเรียกชื่อคนได้ถูก) เหตุการณ์ล่าสุด",
+      en: "What's waiting for your approval (purchase requests, expense claims, leave, overtime and more), how long the oldest has waited and a link to decide it in Tonbab; who am I, the companies connected and your role in each, company members (so the assistant can name people), recent events",
     },
-    tools: 3,
+    tools: 5,
+  },
+  {
+    key: "migration",
+    area: { th: "ย้ายข้อมูลจากระบบเดิม", en: "Moving from your previous system" },
+    reads: {
+      th: "ผู้ติดต่อ สินค้า บัญชีธนาคาร ยอดยกมา บัญชีแยกประเภท เอกสาร รับ-จ่ายเงิน ภาษีหัก ณ ที่จ่าย สินทรัพย์ถาวร และประวัติการซื้อ ทำภายในงานย้ายข้อมูลที่คนเปิดไว้ มีการทดลองนำเข้า ดูก่อนย้อนกลับ และกระทบยอดก่อนมีคนอนุมัติ",
+      en: "Contacts, products, bank accounts, opening balances, the ledger, documents, payments, withholding tax, fixed assets and purchase history, inside a migration job a person opens, with dry runs, a rollback preview and a reconciliation before anyone signs off",
+    },
+    tools: 19,
   },
 ];
 
@@ -334,6 +364,19 @@ export const examplePrompts: ExamplePrompt[] = [
   {
     prompt: { th: "SOP การคืนของให้ซัพพลายเออร์เขียนไว้ว่าอะไร", en: "What does our SOP say about returning goods to a supplier?" },
     tools: ["search_docs", "get_doc"],
+  },
+  {
+    prompt: { th: "มีอะไรรอฉันอนุมัติบ้าง", en: "What's waiting for my approval?" },
+    tools: ["list_my_approvals"],
+  },
+  {
+    prompt: { th: "ไปป์ไลน์เดือนนี้เป็นยังไง อัตราปิดการขายเท่าไหร่", en: "How does our pipeline look, and what's our win rate?" },
+    tools: ["crm_pipeline_report"],
+  },
+  {
+    prompt: { th: "เปิดใบเบิกค่าแท็กซี่ไปหาลูกค้าเมื่อวาน 450 บาท", en: "Start an expense claim for yesterday's 450-baht taxi to a customer" },
+    tools: ["create_expense_claim_draft"],
+    draft: true,
   },
 ];
 
@@ -451,15 +494,15 @@ export const aiFaq: { q: Bi; a: Bi }[] = [
   {
     q: { th: "เชื่อม Claude หรือ ChatGPT แล้วใช้เครดิต AI ของ Tonbab ไหม?", en: "Does connecting Claude or ChatGPT use Tonbab AI credits?" },
     a: {
-      th: "ไม่ใช้ ผู้ช่วยคิดและตอบด้วยบัญชี AI ของคุณเอง ฝั่ง Tonbab นับแค่จำนวนครั้งที่เรียกข้อมูลตามโควตา API ของแพ็กเกจ (Free อ่านได้ 300 ครั้งต่อวัน Starter 3,000 ครั้ง) แพ็กเกจฟรีอ่านได้อย่างเดียว ส่วนการสร้างฉบับร่างเริ่มที่ Starter",
-      en: "No. The assistant thinks and answers on your own AI account. Tonbab only counts the data calls against your plan's API quota (Free reads 300 calls a day, Starter 3,000). Free is read-only; creating drafts starts at Starter.",
+      th: "ไม่ใช้ ผู้ช่วยคิดและตอบด้วยบัญชี AI ของคุณเอง ฝั่ง Tonbab นับแค่จำนวนครั้งที่เรียกข้อมูลตามโควตา API ของแพ็กเกจ (Free อ่านได้ 300 ครั้งต่อวัน Starter 3,000 ครั้ง) แพ็กเกจฟรีอ่านได้อย่างเดียว ส่วนการสร้างฉบับร่างและคำขอเริ่มที่ Starter",
+      en: "No. The assistant thinks and answers on your own AI account. Tonbab only counts the data calls against your plan's API quota (Free reads 300 calls a day, Starter 3,000). Free is read-only; creating drafts and requests starts at Starter.",
     },
   },
   {
     q: { th: "Claude เห็นบริษัทไหนบ้าง?", en: "Which companies can Claude see?" },
     a: {
-      th: "เฉพาะบริษัทที่คุณติ๊กตอนเชื่อมต่อ ทั้งบริษัทหลักและบริษัทอื่นที่เลือกเพิ่ม และในแต่ละบริษัทจะเห็นได้แค่ที่บทบาทของคุณในบริษัทนั้นเห็น เป็นแอดมินในบริษัทหนึ่งไม่ได้แปลว่าเป็นแอดมินในอีกบริษัท ทุกครั้งที่ถาม ระบบตรวจสิทธิ์ใหม่ในบริษัทนั้น ถ้าถามรวมทุกบริษัท คำตอบจะแยกเป็นทีละบริษัท ไม่รวมยอดข้ามบริษัท การสร้างข้อมูลยังเป็นฉบับร่างเท่านั้น ใช้ได้เหมือนกันกับ ChatGPT และ Gemini CLI",
-      en: "Only the companies you tick when you connect: your default company plus any others you choose. In each one it sees only what your role in that company can see — being an admin in one company gives nothing in another — and every call is re-checked there. Ask across all your companies and the answer comes back one company at a time, never added together. Anything it creates is still a draft. The same applies to ChatGPT and Gemini CLI.",
+      th: "เฉพาะบริษัทที่คุณติ๊กตอนเชื่อมต่อ ทั้งบริษัทหลักและบริษัทอื่นที่เลือกเพิ่ม และในแต่ละบริษัทจะเห็นได้แค่ที่บทบาทของคุณในบริษัทนั้นเห็น เป็นแอดมินในบริษัทหนึ่งไม่ได้แปลว่าเป็นแอดมินในอีกบริษัท ทุกครั้งที่ถาม ระบบตรวจสิทธิ์ใหม่ในบริษัทนั้น ถ้าถามรวมทุกบริษัท คำตอบจะแยกเป็นทีละบริษัท ไม่รวมยอดข้ามบริษัท สิ่งที่สร้างยังเป็นฉบับร่างหรือคำขอให้คนอนุมัติเท่านั้น ใช้ได้เหมือนกันกับ ChatGPT และ Gemini CLI",
+      en: "Only the companies you tick when you connect: your default company plus any others you choose. In each one it sees only what your role in that company can see — being an admin in one company gives nothing in another — and every call is re-checked there. Ask across all your companies and the answer comes back one company at a time, never added together. Anything it creates is still a draft or a request a person approves. The same applies to ChatGPT and Gemini CLI.",
     },
   },
   {
@@ -472,8 +515,8 @@ export const aiFaq: { q: Bi; a: Bi }[] = [
   {
     q: { th: "AI อนุมัติ ลงบัญชี หรือจ่ายเงินแทนเราได้ไหม?", en: "Can AI approve, post or pay anything?" },
     a: {
-      th: "ไม่ได้ AI ในตัวเตรียมฉบับร่างเท่านั้น และผู้ช่วยที่เชื่อมผ่าน MCP สร้างได้แค่ฉบับร่างใบขอซื้อ ใบตรวจนับ ดีล กิจกรรม CRM และข้อมูลลูกค้า/ผู้ขาย คนยังเป็นผู้ส่ง อนุมัติ ลงบัญชี และจ่ายเงินใน Tonbab",
-      en: "No. Built-in AI only prepares drafts, and an assistant connected over MCP can only create draft purchase requests, stock counts, deals, CRM activities and customer/vendor records. People still submit, approve, post and pay in Tonbab.",
+      th: "ไม่ได้ AI ในตัวเตรียมฉบับร่างเท่านั้น ผู้ช่วยที่เชื่อมผ่าน MCP สร้างได้แค่ฉบับร่าง (ใบขอซื้อ ใบตรวจนับ ใบเบิกค่าใช้จ่าย) ใบลาของตัวเองที่ผู้อนุมัติเป็นคนตัดสิน และงาน CRM ของคุณเอง (ลีด ดีล กิจกรรม อัปเดตงาน ย้ายขั้นตอนหรือปิดดีลที่คุณดูแล) ส่วนงานที่รอคุณอนุมัติ ผู้ช่วยแค่บอกว่ามีอะไรรออยู่ คนยังเป็นผู้ส่ง อนุมัติ ลงบัญชี และจ่ายเงินใน Tonbab ถ้าการเชื่อมต่อหลุดแล้วส่งซ้ำ ระบบบันทึกเพียงครั้งเดียว",
+      en: "No. Built-in AI only prepares drafts. An assistant connected over MCP can only create drafts (purchase requests, stock counts, expense claims), leave requests for yourself that your approver decides, and your own CRM work (leads, deals, activities, work updates, moving or closing a deal you're responsible for). For approvals it only tells you what's waiting. People still submit, approve, post and pay in Tonbab, and if a connection drops and a request is sent twice, it is saved once.",
     },
   },
   {

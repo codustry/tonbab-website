@@ -3,7 +3,7 @@ title: "Tonbab Plans and Billing"
 description: "Compare Tonbab's 5 plans, Free, Starter, Standard, Business and Enterprise: every feature on every plan, yearly prices before VAT, users, storage, AI credits, limits and add-ons."
 section: getting-started
 order: 5
-updated: 2026-11-19
+updated: 2026-11-20
 ---
 
 Tonbab has 5 plans. Free costs nothing and has no time limit. New companies get a 30-day Business trial, then move to Free automatically. All prices below are before 7% VAT.
@@ -33,7 +33,7 @@ Every plan, Free included, has every module and feature. Plans differ by size: u
 - Kitchen printing and a custom domain
 - Custom roles and SSO
 - Beam payments and your shop's own PromptPay QR
-- API and AI connectors (read-only on Free; drafts from Starter)
+- API and AI connectors (read-only on Free; drafts and requests from Starter)
 
 ## What still depends on the plan
 
