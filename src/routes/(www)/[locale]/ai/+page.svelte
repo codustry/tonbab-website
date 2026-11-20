@@ -14,7 +14,7 @@
 	import CtaBand from '$lib/components/www/CtaBand.svelte';
 	import AssistantMark from '$lib/components/www/AssistantMark.svelte';
 	import {
-		MCP_URL, MCP_TOOL_TOTAL, MCP_DRAFT_TOTAL, aiFaq, aiSafety, assistants, builtInLive, builtInSoon, examplePrompts, mcpCoverage
+		MCP_URL, MCP_TOOL_TOTAL, MCP_READ_TOTAL, MCP_WRITE_TOTAL, MCP_MIGRATION_TOTAL, aiFaq, aiSafety, assistants, builtInLive, builtInSoon, examplePrompts, mcpCoverage
 	} from '$lib/marketing/ai-data';
 	import {
 		ArrowRight, Check, Cloud, EyeOff, Building2, UserCheck, FilePen, RotateCcw, Sparkles, MessageSquare, Wrench,
@@ -192,8 +192,8 @@
 		<h2 class="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-balance text-tnb-ink sm:text-4xl">{t({ en: 'Use Tonbab from the AI you already use', th: 'ใช้ Tonbab ผ่าน AI ที่คุณใช้อยู่' })}</h2>
 		<p class="mt-4 max-w-2xl leading-relaxed text-tnb-ink-soft">
 			{t({
-				en: 'Tonbab has an MCP server, the open standard AI assistants use to reach other apps. Connect it to your own assistant account and ask about sales, receivables, profit, stock, purchasing, CRM, leave, service jobs and docs in plain Thai or English — across every company you tick when you connect. It sees only what your role allows, and anything it creates is a draft. It doesn’t use Tonbab AI credits; data calls count toward your plan’s API quota.',
-				th: 'Tonbab มี MCP server ซึ่งเป็นมาตรฐานเปิดที่ผู้ช่วย AI ใช้เชื่อมกับแอปอื่น เชื่อมกับบัญชีผู้ช่วย AI ของคุณเอง แล้วถามเรื่องยอดขาย ลูกหนี้ กำไรขาดทุน สต็อก จัดซื้อ CRM วันลา งานบริการ และเอกสารด้วยภาษาไทยหรืออังกฤษ ได้ทุกบริษัทที่คุณติ๊กตอนเชื่อมต่อ ผู้ช่วยเห็นเท่าที่บทบาทของคุณเห็น และสิ่งที่สร้างเป็นฉบับร่างเสมอ ไม่ใช้เครดิต AI ของ Tonbab การดึงข้อมูลนับตามโควตา API ของแพ็กเกจ'
+				en: 'Tonbab has an MCP server, the open standard AI assistants use to reach other apps. Connect it to your own assistant account and ask about sales, receivables, profit, stock, purchasing, CRM, leave, service jobs and docs in plain Thai or English — across every company you tick when you connect. It can tell you what’s waiting for your approval, log leads and work updates, and prepare leave requests and expense claims. It sees only what your role allows, and anything it creates is a draft or a request a person approves; nothing is posted or paid. It doesn’t use Tonbab AI credits; data calls count toward your plan’s API quota.',
+				th: 'Tonbab มี MCP server ซึ่งเป็นมาตรฐานเปิดที่ผู้ช่วย AI ใช้เชื่อมกับแอปอื่น เชื่อมกับบัญชีผู้ช่วย AI ของคุณเอง แล้วถามเรื่องยอดขาย ลูกหนี้ กำไรขาดทุน สต็อก จัดซื้อ CRM วันลา งานบริการ และเอกสารด้วยภาษาไทยหรืออังกฤษ ได้ทุกบริษัทที่คุณติ๊กตอนเชื่อมต่อ บอกได้ว่ามีอะไรรอคุณอนุมัติ บันทึกลีดและอัปเดตงาน และเตรียมใบลากับใบเบิกค่าใช้จ่ายให้ ผู้ช่วยเห็นเท่าที่บทบาทของคุณเห็น และสิ่งที่สร้างเป็นฉบับร่างหรือคำขอให้คนอนุมัติเสมอ ไม่มีการลงบัญชีหรือจ่ายเงินให้ ไม่ใช้เครดิต AI ของ Tonbab การดึงข้อมูลนับตามโควตา API ของแพ็กเกจ'
 			})}
 		</p>
 		<p class="mt-5 flex flex-wrap items-center gap-2 text-sm">
@@ -207,8 +207,8 @@
 		<h3 class="mt-12 text-lg font-semibold text-tnb-ink">{t({ en: 'What it can reach', th: 'เข้าถึงอะไรได้บ้าง' })}</h3>
 		<p class="mt-1 text-sm text-tnb-ink-soft">
 			{t({
-				en: `${MCP_TOOL_TOTAL} tools: ${MCP_TOOL_TOTAL - MCP_DRAFT_TOTAL} that read and ${MCP_DRAFT_TOTAL} that create drafts. Each area appears only if the module is on and your role can open it.`,
-				th: `${MCP_TOOL_TOTAL} เครื่องมือ: อ่านข้อมูล ${MCP_TOOL_TOTAL - MCP_DRAFT_TOTAL} ตัว และสร้างฉบับร่าง ${MCP_DRAFT_TOTAL} ตัว แต่ละหมวดจะใช้ได้เมื่อเปิดโมดูลนั้นและบทบาทของคุณเปิดดูได้`
+				en: `${MCP_TOOL_TOTAL} tools: ${MCP_READ_TOTAL} that read, ${MCP_WRITE_TOTAL} that create drafts, requests or CRM updates, and ${MCP_MIGRATION_TOTAL} that bring your history over from your previous system. Each area appears only if the module is on and your role can open it. Every write is safe to retry: the same request sent twice is saved once.`,
+				th: `${MCP_TOOL_TOTAL} เครื่องมือ: อ่านข้อมูล ${MCP_READ_TOTAL} ตัว สร้างฉบับร่าง คำขอ หรืออัปเดต CRM ${MCP_WRITE_TOTAL} ตัว และย้ายข้อมูลย้อนหลังจากระบบเดิม ${MCP_MIGRATION_TOTAL} ตัว แต่ละหมวดจะใช้ได้เมื่อเปิดโมดูลนั้นและบทบาทของคุณเปิดดูได้ ทุกการเขียนส่งซ้ำได้อย่างปลอดภัย คำขอเดียวกันที่ส่งสองครั้งจะบันทึกเพียงครั้งเดียว`
 			})}
 		</p>
 		<ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -219,7 +219,7 @@
 						<span class="shrink-0 text-xs text-tnb-ink-soft tabular-nums">{c.tools} {t({ en: c.tools === 1 ? 'tool' : 'tools', th: 'เครื่องมือ' })}</span>
 					</p>
 					<p class="mt-1.5 text-[14px] leading-relaxed text-tnb-ink-soft">{t(c.reads)}</p>
-					{#if c.drafts}<p class="mt-2 text-[13px] text-tnb-ink-soft"><span class="font-medium text-tnb-ink">{t({ en: 'Drafts:', th: 'ฉบับร่าง:' })}</span> {t(c.drafts)}</p>{/if}
+					{#if c.writes}<p class="mt-2 text-[13px] text-tnb-ink-soft"><span class="font-medium text-tnb-ink">{t({ en: 'Can create:', th: 'สร้างได้:' })}</span> {t(c.writes)}</p>{/if}
 				</li>
 			{/each}
 		</ul>

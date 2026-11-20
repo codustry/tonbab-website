@@ -1,12 +1,12 @@
 ---
 title: "Tonbab API and MCP AI Connector Quickstart"
-description: "Connect Tonbab to Claude, ChatGPT or Gemini CLI via MCP (59 tools, several companies in one connection), or your systems via REST API: keys, permissions, webhooks and limits."
+description: "Connect Tonbab to Claude, ChatGPT or Gemini CLI via MCP (93 tools, several companies in one connection), or your systems via REST API: keys, permissions, webhooks and limits."
 section: api
 order: 1
 updated: 2026-11-20
 ---
 
-Tonbab connects in two ways. The **AI connector (MCP)** lets assistants like Claude or ChatGPT read your company's data and create draft documents. The **REST API** is for your own systems and scripts. Every plan can use them; the Free plan is read-only.
+Tonbab connects in two ways. The **AI connector (MCP)** lets assistants like Claude or ChatGPT read your company's data and prepare drafts and requests for a person to approve. The **REST API** is for your own systems and scripts. Every plan can use them; the Free plan is read-only.
 
 The full API reference is at [api.tonbab.com/docs](https://api.tonbab.com/docs).
 
@@ -28,7 +28,7 @@ Tonbab is being listed in Claude's connector directory, so in Claude you can sea
 
 On Claude Team or Enterprise, an organization owner adds Tonbab for the organization first; then each member clicks **Connect** and signs in with their own Tonbab account.
 
-Claude acts as you, with your Tonbab role and permissions, only in the companies you ticked. Anything it creates is a draft that a person confirms in Tonbab. Disconnect any time on the **Connected apps** tab. Setup steps and example questions per module: [Connect Tonbab to Claude](/en/connect/claude).
+Claude acts as you, with your Tonbab role and permissions, only in the companies you ticked. Anything it creates is a draft or a request that a person confirms or approves in Tonbab. Disconnect any time on the **Connected apps** tab. Setup steps and example questions per module: [Connect Tonbab to Claude](/en/connect/claude).
 
 ## Connect Claude or ChatGPT via MCP
 
@@ -42,17 +42,22 @@ Each connection acts as the person who connected it, within their role's permiss
 
 ### What the assistant can reach
 
-59 tools: 54 that read and 5 that create drafts. An area only shows up if the module is on and your role can open it.
+93 tools: 66 that read, 11 that create drafts, requests or CRM updates, and 16 that bring your history over from your previous system. An area only shows up if the module is on and your role can open it.
 
-- **Accounting**: sales summary, receivables and payables aging, profit and loss, trial balance, invoices, bills, quotations, receipts and payments, chart of accounts, bank accounts (last 4 digits only), fixed assets
-- **Products and stock**: products, stock levels, warehouses, movements, lots, serials, stock valuation (only if you can see costs)
+- **Accounting**: sales summary, receivables and payables aging, profit and loss, trial balance, invoices, bills, quotations, receipts and payments, chart of accounts, bank accounts (last 4 digits only), fixed assets, VAT codes and the usual withholding-tax rates
+- **Products and stock**: products, units of measure, stock levels, warehouses, movements, lots, serials, stock valuation (only if you can see costs)
 - **Purchasing**: purchase requests, purchase orders, goods receipts
 - **Sales**: sales orders, delivery notes
-- **Customers, vendors and CRM**: companies, contacts, deals and activities (deals follow your reporting line, as in the app)
+- **Customers, vendors and CRM**: companies, contacts, leads, deals, pipelines and stages, activities, and the pipeline report: open value, forecast, win rate and lost reasons (deals and leads follow your reporting line, as in the app)
 - **People**: employee directory (contact details only), my leave balance, leave requests, expense claims
-- **Manufacturing and service**: work orders, job controls, BOMs, service jobs, the service schedule
+- **Manufacturing and service**: work orders, job controls with budget and cost (cost only if you can see costs), BOMs, service jobs, the service schedule
 - **Docs**: search pages, read a page, database rows
-- **Drafts**: purchase request, stock count, customer/vendor, CRM deal, CRM activity
+- **Approvals inbox**: what's waiting for your approval (purchase requests, expense claims, leave, overtime and more), how long the oldest has waited, and a link to decide it in Tonbab
+- **Lookups**: company members (so the assistant can name people), CRM pipelines and stages, units of measure, VAT and withholding-tax rates
+- **Moving from your previous system**: contacts, products, opening balances, the ledger, documents, payments, withholding tax, fixed assets and purchase history, inside a migration job a person opens, with dry runs and a reconciliation before anyone signs off
+- **What it can create**: draft purchase requests, stock counts and expense claims; leave requests for yourself, which your approver decides; customer and vendor records, CRM leads, deals, activities and work updates; and moving a deal you're responsible for to another stage, or closing it as won or lost
+
+**Safe retries.** Every tool that writes accepts a `client_request_id`. If a connection drops and the assistant sends the same request again within 24 hours, Tonbab returns the first result instead of creating a second record.
 
 Salary, payroll, ID numbers and commission are never available.
 
@@ -100,9 +105,11 @@ Call the API at `https://api.tonbab.com/v1`, sending the key as a Bearer token:
 Authorization: Bearer <your key>
 ```
 
-## Writes are drafts only
+## Writes are drafts and requests
 
-Anything created through the API or AI is a **draft only**. A person still submits, approves and posts in Tonbab, so an AI or outside system can never approve or post on someone's behalf.
+Anything created through the API or AI is a **draft**, a **request** waiting for its usual approval, or an update to your own CRM work (a lead, a work update, a deal's stage). A person still submits, approves, posts and pays in Tonbab, so an AI or outside system can never approve, post or pay on someone's behalf.
+
+Retries are safe: REST calls take an `Idempotency-Key` header and AI connector writes take a `client_request_id`, so the same request sent twice is saved once.
 
 ## Webhooks
 

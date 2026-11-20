@@ -45,8 +45,8 @@
 			</h1>
 			<p class="mt-5 max-w-2xl text-lg leading-relaxed text-tnb-ink-soft">
 				{t({
-					en: 'Ask Claude about your deals, receivables, stock, purchase orders and leave in plain Thai or English — and let it prepare drafts for you to check in Tonbab. It works within your own permissions, only in the companies you choose.',
-					th: 'ถาม Claude เรื่องดีล ลูกหนี้ สต็อก ใบสั่งซื้อ และวันลา ด้วยภาษาไทยหรืออังกฤษได้เลย แล้วให้ Claude เตรียมฉบับร่างไว้ให้คุณตรวจใน Tonbab ทำงานภายใต้สิทธิ์ของคุณ และเฉพาะบริษัทที่คุณเลือก'
+					en: 'Ask Claude about your deals, pipeline, receivables, stock, purchase orders and leave in plain Thai or English, see what is waiting for your approval — and let it prepare drafts and requests for you to check in Tonbab. It works within your own permissions, only in the companies you choose.',
+					th: 'ถาม Claude เรื่องดีล ไปป์ไลน์ ลูกหนี้ สต็อก ใบสั่งซื้อ และวันลา ด้วยภาษาไทยหรืออังกฤษได้เลย ดูว่ามีอะไรรอคุณอนุมัติ แล้วให้ Claude เตรียมฉบับร่างและคำขอไว้ให้คุณตรวจใน Tonbab ทำงานภายใต้สิทธิ์ของคุณ และเฉพาะบริษัทที่คุณเลือก'
 				})}
 			</p>
 			<div class="mt-8 flex flex-wrap gap-3">
@@ -68,7 +68,7 @@
 			<ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-tnb-ink-soft">
 				{#each [
 					{ en: 'Acts with your Tonbab permissions', th: 'ใช้สิทธิ์ Tonbab ของคุณ' },
-					{ en: 'Drafts only — a person confirms', th: 'ฉบับร่างเท่านั้น คนเป็นผู้ยืนยัน' },
+					{ en: 'Drafts and requests — a person approves', th: 'ฉบับร่างและคำขอ คนเป็นผู้อนุมัติ' },
 					{ en: 'Every plan, Free included', th: 'ทุกแพ็กเกจ รวม Free' }
 				] as c (c.en)}
 					<li class="inline-flex items-center gap-1.5"><Check class="h-4 w-4" aria-hidden="true" />{t(c)}</li>
@@ -122,6 +122,7 @@
 									{#each p.tools as tool (tool)}<code class="rounded bg-white px-1.5 py-0.5 font-mono text-[11.5px] text-tnb-ink-soft">{tool}</code>{/each}
 								</div>
 								{#if p.draft}<p class="mt-1.5 text-[13px] text-tnb-ink-soft">{t({ en: 'Creates a draft for you to confirm in Tonbab · Starter and up', th: 'สร้างเป็นฉบับร่างให้คุณยืนยันใน Tonbab · ตั้งแต่ Starter' })}</p>{/if}
+								{#if p.request}<p class="mt-1.5 text-[13px] text-tnb-ink-soft">{t({ en: 'Sends a request your approver decides in Tonbab · Starter and up', th: 'ส่งคำขอให้ผู้อนุมัติตัดสินใน Tonbab · ตั้งแต่ Starter' })}</p>{/if}
 							</li>
 						{/each}
 					</ul>

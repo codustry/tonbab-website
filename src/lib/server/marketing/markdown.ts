@@ -24,8 +24,10 @@ import {
   builtInLive,
   builtInSoon,
   examplePrompts,
-  MCP_DRAFT_TOTAL,
+  MCP_MIGRATION_TOTAL,
+  MCP_READ_TOTAL,
   MCP_TOOL_TOTAL,
+  MCP_WRITE_TOTAL,
   MCP_URL,
   mcpCoverage,
 } from "$lib/marketing/ai-data";
@@ -188,15 +190,15 @@ export function aiMd(l: Locale): string {
       `\n\n${th ? "งาน AI ส่วนใหญ่ใช้ 1 เครดิต งานที่หนักกว่าใช้มากกว่านั้น สแกนใบเสร็จ 1 เครดิต AI Count 1–2 เครดิตต่อรูป" : "Most AI actions use 1 credit, heavier ones more: receipt scan 1, AI Count 1–2 per photo."} ${url(l, "/pricing")}`,
     `## ${th ? "ใช้ Tonbab ผ่าน AI ที่คุณใช้อยู่ (ทางเลือกเสริม)" : "Use Tonbab from the AI you already use (optional)"}`,
     th
-      ? `MCP server ของ Tonbab: ${MCP_URL} เข้าสู่ระบบด้วย OAuth เลือกบริษัทหลักและติ๊กบริษัทอื่นที่ให้ใช้ได้ พร้อมเลือกสิทธิ์เอง ทุกเครื่องมือรับอาร์กิวเมนต์ company และตรวจสิทธิ์ใหม่ตามบทบาทของคุณในบริษัทนั้นทุกครั้ง ผู้ช่วยเห็นเท่าที่คุณมีสิทธิ์เห็น และสร้างได้แค่ฉบับร่าง ไม่ใช้เครดิต AI ของ Tonbab การดึงข้อมูลนับตามโควตา API ของแพ็กเกจ แพ็กเกจฟรีอ่านได้อย่างเดียว`
-      : `Tonbab's MCP server: ${MCP_URL}. Sign in with OAuth, pick your default company, tick any other companies it may use, and choose permissions. Every tool takes a company argument and is re-checked against your role in that company on every call. The assistant sees only what you're allowed to see and creates drafts only. It doesn't use Tonbab AI credits; data calls count toward the plan's API quota. Free is read-only.`,
+      ? `MCP server ของ Tonbab: ${MCP_URL} เข้าสู่ระบบด้วย OAuth เลือกบริษัทหลักและติ๊กบริษัทอื่นที่ให้ใช้ได้ พร้อมเลือกสิทธิ์เอง ทุกเครื่องมือรับอาร์กิวเมนต์ company และตรวจสิทธิ์ใหม่ตามบทบาทของคุณในบริษัทนั้นทุกครั้ง ผู้ช่วยเห็นเท่าที่คุณมีสิทธิ์เห็น สร้างได้แค่ฉบับร่าง คำขอที่คนอนุมัติ หรืองาน CRM ของคุณเอง ไม่มีการอนุมัติ ลงบัญชี หรือจ่ายเงินให้ ทุกการเขียนส่งซ้ำได้โดยบันทึกเพียงครั้งเดียว ไม่ใช้เครดิต AI ของ Tonbab การดึงข้อมูลนับตามโควตา API ของแพ็กเกจ แพ็กเกจฟรีอ่านได้อย่างเดียว`
+      : `Tonbab's MCP server: ${MCP_URL}. Sign in with OAuth, pick your default company, tick any other companies it may use, and choose permissions. Every tool takes a company argument and is re-checked against your role in that company on every call. The assistant sees only what you're allowed to see and creates only drafts, requests a person approves, or your own CRM work; nothing is approved, posted or paid, and every write is safe to retry (saved once). It doesn't use Tonbab AI credits; data calls count toward the plan's API quota. Free is read-only.`,
     `### ${th ? "เข้าถึงอะไรได้บ้าง" : "What it can reach"}`,
     (th
-      ? `${MCP_TOOL_TOTAL} เครื่องมือ: อ่านข้อมูล ${MCP_TOOL_TOTAL - MCP_DRAFT_TOTAL} ตัว สร้างฉบับร่าง ${MCP_DRAFT_TOTAL} ตัว`
-      : `${MCP_TOOL_TOTAL} tools: ${MCP_TOOL_TOTAL - MCP_DRAFT_TOTAL} that read, ${MCP_DRAFT_TOTAL} that create drafts.`) +
+      ? `${MCP_TOOL_TOTAL} เครื่องมือ: อ่านข้อมูล ${MCP_READ_TOTAL} ตัว สร้างฉบับร่าง คำขอ หรืออัปเดต CRM ${MCP_WRITE_TOTAL} ตัว และย้ายข้อมูลย้อนหลังจากระบบเดิม ${MCP_MIGRATION_TOTAL} ตัว`
+      : `${MCP_TOOL_TOTAL} tools: ${MCP_READ_TOTAL} that read, ${MCP_WRITE_TOTAL} that create drafts, requests or CRM updates, and ${MCP_MIGRATION_TOTAL} that bring your history over from your previous system.`) +
       "\n\n" +
       mcpCoverage
-        .map((c) => `- **${tr(c.area, l)}** (${c.tools}) — ${tr(c.reads, l)}${c.drafts ? `. ${th ? "ฉบับร่าง" : "Drafts"}: ${tr(c.drafts, l)}` : ""}`)
+        .map((c) => `- **${tr(c.area, l)}** (${c.tools}) — ${tr(c.reads, l)}${c.writes ? `. ${th ? "สร้างได้" : "Can create"}: ${tr(c.writes, l)}` : ""}`)
         .join("\n"),
     `### ${th ? "ตัวอย่างคำถาม" : "Example prompts"}`,
     examplePrompts
@@ -221,8 +223,8 @@ export function connectClaudeMd(l: Locale): string {
     `# ${th ? "เชื่อมต่อ Tonbab กับ Claude" : "Connect Tonbab to Claude"}`,
     url(l, "/connect/claude"),
     th
-      ? "ถาม Claude เรื่องดีล ลูกหนี้ สต็อก ใบสั่งซื้อ และวันลา ด้วยภาษาไทยหรืออังกฤษ และให้ Claude เตรียมฉบับร่างให้คุณตรวจใน Tonbab ทำงานภายใต้สิทธิ์ของคุณ เฉพาะบริษัทที่คุณเลือก ใช้ได้ทุกแพ็กเกจ (Free อ่านอย่างเดียว ฉบับร่างตั้งแต่ Starter) และไม่ใช้เครดิต Tonbab AI"
-      : "Ask Claude about deals, receivables, stock, purchase orders and leave in Thai or English, and let it prepare drafts for you to check in Tonbab. It acts within your permissions, only in the companies you choose. Every plan (Free is read-only; drafts from Starter), and it doesn't use Tonbab AI credits.",
+      ? "ถาม Claude เรื่องดีล ไปป์ไลน์ ลูกหนี้ สต็อก ใบสั่งซื้อ และวันลา ด้วยภาษาไทยหรืออังกฤษ ดูว่ามีอะไรรอคุณอนุมัติ และให้ Claude เตรียมฉบับร่างและคำขอให้คุณตรวจใน Tonbab ทำงานภายใต้สิทธิ์ของคุณ เฉพาะบริษัทที่คุณเลือก ใช้ได้ทุกแพ็กเกจ (Free อ่านอย่างเดียว ฉบับร่างและคำขอตั้งแต่ Starter) และไม่ใช้เครดิต Tonbab AI"
+      : "Ask Claude about deals, pipeline, receivables, stock, purchase orders and leave in Thai or English, see what is waiting for your approval, and let it prepare drafts and requests for you to check in Tonbab. It acts within your permissions, only in the companies you choose. Every plan (Free is read-only; drafts and requests from Starter), and it doesn't use Tonbab AI credits.",
     CLAUDE_LISTED
       ? `${th ? "เพิ่มใน Claude" : "Add to Claude"}: ${CLAUDE_DIRECTORY_URL}`
       : th
@@ -234,7 +236,7 @@ export function connectClaudeMd(l: Locale): string {
         (g) =>
           `### ${tr(g.module, l)}\n\n` +
           g.prompts
-            .map((p) => `- “${tr(p.prompt, l)}” → ${p.tools.map((x) => `\`${x}\``).join(", ")}${p.draft ? (th ? " (ฉบับร่าง)" : " (draft)") : ""}`)
+            .map((p) => `- “${tr(p.prompt, l)}” → ${p.tools.map((x) => `\`${x}\``).join(", ")}${p.draft ? (th ? " (ฉบับร่าง)" : " (draft)") : ""}${p.request ? (th ? " (คำขอให้อนุมัติ)" : " (request for approval)") : ""}`)
             .join("\n"),
       )
       .join("\n\n"),
@@ -287,9 +289,9 @@ ${modulesContent.map((m) => link("en", `/modules/${m.key}`, m.name.en, m.tagline
 
 ## Features
 ${features.map((f) => link("en", `/features/${f.key}`, f.keyword.en, f.lede.en)).join("\n")}
-${link("en", "/ai", "AI in Tonbab", "Tonbab AI built in (receipt scan, AI Count), included through monthly AI credits; connect Claude, ChatGPT or Gemini CLI over MCP (59 tools incl. accounting, multi-company, drafts only)")}
-${link("en", "/connect/claude", "Connect Tonbab to Claude", "add Tonbab to Claude (Connectors Directory or custom connector), example questions per module, permissions, drafts only, revoke any time")}
-${link("en", "/developers", "API and MCP", "REST API, signed webhooks and an MCP server (59 tools: 54 reads, 5 draft writes) for Claude, ChatGPT, Gemini CLI and other MCP clients; one connection can cover several companies, each permission-checked")}
+${link("en", "/ai", "AI in Tonbab", "Tonbab AI built in (receipt scan, AI Count), included through monthly AI credits; connect Claude, ChatGPT or Gemini CLI over MCP (93 tools incl. accounting, approvals inbox, CRM pipeline, multi-company; drafts and requests only)")}
+${link("en", "/connect/claude", "Connect Tonbab to Claude", "add Tonbab to Claude (Connectors Directory or custom connector), example questions per module, permissions, drafts and requests only, revoke any time")}
+${link("en", "/developers", "API and MCP", "REST API, signed webhooks and an MCP server (93 tools: 66 reads, 11 draft / request / CRM writes, 16 migration writes; safe retries) for Claude, ChatGPT, Gemini CLI and other MCP clients; one connection can cover several companies, each permission-checked")}
 ${link("en", "/migration", "Data migration", "from FlowAccount, PEAK, Express, Xero, QuickBooks and others via Excel")}
 
 ## Help docs

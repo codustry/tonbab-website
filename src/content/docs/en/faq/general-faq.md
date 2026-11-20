@@ -3,7 +3,7 @@ title: "Tonbab Frequently Asked Questions"
 description: "Short answers about Tonbab pricing, the free trial, users per plan, accounting, data migration, Shopee and Lazada, mobile and security."
 section: faq
 order: 1
-updated: 2026-11-19
+updated: 2026-11-20
 ---
 
 Common questions customers ask about Tonbab, with links to the related guides. If your question isn't here, contact sales@codustry.com or 02-873-4448.
@@ -54,7 +54,7 @@ Yes. A user can belong to several companies and switch from the sidebar. Running
 
 ### Can it connect to other systems or AI?
 
-Yes, through the REST API and the AI connector (MCP) for Claude, ChatGPT and Gemini CLI. Writes through the API are drafts only. See [API and MCP](/en/docs/api/api-and-mcp-quickstart).
+Yes, through the REST API and the AI connector (MCP) for Claude, ChatGPT and Gemini CLI. Writes through the API are drafts or requests that a person approves; nothing is posted or paid. See [API and MCP](/en/docs/api/api-and-mcp-quickstart).
 
 ### Does Tonbab have AI features? What are AI credits?
 
