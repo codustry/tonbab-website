@@ -286,8 +286,9 @@
 			})}
 		</p>
 		<div class="mt-8 flex flex-wrap gap-3">
-			<a href={localePath(locale, '/developers')} class="btn-primary px-5 py-2.5">{t({ en: 'Developers & AI connector', th: 'นักพัฒนาและตัวเชื่อม AI' })}<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
-			<a href={localePath(locale, '/docs/api/api-and-mcp-quickstart')} class="btn-soft px-5 py-2.5">{t({ en: 'Step-by-step guide', th: 'คู่มือทีละขั้น' })}</a>
+			<a href={localePath(locale, '/connect/claude')} class="btn-primary px-5 py-2.5">{t({ en: 'Connect Tonbab to Claude', th: 'เชื่อมต่อ Tonbab กับ Claude' })}<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+			<a href={localePath(locale, '/developers')} class="btn-soft px-5 py-2.5">{t({ en: 'Developers & AI connector', th: 'นักพัฒนาและตัวเชื่อม AI' })}</a>
+			<a href={localePath(locale, '/docs/api/api-and-mcp-quickstart')} class="btn-ghost">{t({ en: 'Step-by-step guide', th: 'คู่มือทีละขั้น' })}</a>
 			<a href="https://api.tonbab.com/docs" class="btn-ghost">{t({ en: 'API reference', th: 'เอกสาร API' })} ↗</a>
 		</div>
 		<p class="mt-4 font-mono text-xs text-tnb-ink-soft">{MCP_URL}</p>
