@@ -38,8 +38,8 @@ export const whatFaq: { q: Bi; a: Bi }[] = [
       en: "Does it work with AI assistants like ChatGPT or Claude?",
     },
     a: {
-      th: "ได้ Tonbab มี MCP server ที่ผู้ช่วย AI ซึ่งรองรับ MCP เชื่อมต่อด้วย OAuth เฉพาะบริษัทที่ผู้ใช้ติ๊กและตามบทบาทของผู้ใช้ในแต่ละบริษัท (93 เครื่องมือ รวมถึงบัญชี สต็อก จัดซื้อ CRM งานรออนุมัติ และวันลา) และมี REST API สำหรับ Zapier, Make หรือระบบภายใน การเขียนผ่าน API สร้างได้เฉพาะฉบับร่างหรือคำขอให้คนตรวจและอนุมัติ ไม่มีการลงบัญชีหรือจ่ายเงินให้",
-      en: "Yes. Tonbab has an MCP server that MCP-capable assistants connect to with OAuth, limited to the companies the user ticks and their role in each (93 tools, including accounting, stock, purchasing, CRM, approvals and leave), plus a REST API for Zapier, Make or in-house systems. Writes through the API create drafts or requests for a person to review and approve; nothing is posted or paid.",
+      th: "ได้ Tonbab มี MCP server ที่ผู้ช่วย AI ซึ่งรองรับ MCP เชื่อมต่อด้วย OAuth เฉพาะบริษัทที่ผู้ใช้ติ๊กและตามบทบาทของผู้ใช้ในแต่ละบริษัท (107 เครื่องมือ รวมถึงบัญชี สต็อก จัดซื้อ CRM งานรออนุมัติ และวันลา สร้างร่างใบเสนอราคา ใบส่งของ ใบปรับยอดและใบโอนย้ายสต็อก และเพิ่มหรือแก้ไขสินค้าและคลังได้) และมี REST API สำหรับ Zapier, Make หรือระบบภายใน การเขียนผ่าน API สร้างได้เฉพาะฉบับร่างหรือคำขอให้คนตรวจและอนุมัติ ไม่มีการลงบัญชีหรือจ่ายเงินให้",
+      en: "Yes. Tonbab has an MCP server that MCP-capable assistants connect to with OAuth, limited to the companies the user ticks and their role in each (107 tools, including accounting, stock, purchasing, CRM, approvals and leave; it can draft quotations, delivery notes, stock adjustments and transfers, and add or edit products and warehouses), plus a REST API for Zapier, Make or in-house systems. Writes through the API create drafts or requests for a person to review and approve; nothing is posted or paid.",
     },
   },
 ];

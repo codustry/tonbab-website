@@ -1,6 +1,6 @@
 ---
 title: "Tonbab API and MCP AI Connector Quickstart"
-description: "Connect Tonbab to Claude, ChatGPT or Gemini CLI via MCP (93 tools, several companies in one connection), or your systems via REST API: keys, permissions, webhooks and limits."
+description: "Connect Tonbab to Claude, ChatGPT or Gemini CLI via MCP (107 tools, several companies in one connection), or your systems via REST API: keys, permissions, webhooks and limits."
 section: api
 order: 1
 updated: 2026-11-20
@@ -42,7 +42,7 @@ Each connection acts as the person who connected it, within their role's permiss
 
 ### What the assistant can reach
 
-93 tools: 66 that read, 11 that create drafts, requests or CRM updates, and 16 that bring your history over from your previous system. An area only shows up if the module is on and your role can open it.
+107 tools: 70 that read, 21 that create drafts or requests, and 16 for moving from a previous system. The writes cover purchase requests, stock counts, expense claims, leave requests and CRM updates, plus products and warehouses (create, edit, product photo), stock adjustment and stock transfer drafts, delivery note drafts and quotation drafts. A person still posts, issues or approves: nothing is posted or paid through the API. An area only shows up if the module is on and your role can open it.
 
 - **Accounting**: sales summary, receivables and payables aging, profit and loss, trial balance, invoices, bills, quotations, receipts and payments, chart of accounts, bank accounts (last 4 digits only), fixed assets, VAT codes and the usual withholding-tax rates
 - **Products and stock**: products, units of measure, stock levels, warehouses, movements, lots, serials, stock valuation (only if you can see costs)

@@ -34,13 +34,15 @@
  *     with Client ID Metadata Documents + Dynamic Client Registration, PKCE
  *     ($lib/server/api/oauth.ts), or a company API key as a Bearer header.
  *   - Tools = the operation registry (ops-read.ts / ops-read-more.ts /
- *     ops-write.ts / ops-phase1.ts / ops-migration.ts): 93 tools = 66 reads +
- *     11 writes + 16 migration writes (checked 2026-11-20 after
- *     codustry/tonbab#1586). Writes create drafts (PR, stock count, expense
- *     claim), requests a person approves (leave), or CRM records / updates
- *     within the person's CRM scope (company, deal, activity, lead, work
- *     update, deal stage move, close won/lost). Nothing is approved, posted or
- *     paid. Every write takes client_request_id (24 h retry key, same store as
+ *     ops-write.ts / ops-phase1.ts / ops-phase2.ts / ops-sales.ts /
+ *     ops-migration.ts): 107 tools = 70 reads + 21 writes + 16 migration
+ *     writes (checked 2026-11-21 after codustry/tonbab#1588 + #1589). Writes
+ *     create drafts (PR, stock count, expense claim, quotation, stock
+ *     adjustment, stock transfer, delivery note), requests a person approves
+ *     (leave), CRM records / updates within the person's CRM scope (company,
+ *     deal, activity, lead, work update, deal stage move, close won/lost), or
+ *     master data (create/edit product + product photo, create/edit
+ *     warehouse; plan limits enforced). Nothing is approved, posted or paid. Every write takes client_request_id (24 h retry key, same store as
  *     REST Idempotency-Key). Scopes re-checked against the person's role
  *     every call. API keys act as their
  *     creator with live permissions (#1524); CRM rows follow the reporting tree;
@@ -206,11 +208,11 @@ export const aiSafety: { key: string; title: Bi; body: Bi }[] = [
   },
 ];
 
-/** Real counts from the registry (see header): 66 reads + 11 writes + 16 migration writes = 93. */
-export const MCP_TOOL_TOTAL = 93;
-export const MCP_READ_TOTAL = 66;
+/** Real counts from the registry (see header): 70 reads + 21 writes + 16 migration writes = 107. */
+export const MCP_TOOL_TOTAL = 107;
+export const MCP_READ_TOTAL = 70;
 /** Everyday writes: drafts, requests a person approves, CRM records and updates. */
-export const MCP_WRITE_TOTAL = 11;
+export const MCP_WRITE_TOTAL = 21;
 /** Writes that move history from the previous system, inside a migration job a person opens. */
 export const MCP_MIGRATION_TOTAL = 16;
 
@@ -227,17 +229,21 @@ export const mcpCoverage: { key: string; area: Bi; reads: Bi; tools: number; wri
       th: "สรุปยอดขาย ลูกหนี้และเจ้าหนี้ค้างชำระตามอายุ กำไรขาดทุน งบทดลอง บัญชีแยกประเภท ใบแจ้งหนี้ บิลซื้อ ใบเสนอราคา รับ-จ่ายเงิน ผังบัญชี บัญชีธนาคาร (แสดงเลข 4 ตัวท้าย) สินทรัพย์ถาวร รหัส VAT และอัตราภาษีหัก ณ ที่จ่ายที่ใช้บ่อย",
       en: "Sales summary, receivables and payables aging, profit and loss, trial balance, general ledger, invoices, bills, quotations, receipts and payments, chart of accounts, bank accounts (last 4 digits only), fixed assets, VAT codes and the usual withholding-tax rates",
     },
-    tools: 15,
+    writes: { th: "ฉบับร่างใบเสนอราคา", en: "Draft quotation" },
+    tools: 16,
   },
   {
     key: "stock",
     area: { th: "สินค้าและสต็อก", en: "Products and stock" },
     reads: {
-      th: "สินค้า หน่วยนับ ยอดคงเหลือ คลัง ความเคลื่อนไหว ล็อต ซีเรียล มูลค่าสต็อก (เฉพาะคนที่เห็นต้นทุน)",
-      en: "Products, units of measure, stock levels, warehouses, movements, lots, serials, stock valuation (only for people who can see costs)",
+      th: "สินค้า หน่วยนับ ยอดคงเหลือ คลัง ความเคลื่อนไหว ใบปรับยอดและใบโอนย้าย ล็อต ซีเรียล มูลค่าสต็อก (เฉพาะคนที่เห็นต้นทุน)",
+      en: "Products, units of measure, stock levels, warehouses, movements, stock adjustments and transfers, lots, serials, stock valuation (only for people who can see costs)",
     },
-    writes: { th: "ฉบับร่างใบตรวจนับสต็อก", en: "Draft stock count" },
-    tools: 10,
+    writes: {
+      th: "เพิ่มและแก้ไขสินค้า (พร้อมรูปสินค้า) และคลัง ฉบับร่างใบตรวจนับ ใบปรับยอด และใบโอนย้ายสต็อก (คนกดบันทึกเอง)",
+      en: "Add and edit products (with a product photo) and warehouses; draft stock counts, stock adjustments and stock transfers (a person posts them)",
+    },
+    tools: 19,
   },
   {
     key: "procurement",
@@ -250,7 +256,8 @@ export const mcpCoverage: { key: string; area: Bi; reads: Bi; tools: number; wri
     key: "sales",
     area: { th: "งานขาย", en: "Sales" },
     reads: { th: "ออเดอร์และใบส่งของ", en: "Sales orders and delivery notes" },
-    tools: 4,
+    writes: { th: "สร้างและแก้ไขฉบับร่างใบส่งของ (คนออกเอกสารเอง)", en: "Create and edit delivery note drafts (a person issues them)" },
+    tools: 6,
   },
   {
     key: "crm",
@@ -285,7 +292,7 @@ export const mcpCoverage: { key: string; area: Bi; reads: Bi; tools: number; wri
       th: "ใบสั่งผลิต Job Control พร้อมงบและต้นทุน (ต้นทุนเฉพาะคนที่เห็นต้นทุน) สูตรการผลิต (BOM) งานซ่อมบริการ และตารางงานช่าง",
       en: "Work orders, job controls with budget and cost (cost only for people who can see costs), bills of materials, service jobs and the technician schedule",
     },
-    tools: 7,
+    tools: 9,
   },
   {
     key: "docs",
@@ -359,6 +366,11 @@ export const examplePrompts: ExamplePrompt[] = [
   {
     prompt: { th: "สร้างใบขอซื้อสกรู M6 500 ตัว", en: "Create a purchase request for 500 M6 screws" },
     tools: ["list_products", "create_purchase_request_draft"],
+    draft: true,
+  },
+  {
+    prompt: { th: "ร่างใบโอนสกรู M6 200 ตัวจากโรงงานไปหน้าร้าน", en: "Draft a transfer of 200 M6 screws from the factory to the shop" },
+    tools: ["list_warehouses", "list_products", "create_stock_transfer_draft"],
     draft: true,
   },
   {
@@ -515,8 +527,8 @@ export const aiFaq: { q: Bi; a: Bi }[] = [
   {
     q: { th: "AI อนุมัติ ลงบัญชี หรือจ่ายเงินแทนเราได้ไหม?", en: "Can AI approve, post or pay anything?" },
     a: {
-      th: "ไม่ได้ AI ในตัวเตรียมฉบับร่างเท่านั้น ผู้ช่วยที่เชื่อมผ่าน MCP สร้างได้แค่ฉบับร่าง (ใบขอซื้อ ใบตรวจนับ ใบเบิกค่าใช้จ่าย) ใบลาของตัวเองที่ผู้อนุมัติเป็นคนตัดสิน และงาน CRM ของคุณเอง (ลีด ดีล กิจกรรม อัปเดตงาน ย้ายขั้นตอนหรือปิดดีลที่คุณดูแล) ส่วนงานที่รอคุณอนุมัติ ผู้ช่วยแค่บอกว่ามีอะไรรออยู่ คนยังเป็นผู้ส่ง อนุมัติ ลงบัญชี และจ่ายเงินใน Tonbab ถ้าการเชื่อมต่อหลุดแล้วส่งซ้ำ ระบบบันทึกเพียงครั้งเดียว",
-      en: "No. Built-in AI only prepares drafts. An assistant connected over MCP can only create drafts (purchase requests, stock counts, expense claims), leave requests for yourself that your approver decides, and your own CRM work (leads, deals, activities, work updates, moving or closing a deal you're responsible for). For approvals it only tells you what's waiting. People still submit, approve, post and pay in Tonbab, and if a connection drops and a request is sent twice, it is saved once.",
+      th: "ไม่ได้ AI ในตัวเตรียมฉบับร่างเท่านั้น ผู้ช่วยที่เชื่อมผ่าน MCP สร้างได้แค่ฉบับร่าง (ใบขอซื้อ ใบตรวจนับ ใบเบิกค่าใช้จ่าย ใบเสนอราคา ใบปรับยอดและใบโอนย้ายสต็อก ใบส่งของ) เพิ่มหรือแก้ไขสินค้าและคลัง ใบลาของตัวเองที่ผู้อนุมัติเป็นคนตัดสิน และงาน CRM ของคุณเอง (ลีด ดีล กิจกรรม อัปเดตงาน ย้ายขั้นตอนหรือปิดดีลที่คุณดูแล) ส่วนงานที่รอคุณอนุมัติ ผู้ช่วยแค่บอกว่ามีอะไรรออยู่ คนยังเป็นผู้ส่ง อนุมัติ ลงบัญชี และจ่ายเงินใน Tonbab ถ้าการเชื่อมต่อหลุดแล้วส่งซ้ำ ระบบบันทึกเพียงครั้งเดียว",
+      en: "No. Built-in AI only prepares drafts. An assistant connected over MCP can only create drafts (purchase requests, stock counts, expense claims, quotations, stock adjustments and transfers, delivery notes), add or edit products and warehouses, leave requests for yourself that your approver decides, and your own CRM work (leads, deals, activities, work updates, moving or closing a deal you're responsible for). For approvals it only tells you what's waiting. People still submit, approve, post and pay in Tonbab, and if a connection drops and a request is sent twice, it is saved once.",
     },
   },
   {
