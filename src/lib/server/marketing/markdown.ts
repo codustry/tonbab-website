@@ -194,8 +194,8 @@ export function aiMd(l: Locale): string {
       : `Tonbab's MCP server: ${MCP_URL}. Sign in with OAuth, pick your default company, tick any other companies it may use, and choose permissions. Every tool takes a company argument and is re-checked against your role in that company on every call. The assistant sees only what you're allowed to see and creates only drafts, requests a person approves, or your own CRM work; nothing is approved, posted or paid, and every write is safe to retry (saved once). It doesn't use Tonbab AI credits; data calls count toward the plan's API quota. Free is read-only.`,
     `### ${th ? "เข้าถึงอะไรได้บ้าง" : "What it can reach"}`,
     (th
-      ? `${MCP_TOOL_TOTAL} เครื่องมือ: อ่านข้อมูล ${MCP_READ_TOTAL} ตัว สร้างฉบับร่าง คำขอ หรืออัปเดต CRM ${MCP_WRITE_TOTAL} ตัว และย้ายข้อมูลย้อนหลังจากระบบเดิม ${MCP_MIGRATION_TOTAL} ตัว`
-      : `${MCP_TOOL_TOTAL} tools: ${MCP_READ_TOTAL} that read, ${MCP_WRITE_TOTAL} that create drafts, requests or CRM updates, and ${MCP_MIGRATION_TOTAL} that bring your history over from your previous system.`) +
+      ? `${MCP_TOOL_TOTAL} เครื่องมือ: อ่านข้อมูล ${MCP_READ_TOTAL} ตัว สร้างฉบับร่างหรือคำขอ ${MCP_WRITE_TOTAL} ตัว (รวมอัปเดต CRM และเพิ่มหรือแก้ไขสินค้าและคลัง) และย้ายข้อมูลจากระบบเดิม ${MCP_MIGRATION_TOTAL} ตัว`
+      : `${MCP_TOOL_TOTAL} tools: ${MCP_READ_TOTAL} that read, ${MCP_WRITE_TOTAL} that create drafts or requests (plus CRM updates and new or edited products and warehouses), and ${MCP_MIGRATION_TOTAL} for moving from your previous system.`) +
       "\n\n" +
       mcpCoverage
         .map((c) => `- **${tr(c.area, l)}** (${c.tools}) — ${tr(c.reads, l)}${c.writes ? `. ${th ? "สร้างได้" : "Can create"}: ${tr(c.writes, l)}` : ""}`)
@@ -289,9 +289,9 @@ ${modulesContent.map((m) => link("en", `/modules/${m.key}`, m.name.en, m.tagline
 
 ## Features
 ${features.map((f) => link("en", `/features/${f.key}`, f.keyword.en, f.lede.en)).join("\n")}
-${link("en", "/ai", "AI in Tonbab", "Tonbab AI built in (receipt scan, AI Count), included through monthly AI credits; connect Claude, ChatGPT or Gemini CLI over MCP (93 tools incl. accounting, approvals inbox, CRM pipeline, multi-company; drafts and requests only)")}
+${link("en", "/ai", "AI in Tonbab", "Tonbab AI built in (receipt scan, AI Count), included through monthly AI credits; connect Claude, ChatGPT or Gemini CLI over MCP (107 tools incl. accounting, stock, approvals inbox, CRM pipeline, multi-company; drafts and requests only)")}
 ${link("en", "/connect/claude", "Connect Tonbab to Claude", "add Tonbab to Claude (Connectors Directory or custom connector), example questions per module, permissions, drafts and requests only, revoke any time")}
-${link("en", "/developers", "API and MCP", "REST API, signed webhooks and an MCP server (93 tools: 66 reads, 11 draft / request / CRM writes, 16 migration writes; safe retries) for Claude, ChatGPT, Gemini CLI and other MCP clients; one connection can cover several companies, each permission-checked")}
+${link("en", "/developers", "API and MCP", "REST API, signed webhooks and an MCP server (107 tools: 70 reads, 21 that create drafts or requests, 16 for moving from a previous system; safe retries; writes include products, warehouses, stock adjustment and transfer drafts, delivery note drafts and quotation drafts) for Claude, ChatGPT, Gemini CLI and other MCP clients; one connection can cover several companies, each permission-checked")}
 ${link("en", "/migration", "Data migration", "from FlowAccount, PEAK, Express, Xero, QuickBooks and others via Excel")}
 
 ## Help docs

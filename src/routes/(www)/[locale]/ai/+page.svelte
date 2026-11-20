@@ -207,8 +207,8 @@
 		<h3 class="mt-12 text-lg font-semibold text-tnb-ink">{t({ en: 'What it can reach', th: 'เข้าถึงอะไรได้บ้าง' })}</h3>
 		<p class="mt-1 text-sm text-tnb-ink-soft">
 			{t({
-				en: `${MCP_TOOL_TOTAL} tools: ${MCP_READ_TOTAL} that read, ${MCP_WRITE_TOTAL} that create drafts, requests or CRM updates, and ${MCP_MIGRATION_TOTAL} that bring your history over from your previous system. Each area appears only if the module is on and your role can open it. Every write is safe to retry: the same request sent twice is saved once.`,
-				th: `${MCP_TOOL_TOTAL} เครื่องมือ: อ่านข้อมูล ${MCP_READ_TOTAL} ตัว สร้างฉบับร่าง คำขอ หรืออัปเดต CRM ${MCP_WRITE_TOTAL} ตัว และย้ายข้อมูลย้อนหลังจากระบบเดิม ${MCP_MIGRATION_TOTAL} ตัว แต่ละหมวดจะใช้ได้เมื่อเปิดโมดูลนั้นและบทบาทของคุณเปิดดูได้ ทุกการเขียนส่งซ้ำได้อย่างปลอดภัย คำขอเดียวกันที่ส่งสองครั้งจะบันทึกเพียงครั้งเดียว`
+				en: `${MCP_TOOL_TOTAL} tools: ${MCP_READ_TOTAL} that read, ${MCP_WRITE_TOTAL} that create drafts or requests (plus CRM updates and new or edited products and warehouses), and ${MCP_MIGRATION_TOTAL} for moving from your previous system. Nothing is posted or paid: a person posts, issues or approves. Each area appears only if the module is on and your role can open it. Every write is safe to retry: the same request sent twice is saved once.`,
+				th: `${MCP_TOOL_TOTAL} เครื่องมือ: อ่านข้อมูล ${MCP_READ_TOTAL} ตัว สร้างฉบับร่างหรือคำขอ ${MCP_WRITE_TOTAL} ตัว (รวมอัปเดต CRM และเพิ่มหรือแก้ไขสินค้าและคลัง) และย้ายข้อมูลจากระบบเดิม ${MCP_MIGRATION_TOTAL} ตัว ไม่มีอะไรลงบัญชีหรือจ่ายเงินแทนคน คนเป็นผู้บันทึก ออกเอกสาร หรืออนุมัติเอง แต่ละหมวดจะใช้ได้เมื่อเปิดโมดูลนั้นและบทบาทของคุณเปิดดูได้ ทุกการเขียนส่งซ้ำได้อย่างปลอดภัย คำขอเดียวกันที่ส่งสองครั้งจะบันทึกเพียงครั้งเดียว`
 			})}
 		</p>
 		<ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

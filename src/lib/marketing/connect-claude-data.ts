@@ -8,9 +8,11 @@
  * the MCP server is $lib/server/api/mcp.ts (OAuth 2.1 + PKCE, consent screen
  * with a default company and "Also allow these companies"), tools come from
  * the operation registry (ops-read.ts / ops-read-more.ts / ops-write.ts /
- * ops-phase1.ts — the tool names below are real registry names; 93 tools after
- * codustry/tonbab#1586), writes create drafts, requests a person approves
- * (leave) or the person's own CRM records, never approve / post / pay, and
+ * ops-phase1.ts / ops-phase2.ts / ops-sales.ts — the tool names below are
+ * real registry names; 107 tools after codustry/tonbab#1589), writes create
+ * drafts (incl. quotation, stock adjustment, stock transfer, delivery note),
+ * requests a person approves (leave), the person's own CRM records, or
+ * products / warehouses (create, edit, photo), never approve / post / pay, and
  * take a client_request_id so retries save once. Every
  * call is re-checked against the person's role in that company, and MCP never
  * spends Tonbab AI credits (it counts toward the plan's API quota). Revoking
@@ -142,6 +144,22 @@ export const claudeExamples: ModuleExamples[] = [
           en: "Prepare a stock count for the main warehouse",
         },
         tools: ["list_warehouses", "create_stock_count_draft"],
+        draft: true,
+      },
+      {
+        prompt: {
+          th: "ร่างใบโอนสกรู M6 200 ตัวจากโรงงานไปหน้าร้าน",
+          en: "Draft a transfer of 200 M6 screws from the factory to the shop",
+        },
+        tools: ["list_warehouses", "list_products", "create_stock_transfer_draft"],
+        draft: true,
+      },
+      {
+        prompt: {
+          th: "ร่างใบส่งของให้ลูกค้ารายนี้ ตามรายการที่สั่ง",
+          en: "Draft a delivery note for this customer with the items they ordered",
+        },
+        tools: ["list_companies", "list_products", "create_delivery_note_draft"],
         draft: true,
       },
     ],
@@ -287,8 +305,8 @@ export const claudeSecurity: { key: string; title: Bi; body: Bi }[] = [
     key: "drafts",
     title: { th: "ฉบับร่างและคำขอเท่านั้น", en: "Drafts and requests only" },
     body: {
-      th: "เครื่องมือที่เขียนข้อมูลสร้างได้แค่ฉบับร่าง (ใบขอซื้อ ใบตรวจนับ ใบเบิกค่าใช้จ่าย) คำขอที่รอคนอนุมัติ (ใบลา) หรืองาน CRM ของคุณเอง (ลีด อัปเดตงาน ขั้นตอนของดีล) คนยังเป็นผู้ตรวจ ส่ง อนุมัติ ลงบัญชี และจ่ายเงินใน Tonbab เสมอ ถ้าการเชื่อมต่อหลุดแล้ว Claude ส่งซ้ำ ระบบบันทึกเพียงครั้งเดียว",
-      en: "Tools that write only create drafts (a purchase request, a stock count, an expense claim), requests a person approves (leave), or your own CRM work (a lead, a work update, a deal's stage). A person still checks, submits, approves, posts and pays in Tonbab. If a connection drops and Claude sends the same request again, it is saved once.",
+      th: "เครื่องมือที่เขียนข้อมูลสร้างได้แค่ฉบับร่าง (ใบขอซื้อ ใบตรวจนับ ใบเบิกค่าใช้จ่าย ใบเสนอราคา ใบปรับยอดและใบโอนย้ายสต็อก ใบส่งของ) คำขอที่รอคนอนุมัติ (ใบลา) งาน CRM ของคุณเอง (ลีด อัปเดตงาน ขั้นตอนของดีล) หรือเพิ่มและแก้ไขสินค้าและคลัง คนยังเป็นผู้ตรวจ ส่ง อนุมัติ ลงบัญชี และจ่ายเงินใน Tonbab เสมอ ถ้าการเชื่อมต่อหลุดแล้ว Claude ส่งซ้ำ ระบบบันทึกเพียงครั้งเดียว",
+      en: "Tools that write only create drafts (a purchase request, a stock count, an expense claim, a quotation, a stock adjustment or transfer, a delivery note), requests a person approves (leave), your own CRM work (a lead, a work update, a deal's stage), or add and edit products and warehouses. A person still checks, submits, approves, posts and pays in Tonbab. If a connection drops and Claude sends the same request again, it is saved once.",
     },
   },
   {

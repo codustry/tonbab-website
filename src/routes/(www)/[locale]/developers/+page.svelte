@@ -60,6 +60,8 @@
 	];
 	const canDraft: Bi[] = [
 		{ en: 'A purchase request, a stock count or your own expense claim (as drafts)', th: 'ใบขอซื้อ ใบตรวจนับสต็อก หรือใบเบิกค่าใช้จ่ายของตัวเอง (เป็นฉบับร่าง)' },
+		{ en: 'A quotation, a stock adjustment, a stock transfer or a delivery note (as drafts — a person posts or issues them)', th: 'ใบเสนอราคา ใบปรับยอดสต็อก ใบโอนย้ายสต็อก หรือใบส่งของ (เป็นฉบับร่าง — คนบันทึกหรือออกเอกสารเอง)' },
+		{ en: 'New or edited products (with a product photo) and warehouses', th: 'เพิ่มหรือแก้ไขสินค้า (พร้อมรูปสินค้า) และคลัง' },
 		{ en: 'A leave request for yourself — your approver decides', th: 'ใบลาของตัวเอง — ผู้อนุมัติเป็นคนตัดสิน' },
 		{ en: 'A CRM lead, deal, activity or work update', th: 'ลีด ดีล กิจกรรม หรืออัปเดตงานใน CRM' },
 		{ en: 'Moving a deal you are responsible for to the next stage, or closing it won or lost', th: 'ย้ายขั้นตอนดีลที่คุณดูแล หรือปิดดีลเป็นได้หรือแพ้' },
