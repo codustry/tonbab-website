@@ -28,7 +28,7 @@ export const SITE_ORIGIN = "https://www.tonbab.com";
  * sitemap uses it as <lastmod> (Google ignores lastmod values that change
  * on every crawl, so this must be a real date, bumped with real edits).
  */
-export const SITE_UPDATED = "2026-11-19";
+export const SITE_UPDATED = "2026-11-20";
 
 export const ENTITY = {
   name: "Tonbab",

@@ -30,6 +30,15 @@ import {
   mcpCoverage,
 } from "$lib/marketing/ai-data";
 import {
+  CLAUDE_DIRECTORY_URL,
+  CLAUDE_LISTED,
+  claudeExamples,
+  claudeFaq,
+  claudeOrgNote,
+  claudeSecurity,
+  claudeSteps,
+} from "$lib/marketing/connect-claude-data";
+import {
   ENTITY,
   PLAN_FACTS,
   SITE_ORIGIN,
@@ -205,6 +214,43 @@ export function aiMd(l: Locale): string {
   ].join("\n\n");
 }
 
+/** /connect/claude — Tonbab in the Claude Connectors Directory. */
+export function connectClaudeMd(l: Locale): string {
+  const th = l === "th";
+  return [
+    `# ${th ? "เชื่อมต่อ Tonbab กับ Claude" : "Connect Tonbab to Claude"}`,
+    url(l, "/connect/claude"),
+    th
+      ? "ถาม Claude เรื่องดีล ลูกหนี้ สต็อก ใบสั่งซื้อ และวันลา ด้วยภาษาไทยหรืออังกฤษ และให้ Claude เตรียมฉบับร่างให้คุณตรวจใน Tonbab ทำงานภายใต้สิทธิ์ของคุณ เฉพาะบริษัทที่คุณเลือก ใช้ได้ทุกแพ็กเกจ (Free อ่านอย่างเดียว ฉบับร่างตั้งแต่ Starter) และไม่ใช้เครดิต Tonbab AI"
+      : "Ask Claude about deals, receivables, stock, purchase orders and leave in Thai or English, and let it prepare drafts for you to check in Tonbab. It acts within your permissions, only in the companies you choose. Every plan (Free is read-only; drafts from Starter), and it doesn't use Tonbab AI credits.",
+    CLAUDE_LISTED
+      ? `${th ? "เพิ่มใน Claude" : "Add to Claude"}: ${CLAUDE_DIRECTORY_URL}`
+      : th
+        ? `เพิ่มเป็นตัวเชื่อมแบบกำหนดเองใน Claude ด้วย URL ${MCP_URL}`
+        : `Add it to Claude as a custom connector with the URL ${MCP_URL}.`,
+    `## ${th ? "ทำอะไรได้บ้าง" : "What you can do"}`,
+    claudeExamples
+      .map(
+        (g) =>
+          `### ${tr(g.module, l)}\n\n` +
+          g.prompts
+            .map((p) => `- “${tr(p.prompt, l)}” → ${p.tools.map((x) => `\`${x}\``).join(", ")}${p.draft ? (th ? " (ฉบับร่าง)" : " (draft)") : ""}`)
+            .join("\n"),
+      )
+      .join("\n\n"),
+    `## ${th ? "วิธีเชื่อมต่อ" : "How to connect"}`,
+    claudeSteps(CLAUDE_LISTED)
+      .map((s, i) => `${i + 1}. **${tr(s.title, l)}** — ${tr(s.body, l)}${s.code ? ` \`${s.code}\`` : ""}`)
+      .join("\n") + `\n\n${tr(claudeOrgNote, l)}`,
+    `## ${th ? "ความปลอดภัยและสิทธิ์การเข้าถึง" : "Security and permissions"}`,
+    claudeSecurity.map((p) => `- **${tr(p.title, l)}** — ${tr(p.body, l)}`).join("\n") +
+      `\n\n${th ? "นโยบายความเป็นส่วนตัว" : "Privacy policy"}: ${url(l, "/privacy")}`,
+    `## ${th ? "คำถามที่พบบ่อย" : "FAQ"}`,
+    claudeFaq.map((q) => `**${tr(q.q, l)}**\n${tr(q.a, l)}`).join("\n\n"),
+    `${th ? "รายละเอียดเพิ่มเติม" : "More"}: ${url(l, "/docs/api/api-and-mcp-quickstart")} · ${url(l, "/ai")} · ${url(l, "/developers")}`,
+  ].join("\n\n");
+}
+
 function factsMd(l: Locale): string {
   const th = l === "th";
   return [
@@ -242,6 +288,7 @@ ${modulesContent.map((m) => link("en", `/modules/${m.key}`, m.name.en, m.tagline
 ## Features
 ${features.map((f) => link("en", `/features/${f.key}`, f.keyword.en, f.lede.en)).join("\n")}
 ${link("en", "/ai", "AI in Tonbab", "Tonbab AI built in (receipt scan, AI Count), included through monthly AI credits; connect Claude, ChatGPT or Gemini CLI over MCP (59 tools incl. accounting, multi-company, drafts only)")}
+${link("en", "/connect/claude", "Connect Tonbab to Claude", "add Tonbab to Claude (Connectors Directory or custom connector), example questions per module, permissions, drafts only, revoke any time")}
 ${link("en", "/developers", "API and MCP", "REST API, signed webhooks and an MCP server (59 tools: 54 reads, 5 draft writes) for Claude, ChatGPT, Gemini CLI and other MCP clients; one connection can cover several companies, each permission-checked")}
 ${link("en", "/migration", "Data migration", "from FlowAccount, PEAK, Express, Xero, QuickBooks and others via Excel")}
 
@@ -280,6 +327,7 @@ export function llmsFullTxt(): string {
         featureMd(f, l).replace(/^# /, "## ").replace(/\n## /g, "\n### "),
       ),
       aiMd(l).replace(/^# /, "## ").replace(/\n### /g, "\n#### ").replace(/\n## /g, "\n### "),
+      connectClaudeMd(l).replace(/^# /, "## ").replace(/\n### /g, "\n#### ").replace(/\n## /g, "\n### "),
       `## ${th ? "บริการย้ายข้อมูล" : "Data migration"}\n\n` +
         migrationFaq
           .map((q) => `**${tr(q.q, l)}**\n${tr(q.a, l)}`)
@@ -309,6 +357,7 @@ export function pageMarkdown(l: Locale, path: string): string | null {
     ].join("\n\n");
   }
   if (p === "ai") return aiMd(l);
+  if (p === "connect/claude") return connectClaudeMd(l);
   if (p === "pricing")
     return `# ${l === "th" ? "ราคา Tonbab" : "Tonbab pricing"}\n\n${pricingMd(l)}`;
   if (p === "migration")

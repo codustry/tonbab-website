@@ -3,7 +3,7 @@ title: "Tonbab API and MCP AI Connector Quickstart"
 description: "Connect Tonbab to Claude, ChatGPT or Gemini CLI via MCP (59 tools, several companies in one connection), or your systems via REST API: keys, permissions, webhooks and limits."
 section: api
 order: 1
-updated: 2026-11-19
+updated: 2026-11-20
 ---
 
 Tonbab connects in two ways. The **AI connector (MCP)** lets assistants like Claude or ChatGPT read your company's data and create draft documents. The **REST API** is for your own systems and scripts. Every plan can use them; the Free plan is read-only.
@@ -15,6 +15,20 @@ The full API reference is at [api.tonbab.com/docs](https://api.tonbab.com/docs).
 Go to **Settings** › **API & connectors**. It has **Overview**, **API keys**, **Connected apps**, **Webhooks** and **Logs** tabs. Only admins can change API settings.
 
 Under **Company switches** are **Allow API access** and **Allow AI connectors (MCP)**. Turning one off stops every key or connector for the company immediately.
+
+## Connect from the Claude Connectors Directory
+
+Tonbab is being listed in Claude's connector directory, so in Claude you can search for **Tonbab** instead of pasting a URL. Until the listing appears, add it as a custom connector (next section); it works the same way.
+
+1. In Claude, go to **Settings** › **Connectors** and search for **Tonbab** (or choose **Add custom connector** with the URL `https://api.tonbab.com/mcp`).
+2. Click **Connect**.
+3. Sign in to Tonbab.
+4. Pick your default company, tick any other companies Claude may use, choose what it may read and whether it may create drafts, then allow.
+5. Done: ask Claude a question, such as "Which customers are more than 30 days overdue?"
+
+On Claude Team or Enterprise, an organization owner adds Tonbab for the organization first; then each member clicks **Connect** and signs in with their own Tonbab account.
+
+Claude acts as you, with your Tonbab role and permissions, only in the companies you ticked. Anything it creates is a draft that a person confirms in Tonbab. Disconnect any time on the **Connected apps** tab. Setup steps and example questions per module: [Connect Tonbab to Claude](/en/connect/claude).
 
 ## Connect Claude or ChatGPT via MCP
 

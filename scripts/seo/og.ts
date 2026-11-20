@@ -134,6 +134,14 @@ const cards: Card[] = [
     },
   },
   {
+    slug: "connect-claude",
+    eyebrow: { th: "ตัวเชื่อมสำหรับ Claude", en: "Claude connector" },
+    title: {
+      th: "เชื่อมต่อ Tonbab กับ Claude",
+      en: "Connect Tonbab to Claude",
+    },
+  },
+  {
     slug: "docs",
     eyebrow: { th: "คู่มือการใช้งาน", en: "Help docs" },
     title: {

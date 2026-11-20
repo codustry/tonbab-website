@@ -566,7 +566,7 @@ const analyticsPageViewHook: Handle = async ({ event, resolve }) => {
  */
 const UNPREFIXED_RESERVED = new Set([
   "admin", "api", "_app", "md", "feeds", "cart", "checkout", "lookup", "order",
-  "og", "brand", "pitch",
+  "og", "brand", "pitch", "claude",
 ]);
 const unprefixedRedirectHook: Handle = async ({ event, resolve }) => {
   const { pathname, search } = event.url;

@@ -224,6 +224,14 @@
 			{/each}
 		</ol>
 
+		<a href={localePath(locale, '/connect/claude')} class="mt-4 flex min-w-0 items-center justify-between gap-3 rounded-2xl bg-tnb-paper p-5 ring-1 ring-tnb-hair transition hover:ring-tnb-blue/40">
+			<span class="min-w-0">
+				<span class="block font-semibold text-tnb-ink">{t({ en: 'Using Claude? Connect Tonbab to Claude', th: 'ใช้ Claude อยู่? เชื่อมต่อ Tonbab กับ Claude' })}</span>
+				<span class="mt-0.5 block text-[15px] text-tnb-ink-soft">{t({ en: 'Step-by-step setup, example questions per module, and how permissions work.', th: 'ขั้นตอนเชื่อมต่อทีละขั้น ตัวอย่างคำถามแต่ละโมดูล และการทำงานของสิทธิ์' })}</span>
+			</span>
+			<ArrowRight class="h-5 w-5 shrink-0 text-tnb-blue" aria-hidden="true" />
+		</a>
+
 		<div class="mt-6 grid gap-4 md:grid-cols-2">
 			<div class="rounded-2xl bg-tnb-paper p-6">
 				<h3 class="flex items-center gap-2 font-semibold text-tnb-ink"><Eye class="h-4 w-4 text-tnb-ink-soft" aria-hidden="true" />{t({ en: 'What it can read', th: 'อ่านอะไรได้บ้าง' })}</h3>

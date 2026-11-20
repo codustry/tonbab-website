@@ -64,6 +64,7 @@ export const GET: RequestHandler = async ({
     "/migration",
     "/customers",
     "/ai",
+    "/connect/claude",
     "/developers",
     "/story",
     "/blog",
