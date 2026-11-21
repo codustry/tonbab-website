@@ -64,8 +64,8 @@ export const PLAN_FACTS: {
   name: string;
   yearly: number;
   monthly: number | null;
-  /** Included user seats (owner, 2026-11-17: Free is 1 seat). */
-  seats: number;
+  /** Included user seats (owner, 2026-11-17: Free is 1 seat). `null` = unlimited (Enterprise, owner 2026-11-21). */
+  seats: number | null;
   /**
    * Monthly AI credits (plans.ts `ai_credits`, AI-1, 2026-11-19). Weighted
    * (owner, 2026-11-19): most AI actions use 1 credit, heavier ones more — an
@@ -106,7 +106,7 @@ export const PLAN_FACTS: {
     name: "Enterprise",
     yearly: 120000,
     monthly: null,
-    seats: 100,
+    seats: null,
     aiCredits: 10000,
     from: true,
   },
@@ -170,7 +170,7 @@ export function softwareJsonLd(locale: Locale): Record<string, unknown> {
     offers: PLAN_FACTS.map((p) => ({
       "@type": "Offer",
       name: p.name,
-      description: `${p.seats}${p.from ? "+" : ""} ${p.seats === 1 ? "user" : "users"}, every module and feature, ${p.aiCredits.toLocaleString("en-US")} AI credits a month, billed yearly (monthly = yearly ÷ 10)`,
+      description: `${p.seats === null ? "Unlimited users" : `${p.seats} ${p.seats === 1 ? "user" : "users"}`}, every module and feature, ${p.aiCredits.toLocaleString("en-US")} AI credits a month, billed yearly (monthly = yearly ÷ 10)`,
       price: p.yearly,
       priceCurrency: "THB",
       url: `${SITE_ORIGIN}/${locale}/pricing`,

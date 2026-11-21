@@ -117,7 +117,7 @@ const TONBAB_HR = bi(
   "การลา เวลาทำงาน และเงินเดือน ทุกแพ็กเกจ (พนักงาน Free/Starter 10 · Standard 50 · Business 200 คน)",
   "Leave, attendance and payroll on every plan (10 staff on Free/Starter · 50 on Standard · 200 on Business)",
 );
-const TONBAB_USERS = bi("Starter 5 · Standard 10 · Business 25 · Enterprise 100+ คน", "Starter 5 · Standard 10 · Business 25 · Enterprise 100+ users");
+const TONBAB_USERS = bi("Starter 5 · Standard 10 · Business 25 · Enterprise ไม่จำกัด", "Starter 5 · Standard 10 · Business 25 · Enterprise unlimited");
 const TONBAB_LANG = bi("ไทยและอังกฤษครบทุกหน้า สลับได้ทันที", "Full Thai and English, switch any time");
 const TONBAB_APP = bi("เว็บ แอป iOS/Android และโหมดคีออสก์หน้างาน", "Web, iOS/Android app and floor kiosk mode");
 const TONBAB_CRM = bi("มีในตัว — บัญชีลูกค้า ดีล ไปป์ไลน์ เยี่ยมลูกค้า", "Built in — accounts, deals, pipeline, visits");

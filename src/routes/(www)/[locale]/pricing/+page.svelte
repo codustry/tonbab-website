@@ -55,7 +55,7 @@
 		{
 			key: 'core', title: m.pr_g_core, tone: 'slate', icon: LayoutGrid,
 			rows: [
-				{ label: m.pr_r_members, v: ['1', '5', '10', '25', '100+'] },
+				{ label: m.pr_r_members, v: ['1', '5', '10', '25', U()] },
 				{ label: m.pr_r_storage, v: ['5 GB', '15 GB', '50 GB', '100 GB', '1 TB'] },
 				{ label: m.pr_r_file, v: ['50 MB', '200 MB', '1 GB', '5 GB', '20 GB'] },
 				{ label: m.pr_r_ai_credits, v: ['30', '300', '1,000', '3,000', '10,000'] },
@@ -162,10 +162,10 @@
 		}
 	];
 
-	const addOns: { name: () => string; detail?: () => string; price: number; once?: boolean; business?: boolean; enterprise?: boolean; inEnterprise?: boolean }[] = [
-		{ name: m.pr_ao_storage, price: 900 },
-		{ name: m.pr_ao_shop, price: 1800, business: true },
-		{ name: m.pr_ao_pos, price: 900, business: true },
+	const addOns: { name: () => string; detail?: () => string; price: number; once?: boolean; business?: boolean; businessUp?: boolean; enterprise?: boolean; inEnterprise?: boolean }[] = [
+		{ name: m.pr_ao_storage, price: 1000, businessUp: true },
+		{ name: m.pr_ao_shop, price: 1800, businessUp: true },
+		{ name: m.pr_ao_pos, price: 900, businessUp: true },
 		{ name: m.pr_ao_channels, detail: m.pr_ao_channels_d, price: 2400, business: true, inEnterprise: true },
 		{ name: m.pr_ao_hik, price: 2400, business: true, inEnterprise: true },
 		{ name: m.pr_ao_onboarding, detail: m.pr_ao_onboarding_d, price: 9900, once: true },
@@ -340,6 +340,7 @@
 				</div>
 				{#if a.detail}<p class="mt-1 text-sm text-tnb-ink-soft">{a.detail()}</p>{/if}
 				<div class="mt-auto flex flex-wrap gap-1.5 pt-4">
+					{#if a.businessUp}<span class="rounded-full bg-tnb-paper px-2 py-0.5 text-xs text-tnb-ink-soft">{m.pr_addon_business_up()}</span>{/if}
 					{#if a.business}<span class="rounded-full bg-tnb-paper px-2 py-0.5 text-xs text-tnb-ink-soft">{m.pr_addon_business()}</span>{/if}
 					{#if a.enterprise}<span class="rounded-full bg-tnb-paper px-2 py-0.5 text-xs text-tnb-ink-soft">{m.pr_addon_enterprise()}</span>{/if}
 					{#if a.inEnterprise}<span class="rounded-full bg-tnb-wash px-2 py-0.5 text-xs text-tnb-blue-deep">{m.pr_addon_in_enterprise()}</span>{/if}

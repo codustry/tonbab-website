@@ -18,7 +18,7 @@
 		{ name: 'Starter', price: baht(TONBAB_YEARLY.starter), note: th ? '5 ผู้ใช้ · สินค้า 1,000 รายการ · ออเดอร์ 1,000/เดือน' : '5 users · 1,000 products · 1,000 orders/mo' },
 		{ name: 'Standard', price: baht(TONBAB_YEARLY.standard), note: th ? '10 ผู้ใช้ · สินค้า 5,000 รายการ · พนักงาน 50 คน' : '10 users · 5,000 products · 50 employees' },
 		{ name: 'Business', price: baht(TONBAB_YEARLY.business), note: th ? '25 ผู้ใช้ · ไม่จำกัดสินค้าและออเดอร์ · พนักงาน 200 คน' : '25 users · unlimited products and orders · 200 employees' },
-		{ name: 'Enterprise', price: (th ? 'เริ่ม ' : 'from ') + baht(TONBAB_YEARLY.enterprise), note: th ? '100+ ผู้ใช้ · หลายบริษัท' : '100+ users · several companies' }
+		{ name: 'Enterprise', price: (th ? 'เริ่ม ' : 'from ') + baht(TONBAB_YEARLY.enterprise), note: th ? 'ไม่จำกัดผู้ใช้ · หลายบริษัท' : 'Unlimited users · several companies' }
 	]);
 </script>
 

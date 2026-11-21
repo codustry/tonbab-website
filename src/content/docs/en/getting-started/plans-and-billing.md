@@ -16,7 +16,7 @@ Tonbab has 5 plans. Free costs nothing and has no time limit. New companies get 
 | Starter | ฿2,990 | ฿299 | 5 | 15 GB / 200 MB | 300 |
 | Standard | ฿9,900 | ฿990 | 10 | 50 GB / 1 GB | 1,000 |
 | Business | ฿39,900 | ฿3,990 | 25 | 100 GB / 5 GB | 3,000 |
-| Enterprise | from ฿120,000 | yearly only | 100+ | 1 TB / 20 GB | 10,000 |
+| Enterprise | from ฿120,000 | yearly only | Unlimited | 1 TB / 20 GB | 10,000 |
 
 The monthly price is a tenth of the yearly price, so paying yearly gives you two months free. Each plan includes everything in the cheaper plans.
 
@@ -59,7 +59,9 @@ Every plan, Free included, has every module and feature. Plans differ by size: u
 | Service jobs per month | 20 | 50 | 200 | Unlimited | Unlimited |
 | Docs pages | 200 | 500 | 2,000 | Unlimited | Unlimited |
 
-Need more users? Move to the next plan; there's no extra-user add-on. API quotas per plan are in [API and MCP quickstart](/en/docs/api/api-and-mcp-quickstart).
+Monthly order and purchase-order limits never block work: an admin gets a warning at 80% and at 100% of the limit, and the company can upgrade.
+
+Need more users? Move to the next plan; there's no extra-user add-on. Enterprise has unlimited users and is quoted per company. API quotas per plan are in [API and MCP quickstart](/en/docs/api/api-and-mcp-quickstart).
 
 ## AI credits
 
@@ -73,9 +75,11 @@ Every plan includes a monthly allowance of AI credits for the AI features inside
 
 ## Add-ons
 
-- Extra 100 GB storage: ฿900/year
-- One extra shop for Business: ฿1,800/year
-- One extra POS device for Business: ฿900/year
+Add-ons are sold on Business and Enterprise only; on smaller plans, upgrade instead. Onboarding is available on every plan.
+
+- Extra 100 GB storage: ฿1,000/year
+- One extra shop: ฿1,800/year
+- One extra POS device: ฿900/year
 - All sales channels (Shopee, Lazada and more) for Business: ฿2,400/year
 - HikCentral connector for Business: ฿2,400/year
 - Onboarding (setup and data migration): ฿9,900 one-time
