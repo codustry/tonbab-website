@@ -79,7 +79,7 @@
 					<thead class="bg-tnb-paper text-sm text-tnb-ink-soft"><tr><th scope="col" class="px-4 py-3 font-medium">{th ? 'แพ็กเกจ' : 'Plan'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'ผู้ใช้' : 'Users'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'รายปี' : 'Yearly'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'รายเดือน' : 'Monthly'}</th><th scope="col" class="px-4 py-3 text-right font-medium">{th ? 'เครดิต AI/เดือน' : 'AI credits/mo'}</th></tr></thead>
 					<tbody>
 						{#each PLAN_FACTS as p (p.code)}
-							<tr class="border-t border-tnb-line"><th scope="row" class="px-4 py-3 font-medium text-tnb-ink">{p.name}</th><td class="px-4 py-3 text-right tabular-nums">{p.seats}{p.from ? '+' : ''}</td><td class="px-4 py-3 text-right tabular-nums">{p.from ? (th ? 'เริ่มต้น ' : 'from ') : ''}{baht(p.yearly)}</td><td class="px-4 py-3 text-right tabular-nums text-tnb-ink-soft">{p.monthly === null ? (th ? 'รายปีเท่านั้น' : 'yearly only') : baht(p.monthly)}</td><td class="px-4 py-3 text-right tabular-nums text-tnb-ink-soft">{p.aiCredits.toLocaleString('en-US')}</td></tr>
+							<tr class="border-t border-tnb-line"><th scope="row" class="px-4 py-3 font-medium text-tnb-ink">{p.name}</th><td class="px-4 py-3 text-right tabular-nums">{p.seats ?? (th ? 'ไม่จำกัด' : 'Unlimited')}</td><td class="px-4 py-3 text-right tabular-nums">{p.from ? (th ? 'เริ่มต้น ' : 'from ') : ''}{baht(p.yearly)}</td><td class="px-4 py-3 text-right tabular-nums text-tnb-ink-soft">{p.monthly === null ? (th ? 'รายปีเท่านั้น' : 'yearly only') : baht(p.monthly)}</td><td class="px-4 py-3 text-right tabular-nums text-tnb-ink-soft">{p.aiCredits.toLocaleString('en-US')}</td></tr>
 						{/each}
 					</tbody>
 				</table>

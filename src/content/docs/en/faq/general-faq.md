@@ -22,7 +22,7 @@ Free ฿0, Starter ฿2,990/year, Standard ฿9,900/year, Business ฿39,900/yea
 
 ### How many users does the Free plan include?
 
-One. Starter has 5, Standard 10, Business 25 and Enterprise 100+. Staff who sign in with a PIN on a POS or pack station device don't count as users.
+One. Starter has 5, Standard 10, Business 25, and Enterprise has unlimited users, quoted per company. Staff who sign in with a PIN on a POS or pack station device don't count as users.
 
 ### Can I use accounting right away?
 

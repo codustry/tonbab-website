@@ -16,7 +16,7 @@ Admins add users in **User Settings** and give each person one or more **Roles**
 | Starter | 5 |
 | Standard | 10 |
 | Business | 25 |
-| Enterprise | 100+ (quoted per company) |
+| Enterprise | Unlimited (quoted per company) |
 
 The **Users** page shows how many of your users are in use. When you reach the limit, an **Upgrade plan** button appears. Shop and warehouse staff who sign in with a PIN on a kiosk device (POS and pack station) **don't count as users**.
 
